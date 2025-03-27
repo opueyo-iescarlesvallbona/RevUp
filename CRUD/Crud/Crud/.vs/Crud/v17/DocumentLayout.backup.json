@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\RevUp\\CRUD\\Crud\\Crud\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EA931063-E780-41B8-954F-E39878D048AC}|Crud\\Crud.csproj|c:\\revup\\crud\\crud\\crud\\crud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{EA931063-E780-41B8-954F-E39878D048AC}|Crud\\Crud.csproj|solutionrelative:crud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{8C751EC7-DFD8-4302-BFD1-6DAB858FC93E}|init\\init.csproj|c:\\revup\\crud\\crud\\crud\\init\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8C751EC7-DFD8-4302-BFD1-6DAB858FC93E}|init\\init.csproj|solutionrelative:init\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD5FC1F8-C306-4386-9B35-32A98D3E4765}|ConnectionDB\\ConnectionDB.csproj|c:\\revup\\crud\\crud\\crud\\connectiondb\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{AD5FC1F8-C306-4386-9B35-32A98D3E4765}|ConnectionDB\\ConnectionDB.csproj|solutionrelative:connectiondb\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -20,12 +24,24 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\RevUp\\CRUD\\Crud\\Crud\\Crud\\Form1.cs",
-              "RelativeDocumentMoniker": "Crud\\Form1.cs",
-              "ToolTip": "C:\\RevUp\\CRUD\\Crud\\Crud\\Crud\\Form1.cs [Design]",
-              "RelativeToolTip": "Crud\\Form1.cs [Design]",
+              "DocumentMoniker": "C:\\RevUp\\CRUD\\Crud\\Crud\\init\\Form1.cs",
+              "RelativeDocumentMoniker": "init\\Form1.cs",
+              "ToolTip": "C:\\RevUp\\CRUD\\Crud\\Crud\\init\\Form1.cs [Design]",
+              "RelativeToolTip": "init\\Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-27T17:35:14.905Z",
+              "WhenOpened": "2025-03-27T17:37:50.125Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\RevUp\\CRUD\\Crud\\Crud\\ConnectionDB\\Form1.cs",
+              "RelativeDocumentMoniker": "ConnectionDB\\Form1.cs",
+              "ToolTip": "C:\\RevUp\\CRUD\\Crud\\Crud\\ConnectionDB\\Form1.cs [Design]",
+              "RelativeToolTip": "ConnectionDB\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T17:37:27.907Z",
               "EditorCaption": " [Design]"
             }
           ]
