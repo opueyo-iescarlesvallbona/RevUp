@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\RevUp_API_server.props" />
+</Project>
