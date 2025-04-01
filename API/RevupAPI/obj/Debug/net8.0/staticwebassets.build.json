@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "4fjg0AghM+gPy64Gm/XhbTmR4ymbEtqo3Ksd6zKQcvA=",
+  "Source": "RevupAPI",
+  "BasePath": "_content/RevupAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

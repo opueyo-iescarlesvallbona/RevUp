@@ -1,6 +1,0 @@
-@RevUp_API_server_HostAddress = http://localhost:5150
-
-GET {{RevUp_API_server_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

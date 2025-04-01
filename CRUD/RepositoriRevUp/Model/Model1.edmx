@@ -1,0 +1,1306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="revupModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="brand" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="model" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="model_year" Type="int" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="club">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="founder" Type="int" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="picture" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="club_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="club_id" Type="int" Nullable="false" />
+          <Property Name="picture" Type="varbinary(max)" />
+          <Property Name="start_date" Type="datetime" Nullable="false" />
+          <Property Name="route_start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" Nullable="false" />
+          <Property Name="description" Type="text" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="membername" Type="varchar" MaxLength="50" />
+          <Property Name="experience" Type="int" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="gender_id" Type="int" Nullable="false" />
+          <Property Name="location_id" Type="int" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" Nullable="false" />
+          <Property Name="login_date" Type="date" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="profile_picture" Type="varbinary(max)" />
+          <Property Name="password" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member_club">
+          <Key>
+            <PropertyRef Name="member_id" />
+            <PropertyRef Name="club_id" />
+          </Key>
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="club_id" Type="int" Nullable="false" />
+          <Property Name="role_type" Type="int" Nullable="false" />
+          <Property Name="join_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member_club_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member_location">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="municipality" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ccaa" Type="varchar" MaxLength="100" />
+          <Property Name="country" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="member_relation">
+          <Key>
+            <PropertyRef Name="member_id1" />
+            <PropertyRef Name="member_id2" />
+          </Key>
+          <Property Name="member_id1" Type="int" Nullable="false" />
+          <Property Name="member_id2" Type="int" Nullable="false" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="sender_id" />
+            <PropertyRef Name="receiver_id" />
+            <PropertyRef Name="datetime" />
+          </Key>
+          <Property Name="sender_id" Type="int" Nullable="false" />
+          <Property Name="receiver_id" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+          <Property Name="content_message" Type="text" Nullable="false" />
+          <Property Name="state_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="message_state">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="post_type" Type="int" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="post_date" Type="datetime" Nullable="false" />
+          <Property Name="picture" Type="varbinary(max)" />
+          <Property Name="likes" Type="bigint" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+          <Property Name="route_id" Type="int" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="post_comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="post_id" Type="int" Nullable="false" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="comment_content" Type="text" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="post_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="relation_state">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="route">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="waypoints" Type="text" Nullable="false" />
+          <Property Name="distance" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="duration" Type="bigint" Nullable="false" />
+          <Property Name="max_elevation" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="elevation_gain" Type="numeric" Precision="6" Scale="2" />
+          <Property Name="start_address" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="end_address" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="terrain_type_id" Type="int" />
+          <Property Name="description" Type="text" />
+          <Property Name="member_id" Type="int" />
+        </EntityType>
+        <EntityType Name="terrain_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__car__member_id__571DF1D5">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__club__founder__5BE2A6F2">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="club" Type="Self.club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="club">
+              <PropertyRef Name="founder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__club_even__club___693CA210">
+          <End Role="club" Type="Self.club" Multiplicity="1" />
+          <End Role="club_event" Type="Self.club_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="club">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="club_event">
+              <PropertyRef Name="club_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member__gender_i__534D60F1">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="member" Type="Self.member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member">
+              <PropertyRef Name="gender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member__location__5441852A">
+          <End Role="member_location" Type="Self.member_location" Multiplicity="1" />
+          <End Role="member" Type="Self.member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member_location">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member">
+              <PropertyRef Name="location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_cl__club___6477ECF3">
+          <End Role="club" Type="Self.club" Multiplicity="1" />
+          <End Role="member_club" Type="Self.member_club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="club">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_club">
+              <PropertyRef Name="club_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_cl__membe__656C112C">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="member_club" Type="Self.member_club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_club">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_cl__role___66603565">
+          <End Role="member_club_role" Type="Self.member_club_role" Multiplicity="1" />
+          <End Role="member_club" Type="Self.member_club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member_club_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_club">
+              <PropertyRef Name="role_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_re__membe__04E4BC85">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="member_relation" Type="Self.member_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_relation">
+              <PropertyRef Name="member_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_re__membe__05D8E0BE">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="member_relation" Type="Self.member_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_relation">
+              <PropertyRef Name="member_id2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_re__state__06CD04F7">
+          <End Role="relation_state" Type="Self.relation_state" Multiplicity="1" />
+          <End Role="member_relation" Type="Self.member_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="relation_state">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_relation">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__message__receive__10566F31">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="receiver_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__message__sender___0F624AF8">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="sender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__message__state_i__114A936A">
+          <End Role="message_state" Type="Self.message_state" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="message_state">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post__member_id__787EE5A0">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post__post_type__1EA48E88">
+          <End Role="post_type" Type="Self.post_type" Multiplicity="1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="post_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post__route_id__797309D9">
+          <End Role="route" Type="Self.route" Multiplicity="0..1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="route">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post_comm__post___7C4F7684">
+          <End Role="post" Type="Self.post" Multiplicity="1" />
+          <End Role="post_comment" Type="Self.post_comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post_comment">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__route__member_id__70DDC3D8">
+          <End Role="member" Type="Self.member" Multiplicity="0..1" />
+          <End Role="route" Type="Self.route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__route__terrain_t__71D1E811">
+          <End Role="terrain_type" Type="Self.terrain_type" Multiplicity="0..1" />
+          <End Role="route" Type="Self.route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="terrain_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route">
+              <PropertyRef Name="terrain_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="revupModelStoreContainer">
+          <EntitySet Name="car" EntityType="Self.car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="club" EntityType="Self.club" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="club_event" EntityType="Self.club_event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="gender" EntityType="Self.gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member" EntityType="Self.member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member_club" EntityType="Self.member_club" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member_club_role" EntityType="Self.member_club_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member_location" EntityType="Self.member_location" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="member_relation" EntityType="Self.member_relation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="message" EntityType="Self.message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="message_state" EntityType="Self.message_state" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="post_comment" EntityType="Self.post_comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="post_type" EntityType="Self.post_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="relation_state" EntityType="Self.relation_state" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="route" EntityType="Self.route" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="terrain_type" EntityType="Self.terrain_type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__car__member_id__571DF1D5" Association="Self.FK__car__member_id__571DF1D5">
+            <End Role="member" EntitySet="member" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="FK__club__founder__5BE2A6F2" Association="Self.FK__club__founder__5BE2A6F2">
+            <End Role="member" EntitySet="member" />
+            <End Role="club" EntitySet="club" />
+          </AssociationSet>
+          <AssociationSet Name="FK__club_even__club___693CA210" Association="Self.FK__club_even__club___693CA210">
+            <End Role="club" EntitySet="club" />
+            <End Role="club_event" EntitySet="club_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member__gender_i__534D60F1" Association="Self.FK__member__gender_i__534D60F1">
+            <End Role="gender" EntitySet="gender" />
+            <End Role="member" EntitySet="member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member__location__5441852A" Association="Self.FK__member__location__5441852A">
+            <End Role="member_location" EntitySet="member_location" />
+            <End Role="member" EntitySet="member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_cl__club___6477ECF3" Association="Self.FK__member_cl__club___6477ECF3">
+            <End Role="club" EntitySet="club" />
+            <End Role="member_club" EntitySet="member_club" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_cl__membe__656C112C" Association="Self.FK__member_cl__membe__656C112C">
+            <End Role="member" EntitySet="member" />
+            <End Role="member_club" EntitySet="member_club" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_cl__role___66603565" Association="Self.FK__member_cl__role___66603565">
+            <End Role="member_club_role" EntitySet="member_club_role" />
+            <End Role="member_club" EntitySet="member_club" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_re__membe__04E4BC85" Association="Self.FK__member_re__membe__04E4BC85">
+            <End Role="member" EntitySet="member" />
+            <End Role="member_relation" EntitySet="member_relation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_re__membe__05D8E0BE" Association="Self.FK__member_re__membe__05D8E0BE">
+            <End Role="member" EntitySet="member" />
+            <End Role="member_relation" EntitySet="member_relation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_re__state__06CD04F7" Association="Self.FK__member_re__state__06CD04F7">
+            <End Role="relation_state" EntitySet="relation_state" />
+            <End Role="member_relation" EntitySet="member_relation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__message__receive__10566F31" Association="Self.FK__message__receive__10566F31">
+            <End Role="member" EntitySet="member" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK__message__sender___0F624AF8" Association="Self.FK__message__sender___0F624AF8">
+            <End Role="member" EntitySet="member" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK__message__state_i__114A936A" Association="Self.FK__message__state_i__114A936A">
+            <End Role="message_state" EntitySet="message_state" />
+            <End Role="message" EntitySet="message" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__member_id__787EE5A0" Association="Self.FK__post__member_id__787EE5A0">
+            <End Role="member" EntitySet="member" />
+            <End Role="post" EntitySet="post" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__post_type__1EA48E88" Association="Self.FK__post__post_type__1EA48E88">
+            <End Role="post_type" EntitySet="post_type" />
+            <End Role="post" EntitySet="post" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__route_id__797309D9" Association="Self.FK__post__route_id__797309D9">
+            <End Role="route" EntitySet="route" />
+            <End Role="post" EntitySet="post" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post_comm__post___7C4F7684" Association="Self.FK__post_comm__post___7C4F7684">
+            <End Role="post" EntitySet="post" />
+            <End Role="post_comment" EntitySet="post_comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__route__member_id__70DDC3D8" Association="Self.FK__route__member_id__70DDC3D8">
+            <End Role="member" EntitySet="member" />
+            <End Role="route" EntitySet="route" />
+          </AssociationSet>
+          <AssociationSet Name="FK__route__terrain_t__71D1E811" Association="Self.FK__route__terrain_t__71D1E811">
+            <End Role="terrain_type" EntitySet="terrain_type" />
+            <End Role="route" EntitySet="route" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="revupModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="brand" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="model_year" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="Self.FK__car__member_id__571DF1D5" FromRole="car" ToRole="member" />
+        </EntityType>
+        <EntityType Name="club">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="founder" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="member" Relationship="Self.FK__club__founder__5BE2A6F2" FromRole="club" ToRole="member" />
+          <NavigationProperty Name="club_event" Relationship="Self.FK__club_even__club___693CA210" FromRole="club" ToRole="club_event" />
+          <NavigationProperty Name="member_club" Relationship="Self.FK__member_cl__club___6477ECF3" FromRole="club" ToRole="member_club" />
+        </EntityType>
+        <EntityType Name="club_event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="club_id" Type="Int32" Nullable="false" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="route_start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="club" Relationship="Self.FK__club_even__club___693CA210" FromRole="club_event" ToRole="club" />
+        </EntityType>
+        <EntityType Name="gender">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="members" Relationship="Self.FK__member__gender_i__534D60F1" FromRole="gender" ToRole="member" />
+        </EntityType>
+        <EntityType Name="member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="membername" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="experience" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gender_id" Type="Int32" Nullable="false" />
+          <Property Name="location_id" Type="Int32" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="login_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="profile_picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="cars" Relationship="Self.FK__car__member_id__571DF1D5" FromRole="member" ToRole="car" />
+          <NavigationProperty Name="clubs" Relationship="Self.FK__club__founder__5BE2A6F2" FromRole="member" ToRole="club" />
+          <NavigationProperty Name="gender" Relationship="Self.FK__member__gender_i__534D60F1" FromRole="member" ToRole="gender" />
+          <NavigationProperty Name="member_location" Relationship="Self.FK__member__location__5441852A" FromRole="member" ToRole="member_location" />
+          <NavigationProperty Name="member_club" Relationship="Self.FK__member_cl__membe__656C112C" FromRole="member" ToRole="member_club" />
+          <NavigationProperty Name="member_relation" Relationship="Self.FK__member_re__membe__04E4BC85" FromRole="member" ToRole="member_relation" />
+          <NavigationProperty Name="member_relation1" Relationship="Self.FK__member_re__membe__05D8E0BE" FromRole="member" ToRole="member_relation" />
+          <NavigationProperty Name="messages" Relationship="Self.FK__message__receive__10566F31" FromRole="member" ToRole="message" />
+          <NavigationProperty Name="messages1" Relationship="Self.FK__message__sender___0F624AF8" FromRole="member" ToRole="message" />
+          <NavigationProperty Name="posts" Relationship="Self.FK__post__member_id__787EE5A0" FromRole="member" ToRole="post" />
+          <NavigationProperty Name="routes" Relationship="Self.FK__route__member_id__70DDC3D8" FromRole="member" ToRole="route" />
+        </EntityType>
+        <EntityType Name="member_club">
+          <Key>
+            <PropertyRef Name="member_id" />
+            <PropertyRef Name="club_id" />
+          </Key>
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="club_id" Type="Int32" Nullable="false" />
+          <Property Name="role_type" Type="Int32" Nullable="false" />
+          <Property Name="join_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="club" Relationship="Self.FK__member_cl__club___6477ECF3" FromRole="member_club" ToRole="club" />
+          <NavigationProperty Name="member" Relationship="Self.FK__member_cl__membe__656C112C" FromRole="member_club" ToRole="member" />
+          <NavigationProperty Name="member_club_role" Relationship="Self.FK__member_cl__role___66603565" FromRole="member_club" ToRole="member_club_role" />
+        </EntityType>
+        <EntityType Name="member_club_role">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="member_club" Relationship="Self.FK__member_cl__role___66603565" FromRole="member_club_role" ToRole="member_club" />
+        </EntityType>
+        <EntityType Name="member_location">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="municipality" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ccaa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <NavigationProperty Name="members" Relationship="Self.FK__member__location__5441852A" FromRole="member_location" ToRole="member" />
+        </EntityType>
+        <EntityType Name="member_relation">
+          <Key>
+            <PropertyRef Name="member_id1" />
+            <PropertyRef Name="member_id2" />
+          </Key>
+          <Property Name="member_id1" Type="Int32" Nullable="false" />
+          <Property Name="member_id2" Type="Int32" Nullable="false" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="Self.FK__member_re__membe__04E4BC85" FromRole="member_relation" ToRole="member" />
+          <NavigationProperty Name="member1" Relationship="Self.FK__member_re__membe__05D8E0BE" FromRole="member_relation" ToRole="member" />
+          <NavigationProperty Name="relation_state" Relationship="Self.FK__member_re__state__06CD04F7" FromRole="member_relation" ToRole="relation_state" />
+        </EntityType>
+        <EntityType Name="message">
+          <Key>
+            <PropertyRef Name="sender_id" />
+            <PropertyRef Name="receiver_id" />
+            <PropertyRef Name="datetime" />
+          </Key>
+          <Property Name="sender_id" Type="Int32" Nullable="false" />
+          <Property Name="receiver_id" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="content_message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="state_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="Self.FK__message__receive__10566F31" FromRole="message" ToRole="member" />
+          <NavigationProperty Name="member1" Relationship="Self.FK__message__sender___0F624AF8" FromRole="message" ToRole="member" />
+          <NavigationProperty Name="message_state" Relationship="Self.FK__message__state_i__114A936A" FromRole="message" ToRole="message_state" />
+        </EntityType>
+        <EntityType Name="message_state">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="messages" Relationship="Self.FK__message__state_i__114A936A" FromRole="message_state" ToRole="message" />
+        </EntityType>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="post_type" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="post_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="likes" Type="Int64" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="route_id" Type="Int32" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="Self.FK__post__member_id__787EE5A0" FromRole="post" ToRole="member" />
+          <NavigationProperty Name="route" Relationship="Self.FK__post__route_id__797309D9" FromRole="post" ToRole="route" />
+          <NavigationProperty Name="post_comment" Relationship="Self.FK__post_comm__post___7C4F7684" FromRole="post" ToRole="post_comment" />
+          <NavigationProperty Name="post_type1" Relationship="revupModel.FK__post__post_type__1EA48E88" FromRole="post" ToRole="post_type" />
+        </EntityType>
+        <EntityType Name="post_comment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="post_id" Type="Int32" Nullable="false" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="comment_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="post" Relationship="Self.FK__post_comm__post___7C4F7684" FromRole="post_comment" ToRole="post" />
+        </EntityType>
+        <EntityType Name="post_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="posts" Relationship="revupModel.FK__post__post_type__1EA48E88" FromRole="post_type" ToRole="post" />
+        </EntityType>
+        <EntityType Name="relation_state">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="member_relation" Relationship="Self.FK__member_re__state__06CD04F7" FromRole="relation_state" ToRole="member_relation" />
+        </EntityType>
+        <EntityType Name="route">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="waypoints" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="distance" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="duration" Type="Int64" Nullable="false" />
+          <Property Name="max_elevation" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="elevation_gain" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="start_address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="terrain_type_id" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="member_id" Type="Int32" />
+          <NavigationProperty Name="member" Relationship="Self.FK__route__member_id__70DDC3D8" FromRole="route" ToRole="member" />
+          <NavigationProperty Name="posts" Relationship="Self.FK__post__route_id__797309D9" FromRole="route" ToRole="post" />
+          <NavigationProperty Name="terrain_type" Relationship="Self.FK__route__terrain_t__71D1E811" FromRole="route" ToRole="terrain_type" />
+        </EntityType>
+        <EntityType Name="terrain_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="routes" Relationship="Self.FK__route__terrain_t__71D1E811" FromRole="terrain_type" ToRole="route" />
+        </EntityType>
+        <Association Name="FK__car__member_id__571DF1D5">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__club__founder__5BE2A6F2">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="club" Type="Self.club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="club">
+              <PropertyRef Name="founder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__club_even__club___693CA210">
+          <End Role="club" Type="Self.club" Multiplicity="1" />
+          <End Role="club_event" Type="Self.club_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="club">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="club_event">
+              <PropertyRef Name="club_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_cl__club___6477ECF3">
+          <End Role="club" Type="Self.club" Multiplicity="1" />
+          <End Role="member_club" Type="Self.member_club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="club">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_club">
+              <PropertyRef Name="club_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member__gender_i__534D60F1">
+          <End Role="gender" Type="Self.gender" Multiplicity="1" />
+          <End Role="member" Type="Self.member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gender">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member">
+              <PropertyRef Name="gender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member__location__5441852A">
+          <End Role="member_location" Type="Self.member_location" Multiplicity="1" />
+          <End Role="member" Type="Self.member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member_location">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member">
+              <PropertyRef Name="location_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_cl__membe__656C112C">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="member_club" Type="Self.member_club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_club">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_re__membe__04E4BC85">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="member_relation" Type="Self.member_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_relation">
+              <PropertyRef Name="member_id1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_re__membe__05D8E0BE">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="member_relation" Type="Self.member_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_relation">
+              <PropertyRef Name="member_id2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__message__receive__10566F31">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="receiver_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__message__sender___0F624AF8">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="sender_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post__member_id__787EE5A0">
+          <End Role="member" Type="Self.member" Multiplicity="1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__route__member_id__70DDC3D8">
+          <End Role="member" Type="Self.member" Multiplicity="0..1" />
+          <End Role="route" Type="Self.route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_cl__role___66603565">
+          <End Role="member_club_role" Type="Self.member_club_role" Multiplicity="1" />
+          <End Role="member_club" Type="Self.member_club" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member_club_role">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_club">
+              <PropertyRef Name="role_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__member_re__state__06CD04F7">
+          <End Role="relation_state" Type="Self.relation_state" Multiplicity="1" />
+          <End Role="member_relation" Type="Self.member_relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="relation_state">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="member_relation">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__message__state_i__114A936A">
+          <End Role="message_state" Type="Self.message_state" Multiplicity="1" />
+          <End Role="message" Type="Self.message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="message_state">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="message">
+              <PropertyRef Name="state_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post__route_id__797309D9">
+          <End Role="route" Type="Self.route" Multiplicity="0..1" />
+          <End Role="post" Type="Self.post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="route">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="route_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post_comm__post___7C4F7684">
+          <End Role="post" Type="Self.post" Multiplicity="1" />
+          <End Role="post_comment" Type="Self.post_comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post_comment">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__route__terrain_t__71D1E811">
+          <End Role="terrain_type" Type="Self.terrain_type" Multiplicity="0..1" />
+          <End Role="route" Type="Self.route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="terrain_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route">
+              <PropertyRef Name="terrain_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="revupEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cars" EntityType="Self.car" />
+          <EntitySet Name="clubs" EntityType="Self.club" />
+          <EntitySet Name="club_event" EntityType="Self.club_event" />
+          <EntitySet Name="genders" EntityType="Self.gender" />
+          <EntitySet Name="members" EntityType="Self.member" />
+          <EntitySet Name="member_club" EntityType="Self.member_club" />
+          <EntitySet Name="member_club_role" EntityType="Self.member_club_role" />
+          <EntitySet Name="member_location" EntityType="Self.member_location" />
+          <EntitySet Name="member_relation" EntityType="Self.member_relation" />
+          <EntitySet Name="messages" EntityType="Self.message" />
+          <EntitySet Name="message_state" EntityType="Self.message_state" />
+          <EntitySet Name="posts" EntityType="Self.post" />
+          <EntitySet Name="post_comment" EntityType="Self.post_comment" />
+          <EntitySet Name="post_type" EntityType="Self.post_type" />
+          <EntitySet Name="relation_state" EntityType="Self.relation_state" />
+          <EntitySet Name="routes" EntityType="Self.route" />
+          <EntitySet Name="terrain_type" EntityType="Self.terrain_type" />
+          <AssociationSet Name="FK__car__member_id__571DF1D5" Association="Self.FK__car__member_id__571DF1D5">
+            <End Role="member" EntitySet="members" />
+            <End Role="car" EntitySet="cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__club__founder__5BE2A6F2" Association="Self.FK__club__founder__5BE2A6F2">
+            <End Role="member" EntitySet="members" />
+            <End Role="club" EntitySet="clubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__club_even__club___693CA210" Association="Self.FK__club_even__club___693CA210">
+            <End Role="club" EntitySet="clubs" />
+            <End Role="club_event" EntitySet="club_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_cl__club___6477ECF3" Association="Self.FK__member_cl__club___6477ECF3">
+            <End Role="club" EntitySet="clubs" />
+            <End Role="member_club" EntitySet="member_club" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member__gender_i__534D60F1" Association="Self.FK__member__gender_i__534D60F1">
+            <End Role="gender" EntitySet="genders" />
+            <End Role="member" EntitySet="members" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member__location__5441852A" Association="Self.FK__member__location__5441852A">
+            <End Role="member_location" EntitySet="member_location" />
+            <End Role="member" EntitySet="members" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_cl__membe__656C112C" Association="Self.FK__member_cl__membe__656C112C">
+            <End Role="member" EntitySet="members" />
+            <End Role="member_club" EntitySet="member_club" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_re__membe__04E4BC85" Association="Self.FK__member_re__membe__04E4BC85">
+            <End Role="member" EntitySet="members" />
+            <End Role="member_relation" EntitySet="member_relation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_re__membe__05D8E0BE" Association="Self.FK__member_re__membe__05D8E0BE">
+            <End Role="member" EntitySet="members" />
+            <End Role="member_relation" EntitySet="member_relation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__message__receive__10566F31" Association="Self.FK__message__receive__10566F31">
+            <End Role="member" EntitySet="members" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__message__sender___0F624AF8" Association="Self.FK__message__sender___0F624AF8">
+            <End Role="member" EntitySet="members" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__member_id__787EE5A0" Association="Self.FK__post__member_id__787EE5A0">
+            <End Role="member" EntitySet="members" />
+            <End Role="post" EntitySet="posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__route__member_id__70DDC3D8" Association="Self.FK__route__member_id__70DDC3D8">
+            <End Role="member" EntitySet="members" />
+            <End Role="route" EntitySet="routes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_cl__role___66603565" Association="Self.FK__member_cl__role___66603565">
+            <End Role="member_club_role" EntitySet="member_club_role" />
+            <End Role="member_club" EntitySet="member_club" />
+          </AssociationSet>
+          <AssociationSet Name="FK__member_re__state__06CD04F7" Association="Self.FK__member_re__state__06CD04F7">
+            <End Role="relation_state" EntitySet="relation_state" />
+            <End Role="member_relation" EntitySet="member_relation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__message__state_i__114A936A" Association="Self.FK__message__state_i__114A936A">
+            <End Role="message_state" EntitySet="message_state" />
+            <End Role="message" EntitySet="messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__route_id__797309D9" Association="Self.FK__post__route_id__797309D9">
+            <End Role="route" EntitySet="routes" />
+            <End Role="post" EntitySet="posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post_comm__post___7C4F7684" Association="Self.FK__post_comm__post___7C4F7684">
+            <End Role="post" EntitySet="posts" />
+            <End Role="post_comment" EntitySet="post_comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__route__terrain_t__71D1E811" Association="Self.FK__route__terrain_t__71D1E811">
+            <End Role="terrain_type" EntitySet="terrain_type" />
+            <End Role="route" EntitySet="routes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__post_type__1EA48E88" Association="revupModel.FK__post__post_type__1EA48E88">
+            <End Role="post_type" EntitySet="post_type" />
+            <End Role="post" EntitySet="posts" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK__post__post_type__1EA48E88">
+          <End Type="revupModel.post_type" Role="post_type" Multiplicity="1" />
+          <End Type="revupModel.post" Role="post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="post_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="revupModelStoreContainer" CdmEntityContainer="revupEntities">
+          <EntitySetMapping Name="cars">
+            <EntityTypeMapping TypeName="revupModel.car">
+              <MappingFragment StoreEntitySet="car">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="model_year" ColumnName="model_year" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clubs">
+            <EntityTypeMapping TypeName="revupModel.club">
+              <MappingFragment StoreEntitySet="club">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="founder" ColumnName="founder" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="club_event">
+            <EntityTypeMapping TypeName="revupModel.club_event">
+              <MappingFragment StoreEntitySet="club_event">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="club_id" ColumnName="club_id" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="route_start_date" ColumnName="route_start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genders">
+            <EntityTypeMapping TypeName="revupModel.gender">
+              <MappingFragment StoreEntitySet="gender">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="members">
+            <EntityTypeMapping TypeName="revupModel.member">
+              <MappingFragment StoreEntitySet="member">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="membername" ColumnName="membername" />
+                <ScalarProperty Name="experience" ColumnName="experience" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="gender_id" ColumnName="gender_id" />
+                <ScalarProperty Name="location_id" ColumnName="location_id" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="login_date" ColumnName="login_date" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="profile_picture" ColumnName="profile_picture" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="member_club">
+            <EntityTypeMapping TypeName="revupModel.member_club">
+              <MappingFragment StoreEntitySet="member_club">
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="club_id" ColumnName="club_id" />
+                <ScalarProperty Name="role_type" ColumnName="role_type" />
+                <ScalarProperty Name="join_date" ColumnName="join_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="member_club_role">
+            <EntityTypeMapping TypeName="revupModel.member_club_role">
+              <MappingFragment StoreEntitySet="member_club_role">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="member_location">
+            <EntityTypeMapping TypeName="revupModel.member_location">
+              <MappingFragment StoreEntitySet="member_location">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="municipality" ColumnName="municipality" />
+                <ScalarProperty Name="ccaa" ColumnName="ccaa" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="member_relation">
+            <EntityTypeMapping TypeName="revupModel.member_relation">
+              <MappingFragment StoreEntitySet="member_relation">
+                <ScalarProperty Name="member_id1" ColumnName="member_id1" />
+                <ScalarProperty Name="member_id2" ColumnName="member_id2" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="messages">
+            <EntityTypeMapping TypeName="revupModel.message">
+              <MappingFragment StoreEntitySet="message">
+                <ScalarProperty Name="sender_id" ColumnName="sender_id" />
+                <ScalarProperty Name="receiver_id" ColumnName="receiver_id" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="content_message" ColumnName="content_message" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="message_state">
+            <EntityTypeMapping TypeName="revupModel.message_state">
+              <MappingFragment StoreEntitySet="message_state">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posts">
+            <EntityTypeMapping TypeName="revupModel.post">
+              <MappingFragment StoreEntitySet="post">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="post_type" ColumnName="post_type" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="post_date" ColumnName="post_date" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="likes" ColumnName="likes" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="route_id" ColumnName="route_id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="post_comment">
+            <EntityTypeMapping TypeName="revupModel.post_comment">
+              <MappingFragment StoreEntitySet="post_comment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="post_id" ColumnName="post_id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="comment_content" ColumnName="comment_content" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="post_type">
+            <EntityTypeMapping TypeName="revupModel.post_type">
+              <MappingFragment StoreEntitySet="post_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="relation_state">
+            <EntityTypeMapping TypeName="revupModel.relation_state">
+              <MappingFragment StoreEntitySet="relation_state">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="routes">
+            <EntityTypeMapping TypeName="revupModel.route">
+              <MappingFragment StoreEntitySet="route">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="waypoints" ColumnName="waypoints" />
+                <ScalarProperty Name="distance" ColumnName="distance" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="max_elevation" ColumnName="max_elevation" />
+                <ScalarProperty Name="elevation_gain" ColumnName="elevation_gain" />
+                <ScalarProperty Name="start_address" ColumnName="start_address" />
+                <ScalarProperty Name="end_address" ColumnName="end_address" />
+                <ScalarProperty Name="terrain_type_id" ColumnName="terrain_type_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="terrain_type">
+            <EntityTypeMapping TypeName="revupModel.terrain_type">
+              <MappingFragment StoreEntitySet="terrain_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

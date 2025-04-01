@@ -1,0 +1,6 @@
+@RevupAPI_HostAddress = http://localhost:5178
+
+GET {{RevupAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

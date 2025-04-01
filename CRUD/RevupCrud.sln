@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevupCrud", "RevupCrud\RevupCrud.csproj", "{C481D453-AAB9-4BE8-BBD5-B8947C813092}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoriRevUp", "RepositoriRevUp\RepositoriRevUp.csproj", "{C43A60CD-FA25-4E21-97E9-5451F33C8643}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C481D453-AAB9-4BE8-BBD5-B8947C813092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C481D453-AAB9-4BE8-BBD5-B8947C813092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C481D453-AAB9-4BE8-BBD5-B8947C813092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C481D453-AAB9-4BE8-BBD5-B8947C813092}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C43A60CD-FA25-4E21-97E9-5451F33C8643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43A60CD-FA25-4E21-97E9-5451F33C8643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43A60CD-FA25-4E21-97E9-5451F33C8643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43A60CD-FA25-4E21-97E9-5451F33C8643}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {892E558A-A9E9-462D-B40B-58F540726E64}
+	EndGlobalSection
+EndGlobal

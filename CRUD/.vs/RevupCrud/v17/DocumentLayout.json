@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\M13\\ProjecteFinal\\RevupCrud\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\m13\\projectefinal\\revupcrud\\revupcrud\\controller\\controllercrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\controller\\controllercrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|C:\\M13\\ProjecteFinal\\RevupCrud\\revupcrud\\controller\\controllerusuaridetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\controller\\controllerusuaridetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|C:\\M13\\ProjecteFinal\\RevupCrud\\revupcrud\\model\\repositoricrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\model\\repositoricrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ControllerUsuariDetails.cs",
+              "DocumentMoniker": "C:\\M13\\ProjecteFinal\\RevupCrud\\RevupCrud\\Controller\\ControllerUsuariDetails.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\Controller\\ControllerUsuariDetails.cs",
+              "ToolTip": "C:\\M13\\ProjecteFinal\\RevupCrud\\RevupCrud\\Controller\\ControllerUsuariDetails.cs",
+              "RelativeToolTip": "RevupCrud\\Controller\\ControllerUsuariDetails.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T15:57:22.627Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ControllerCrud.cs",
+              "DocumentMoniker": "C:\\M13\\ProjecteFinal\\RevupCrud\\RevupCrud\\Controller\\ControllerCrud.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\Controller\\ControllerCrud.cs",
+              "ToolTip": "C:\\M13\\ProjecteFinal\\RevupCrud\\RevupCrud\\Controller\\ControllerCrud.cs",
+              "RelativeToolTip": "RevupCrud\\Controller\\ControllerCrud.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAcwLAAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T15:49:01.506Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RepositoriCrud.cs",
+              "DocumentMoniker": "C:\\M13\\ProjecteFinal\\RevupCrud\\RevupCrud\\Model\\RepositoriCrud.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\Model\\RepositoriCrud.cs",
+              "ToolTip": "C:\\M13\\ProjecteFinal\\RevupCrud\\RevupCrud\\Model\\RepositoriCrud.cs",
+              "RelativeToolTip": "RevupCrud\\Model\\RepositoriCrud.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAswMsAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T14:55:53.872Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
