@@ -13,24 +13,21 @@ namespace RepositoriRevUp.Model
     using System.Configuration;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.SqlClient;
-    using System.Windows.Forms;
-
+    
     public partial class revupEntities : DbContext
     {
-
-        public revupEntities(string pass)
-        : base(ModifyConnectionString(pass))
+        public revupEntities(string password)
+    : base(ReplacePassword(password))
         {
         }
-
-        private static string ModifyConnectionString(string password)
+        static string ReplacePassword(string password)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["revupEntities"].ConnectionString;
 
             connectionString = connectionString.Replace("{PASSWORD_PLACEHOLDER}", password);
 
             return connectionString;
+
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -55,5 +52,6 @@ namespace RepositoriRevUp.Model
         public virtual DbSet<relation_state> relation_state { get; set; }
         public virtual DbSet<route> routes { get; set; }
         public virtual DbSet<terrain_type> terrain_type { get; set; }
+        public virtual DbSet<event_state> event_state { get; set; }
     }
 }

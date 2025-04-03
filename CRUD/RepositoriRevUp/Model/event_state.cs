@@ -12,20 +12,18 @@ namespace RepositoriRevUp.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class club_event
+    public partial class event_state
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public event_state()
+        {
+            this.club_event = new HashSet<club_event>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
-        public string address { get; set; }
-        public int club_id { get; set; }
-        public byte[] picture { get; set; }
-        public System.DateTime start_date { get; set; }
-        public Nullable<System.DateTime> route_start_date { get; set; }
-        public System.DateTime end_date { get; set; }
-        public string description { get; set; }
-        public int state { get; set; }
     
-        public virtual club club { get; set; }
-        public virtual event_state event_state { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<club_event> club_event { get; set; }
     }
 }

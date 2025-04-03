@@ -26,6 +26,7 @@ namespace RepositoriRevUp.Model
         public int founder { get; set; }
         public string description { get; set; }
         public byte[] picture { get; set; }
+        public System.DateTime creation_date { get; set; }
     
         public virtual member member { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

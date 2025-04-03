@@ -70,6 +70,8 @@
             // 
             this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtName.Location = new System.Drawing.Point(148, 18);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(311, 20);
@@ -137,7 +139,7 @@
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 55);
             this.btnBuscar.TabIndex = 9;
-            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.Text = "Search";
             this.btnBuscar.UseVisualStyleBackColor = true;
             // 
             // btnInsert

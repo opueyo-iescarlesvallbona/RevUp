@@ -18,3 +18,7 @@ C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.csproj.Up2Date
 C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.exe
 C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.pdb
 C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewUsuariDetails.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewClubs.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewClubDetails.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewPosts.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewPostDetails.resources

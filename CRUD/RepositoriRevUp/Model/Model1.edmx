@@ -25,6 +25,7 @@
           <Property Name="founder" Type="int" Nullable="false" />
           <Property Name="description" Type="text" />
           <Property Name="picture" Type="varbinary(max)" />
+          <Property Name="creation_date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="club_event">
           <Key>
@@ -39,6 +40,14 @@
           <Property Name="route_start_date" Type="datetime" />
           <Property Name="end_date" Type="datetime" Nullable="false" />
           <Property Name="description" Type="text" />
+          <Property Name="state" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="event_state">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="gender">
           <Key>
@@ -53,7 +62,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="membername" Type="varchar" MaxLength="50" />
+          <Property Name="membername" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="experience" Type="int" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="gender_id" Type="int" Nullable="false" />
@@ -134,6 +143,7 @@
           <Property Name="address" Type="varchar" MaxLength="100" />
           <Property Name="route_id" Type="int" />
           <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="comments" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="post_comment">
           <Key>
@@ -216,6 +226,18 @@
             </Principal>
             <Dependent Role="club_event">
               <PropertyRef Name="club_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__club_even__state__531856C7">
+          <End Role="event_state" Type="Self.event_state" Multiplicity="1" />
+          <End Role="club_event" Type="Self.club_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="event_state">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="club_event">
+              <PropertyRef Name="state" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -427,6 +449,7 @@
           <EntitySet Name="car" EntityType="Self.car" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="club" EntityType="Self.club" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="club_event" EntityType="Self.club_event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="event_state" EntityType="Self.event_state" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="gender" EntityType="Self.gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="member" EntityType="Self.member" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="member_club" EntityType="Self.member_club" Schema="dbo" store:Type="Tables" />
@@ -451,6 +474,10 @@
           </AssociationSet>
           <AssociationSet Name="FK__club_even__club___693CA210" Association="Self.FK__club_even__club___693CA210">
             <End Role="club" EntitySet="club" />
+            <End Role="club_event" EntitySet="club_event" />
+          </AssociationSet>
+          <AssociationSet Name="FK__club_even__state__531856C7" Association="Self.FK__club_even__state__531856C7">
+            <End Role="event_state" EntitySet="event_state" />
             <End Role="club_event" EntitySet="club_event" />
           </AssociationSet>
           <AssociationSet Name="FK__member__gender_i__534D60F1" Association="Self.FK__member__gender_i__534D60F1">
@@ -550,6 +577,7 @@
           <NavigationProperty Name="member" Relationship="Self.FK__club__founder__5BE2A6F2" FromRole="club" ToRole="member" />
           <NavigationProperty Name="club_event" Relationship="Self.FK__club_even__club___693CA210" FromRole="club" ToRole="club_event" />
           <NavigationProperty Name="member_club" Relationship="Self.FK__member_cl__club___6477ECF3" FromRole="club" ToRole="member_club" />
+          <Property Name="creation_date" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="club_event">
           <Key>
@@ -565,6 +593,8 @@
           <Property Name="end_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="club" Relationship="Self.FK__club_even__club___693CA210" FromRole="club_event" ToRole="club" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="event_state" Relationship="revupModel.FK__club_even__state__531856C7" FromRole="club_event" ToRole="event_state" />
         </EntityType>
         <EntityType Name="gender">
           <Key>
@@ -580,7 +610,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="membername" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="membername" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="experience" Type="Int32" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="gender_id" Type="Int32" Nullable="false" />
@@ -688,6 +718,7 @@
           <NavigationProperty Name="route" Relationship="Self.FK__post__route_id__797309D9" FromRole="post" ToRole="route" />
           <NavigationProperty Name="post_comment" Relationship="Self.FK__post_comm__post___7C4F7684" FromRole="post" ToRole="post_comment" />
           <NavigationProperty Name="post_type1" Relationship="revupModel.FK__post__post_type__1EA48E88" FromRole="post" ToRole="post_type" />
+          <Property Name="comments" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="post_comment">
           <Key>
@@ -1070,6 +1101,11 @@
             <End Role="post_type" EntitySet="post_type" />
             <End Role="post" EntitySet="posts" />
           </AssociationSet>
+          <EntitySet Name="event_state" EntityType="revupModel.event_state" />
+          <AssociationSet Name="FK__club_even__state__531856C7" Association="revupModel.FK__club_even__state__531856C7">
+            <End Role="event_state" EntitySet="event_state" />
+            <End Role="club_event" EntitySet="club_event" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK__post__post_type__1EA48E88">
           <End Type="revupModel.post_type" Role="post_type" Multiplicity="1" />
@@ -1080,6 +1116,26 @@
             </Principal>
             <Dependent Role="post">
               <PropertyRef Name="post_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="event_state">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="club_event" Relationship="revupModel.FK__club_even__state__531856C7" FromRole="event_state" ToRole="club_event" />
+        </EntityType>
+        <Association Name="FK__club_even__state__531856C7">
+          <End Type="revupModel.event_state" Role="event_state" Multiplicity="1" />
+          <End Type="revupModel.club_event" Role="club_event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="event_state">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="club_event">
+              <PropertyRef Name="state" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1104,6 +1160,7 @@
           <EntitySetMapping Name="clubs">
             <EntityTypeMapping TypeName="revupModel.club">
               <MappingFragment StoreEntitySet="club">
+                <ScalarProperty Name="creation_date" ColumnName="creation_date" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="founder" ColumnName="founder" />
@@ -1115,6 +1172,7 @@
           <EntitySetMapping Name="club_event">
             <EntityTypeMapping TypeName="revupModel.club_event">
               <MappingFragment StoreEntitySet="club_event">
+                <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -1214,6 +1272,7 @@
           <EntitySetMapping Name="posts">
             <EntityTypeMapping TypeName="revupModel.post">
               <MappingFragment StoreEntitySet="post">
+                <ScalarProperty Name="comments" ColumnName="comments" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="post_type" ColumnName="post_type" />
@@ -1277,6 +1336,14 @@
               <MappingFragment StoreEntitySet="terrain_type">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="event_state">
+            <EntityTypeMapping TypeName="revupModel.event_state">
+              <MappingFragment StoreEntitySet="event_state">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

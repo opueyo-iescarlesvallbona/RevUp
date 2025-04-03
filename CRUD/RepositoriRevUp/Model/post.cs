@@ -30,6 +30,7 @@ namespace RepositoriRevUp.Model
         public string address { get; set; }
         public Nullable<int> route_id { get; set; }
         public int member_id { get; set; }
+        public long comments { get; set; }
     
         public virtual member member { get; set; }
         public virtual route route { get; set; }

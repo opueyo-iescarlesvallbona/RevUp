@@ -42,6 +42,8 @@
         <AssociationConnector Association="revupModel.FK__post_comm__post___7C4F7684" ManuallyRouted="false" />
         <AssociationConnector Association="revupModel.FK__route__terrain_t__71D1E811" ManuallyRouted="false" />
         <AssociationConnector Association="revupModel.FK__post__post_type__1EA48E88" />
+        <EntityTypeShape EntityType="revupModel.event_state" Width="1.5" PointX="0.75" PointY="0.875" />
+        <AssociationConnector Association="revupModel.FK__club_even__state__531856C7" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

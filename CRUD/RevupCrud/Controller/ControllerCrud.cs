@@ -19,40 +19,230 @@ namespace RevupCrud.Controller
         Form Viewpassword = new Form();
         RepositoriCrud r;
         ViewUsuaris usuaris = new ViewUsuaris { TopLevel=false, TopMost=false };
+        ViewClubs clubs = new ViewClubs { TopLevel = false, TopMost = false };
+        ViewPosts posts = new ViewPosts { TopLevel = false, TopMost = false };
 
 
         void SetListeners()
         {
             f.btnUsuaris.Click += BtnUsuaris_Click;
             f.btnClub.Click += BtnClub_Click;
+            f.btn_post.Click += BtnPost_Click;
         }
 
+        #region post
+        private void SetListneresPost()
+        {
+            posts.btnBuscar.Click += BtnBuscar_ClickPost;
+            //posts.dataGridView.CellFormatting += DataGridView_CellFormatting;
+            //posts.dataGridView.CellDoubleClick += DataGridView_CellDoubleClick;
+            //posts.btnInsert.Click += BtnInsert_Click;
+        }
+
+        void BtnBuscar_ClickPost(object sender, EventArgs e)
+        {
+            List<post> Listposts = r.GetAllPosts();
+            if (posts.txtTitle.Text != "")
+            {
+                Listposts = Listposts.Where(x => x.title.Contains(posts.txtTitle.Text)).ToList();
+            }
+            if ((posts.comboPostType.SelectedValue as post_type).name != "Tots")
+            {
+                Listposts = Listposts.Where(x => x.post_type.Equals((posts.comboPostType.SelectedValue as post_type).id)).ToList();
+            }
+            if (posts.dateTimeFrom.Checked)
+            {
+                Listposts = Listposts.Where(x => x.post_date >= posts.dateTimeFrom.Value).ToList();
+            }
+            if (posts.dateTimeTo.Checked)
+            {
+                Listposts = Listposts.Where(x => x.post_date <= posts.dateTimeTo.Value).ToList();
+            }
+
+            switch (posts.comboOrder.SelectedText)
+            {
+                case "More to less likes":
+                    Listposts = Listposts.OrderByDescending(x => x.likes).ToList();
+                    break;
+                case "Less to more likes":
+                    Listposts = Listposts.OrderBy(x => x.likes).ToList();
+                    break;
+                case "More to less comments":
+                    Listposts = Listposts.OrderByDescending(x => x.comments).ToList();
+                    break;
+                case "Less to more comments":
+                    Listposts = Listposts.OrderBy(x => x.comments).ToList();
+                    break;
+            }
+            posts.dataGridView.DataSource = Listposts;
+        }
+
+        private void BtnPost_Click(object sender, EventArgs e)
+        {
+            SetListneresPost();
+            List<post> Listposts = r.GetAllPosts();
+
+            
+            List<post_type> post_Types = new List<post_type>();
+            post_Types.Add(new post_type { name = "Tots", id = -1 });
+            post_Types.AddRange(r.GetAllPostTypes());
+            posts.comboPostType.DataSource = post_Types.Select(x => x.name).ToList();
+
+            List<string> orders = new List<string>();
+            orders.Add("More to less likes");
+            orders.Add("Less to more likes");
+            orders.Add("More to less comments");
+            orders.Add("Less to more comments");
+            posts.comboOrder.DataSource = orders;
+
+            posts.dataGridView.DataSource = Listposts;
+
+            posts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            posts.dataGridView.BorderStyle = BorderStyle.None;
+
+            posts.FormBorderStyle = FormBorderStyle.None;
+            f.panel.Controls.Clear();
+            f.panel.Controls.Add(posts);
+            posts.Show();
+        }
+
+        #endregion
+
+        #region club
         private void SetListenersClub()
         {
+            clubs.btnBuscar.Click += BtnBuscar_ClickClubs;
+            clubs.dataGridView.CellFormatting += DataGridView_CellFormattingClub;
+            clubs.dataGridView.CellDoubleClick += DataGridView_CellDoubleClickClub;
+            clubs.btnInsert.Click += BtnInsert_ClickClub;
+        }
 
+        private void BtnInsert_ClickClub(object sender, EventArgs e)
+        {
+            ViewClubDetails f = new ViewClubDetails();
+            f.FormClosed += ClubDetailsFormClosed;
+            new ControllerClubDetails(null, f);
+        }
+
+        private void DataGridView_CellDoubleClickClub(object sender, DataGridViewCellEventArgs e)
+        {
+            club c = clubs.dataGridView.Rows[e.RowIndex].DataBoundItem as club;
+
+            club club = new club
+            {
+                id = c.id,
+                name = c.name,
+                description = c.description,
+                picture = c.picture,
+                founder = c.founder,
+                member = c.member,
+                member_club = c.member_club,
+                club_event = c.club_event
+            };
+
+            ViewClubDetails f = new ViewClubDetails();
+            new ControllerClubDetails(club, f);
+            f.FormClosed += ClubDetailsFormClosed;
+        }
+
+        private void ClubDetailsFormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (clubs.txtFounder.Text.Equals(""))
+            {
+                clubs.dataGridView.DataSource = r.GetAllClubs()
+                    .Where(x => x.name.Contains(clubs.txtName.Text)).ToList();
+            }
+            else
+            {
+                clubs.dataGridView.DataSource = r.GetAllClubs()
+                    .Where(x => x.name.Contains(clubs.txtName.Text))
+                    .Where(x => x.member.membername.Equals(clubs.txtFounder.Text)).ToList();
+            }
+                
+            List<club> Listclubs = r.GetAllClubs();
+
+            clubs.txtName.AutoCompleteCustomSource.AddRange(Listclubs.Select(x => x.name).ToArray());
+
+            List<member> founders = r.GetMembersById(Listclubs.Select(x => x.founder).ToList());
+            clubs.txtFounder.AutoCompleteCustomSource.AddRange(founders.Select(x => x.membername).ToArray());
+        }
+
+        private void DataGridView_CellFormattingClub(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridViewColumn column = clubs.dataGridView.Columns[e.ColumnIndex];
+            if (e.RowIndex >= 0)
+            {
+                if (column.HeaderText.Equals("Founder"))
+                {
+                    club c = clubs.dataGridView.Rows[e.RowIndex].DataBoundItem as club;
+                    if (c != null)
+                    {
+                        e.Value = c.member.membername;
+                    }
+                }
+            }
+        }
+
+        private void BtnBuscar_ClickClubs(object sender, EventArgs e)
+        {
+            if (clubs.txtFounder.Text.Equals(""))
+            {
+                clubs.dataGridView.DataSource = r.GetAllClubs()
+                    .Where(x => x.name.Contains(clubs.txtName.Text)).ToList();
+            }
+            else
+            {
+                clubs.dataGridView.DataSource = r.GetAllClubs()
+                    .Where(x => x.name.Contains(clubs.txtName.Text))
+                    .Where(x => x.member.membername.Equals(clubs.txtFounder.Text)).ToList();
+            }
         }
 
         private void BtnClub_Click(object sender, EventArgs e)
         {
             SetListenersClub();
+            List<club> Listclubs = r.GetAllClubs();
+
+            clubs.txtName.AutoCompleteCustomSource.AddRange(Listclubs.Select(x => x.name).ToArray());
+
+            List<member> founders = r.GetMembersById(Listclubs.Select(x => x.founder).ToList());
+            clubs.txtFounder.AutoCompleteCustomSource.AddRange(founders.Select(x=>x.membername).ToArray());
+
+            clubs.dataGridView.DataSource = Listclubs;
+
+            clubs.dataGridView.Columns["picture"].Visible = false;
+            clubs.dataGridView.Columns["founder"].Visible = false;
+            clubs.dataGridView.Columns["member_club"].Visible = false;
+            clubs.dataGridView.Columns["club_event"].Visible = false;
+            clubs.dataGridView.Columns["member"].HeaderText = "Founder";
+            clubs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            clubs.dataGridView.BorderStyle = BorderStyle.None;
+
+            clubs.FormBorderStyle = FormBorderStyle.None;
+            f.panel.Controls.Clear();
+            f.panel.Controls.Add(clubs);
+            clubs.Show();
         }
 
+        #endregion
+
+        #region usuaris
         void SetListenersUsuaris()
         {
             usuaris.btnBuscar.Click += BtnBuscar_Click;
-            usuaris.dataGridView.CellFormatting += DataGridView_CellFormatting;
-            usuaris.dataGridView.CellDoubleClick += DataGridView_CellDoubleClick;
-            usuaris.btnInsert.Click += BtnInsert_Click;
+            usuaris.dataGridView.CellFormatting += DataGridView_CellFormattingUsuari;
+            usuaris.dataGridView.CellDoubleClick += DataGridView_CellDoubleClickUsuari;
+            usuaris.btnInsert.Click += BtnInsert_ClickUsuari;
         }
 
-        private void BtnInsert_Click(object sender, EventArgs e)
+        private void BtnInsert_ClickUsuari(object sender, EventArgs e)
         {
             ViewUsuariDetails f = new ViewUsuariDetails();
             f.FormClosed += UserDetailsFormClosed;
             new ControllerUsuariDetails(null, f);
         }
 
-        private void DataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void DataGridView_CellFormattingUsuari(object sender, DataGridViewCellFormattingEventArgs e)
         {
             DataGridViewColumn column = usuaris.dataGridView.Columns[e.ColumnIndex];
             if (e.RowIndex >= 0)
@@ -81,7 +271,7 @@ namespace RevupCrud.Controller
             usuaris.dataGridView.DataSource = r.GetAllMembers(usuaris.txtName.Text, (usuaris.comboGender.SelectedValue as gender).name.ToString(), usuaris.txtYear.Text, (usuaris.comboLocation.SelectedValue as member_location).municipality.ToString());
         }
 
-        private void DataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView_CellDoubleClickUsuari(object sender, DataGridViewCellEventArgs e)
         {
             member m = usuaris.dataGridView.Rows[e.RowIndex].DataBoundItem as member;
 
@@ -94,6 +284,7 @@ namespace RevupCrud.Controller
                 membername = m.membername,
                 experience = m.experience,
                 email = m.email,
+                description = m.description,
                 date_of_birth = m.date_of_birth,
                 login_date = m.login_date,
                 cars = m.cars,
@@ -109,6 +300,8 @@ namespace RevupCrud.Controller
         void UserDetailsFormClosed(object sender, EventArgs e)
         {
             usuaris.dataGridView.DataSource = r.GetAllMembers(usuaris.txtName.Text, (usuaris.comboGender.SelectedValue as gender).name.ToString(), usuaris.txtYear.Text, (usuaris.comboLocation.SelectedValue as member_location).municipality.ToString());
+            usuaris.txtName.AutoCompleteCustomSource.AddRange(r.GetAllMembers("", "", "", "").Select(x => x.name).ToArray());
+            usuaris.txtName.AutoCompleteCustomSource.AddRange(r.GetAllMembers("", "", "", "").Where(x => x.membername != null).Select(x => x.membername).ToArray());
         }
 
         private void BtnUsuaris_Click(object sender, EventArgs e)
@@ -127,6 +320,9 @@ namespace RevupCrud.Controller
             locations.AddRange(r.GetAllLocations());
             usuaris.comboLocation.DataSource = locations;
             usuaris.comboLocation.DisplayMember = "municipality";
+
+            usuaris.txtName.AutoCompleteCustomSource.AddRange(r.GetAllMembers("", "", "", "").Select(x => x.name).ToArray());
+            usuaris.txtName.AutoCompleteCustomSource.AddRange(r.GetAllMembers("", "", "", "").Where(x=>x.membername!=null).Select(x => x.membername).ToArray());
 
             usuaris.dataGridView.DataSource = r.GetAllMembers("", "", "", "");
 
@@ -148,11 +344,15 @@ namespace RevupCrud.Controller
             usuaris.dataGridView.BorderStyle = BorderStyle.None;
 
             usuaris.FormBorderStyle = FormBorderStyle.None;
+            f.panel.Controls.Clear();
             f.panel.Controls.Add(usuaris);
             usuaris.Show();
 
         }
 
+        #endregion
+
+        #region password
         void AskPassword()
         {
             Label lbl = new Label();
@@ -182,13 +382,14 @@ namespace RevupCrud.Controller
             Viewpassword.Controls.Add(txt);
             Viewpassword.Controls.Add(btn);
             
-            Viewpassword.ShowDialog();
+            Viewpassword.Show();
+            btn.PerformClick();
         }
 
         private void Btn_ClickPassword(object sender, EventArgs e)
         {
             string password = (Viewpassword.Controls.Find("txtPassword", true).FirstOrDefault() as TextBox).Text;
-            
+            password = "RevUpFounders26";
             if (TryConnectToDatabase(password))
             {
                 Viewpassword.Dispose();
@@ -221,6 +422,7 @@ namespace RevupCrud.Controller
                 return false;
             }
         }
+        #endregion
 
         public ControllerCrud()
         {

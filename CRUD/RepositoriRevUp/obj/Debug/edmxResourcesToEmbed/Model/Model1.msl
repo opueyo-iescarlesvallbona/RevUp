@@ -16,6 +16,7 @@
     <EntitySetMapping Name="clubs">
       <EntityTypeMapping TypeName="revupModel.club">
         <MappingFragment StoreEntitySet="club">
+          <ScalarProperty Name="creation_date" ColumnName="creation_date" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="founder" ColumnName="founder" />
@@ -27,6 +28,7 @@
     <EntitySetMapping Name="club_event">
       <EntityTypeMapping TypeName="revupModel.club_event">
         <MappingFragment StoreEntitySet="club_event">
+          <ScalarProperty Name="state" ColumnName="state" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="address" ColumnName="address" />
@@ -126,6 +128,7 @@
     <EntitySetMapping Name="posts">
       <EntityTypeMapping TypeName="revupModel.post">
         <MappingFragment StoreEntitySet="post">
+          <ScalarProperty Name="comments" ColumnName="comments" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="title" ColumnName="title" />
           <ScalarProperty Name="post_type" ColumnName="post_type" />
@@ -189,6 +192,14 @@
         <MappingFragment StoreEntitySet="terrain_type">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="event_state">
+      <EntityTypeMapping TypeName="revupModel.event_state">
+        <MappingFragment StoreEntitySet="event_state">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -68,6 +68,9 @@
     <Compile Include="Model\club_event.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\event_state.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\gender.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

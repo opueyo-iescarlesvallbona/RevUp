@@ -64,6 +64,23 @@ namespace RevupCrud.Model
             return location;
         }
 
+        public List<member> GetMembersById(List<int> ids)
+        {
+            List<member> members = new List<member>();
+            try
+            {
+                foreach(int id in ids)
+                {
+                    members.Add(Repositori.db.members.Where(x => x.id.Equals(id)).FirstOrDefault());
+                }
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return members;
+        }
+
         public List<member> GetAllMembers(string name, string gender, string year, string location)
         {
             List<member> members = new List<member>();
@@ -158,12 +175,26 @@ namespace RevupCrud.Model
             return friends;
         }
 
-        public List<club> GetClubs(int id)
+        public List<member_club> GetMemberClubsByMemberId(int id)
         {
-            List<club> clubs = new List<club>();
+            List<member_club> clubs = new List<member_club>();
             try
             {
-                clubs = Repositori.db.member_club.Where(x => x.member_id.Equals(id)).Select(x => x.club).ToList();
+                clubs = Repositori.db.member_club.Where(x => x.member_id.Equals(id)).ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return clubs;
+        }
+
+        public List<member_club> GetMemberClubsByMemberIdIsFounder(int id)
+        {
+            List<member_club> clubs = new List<member_club>();
+            try
+            {
+                clubs = Repositori.db.member_club.Where(x => x.member_id.Equals(id) && x.club.founder.Equals(id)).ToList();
             }
             catch
             {
@@ -202,6 +233,7 @@ namespace RevupCrud.Model
                 m.gender_id = usuari.gender_id;
                 m.location_id = usuari.location_id;
                 m.date_of_birth = usuari.date_of_birth;
+                m.description = usuari.description;
                 SaveChanges();
                 MessageBox.Show("Usuari actualitzat correctament");
             }
@@ -225,10 +257,108 @@ namespace RevupCrud.Model
             }
             catch
             {
-                MessageBox.Show("Error al eliminar l'usuari");
+                MessageBox.Show("Error al esborrar l'usuari");
                 Repositori.dbConnect();
             }
             return esborrat;
+        }
+
+        public List<club_event> GetEventsByClub(int id)
+        {
+            List<club_event> events = new List<club_event>();
+            try
+            {
+                events = Repositori.db.club_event.Where(x => x.club_id.Equals(id)).ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return events;
+        }
+
+        public List<member_club> GetMemberClubsByClubId(int id)
+        {
+            List<member_club> member_clubs = new List<member_club>();
+            try
+            {
+                member_clubs = Repositori.db.member_club.Where(x => x.club_id.Equals(id)).ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return member_clubs;
+        }
+
+        public bool DeleteClub(club club)
+        {
+            bool esborrat = false;
+            try
+            {
+                club c = Repositori.db.clubs.Where(x => x.id.Equals(club.id)).FirstOrDefault();
+                Repositori.db.clubs.Remove(c);
+                SaveChanges();
+                MessageBox.Show("Club esborrat correctament");
+                esborrat = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error al esborrar el club");
+                Repositori.dbConnect();
+            }
+            return esborrat;
+        }
+
+        public bool AddClub(club club)
+        {
+            bool afegit = false;
+            try
+            {
+                Repositori.db.clubs.Add(club);
+                SaveChanges();
+                MessageBox.Show("Club afegit correctament");
+                afegit = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error al afegir el club");
+                Repositori.dbConnect();
+            }
+            return afegit;
+        }
+
+        public void UpdateClub(club club)
+        {
+            try
+            {
+                club c = Repositori.db.clubs.Where(x => x.id.Equals(club.id)).FirstOrDefault();
+
+                c.name = club.name;
+                c.founder = club.founder;
+                c.description = club.description;
+                SaveChanges();
+                MessageBox.Show("Club actualitzat correctament");
+            }
+            catch
+            {
+                MessageBox.Show("Error al actualitzar el club");
+                Repositori.dbConnect();
+            }
+        }
+
+        public List<post_type> GetAllPostTypes()
+        {
+            List<post_type> post_types = new List<post_type>();
+            try
+            {
+                post_types = Repositori.db.post_type.ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return post_types;
         }
     }
 }
