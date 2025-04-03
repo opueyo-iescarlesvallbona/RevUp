@@ -7,11 +7,17 @@
     android:background="@color/red"
     android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/homeFragment_mainActivity_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/homeFragment_mainActivity_recyclerView"
+        android:id="@+id/homeFragment_mainActivity_viewPager"
         />
+
 
 </LinearLayout>

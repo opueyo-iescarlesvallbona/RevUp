@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.revup.ADAPTERS.HomeFragmentPostAdapterRV
-import com.example.revup.R
+import androidx.viewpager2.widget.ViewPager2
+import com.example.revup.ADAPTERS.HomeFragment_ViewPagerAdapter
 import com.example.revup.databinding.HomeFragmentMainactivityBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
     lateinit var binding : HomeFragmentMainactivityBinding
@@ -29,9 +29,22 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = binding.homeFragmentMainActivityRecyclerView
-        var list = listOf("","","","","","","","")
-        recyclerView.adapter = HomeFragmentPostAdapterRV(list)
-        recyclerView.layoutManager = LinearLayoutManager(requireView().context)
+        val listOfFragments = listOf(LocationHomeFragment(), LikesHomeFragment())
+        var adapter = HomeFragment_ViewPagerAdapter(
+            listOfFragments,
+            activity?.supportFragmentManager!!,
+            lifecycle
+        )
+
+        binding.homeFragmentMainActivityViewPager.adapter = adapter
+
+        TabLayoutMediator(binding.homeFragmentMainActivityTabs, binding.homeFragmentMainActivityViewPager){ tab, position ->
+            tab.text = when (position){
+                0 -> "Location"
+                1 -> "Likes"
+                else -> ""
+            }
+        }.attach()
+
     }
 }
