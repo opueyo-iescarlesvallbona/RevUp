@@ -68,7 +68,8 @@ namespace RevupCrud.Controller
                 f.dtpDateBirth.Value = usuari.date_of_birth;
                 f.txtLoginDate.Text = usuari.login_date.Date.ToString("dd-MM-yyyy");
                 f.txtDescription.Text = usuari.description;
-                f.dataGridViewCars.DataSource = usuari.cars.ToList();
+                f.dataGridViewCars.DataSource = GetMemberCarTable(usuari.id);                
+
                 f.dataGridViewPosts.DataSource = usuari.posts.ToList();
                 f.dataGridViewFriends.DataSource = r.GetFriends(usuari.id);
                 f.dataGridViewClubs.DataSource = GetMembersClubTable(false);
@@ -142,6 +143,25 @@ namespace RevupCrud.Controller
             }
             return membersTable;
 
+        }
+
+        List<MemberCarTable> GetMemberCarTable(int id)
+        {
+            List<MemberCarTable> carsTable = new List<MemberCarTable>();
+            List<car> cars = r.GetMemberCars(id);
+            foreach (var car in cars)
+            {
+                MemberCarTable carT = new MemberCarTable
+                {
+                    Id = car.id,
+                    Brand = car.model.brand.name,
+                    Model = car.model.model_name,
+                    Year = car.model_year,
+                    HP = car.horse_power
+                };
+                carsTable.Add(carT);
+            }
+            return carsTable;
         }
 
         private void BtnGuardar_Click_Update(object sender, EventArgs e)

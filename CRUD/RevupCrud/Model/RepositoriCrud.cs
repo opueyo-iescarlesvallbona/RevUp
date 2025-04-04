@@ -166,7 +166,7 @@ namespace RevupCrud.Model
             List<member> friends = new List<member>();
             try
             {
-                friends = Repositori.db.member_relation.Where(x => x.member_id1.Equals(id)).Select(x => x.member1).ToList();
+                friends = Repositori.db.member_relation.Where(x => x.member_id1.Equals(id) || x.member_id2.Equals(id)).Select(x => x.member1).ToList();
             }
             catch
             {
@@ -359,6 +359,20 @@ namespace RevupCrud.Model
                 Repositori.dbConnect();
             }
             return post_types;
+        }
+
+        public List<car> GetMemberCars(int id)
+        {
+            List<car> cars = new List<car>();
+            try
+            {
+                cars = Repositori.db.cars.Where(x => x.member_id.Equals(id)).ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return cars;
         }
     }
 }

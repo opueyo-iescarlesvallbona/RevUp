@@ -41,8 +41,7 @@ namespace RevupCrud.Controller
                 }
 
                 f.dataGridViewEvents.DataSource = r.GetEventsByClub(club.id);
-                f.dataGridViewMembers.DataSource = GetMembersClubTable();
-                f.dataGridViewMembers.Columns["Id"].Visible = false;
+                f.dataGridViewMembers.DataSource = GetMembersClubTable();                
                 f.dataGridViewMembers.Columns["name"].HeaderText = "MemberName";
 
 
