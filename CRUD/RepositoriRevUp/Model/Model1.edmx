@@ -5,16 +5,23 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="revupModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="brand">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="car">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="brand" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="model" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="model_year" Type="int" Nullable="false" />
-          <Property Name="description" Type="text" />
           <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="model_id" Type="int" Nullable="false" />
+          <Property Name="model_year" Type="int" />
+          <Property Name="horse_power" Type="float" />
+          <Property Name="description" Type="text" />
         </EntityType>
         <EntityType Name="club">
           <Key>
@@ -129,6 +136,14 @@
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="model">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_brand" Type="int" Nullable="false" />
+          <Property Name="model_name" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
         <EntityType Name="post">
           <Key>
             <PropertyRef Name="id" />
@@ -193,7 +208,7 @@
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK__car__member_id__571DF1D5">
+        <Association Name="FK__car__member_id__756D6ECB">
           <End Role="member" Type="Self.member" Multiplicity="1" />
           <End Role="car" Type="Self.car" Multiplicity="*" />
           <ReferentialConstraint>
@@ -202,6 +217,18 @@
             </Principal>
             <Dependent Role="car">
               <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__car__model_id__76619304">
+          <End Role="model" Type="Self.model" Multiplicity="1" />
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="model">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="model_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -373,6 +400,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__model__id_brand__44CA3770">
+          <End Role="brand" Type="Self.brand" Multiplicity="1" />
+          <End Role="model" Type="Self.model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="brand">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="model">
+              <PropertyRef Name="id_brand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__post__member_id__787EE5A0">
           <End Role="member" Type="Self.member" Multiplicity="1" />
           <End Role="post" Type="Self.post" Multiplicity="*" />
@@ -446,6 +485,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="revupModelStoreContainer">
+          <EntitySet Name="brand" EntityType="Self.brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="car" EntityType="Self.car" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="club" EntityType="Self.club" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="club_event" EntityType="Self.club_event" Schema="dbo" store:Type="Tables" />
@@ -458,14 +498,19 @@
           <EntitySet Name="member_relation" EntityType="Self.member_relation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="message" EntityType="Self.message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="message_state" EntityType="Self.message_state" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="model" EntityType="Self.model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="post_comment" EntityType="Self.post_comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="post_type" EntityType="Self.post_type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="relation_state" EntityType="Self.relation_state" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="route" EntityType="Self.route" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="terrain_type" EntityType="Self.terrain_type" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__car__member_id__571DF1D5" Association="Self.FK__car__member_id__571DF1D5">
+          <AssociationSet Name="FK__car__member_id__756D6ECB" Association="Self.FK__car__member_id__756D6ECB">
             <End Role="member" EntitySet="member" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="FK__car__model_id__76619304" Association="Self.FK__car__model_id__76619304">
+            <End Role="model" EntitySet="model" />
             <End Role="car" EntitySet="car" />
           </AssociationSet>
           <AssociationSet Name="FK__club__founder__5BE2A6F2" Association="Self.FK__club__founder__5BE2A6F2">
@@ -524,6 +569,10 @@
             <End Role="message_state" EntitySet="message_state" />
             <End Role="message" EntitySet="message" />
           </AssociationSet>
+          <AssociationSet Name="FK__model__id_brand__44CA3770" Association="Self.FK__model__id_brand__44CA3770">
+            <End Role="brand" EntitySet="brand" />
+            <End Role="model" EntitySet="model" />
+          </AssociationSet>
           <AssociationSet Name="FK__post__member_id__787EE5A0" Association="Self.FK__post__member_id__787EE5A0">
             <End Role="member" EntitySet="member" />
             <End Role="post" EntitySet="post" />
@@ -553,18 +602,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="revupModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="car">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="brand" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="model" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="model_year" Type="Int32" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="member_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="member" Relationship="Self.FK__car__member_id__571DF1D5" FromRole="car" ToRole="member" />
-        </EntityType>
         <EntityType Name="club">
           <Key>
             <PropertyRef Name="id" />
@@ -620,7 +657,6 @@
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="profile_picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="cars" Relationship="Self.FK__car__member_id__571DF1D5" FromRole="member" ToRole="car" />
           <NavigationProperty Name="clubs" Relationship="Self.FK__club__founder__5BE2A6F2" FromRole="member" ToRole="club" />
           <NavigationProperty Name="gender" Relationship="Self.FK__member__gender_i__534D60F1" FromRole="member" ToRole="gender" />
           <NavigationProperty Name="member_location" Relationship="Self.FK__member__location__5441852A" FromRole="member" ToRole="member_location" />
@@ -631,6 +667,7 @@
           <NavigationProperty Name="messages1" Relationship="Self.FK__message__sender___0F624AF8" FromRole="member" ToRole="message" />
           <NavigationProperty Name="posts" Relationship="Self.FK__post__member_id__787EE5A0" FromRole="member" ToRole="post" />
           <NavigationProperty Name="routes" Relationship="Self.FK__route__member_id__70DDC3D8" FromRole="member" ToRole="route" />
+          <NavigationProperty Name="cars" Relationship="revupModel.FK__car__member_id__756D6ECB" FromRole="member" ToRole="car" />
         </EntityType>
         <EntityType Name="member_club">
           <Key>
@@ -775,18 +812,6 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="routes" Relationship="Self.FK__route__terrain_t__71D1E811" FromRole="terrain_type" ToRole="route" />
         </EntityType>
-        <Association Name="FK__car__member_id__571DF1D5">
-          <End Role="member" Type="Self.member" Multiplicity="1" />
-          <End Role="car" Type="Self.car" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="member">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="car">
-              <PropertyRef Name="member_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__club__founder__5BE2A6F2">
           <End Role="member" Type="Self.member" Multiplicity="1" />
           <End Role="club" Type="Self.club" Multiplicity="*" />
@@ -1004,7 +1029,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="revupEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="cars" EntityType="Self.car" />
           <EntitySet Name="clubs" EntityType="Self.club" />
           <EntitySet Name="club_event" EntityType="Self.club_event" />
           <EntitySet Name="genders" EntityType="Self.gender" />
@@ -1021,10 +1045,6 @@
           <EntitySet Name="relation_state" EntityType="Self.relation_state" />
           <EntitySet Name="routes" EntityType="Self.route" />
           <EntitySet Name="terrain_type" EntityType="Self.terrain_type" />
-          <AssociationSet Name="FK__car__member_id__571DF1D5" Association="Self.FK__car__member_id__571DF1D5">
-            <End Role="member" EntitySet="members" />
-            <End Role="car" EntitySet="cars" />
-          </AssociationSet>
           <AssociationSet Name="FK__club__founder__5BE2A6F2" Association="Self.FK__club__founder__5BE2A6F2">
             <End Role="member" EntitySet="members" />
             <End Role="club" EntitySet="clubs" />
@@ -1106,6 +1126,21 @@
             <End Role="event_state" EntitySet="event_state" />
             <End Role="club_event" EntitySet="club_event" />
           </AssociationSet>
+          <EntitySet Name="brands" EntityType="revupModel.brand" />
+          <EntitySet Name="models" EntityType="revupModel.model" />
+          <AssociationSet Name="FK__model__id_brand__44CA3770" Association="revupModel.FK__model__id_brand__44CA3770">
+            <End Role="brand" EntitySet="brands" />
+            <End Role="model" EntitySet="models" />
+          </AssociationSet>
+          <EntitySet Name="cars" EntityType="revupModel.car" />
+          <AssociationSet Name="FK__car__member_id__756D6ECB" Association="revupModel.FK__car__member_id__756D6ECB">
+            <End Role="member" EntitySet="members" />
+            <End Role="car" EntitySet="cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__car__model_id__76619304" Association="revupModel.FK__car__model_id__76619304">
+            <End Role="model" EntitySet="models" />
+            <End Role="car" EntitySet="cars" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK__post__post_type__1EA48E88">
           <End Type="revupModel.post_type" Role="post_type" Multiplicity="1" />
@@ -1139,24 +1174,79 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="brand">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="models" Relationship="revupModel.FK__model__id_brand__44CA3770" FromRole="brand" ToRole="model" />
+        </EntityType>
+        <EntityType Name="model">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_brand" Type="Int32" Nullable="false" />
+          <Property Name="model_name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="brand" Relationship="revupModel.FK__model__id_brand__44CA3770" FromRole="model" ToRole="brand" />
+          <NavigationProperty Name="cars" Relationship="revupModel.FK__car__model_id__76619304" FromRole="model" ToRole="car" />
+        </EntityType>
+        <Association Name="FK__model__id_brand__44CA3770">
+          <End Type="revupModel.brand" Role="brand" Multiplicity="1" />
+          <End Type="revupModel.model" Role="model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="brand">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="model">
+              <PropertyRef Name="id_brand" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="model_id" Type="Int32" Nullable="false" />
+          <Property Name="model_year" Type="Int32" />
+          <Property Name="horse_power" Type="Double" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="member" Relationship="revupModel.FK__car__member_id__756D6ECB" FromRole="car" ToRole="member" />
+          <NavigationProperty Name="model" Relationship="revupModel.FK__car__model_id__76619304" FromRole="car" ToRole="model" />
+        </EntityType>
+        <Association Name="FK__car__member_id__756D6ECB">
+          <End Type="revupModel.member" Role="member" Multiplicity="1" />
+          <End Type="revupModel.car" Role="car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__car__model_id__76619304">
+          <End Type="revupModel.model" Role="model" Multiplicity="1" />
+          <End Type="revupModel.car" Role="car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="model">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="model_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="revupModelStoreContainer" CdmEntityContainer="revupEntities">
-          <EntitySetMapping Name="cars">
-            <EntityTypeMapping TypeName="revupModel.car">
-              <MappingFragment StoreEntitySet="car">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="brand" ColumnName="brand" />
-                <ScalarProperty Name="model" ColumnName="model" />
-                <ScalarProperty Name="model_year" ColumnName="model_year" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="member_id" ColumnName="member_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="clubs">
             <EntityTypeMapping TypeName="revupModel.club">
               <MappingFragment StoreEntitySet="club">
@@ -1343,6 +1433,35 @@
             <EntityTypeMapping TypeName="revupModel.event_state">
               <MappingFragment StoreEntitySet="event_state">
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="brands">
+            <EntityTypeMapping TypeName="revupModel.brand">
+              <MappingFragment StoreEntitySet="brand">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="models">
+            <EntityTypeMapping TypeName="revupModel.model">
+              <MappingFragment StoreEntitySet="model">
+                <ScalarProperty Name="model_name" ColumnName="model_name" />
+                <ScalarProperty Name="id_brand" ColumnName="id_brand" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cars">
+            <EntityTypeMapping TypeName="revupModel.car">
+              <MappingFragment StoreEntitySet="car">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="horse_power" ColumnName="horse_power" />
+                <ScalarProperty Name="model_year" ColumnName="model_year" />
+                <ScalarProperty Name="model_id" ColumnName="model_id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

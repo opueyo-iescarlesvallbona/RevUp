@@ -1,15 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="revupModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="brand">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
   <EntityType Name="car">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="brand" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="model" Type="varchar" MaxLength="200" Nullable="false" />
-    <Property Name="model_year" Type="int" Nullable="false" />
-    <Property Name="description" Type="text" />
     <Property Name="member_id" Type="int" Nullable="false" />
+    <Property Name="model_id" Type="int" Nullable="false" />
+    <Property Name="model_year" Type="int" />
+    <Property Name="horse_power" Type="float" />
+    <Property Name="description" Type="text" />
   </EntityType>
   <EntityType Name="club">
     <Key>
@@ -124,6 +131,14 @@
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="model">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_brand" Type="int" Nullable="false" />
+    <Property Name="model_name" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
   <EntityType Name="post">
     <Key>
       <PropertyRef Name="id" />
@@ -188,7 +203,7 @@
     <Property Name="id" Type="int" Nullable="false" />
     <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <Association Name="FK__car__member_id__571DF1D5">
+  <Association Name="FK__car__member_id__756D6ECB">
     <End Role="member" Type="Self.member" Multiplicity="1" />
     <End Role="car" Type="Self.car" Multiplicity="*" />
     <ReferentialConstraint>
@@ -197,6 +212,18 @@
       </Principal>
       <Dependent Role="car">
         <PropertyRef Name="member_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__car__model_id__76619304">
+    <End Role="model" Type="Self.model" Multiplicity="1" />
+    <End Role="car" Type="Self.car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="model">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="car">
+        <PropertyRef Name="model_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -368,6 +395,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__model__id_brand__44CA3770">
+    <End Role="brand" Type="Self.brand" Multiplicity="1" />
+    <End Role="model" Type="Self.model" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="brand">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="model">
+        <PropertyRef Name="id_brand" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__post__member_id__787EE5A0">
     <End Role="member" Type="Self.member" Multiplicity="1" />
     <End Role="post" Type="Self.post" Multiplicity="*" />
@@ -441,6 +480,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="revupModelStoreContainer">
+    <EntitySet Name="brand" EntityType="Self.brand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="car" EntityType="Self.car" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="club" EntityType="Self.club" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="club_event" EntityType="Self.club_event" Schema="dbo" store:Type="Tables" />
@@ -453,14 +493,19 @@
     <EntitySet Name="member_relation" EntityType="Self.member_relation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="message" EntityType="Self.message" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="message_state" EntityType="Self.message_state" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="model" EntityType="Self.model" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="post_comment" EntityType="Self.post_comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="post_type" EntityType="Self.post_type" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="relation_state" EntityType="Self.relation_state" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="route" EntityType="Self.route" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="terrain_type" EntityType="Self.terrain_type" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__car__member_id__571DF1D5" Association="Self.FK__car__member_id__571DF1D5">
+    <AssociationSet Name="FK__car__member_id__756D6ECB" Association="Self.FK__car__member_id__756D6ECB">
       <End Role="member" EntitySet="member" />
+      <End Role="car" EntitySet="car" />
+    </AssociationSet>
+    <AssociationSet Name="FK__car__model_id__76619304" Association="Self.FK__car__model_id__76619304">
+      <End Role="model" EntitySet="model" />
       <End Role="car" EntitySet="car" />
     </AssociationSet>
     <AssociationSet Name="FK__club__founder__5BE2A6F2" Association="Self.FK__club__founder__5BE2A6F2">
@@ -518,6 +563,10 @@
     <AssociationSet Name="FK__message__state_i__114A936A" Association="Self.FK__message__state_i__114A936A">
       <End Role="message_state" EntitySet="message_state" />
       <End Role="message" EntitySet="message" />
+    </AssociationSet>
+    <AssociationSet Name="FK__model__id_brand__44CA3770" Association="Self.FK__model__id_brand__44CA3770">
+      <End Role="brand" EntitySet="brand" />
+      <End Role="model" EntitySet="model" />
     </AssociationSet>
     <AssociationSet Name="FK__post__member_id__787EE5A0" Association="Self.FK__post__member_id__787EE5A0">
       <End Role="member" EntitySet="member" />

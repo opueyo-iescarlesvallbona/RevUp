@@ -17,7 +17,6 @@ namespace RepositoriRevUp.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public member()
         {
-            this.cars = new HashSet<car>();
             this.clubs = new HashSet<club>();
             this.member_club = new HashSet<member_club>();
             this.member_relation = new HashSet<member_relation>();
@@ -26,6 +25,7 @@ namespace RepositoriRevUp.Model
             this.messages1 = new HashSet<message>();
             this.posts = new HashSet<post>();
             this.routes = new HashSet<route>();
+            this.cars = new HashSet<car>();
         }
     
         public int id { get; set; }
@@ -41,8 +41,6 @@ namespace RepositoriRevUp.Model
         public byte[] profile_picture { get; set; }
         public string password { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<car> cars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<club> clubs { get; set; }
         public virtual gender gender { get; set; }
@@ -61,5 +59,7 @@ namespace RepositoriRevUp.Model
         public virtual ICollection<post> posts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<route> routes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<car> cars { get; set; }
     }
 }

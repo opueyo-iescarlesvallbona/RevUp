@@ -34,32 +34,119 @@ namespace RevupCrud.Controller
         private void SetListneresPost()
         {
             posts.btnBuscar.Click += BtnBuscar_ClickPost;
-            //posts.dataGridView.CellFormatting += DataGridView_CellFormatting;
-            //posts.dataGridView.CellDoubleClick += DataGridView_CellDoubleClick;
-            //posts.btnInsert.Click += BtnInsert_Click;
+            posts.dataGridView.CellFormatting += DataGridView_CellFormattingPost;
+            posts.dataGridView.CellDoubleClick += DataGridView_CellDoubleClickPost;
+            posts.btnInsert.Click += BtnInsert_ClickPost;
+        }
+
+        void BtnInsert_ClickPost(object sender, EventArgs e)
+        {
+            ViewPostDetails f = new ViewPostDetails();
+            f.FormClosed += PostDetailsFormClosed;
+            new ControllerPostDetails(null, f);
+        }
+
+        void DataGridView_CellDoubleClickPost(object sender, DataGridViewCellEventArgs e)
+        {
+            post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
+            post post = new post
+            {
+                id = p.id,
+                title = p.title,
+                description = p.description,
+                picture = p.picture,
+                likes = p.likes,
+                comments = p.comments,
+                post_date = p.post_date,
+                member = p.member,
+                post_type1 = p.post_type1,
+                route = p.route
+            };
+            ViewPostDetails f = new ViewPostDetails();
+            new ControllerPostDetails(post, f);
+            f.FormClosed += PostDetailsFormClosed;
+        }
+
+        private void PostDetailsFormClosed(object sender, FormClosedEventArgs e)
+        {
+            List<post> Listposts = SearchPosts();
+            if (Listposts != null)
+            {
+                posts.dataGridView.DataSource = Listposts;
+            }
+        }
+
+        void DataGridView_CellFormattingPost(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridViewColumn column = posts.dataGridView.Columns[e.ColumnIndex];
+            if (e.RowIndex >= 0)
+            {
+                if (column.HeaderText.Equals("post_type1"))
+                {
+                    post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
+                    if (p != null)
+                    {
+                        e.Value = p.post_type1.name;
+                    }
+                }
+                else if (column.HeaderText.Equals("member"))
+                {
+                    post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
+                    if (p != null)
+                    {
+                        e.Value = p.member.membername;
+                    }
+                }
+                else if(column.HeaderText.Equals("route"))
+                {
+                    post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
+                    if (p.route != null)
+                    {
+                        e.Value = p.route.name;
+                    }
+                }
+            }
         }
 
         void BtnBuscar_ClickPost(object sender, EventArgs e)
         {
+            List<post> Listposts = SearchPosts();
+            if (Listposts != null)
+            {
+                posts.dataGridView.DataSource = Listposts;
+            }
+        }
+
+        List<post> SearchPosts()
+        {
+            if (posts.dateTimeTo.Value.Date < posts.dateTimeFrom.Value.Date && posts.dateTimeTo.Checked && posts.dateTimeFrom.Checked)
+            {
+                MessageBox.Show("The To date cannot be earlier than the From date", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
             List<post> Listposts = r.GetAllPosts();
             if (posts.txtTitle.Text != "")
             {
                 Listposts = Listposts.Where(x => x.title.Contains(posts.txtTitle.Text)).ToList();
             }
-            if ((posts.comboPostType.SelectedValue as post_type).name != "Tots")
+            if ((posts.comboPostType.SelectedItem as post_type).name != "Tots")
             {
                 Listposts = Listposts.Where(x => x.post_type.Equals((posts.comboPostType.SelectedValue as post_type).id)).ToList();
             }
-            if (posts.dateTimeFrom.Checked)
+            if (posts.dateTimeFrom.Checked && posts.dateTimeTo.Checked)
             {
-                Listposts = Listposts.Where(x => x.post_date >= posts.dateTimeFrom.Value).ToList();
+                Listposts = Listposts.Where(x => x.post_date.Date >= posts.dateTimeFrom.Value.Date && x.post_date.Date <= posts.dateTimeTo.Value.Date).ToList();
             }
-            if (posts.dateTimeTo.Checked)
+            else if (posts.dateTimeTo.Checked)
             {
-                Listposts = Listposts.Where(x => x.post_date <= posts.dateTimeTo.Value).ToList();
+                Listposts = Listposts.Where(x => x.post_date.Date <= posts.dateTimeTo.Value.Date).ToList();
+            }
+            else if (posts.dateTimeFrom.Checked)
+            {
+                Listposts = Listposts.Where(x => x.post_date.Date >= posts.dateTimeFrom.Value.Date).ToList();
             }
 
-            switch (posts.comboOrder.SelectedText)
+            switch (posts.comboOrder.SelectedValue)
             {
                 case "More to less likes":
                     Listposts = Listposts.OrderByDescending(x => x.likes).ToList();
@@ -74,7 +161,27 @@ namespace RevupCrud.Controller
                     Listposts = Listposts.OrderBy(x => x.comments).ToList();
                     break;
             }
-            posts.dataGridView.DataSource = Listposts;
+
+            switch ((posts.comboPostType.SelectedItem as post_type).name)
+            {
+                case "Image":
+                    posts.dataGridView.Columns["picture"].Visible = true;
+                    posts.dataGridView.Columns["route"].Visible = false;
+                    break;
+                case "Route":
+                    posts.dataGridView.Columns["picture"].Visible = false;
+                    posts.dataGridView.Columns["route"].Visible = true;
+                    break;
+                case "Text":
+                    posts.dataGridView.Columns["picture"].Visible = false;
+                    posts.dataGridView.Columns["route"].Visible = false;
+                    break;
+                default:
+                    posts.dataGridView.Columns["picture"].Visible = true;
+                    posts.dataGridView.Columns["route"].Visible = true;
+                    break;
+            }
+            return Listposts;
         }
 
         private void BtnPost_Click(object sender, EventArgs e)
@@ -86,7 +193,9 @@ namespace RevupCrud.Controller
             List<post_type> post_Types = new List<post_type>();
             post_Types.Add(new post_type { name = "Tots", id = -1 });
             post_Types.AddRange(r.GetAllPostTypes());
-            posts.comboPostType.DataSource = post_Types.Select(x => x.name).ToList();
+            posts.comboPostType.DataSource = post_Types.ToList();
+
+            posts.comboPostType.DisplayMember = "name";
 
             List<string> orders = new List<string>();
             orders.Add("More to less likes");
@@ -95,7 +204,12 @@ namespace RevupCrud.Controller
             orders.Add("Less to more comments");
             posts.comboOrder.DataSource = orders;
 
-            posts.dataGridView.DataSource = Listposts;
+            posts.dateTimeFrom.Checked = false;
+            posts.dateTimeTo.Checked = false;
+            posts.dataGridView.DataSource = Listposts.OrderByDescending(x => x.likes).ToList();
+            posts.dataGridView.Columns["post_type"].Visible = false;
+            posts.dataGridView.Columns["post_comment"].Visible = false;
+            posts.dataGridView.Columns["route_id"].Visible = false;
 
             posts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             posts.dataGridView.BorderStyle = BorderStyle.None;
@@ -287,7 +401,7 @@ namespace RevupCrud.Controller
                 description = m.description,
                 date_of_birth = m.date_of_birth,
                 login_date = m.login_date,
-                cars = m.cars,
+                //cars = m.cars,
                 clubs = m.clubs,
                 posts = m.posts,
                 routes = m.routes

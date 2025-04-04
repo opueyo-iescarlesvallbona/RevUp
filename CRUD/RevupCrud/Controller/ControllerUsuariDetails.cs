@@ -23,7 +23,7 @@ namespace RevupCrud.Controller
             f.txtName.TextChanged += Txt_TextChanged;
             f.txtMemberName.TextChanged += Txt_TextChanged;
             f.txtExperience.TextChanged += Txt_TextChanged;
-            f.txtEmail.TextChanged += Txt_TextChanged;            
+            f.txtEmail.TextChanged += Txt_TextChanged;
             f.txtLocation.TextChanged += Txt_TextChanged;
             f.chbFounder.CheckedChanged += Chb_CheckedChanged;
         }
@@ -35,7 +35,7 @@ namespace RevupCrud.Controller
 
         private void Chb_CheckedChanged(object sender, EventArgs e)
         {
-            if(usuari != null)
+            if (usuari != null)
             {
                 if (f.chbFounder.Checked)
                 {
@@ -45,12 +45,12 @@ namespace RevupCrud.Controller
                 {
                     f.dataGridViewClubs.DataSource = GetMembersClubTable(false);
                 }
-            }           
+            }
         }
 
         void LoadData()
         {
-            if(usuari != null)
+            if (usuari != null)
             {
                 f.lblTitol.Text = "Detalls de l'usuari " + usuari.id;
                 f.txtName.Text = usuari.name;
@@ -60,7 +60,7 @@ namespace RevupCrud.Controller
                 genders.Add(r.GetAllGenders().Where(x => x.id.Equals(usuari.gender_id)).FirstOrDefault().name);
                 f.comboGender.DataSource = genders;
 
-                
+
                 f.txtLocation.Text = r.GetLocationById(usuari.location_id).municipality;
 
                 f.txtExperience.Text = usuari.experience.ToString();
@@ -97,7 +97,7 @@ namespace RevupCrud.Controller
                 f.lblTitol.Text = "Nou Usuari";
                 f.txtName.Enabled = true;
                 f.txtMemberName.Enabled = true;
-                f.comboGender.DataSource = r.GetAllGenders().OrderBy(x => x.name).Select(x=>x.name).ToList();
+                f.comboGender.DataSource = r.GetAllGenders().OrderBy(x => x.name).Select(x => x.name).ToList();
                 f.comboGender.Enabled = true;
                 f.dtpDateBirth.Value = DateTime.Now;
 
@@ -128,7 +128,7 @@ namespace RevupCrud.Controller
             else
             {
                 clubs = r.GetMemberClubsByMemberId(usuari.id);
-            }            
+            }
             foreach (member_club c in clubs)
             {
                 MemberClubTable member = new MemberClubTable
@@ -188,9 +188,9 @@ namespace RevupCrud.Controller
                 error = error + "· The username can't be empty.\n";
                 ok = false;
             }
-            else if (r.GetAllMembers("", "", "", "").Where(x => x.membername.Equals(f.txtMemberName.Text)).ToList().Count>0)
+            else if (r.GetAllMembers("", "", "", "").Where(x => x.membername.Equals(f.txtMemberName.Text)).ToList().Count > 0)
             {
-                if(r.GetAllMembers("", "", "", "").Where(x => x.membername.Equals(f.txtMemberName.Text)).FirstOrDefault().id != usuari.id)
+                if (r.GetAllMembers("", "", "", "").Where(x => x.membername.Equals(f.txtMemberName.Text)).FirstOrDefault().id != usuari.id)
                 {
                     f.txtMemberName.BackColor = System.Drawing.Color.Red;
                     error = error + "· The username already exists.\n";
@@ -205,7 +205,7 @@ namespace RevupCrud.Controller
                 error = error + "· The municipality can't be empty.\n";
                 ok = false;
             }
-            else if (r.GetAllLocations().Where(x => x.municipality.Equals(f.txtLocation.Text.ToString())).ToList().Count==0)
+            else if (r.GetAllLocations().Where(x => x.municipality.Equals(f.txtLocation.Text.ToString())).ToList().Count == 0)
             {
                 f.txtLocation.BackColor = System.Drawing.Color.Red;
                 error = error + "· The municipality doesn't exist.\n";
@@ -233,14 +233,15 @@ namespace RevupCrud.Controller
             }
 
             // date of birth comprovations
-            if(f.dtpDateBirth.Value > DateTime.Now)
+            if (f.dtpDateBirth.Value > DateTime.Now)
             {
                 error = error + "· The date of birth can't be older than now.\n";
                 ok = false;
-            }else if(f.dtpDateBirth.Value.AddYears(16) > DateTime.Now)
+            }
+            else if (f.dtpDateBirth.Value.AddYears(16) > DateTime.Now)
             {
                 error = error + "· The minimum age is: 18 years.\n";
-            }            
+            }
             if (!ok)
             {
                 MessageBox.Show(error);
@@ -321,11 +322,11 @@ namespace RevupCrud.Controller
 
         public ControllerUsuariDetails(member usuari, ViewUsuariDetails form)
         {
-            if(usuari != null)
+            if (usuari != null)
             {
                 this.usuari = usuari;
             }
-            if(form != null)
+            if (form != null)
             {
                 f = form;
             }

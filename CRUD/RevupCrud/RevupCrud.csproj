@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Controller\ControllerClubDetails.cs" />
     <Compile Include="Controller\ControllerCrud.cs" />
+    <Compile Include="Controller\ControllerPostDetails.cs" />
     <Compile Include="Controller\ControllerUsuariDetails.cs" />
     <Compile Include="Model\MemberClubTable.cs" />
     <Compile Include="Model\RepositoriCrud.cs" />

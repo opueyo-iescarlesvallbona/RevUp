@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c131ae6fb87f4088bb50d3bb7eddc19e" Name="Diagram1">
-        <EntityTypeShape EntityType="revupModel.car" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="revupModel.club" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="revupModel.club_event" Width="1.5" PointX="7.5" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="revupModel.gender" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
@@ -22,7 +21,6 @@
         <EntityTypeShape EntityType="revupModel.relation_state" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="revupModel.route" Width="1.5" PointX="10.25" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="revupModel.terrain_type" Width="1.5" PointX="8" PointY="8.375" IsExpanded="true" />
-        <AssociationConnector Association="revupModel.FK__car__member_id__571DF1D5" ManuallyRouted="false" />
         <AssociationConnector Association="revupModel.FK__club__founder__5BE2A6F2" ManuallyRouted="false" />
         <AssociationConnector Association="revupModel.FK__club_even__club___693CA210" ManuallyRouted="false" />
         <AssociationConnector Association="revupModel.FK__member_cl__club___6477ECF3" ManuallyRouted="false" />
@@ -44,6 +42,12 @@
         <AssociationConnector Association="revupModel.FK__post__post_type__1EA48E88" />
         <EntityTypeShape EntityType="revupModel.event_state" Width="1.5" PointX="0.75" PointY="0.875" />
         <AssociationConnector Association="revupModel.FK__club_even__state__531856C7" />
+        <EntityTypeShape EntityType="revupModel.brand" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="revupModel.model" Width="1.5" PointX="3" PointY="5.625" />
+        <AssociationConnector Association="revupModel.FK__model__id_brand__44CA3770" />
+        <EntityTypeShape EntityType="revupModel.car" Width="1.5" PointX="10.25" PointY="3" />
+        <AssociationConnector Association="revupModel.FK__car__member_id__756D6ECB" />
+        <AssociationConnector Association="revupModel.FK__car__model_id__76619304" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,16 +12,20 @@ namespace RepositoriRevUp.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class car
+    public partial class model
     {
-        public int id { get; set; }
-        public int member_id { get; set; }
-        public int model_id { get; set; }
-        public Nullable<int> model_year { get; set; }
-        public Nullable<double> horse_power { get; set; }
-        public string description { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public model()
+        {
+            this.cars = new HashSet<car>();
+        }
     
-        public virtual member member { get; set; }
-        public virtual model model { get; set; }
+        public int id { get; set; }
+        public int id_brand { get; set; }
+        public string model_name { get; set; }
+    
+        public virtual brand brand { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<car> cars { get; set; }
     }
 }
