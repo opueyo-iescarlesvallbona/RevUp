@@ -43,7 +43,6 @@
             this.lblPosts = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtExperience = new System.Windows.Forms.TextBox();
-            this.txtDateBirth = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtMemberName = new System.Windows.Forms.TextBox();
             this.txtLoginDate = new System.Windows.Forms.TextBox();
@@ -59,6 +58,7 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.chbFounder = new System.Windows.Forms.CheckBox();
+            this.dtpDateBirth = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCars)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClubs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPosts)).BeginInit();
@@ -208,7 +208,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(109, 63);
             this.txtName.Name = "txtName";
-            this.txtName.ReadOnly = true;
             this.txtName.Size = new System.Drawing.Size(430, 20);
             this.txtName.TabIndex = 14;
             // 
@@ -218,26 +217,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExperience.Location = new System.Drawing.Point(109, 128);
             this.txtExperience.Name = "txtExperience";
-            this.txtExperience.ReadOnly = true;
             this.txtExperience.Size = new System.Drawing.Size(430, 20);
             this.txtExperience.TabIndex = 15;
-            // 
-            // txtDateBirth
-            // 
-            this.txtDateBirth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDateBirth.Location = new System.Drawing.Point(109, 158);
-            this.txtDateBirth.Name = "txtDateBirth";
-            this.txtDateBirth.ReadOnly = true;
-            this.txtDateBirth.Size = new System.Drawing.Size(430, 20);
-            this.txtDateBirth.TabIndex = 16;
             // 
             // txtEmail
             // 
             this.txtEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEmail.Location = new System.Drawing.Point(688, 124);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.ReadOnly = true;
             this.txtEmail.Size = new System.Drawing.Size(447, 20);
             this.txtEmail.TabIndex = 17;
             // 
@@ -246,7 +233,6 @@
             this.txtMemberName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMemberName.Location = new System.Drawing.Point(688, 62);
             this.txtMemberName.Name = "txtMemberName";
-            this.txtMemberName.ReadOnly = true;
             this.txtMemberName.Size = new System.Drawing.Size(447, 20);
             this.txtMemberName.TabIndex = 19;
             // 
@@ -314,7 +300,7 @@
             // 
             // comboGender
             // 
-            this.comboGender.Enabled = false;
+            this.comboGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboGender.FormattingEnabled = true;
             this.comboGender.Location = new System.Drawing.Point(109, 94);
             this.comboGender.Name = "comboGender";
@@ -355,7 +341,6 @@
             this.txtLocation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtLocation.Location = new System.Drawing.Point(688, 93);
             this.txtLocation.Name = "txtLocation";
-            this.txtLocation.ReadOnly = true;
             this.txtLocation.Size = new System.Drawing.Size(447, 20);
             this.txtLocation.TabIndex = 32;
             // 
@@ -365,7 +350,6 @@
             this.txtDescription.Location = new System.Drawing.Point(688, 158);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.ReadOnly = true;
             this.txtDescription.Size = new System.Drawing.Size(447, 67);
             this.txtDescription.TabIndex = 34;
             // 
@@ -390,11 +374,23 @@
             this.chbFounder.Text = "Is Founder";
             this.chbFounder.UseVisualStyleBackColor = true;
             // 
+            // dtpDateBirth
+            // 
+            this.dtpDateBirth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtpDateBirth.CustomFormat = " dd / MM / yyyy";
+            this.dtpDateBirth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDateBirth.Location = new System.Drawing.Point(109, 160);
+            this.dtpDateBirth.Name = "dtpDateBirth";
+            this.dtpDateBirth.Size = new System.Drawing.Size(130, 20);
+            this.dtpDateBirth.TabIndex = 36;
+            // 
             // ViewUsuariDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1147, 633);
+            this.Controls.Add(this.dtpDateBirth);
             this.Controls.Add(this.chbFounder);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
@@ -410,7 +406,6 @@
             this.Controls.Add(this.txtLoginDate);
             this.Controls.Add(this.txtMemberName);
             this.Controls.Add(this.txtEmail);
-            this.Controls.Add(this.txtDateBirth);
             this.Controls.Add(this.txtExperience);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblPosts);
@@ -454,7 +449,6 @@
         public System.Windows.Forms.Label lblPosts;
         public System.Windows.Forms.TextBox txtName;
         public System.Windows.Forms.TextBox txtExperience;
-        public System.Windows.Forms.TextBox txtDateBirth;
         public System.Windows.Forms.TextBox txtEmail;
         public System.Windows.Forms.TextBox txtMemberName;
         public System.Windows.Forms.TextBox txtLoginDate;
@@ -470,5 +464,6 @@
         public System.Windows.Forms.TextBox txtDescription;
         public System.Windows.Forms.Label lblDescription;
         public System.Windows.Forms.CheckBox chbFounder;
+        public System.Windows.Forms.DateTimePicker dtpDateBirth;
     }
 }
