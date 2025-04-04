@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace RevupCrud.Controller
 {
@@ -22,8 +23,7 @@ namespace RevupCrud.Controller
             f.txtName.TextChanged += Txt_TextChanged;
             f.txtMemberName.TextChanged += Txt_TextChanged;
             f.txtExperience.TextChanged += Txt_TextChanged;
-            f.txtEmail.TextChanged += Txt_TextChanged;
-            f.txtDateBirth.TextChanged += Txt_TextChanged;
+            f.txtEmail.TextChanged += Txt_TextChanged;            
             f.txtLocation.TextChanged += Txt_TextChanged;
             f.chbFounder.CheckedChanged += Chb_CheckedChanged;
         }
@@ -65,8 +65,8 @@ namespace RevupCrud.Controller
 
                 f.txtExperience.Text = usuari.experience.ToString();
                 f.txtEmail.Text = usuari.email;
-                f.txtDateBirth.Text = usuari.date_of_birth.ToString("yyyy-MM-dd");
-                f.txtLoginDate.Text = usuari.login_date.Date.ToString("yyyy-MM-dd");
+                f.dtpDateBirth.Value = usuari.date_of_birth;
+                f.txtLoginDate.Text = usuari.login_date.Date.ToString("dd-MM-yyyy");
                 f.txtDescription.Text = usuari.description;
                 f.dataGridViewCars.DataSource = usuari.cars.ToList();
                 f.dataGridViewPosts.DataSource = usuari.posts.ToList();
@@ -83,30 +83,31 @@ namespace RevupCrud.Controller
                 f.btnUpdate.Enabled = true;
 
 
-                f.txtLocation.ReadOnly = true;
-                f.txtExperience.ReadOnly = true;
-                f.txtEmail.ReadOnly = true;
-                f.txtDateBirth.ReadOnly = true;
-                f.txtDescription.ReadOnly = true;
+                f.txtLocation.Enabled = false;
+                f.txtExperience.Enabled = false;
+                f.txtEmail.Enabled = false;
+                f.dtpDateBirth.Enabled = false;
+                f.txtDescription.Enabled = false;
                 f.comboGender.Enabled = false;
-                f.txtName.ReadOnly = true;
-                f.txtMemberName.ReadOnly = true;
+                f.txtName.Enabled = false;
+                f.txtMemberName.Enabled = false;
             }
             else
             {
                 f.lblTitol.Text = "Nou Usuari";
-                f.txtName.ReadOnly = false;
-                f.txtMemberName.ReadOnly = false;
+                f.txtName.Enabled = true;
+                f.txtMemberName.Enabled = true;
                 f.comboGender.DataSource = r.GetAllGenders().OrderBy(x => x.name).Select(x=>x.name).ToList();
                 f.comboGender.Enabled = true;
+                f.dtpDateBirth.Value = DateTime.Now;
 
                 f.txtLocation.AutoCompleteCustomSource.AddRange(r.GetAllLocations().OrderBy(x => x.municipality).Select(x => x.municipality).ToArray());
-                f.txtLocation.ReadOnly = false;
+                f.txtLocation.Enabled = true;
 
-                f.txtExperience.ReadOnly = false;
-                f.txtEmail.ReadOnly = false;
-                f.txtDateBirth.ReadOnly = false;
-                f.txtDescription.ReadOnly = false;
+                f.txtExperience.Enabled = true;
+                f.txtEmail.Enabled = true;
+                f.dtpDateBirth.Enabled = true;
+                f.txtDescription.Enabled = true;
 
                 f.btnGuardar.Click += BtnGuardar_Click;
                 f.btnDelete.Enabled = false;
@@ -152,7 +153,7 @@ namespace RevupCrud.Controller
                 usuari.membername = f.txtMemberName.Text;
                 usuari.gender_id = r.GetAllGenders().Where(x => x.name.Equals(f.comboGender.SelectedValue.ToString())).FirstOrDefault().id;
                 usuari.experience = Convert.ToInt32(f.txtExperience.Text);
-                usuari.date_of_birth = Convert.ToDateTime(f.txtDateBirth.Text);
+                usuari.date_of_birth = f.dtpDateBirth.Value;
                 usuari.email = f.txtEmail.Text;
                 usuari.description = f.txtDescription.Text;
 
@@ -171,12 +172,12 @@ namespace RevupCrud.Controller
         private bool Comprovacions()
         {
             bool ok = true;
-            string error = "S'han trobat els següents errors:          \n\n";
+            string error = "Errors found:          \n\n";
             // name comprovations
             if (f.txtName.Text.Equals(""))
             {
                 f.txtName.BackColor = System.Drawing.Color.Red;
-                error = error + "· El nom no pot estar buit\n";
+                error = error + "· The name can't be empty.\n";
                 ok = false;
             }
 
@@ -184,7 +185,7 @@ namespace RevupCrud.Controller
             if (f.txtMemberName.Text.Equals(""))
             {
                 f.txtMemberName.BackColor = System.Drawing.Color.Red;
-                error = error + "· El nom d'usuari no pot estar buit\n";
+                error = error + "· The username can't be empty.\n";
                 ok = false;
             }
             else if (r.GetAllMembers("", "", "", "").Where(x => x.membername.Equals(f.txtMemberName.Text)).ToList().Count>0)
@@ -192,7 +193,7 @@ namespace RevupCrud.Controller
                 if(r.GetAllMembers("", "", "", "").Where(x => x.membername.Equals(f.txtMemberName.Text)).FirstOrDefault().id != usuari.id)
                 {
                     f.txtMemberName.BackColor = System.Drawing.Color.Red;
-                    error = error + "· El nom de usuari ja existeix\n";
+                    error = error + "· The username already exists.\n";
                     ok = false;
                 }
             }
@@ -201,13 +202,13 @@ namespace RevupCrud.Controller
             if (f.txtLocation.Text.Equals(""))
             {
                 f.txtLocation.BackColor = System.Drawing.Color.Red;
-                error = error + "· La població no pot estar buida\n";
+                error = error + "· The municipality can't be empty.\n";
                 ok = false;
             }
             else if (r.GetAllLocations().Where(x => x.municipality.Equals(f.txtLocation.Text.ToString())).ToList().Count==0)
             {
                 f.txtLocation.BackColor = System.Drawing.Color.Red;
-                error = error + "· La població no existeix\n";
+                error = error + "· The municipality doesn't exist.\n";
                 ok = false;
             }
 
@@ -219,7 +220,7 @@ namespace RevupCrud.Controller
             catch
             {
                 f.txtExperience.BackColor = System.Drawing.Color.Red;
-                error = error + "· L'experiencia ha de ser un nombre\n";
+                error = error + "· The experience can't be a number.\n";
                 ok = false;
             }
 
@@ -227,21 +228,19 @@ namespace RevupCrud.Controller
             if (f.txtEmail.Text.Equals(""))
             {
                 f.txtEmail.BackColor = System.Drawing.Color.Red;
-                error = error + "· L'email no pot estar buit\n";
+                error = error + "· The mail can't be empty.\n";
                 ok = false;
             }
 
             // date of birth comprovations
-            try
+            if(f.dtpDateBirth.Value > DateTime.Now)
             {
-                DateTime date = Convert.ToDateTime(f.txtDateBirth.Text);
-            }
-            catch
-            {
-                f.txtDateBirth.BackColor = System.Drawing.Color.Red;
-                error = error + "· La data de naixement no es correcta\n";
+                error = error + "· The date of birth can't be older than now.\n";
                 ok = false;
-            }
+            }else if(f.dtpDateBirth.Value.AddYears(16) > DateTime.Now)
+            {
+                error = error + "· The minimum age is: 18 years.\n";
+            }            
             if (!ok)
             {
                 MessageBox.Show(error);
@@ -255,19 +254,19 @@ namespace RevupCrud.Controller
             f.btnUpdate.Enabled = false;
             f.btnGuardar.Enabled = true;
 
-            f.txtName.ReadOnly = false;
-            f.txtMemberName.ReadOnly = false;
+            f.txtName.Enabled = true;
+            f.txtMemberName.Enabled = true;
             f.comboGender.Enabled = true;
             f.comboGender.DataSource = r.GetAllGenders().OrderBy(x => x.name).Select(x => x.name).ToList();
             f.comboGender.SelectedItem = r.GetAllGenders().Where(x => x.id.Equals(usuari.gender_id)).FirstOrDefault().name;
 
-            f.txtLocation.ReadOnly = false;
-            f.txtDescription.ReadOnly = false;
+            f.txtLocation.Enabled = true;
+            f.txtDescription.Enabled = true;
             f.txtLocation.AutoCompleteCustomSource.AddRange(r.GetAllLocations().OrderBy(x => x.municipality).Select(x => x.municipality).ToArray());
 
-            f.txtExperience.ReadOnly = false;
-            f.txtEmail.ReadOnly = false;
-            f.txtDateBirth.ReadOnly = false;
+            f.txtExperience.Enabled = true;
+            f.txtEmail.Enabled = true;
+            f.dtpDateBirth.Enabled = true;
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -301,7 +300,7 @@ namespace RevupCrud.Controller
                     location_id = r.GetAllLocations().Where(x => x.municipality.Equals(f.txtLocation.Text.ToString())).FirstOrDefault().id,
                     experience = Convert.ToInt32(f.txtExperience.Text),
                     email = f.txtEmail.Text,
-                    date_of_birth = Convert.ToDateTime(f.txtDateBirth.Text),
+                    date_of_birth = f.dtpDateBirth.Value,
                     login_date = DateTime.Now,
                     password = "SystemPassword",
                     description = f.txtDescription.Text
