@@ -21,5 +21,6 @@ namespace RepositoriRevUp.Model
         public System.DateTime datetime { get; set; }
     
         public virtual post post { get; set; }
+        public virtual member member { get; set; }
     }
 }

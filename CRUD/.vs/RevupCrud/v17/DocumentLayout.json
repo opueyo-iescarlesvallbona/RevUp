@@ -1,38 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\ProjecteFinal\\CRUD\\",
+  "WorkspaceRootPath": "C:\\RevUp\\CRUD\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|C:\\ProjecteFinal\\CRUD\\revupcrud\\model\\repositoricrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\model\\repositoricrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\projectefinal\\crud\\revupcrud\\controller\\controllerusuaridetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\controller\\controllerusuaridetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\projectefinal\\crud\\revupcrud\\model\\memberclubtable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\model\\memberclubtable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|C:\\ProjecteFinal\\CRUD\\revupcrud\\view\\viewusuaridetails.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\view\\viewusuaridetails.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|C:\\ProjecteFinal\\CRUD\\revupcrud\\view\\viewusuaridetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\view\\viewusuaridetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|C:\\ProjecteFinal\\CRUD\\revupcrud\\view\\viewpostdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\view\\viewpostdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|C:\\ProjecteFinal\\CRUD\\revupcrud\\controller\\controllerpostdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\controller\\controllerpostdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|C:\\ProjecteFinal\\CRUD\\revupcrud\\controller\\controllercrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\revup\\crud\\revupcrud\\controller\\controllercrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\controller\\controllercrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\revup\\crud\\revupcrud\\controller\\controllerclubdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\controller\\controllerclubdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\revup\\crud\\revupcrud\\view\\viewcommentdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\view\\viewcommentdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\revup\\crud\\revupcrud\\view\\viewcomments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\view\\viewcomments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\revup\\crud\\revupcrud\\controller\\controllercommentsdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\controller\\controllercommentsdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|c:\\revup\\crud\\revupcrud\\model\\repositoricrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C481D453-AAB9-4BE8-BBD5-B8947C813092}|RevupCrud\\RevupCrud.csproj|solutionrelative:revupcrud\\model\\repositoricrud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,116 +34,83 @@
       "DocumentGroups": [
         {
           "DockedWidth": 230,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RepositoriCrud.cs",
+              "DocumentMoniker": "C:\\RevUp\\CRUD\\RevupCrud\\Model\\RepositoriCrud.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\Model\\RepositoriCrud.cs",
+              "ToolTip": "C:\\RevUp\\CRUD\\RevupCrud\\Model\\RepositoriCrud.cs",
+              "RelativeToolTip": "RevupCrud\\Model\\RepositoriCrud.cs",
+              "ViewState": "AgIAAH8BAAAAAAAAAAAAwIcBAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-07T18:52:18.457Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "MemberClubTable.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Model\\MemberClubTable.cs",
-              "RelativeDocumentMoniker": "RevupCrud\\Model\\MemberClubTable.cs",
-              "ToolTip": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Model\\MemberClubTable.cs",
-              "RelativeToolTip": "RevupCrud\\Model\\MemberClubTable.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "ViewCommentDetails.cs [Design]",
+              "DocumentMoniker": "C:\\RevUp\\CRUD\\RevupCrud\\View\\ViewCommentDetails.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\View\\ViewCommentDetails.cs",
+              "ToolTip": "C:\\RevUp\\CRUD\\RevupCrud\\View\\ViewCommentDetails.cs [Design]",
+              "RelativeToolTip": "RevupCrud\\View\\ViewCommentDetails.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T14:59:16.354Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T18:30:10.369Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ViewUsuariDetails.Designer.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\View\\ViewUsuariDetails.Designer.cs",
-              "RelativeDocumentMoniker": "RevupCrud\\View\\ViewUsuariDetails.Designer.cs",
-              "ToolTip": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\View\\ViewUsuariDetails.Designer.cs",
-              "RelativeToolTip": "RevupCrud\\View\\ViewUsuariDetails.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "ViewComments.cs [Design]",
+              "DocumentMoniker": "C:\\RevUp\\CRUD\\RevupCrud\\View\\ViewComments.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\View\\ViewComments.cs",
+              "ToolTip": "C:\\RevUp\\CRUD\\RevupCrud\\View\\ViewComments.cs [Design]",
+              "RelativeToolTip": "RevupCrud\\View\\ViewComments.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T14:56:50.361Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ControllerUsuariDetails.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Controller\\ControllerUsuariDetails.cs",
-              "RelativeDocumentMoniker": "RevupCrud\\Controller\\ControllerUsuariDetails.cs",
-              "ToolTip": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Controller\\ControllerUsuariDetails.cs",
-              "RelativeToolTip": "RevupCrud\\Controller\\ControllerUsuariDetails.cs",
-              "ViewState": "AgIAAFUBAAAAAAAAAAAgwH0BAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T14:56:06.867Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-07T15:32:54.595Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RepositoriCrud.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Model\\RepositoriCrud.cs",
-              "RelativeDocumentMoniker": "RevupCrud\\Model\\RepositoriCrud.cs",
-              "ToolTip": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Model\\RepositoriCrud.cs",
-              "RelativeToolTip": "RevupCrud\\Model\\RepositoriCrud.cs",
-              "ViewState": "AgIAAGABAAAAAAAAAAAowHEBAAANAAAAAAAAAA==",
+              "Title": "ControllerCrud.cs",
+              "DocumentMoniker": "C:\\RevUp\\CRUD\\RevupCrud\\Controller\\ControllerCrud.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\Controller\\ControllerCrud.cs",
+              "ToolTip": "C:\\RevUp\\CRUD\\RevupCrud\\Controller\\ControllerCrud.cs",
+              "RelativeToolTip": "RevupCrud\\Controller\\ControllerCrud.cs",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAswJkAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-07T14:48:53.48Z",
+              "WhenOpened": "2025-04-07T15:25:08.442Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ControllerPostDetails.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Controller\\ControllerPostDetails.cs",
-              "RelativeDocumentMoniker": "RevupCrud\\Controller\\ControllerPostDetails.cs",
-              "ToolTip": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Controller\\ControllerPostDetails.cs",
-              "RelativeToolTip": "RevupCrud\\Controller\\ControllerPostDetails.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAVAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ControllerClubDetails.cs",
+              "DocumentMoniker": "C:\\RevUp\\CRUD\\RevupCrud\\Controller\\ControllerClubDetails.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\Controller\\ControllerClubDetails.cs",
+              "ToolTip": "C:\\RevUp\\CRUD\\RevupCrud\\Controller\\ControllerClubDetails.cs",
+              "RelativeToolTip": "RevupCrud\\Controller\\ControllerClubDetails.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T19:06:54.253Z"
+              "WhenOpened": "2025-04-07T18:42:20.482Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "ViewUsuariDetails.cs [Design]",
-              "DocumentMoniker": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\View\\ViewUsuariDetails.cs",
-              "RelativeDocumentMoniker": "RevupCrud\\View\\ViewUsuariDetails.cs",
-              "ToolTip": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\View\\ViewUsuariDetails.cs [Design]",
-              "RelativeToolTip": "RevupCrud\\View\\ViewUsuariDetails.cs [Design]",
+              "Title": "ControllerCommentsDetails.cs",
+              "DocumentMoniker": "C:\\RevUp\\CRUD\\RevupCrud\\Controller\\ControllerCommentsDetails.cs",
+              "RelativeDocumentMoniker": "RevupCrud\\Controller\\ControllerCommentsDetails.cs",
+              "ToolTip": "C:\\RevUp\\CRUD\\RevupCrud\\Controller\\ControllerCommentsDetails.cs",
+              "RelativeToolTip": "RevupCrud\\Controller\\ControllerCommentsDetails.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAArwDMAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-04T18:10:23.352Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ViewPostDetails.cs [Design]",
-              "DocumentMoniker": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\View\\ViewPostDetails.cs",
-              "RelativeDocumentMoniker": "RevupCrud\\View\\ViewPostDetails.cs",
-              "ToolTip": "C:\\M13\\ProjecteFinal\\RevupCrud\\RevupCrud\\View\\ViewPostDetails.cs [Design]",
-              "RelativeToolTip": "..\\..\\M13\\ProjecteFinal\\RevupCrud\\RevupCrud\\View\\ViewPostDetails.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-03T18:15:38.076Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ControllerCrud.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Controller\\ControllerCrud.cs",
-              "RelativeDocumentMoniker": "RevupCrud\\Controller\\ControllerCrud.cs",
-              "ToolTip": "C:\\ProjecteFinal\\CRUD\\RevupCrud\\Controller\\ControllerCrud.cs",
-              "RelativeToolTip": "RevupCrud\\Controller\\ControllerCrud.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAqwKQBAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T15:49:01.506Z"
+              "WhenOpened": "2025-04-07T15:23:52.384Z",
+              "EditorCaption": ""
             }
           ]
         }

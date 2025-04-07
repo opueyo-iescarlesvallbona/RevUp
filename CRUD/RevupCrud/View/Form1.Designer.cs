@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.btnUsuaris = new System.Windows.Forms.Button();
-            this.btn_anunci = new System.Windows.Forms.Button();
+            this.btn_comments = new System.Windows.Forms.Button();
             this.btn_post = new System.Windows.Forms.Button();
             this.btnClub = new System.Windows.Forms.Button();
             this.btn_stats = new System.Windows.Forms.Button();
@@ -46,15 +46,15 @@
             this.btnUsuaris.Text = "Usuaris";
             this.btnUsuaris.UseVisualStyleBackColor = true;
             // 
-            // btn_anunci
+            // btn_comments
             // 
-            this.btn_anunci.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_anunci.Location = new System.Drawing.Point(48, 386);
-            this.btn_anunci.Name = "btn_anunci";
-            this.btn_anunci.Size = new System.Drawing.Size(177, 81);
-            this.btn_anunci.TabIndex = 1;
-            this.btn_anunci.Text = "Anuncis";
-            this.btn_anunci.UseVisualStyleBackColor = true;
+            this.btn_comments.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_comments.Location = new System.Drawing.Point(48, 386);
+            this.btn_comments.Name = "btn_comments";
+            this.btn_comments.Size = new System.Drawing.Size(177, 81);
+            this.btn_comments.TabIndex = 1;
+            this.btn_comments.Text = "Comments";
+            this.btn_comments.UseVisualStyleBackColor = true;
             // 
             // btn_post
             // 
@@ -106,7 +106,7 @@
             this.Controls.Add(this.btn_stats);
             this.Controls.Add(this.btnClub);
             this.Controls.Add(this.btn_post);
-            this.Controls.Add(this.btn_anunci);
+            this.Controls.Add(this.btn_comments);
             this.Controls.Add(this.btnUsuaris);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -118,7 +118,7 @@
 
         public System.Windows.Forms.Panel panel;
         public System.Windows.Forms.Button btnUsuaris;
-        public System.Windows.Forms.Button btn_anunci;
+        public System.Windows.Forms.Button btn_comments;
         public System.Windows.Forms.Button btn_post;
         public System.Windows.Forms.Button btnClub;
         public System.Windows.Forms.Button btn_stats;

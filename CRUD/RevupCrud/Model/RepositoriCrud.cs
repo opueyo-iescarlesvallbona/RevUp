@@ -374,5 +374,38 @@ namespace RevupCrud.Model
             }
             return cars;
         }
+
+        public List<post_comment> GetAllComments()
+        {
+            List<post_comment> comments = new List<post_comment>();
+            try
+            {
+                comments = Repositori.db.post_comment.ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return comments;
+        }
+
+        public bool DeleteComment(post_comment comment)
+        {
+            bool esborrat = false;
+            try
+            {
+                post_comment p = Repositori.db.post_comment.Where(x => x.id.Equals(comment.id)).FirstOrDefault();
+                Repositori.db.post_comment.Remove(p);
+                SaveChanges();
+                MessageBox.Show("Comment deleted correctly");
+                esborrat = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error on delete comment");
+                Repositori.dbConnect();
+            }
+            return esborrat;
+        }
     }
 }

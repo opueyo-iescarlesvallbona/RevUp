@@ -21,6 +21,7 @@ namespace RevupCrud.Controller
         ViewUsuaris usuaris = new ViewUsuaris { TopLevel=false, TopMost=false };
         ViewClubs clubs = new ViewClubs { TopLevel = false, TopMost = false };
         ViewPosts posts = new ViewPosts { TopLevel = false, TopMost = false };
+        ViewComments comments = new ViewComments { TopLevel = false, TopMost = false };
 
 
         void SetListeners()
@@ -28,10 +29,146 @@ namespace RevupCrud.Controller
             f.btnUsuaris.Click += BtnUsuaris_Click;
             f.btnClub.Click += BtnClub_Click;
             f.btn_post.Click += BtnPost_Click;
+            f.btn_comments.Click += BtnComment_Click;
         }
 
+        #region comments
+
+        private void SetListenersComment()
+        {
+            comments.btnBuscar.Click += BtnBuscar_ClickComment;
+            comments.dataGridView.CellDoubleClick += DataGridView_CellDoubleClickComment;
+        }
+
+        private void DataGridView_CellDoubleClickComment(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                post_comment comment = comments.dataGridView.Rows[e.RowIndex].DataBoundItem as post_comment;
+                
+                ViewCommentDetails f = new ViewCommentDetails();                
+                new ControllerCommentsDetails(comment, f);
+                f.FormClosed += CommentDetailsFormClosed;
+            }
+        }
+
+        private void BtnBuscar_ClickComment(object sender, EventArgs e)
+        {
+            List<post_comment> Listcomments = SearchComments();
+            if (Listcomments != null)
+            {
+                comments.dataGridView.DataSource = Listcomments;                
+            }
+            else
+            {
+                comments.dataGridView.DataSource = new List<post_comment>();               
+            }
+        }
+
+        private void CommentDetailsFormClosed(object sender, FormClosedEventArgs e)
+        {
+            List<post_comment> Listcomments = SearchComments();
+            if (Listcomments != null)
+            {
+                comments.dataGridView.DataSource = Listcomments;                
+            }            
+        }
+
+        List<post_comment> SearchComments()
+        {
+            if (comments.dateTimeTo.Value.Date < comments.dateTimeFrom.Value.Date && comments.dateTimeTo.Checked && comments.dateTimeFrom.Checked)
+            {
+                MessageBox.Show("The To date cannot be earlier than the From date", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            List<post_comment> Listcomments = r.GetAllComments().OrderBy(x=>x.datetime).ToList();            
+            if (String.IsNullOrEmpty(comments.txtPost.Text) && String.IsNullOrEmpty(comments.txtMember.Text))
+            {
+                MessageBox.Show("Post id or member id is required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            if (comments.txtPost.Text != "" || comments.txtMember.Text != "")
+            {
+                if(comments.txtPost.Text != "" && comments.txtMember.Text != "")
+                {
+                    try
+                    {
+                        Listcomments = Listcomments.Where(x => x.post_id == int.Parse(comments.txtPost.Text) && x.member_id == int.Parse(comments.txtMember.Text)).ToList();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Post id and member id have to be an integer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
+                    }
+                }
+                else if(comments.txtPost.Text != "")
+                {
+                    try
+                    {
+                        Listcomments = Listcomments.Where(x => x.post_id == int.Parse(comments.txtPost.Text)).ToList();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Post id has to be an integer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
+                    }
+                }
+                else if(comments.txtMember.Text != "")
+                {
+                    try
+                    {
+                        Listcomments = Listcomments.Where(x => x.member_id == int.Parse(comments.txtMember.Text)).ToList();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Member id has to be an integer.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return null;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Post id or member id are required.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }          
+            if (comments.dateTimeFrom.Checked && comments.dateTimeTo.Checked)
+            {
+                Listcomments = Listcomments.Where(x => x.datetime.Date >= comments.dateTimeFrom.Value.Date && x.datetime.Date <= comments.dateTimeTo.Value.Date).ToList();
+            }
+            else if (comments.dateTimeTo.Checked)
+            {
+                Listcomments = Listcomments.Where(x => x.datetime.Date <= comments.dateTimeTo.Value.Date).ToList();
+            }
+            else if (comments.dateTimeFrom.Checked)
+            {
+                Listcomments = Listcomments.Where(x => x.datetime.Date >= comments.dateTimeFrom.Value.Date).ToList();
+            }
+            
+            return Listcomments;
+        }
+
+        private void BtnComment_Click(object sender, EventArgs e)
+        {
+            SetListenersComment();   
+            comments.dataGridView.DataSource = new List<post_comment>();
+            comments.dataGridView.Columns["post"].Visible = false;
+
+            comments.dateTimeFrom.Checked = false;
+            comments.dateTimeTo.Checked = false;                        
+
+            comments.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            comments.dataGridView.BorderStyle = BorderStyle.None;
+
+            comments.FormBorderStyle = FormBorderStyle.None;
+            f.panel.Controls.Clear();
+            f.panel.Controls.Add(comments);
+            comments.Show();
+        }
+
+        #endregion
+
         #region post
-        private void SetListneresPost()
+        private void SetListnersPost()
         {
             posts.btnBuscar.Click += BtnBuscar_ClickPost;
             posts.dataGridView.CellFormatting += DataGridView_CellFormattingPost;
@@ -48,23 +185,26 @@ namespace RevupCrud.Controller
 
         void DataGridView_CellDoubleClickPost(object sender, DataGridViewCellEventArgs e)
         {
-            post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
-            post post = new post
+            if (e.RowIndex >= 0)
             {
-                id = p.id,
-                title = p.title,
-                description = p.description,
-                picture = p.picture,
-                likes = p.likes,
-                comments = p.comments,
-                post_date = p.post_date,
-                member = p.member,
-                post_type1 = p.post_type1,
-                route = p.route
-            };
-            ViewPostDetails f = new ViewPostDetails();
-            new ControllerPostDetails(post, f);
-            f.FormClosed += PostDetailsFormClosed;
+                post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
+                post post = new post
+                {
+                    id = p.id,
+                    title = p.title,
+                    description = p.description,
+                    picture = p.picture,
+                    likes = p.likes,
+                    comments = p.comments,
+                    post_date = p.post_date,
+                    member = p.member,
+                    post_type1 = p.post_type1,
+                    route = p.route
+                };
+                ViewPostDetails f = new ViewPostDetails();
+                new ControllerPostDetails(post, f);
+                f.FormClosed += PostDetailsFormClosed;
+            }
         }
 
         private void PostDetailsFormClosed(object sender, FormClosedEventArgs e)
@@ -186,7 +326,7 @@ namespace RevupCrud.Controller
 
         private void BtnPost_Click(object sender, EventArgs e)
         {
-            SetListneresPost();
+            SetListnersPost();
             List<post> Listposts = r.GetAllPosts();
 
             
@@ -240,23 +380,26 @@ namespace RevupCrud.Controller
 
         private void DataGridView_CellDoubleClickClub(object sender, DataGridViewCellEventArgs e)
         {
-            club c = clubs.dataGridView.Rows[e.RowIndex].DataBoundItem as club;
-
-            club club = new club
+            if (e.RowIndex >= 0)
             {
-                id = c.id,
-                name = c.name,
-                description = c.description,
-                picture = c.picture,
-                founder = c.founder,
-                member = c.member,
-                member_club = c.member_club,
-                club_event = c.club_event
-            };
+                club c = clubs.dataGridView.Rows[e.RowIndex].DataBoundItem as club;
 
-            ViewClubDetails f = new ViewClubDetails();
-            new ControllerClubDetails(club, f);
-            f.FormClosed += ClubDetailsFormClosed;
+                club club = new club
+                {
+                    id = c.id,
+                    name = c.name,
+                    description = c.description,
+                    picture = c.picture,
+                    founder = c.founder,
+                    member = c.member,
+                    member_club = c.member_club,
+                    club_event = c.club_event
+                };
+
+                ViewClubDetails f = new ViewClubDetails();
+                new ControllerClubDetails(club, f);
+                f.FormClosed += ClubDetailsFormClosed;
+            }
         }
 
         private void ClubDetailsFormClosed(object sender, FormClosedEventArgs e)
@@ -387,28 +530,30 @@ namespace RevupCrud.Controller
 
         private void DataGridView_CellDoubleClickUsuari(object sender, DataGridViewCellEventArgs e)
         {
-            member m = usuaris.dataGridView.Rows[e.RowIndex].DataBoundItem as member;
-
-            member usuari = new member
+            if(e.RowIndex >= 0)
             {
-                id = m.id,
-                name = m.name,
-                gender_id = m.gender_id,
-                location_id = m.location_id,
-                membername = m.membername,
-                experience = m.experience,
-                email = m.email,
-                description = m.description,
-                date_of_birth = m.date_of_birth,
-                login_date = m.login_date,
-                //cars = m.cars,
-                clubs = m.clubs,
-                posts = m.posts,
-                routes = m.routes
-            };
-            ViewUsuariDetails f = new ViewUsuariDetails();
-            new ControllerUsuariDetails(usuari, f);
-            f.FormClosed += UserDetailsFormClosed;
+                member m = usuaris.dataGridView.Rows[e.RowIndex].DataBoundItem as member;
+
+                member usuari = new member
+                {
+                    id = m.id,
+                    name = m.name,
+                    gender_id = m.gender_id,
+                    location_id = m.location_id,
+                    membername = m.membername,
+                    experience = m.experience,
+                    email = m.email,
+                    description = m.description,
+                    date_of_birth = m.date_of_birth,
+                    login_date = m.login_date,                    
+                    clubs = m.clubs,
+                    posts = m.posts,
+                    routes = m.routes
+                };
+                ViewUsuariDetails f = new ViewUsuariDetails();
+                new ControllerUsuariDetails(usuari, f);
+                f.FormClosed += UserDetailsFormClosed;
+            }       
         }
 
         void UserDetailsFormClosed(object sender, EventArgs e)
