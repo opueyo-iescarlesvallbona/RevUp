@@ -12,7 +12,7 @@ namespace RevupCrud.Controller
     {
         public ControllerPostDetails(post post, ViewPostDetails f)
         {
-            // Constructor logic here
+            f.Show();
         }
     }
 }

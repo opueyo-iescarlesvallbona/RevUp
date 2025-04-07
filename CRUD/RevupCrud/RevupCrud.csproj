@@ -61,7 +61,9 @@
     <Compile Include="Controller\ControllerCrud.cs" />
     <Compile Include="Controller\ControllerPostDetails.cs" />
     <Compile Include="Controller\ControllerUsuariDetails.cs" />
+    <Compile Include="Model\MemberCarTable.cs" />
     <Compile Include="Model\MemberClubTable.cs" />
+    <Compile Include="Model\MemberRelationTable.cs" />
     <Compile Include="Model\RepositoriCrud.cs" />
     <Compile Include="View\Form1.cs">
       <SubType>Form</SubType>

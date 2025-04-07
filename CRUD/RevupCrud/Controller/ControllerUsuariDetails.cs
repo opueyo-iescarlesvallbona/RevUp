@@ -68,8 +68,7 @@ namespace RevupCrud.Controller
                 f.dtpDateBirth.Value = usuari.date_of_birth;
                 f.txtLoginDate.Text = usuari.login_date.Date.ToString("dd-MM-yyyy");
                 f.txtDescription.Text = usuari.description;
-                f.dataGridViewCars.DataSource = GetMemberCarTable(usuari.id);                
-
+                f.dataGridViewCars.DataSource = usuari.cars.ToList();
                 f.dataGridViewPosts.DataSource = usuari.posts.ToList();
                 f.dataGridViewRelations.DataSource = GetMemberRelationTable(usuari.id);
                 f.dataGridViewClubs.DataSource = GetMembersClubTable(false);
@@ -142,7 +141,6 @@ namespace RevupCrud.Controller
                 membersTable.Add(member);
             }
             return membersTable;
-
         }
 
         List<MemberCarTable> GetMemberCarTable(int id)

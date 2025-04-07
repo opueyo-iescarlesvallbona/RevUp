@@ -366,7 +366,7 @@ namespace RevupCrud.Model
             List<car> cars = new List<car>();
             try
             {
-                cars = Repositori.db.cars.Where(x => x.member_id.Equals(id)).ToList();
+                cars = Repositori.db.cars.Where(x=>x.member_id.Equals(id)).ToList();
             }
             catch
             {
