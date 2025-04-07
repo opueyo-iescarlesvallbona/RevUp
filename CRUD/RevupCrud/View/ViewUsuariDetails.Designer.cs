@@ -32,7 +32,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.lblMemberName = new System.Windows.Forms.Label();
             this.lblExperience = new System.Windows.Forms.Label();
-            this.lblFriends = new System.Windows.Forms.Label();
+            this.lblRelations = new System.Windows.Forms.Label();
             this.lblLocation = new System.Windows.Forms.Label();
             this.lblGender = new System.Windows.Forms.Label();
             this.lblClubs = new System.Windows.Forms.Label();
@@ -49,7 +49,7 @@
             this.dataGridViewCars = new System.Windows.Forms.DataGridView();
             this.dataGridViewClubs = new System.Windows.Forms.DataGridView();
             this.dataGridViewPosts = new System.Windows.Forms.DataGridView();
-            this.dataGridViewFriends = new System.Windows.Forms.DataGridView();
+            this.dataGridViewRelations = new System.Windows.Forms.DataGridView();
             this.comboGender = new System.Windows.Forms.ComboBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -62,7 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCars)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClubs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPosts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriends)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRelations)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitol
@@ -106,16 +106,16 @@
             this.lblExperience.TabIndex = 4;
             this.lblExperience.Text = "Experience:";
             // 
-            // lblFriends
+            // lblRelations
             // 
-            this.lblFriends.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFriends.AutoSize = true;
-            this.lblFriends.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFriends.Location = new System.Drawing.Point(574, 442);
-            this.lblFriends.Name = "lblFriends";
-            this.lblFriends.Size = new System.Drawing.Size(59, 17);
-            this.lblFriends.TabIndex = 5;
-            this.lblFriends.Text = "Friends:";
+            this.lblRelations.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRelations.AutoSize = true;
+            this.lblRelations.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRelations.Location = new System.Drawing.Point(574, 442);
+            this.lblRelations.Name = "lblRelations";
+            this.lblRelations.Size = new System.Drawing.Size(71, 17);
+            this.lblRelations.TabIndex = 5;
+            this.lblRelations.Text = "Relations:";
             // 
             // lblLocation
             // 
@@ -204,7 +204,7 @@
             // 
             // txtName
             // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(109, 63);
             this.txtName.Name = "txtName";
@@ -213,7 +213,7 @@
             // 
             // txtExperience
             // 
-            this.txtExperience.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtExperience.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtExperience.Location = new System.Drawing.Point(109, 128);
             this.txtExperience.Name = "txtExperience";
@@ -247,7 +247,7 @@
             // 
             // dataGridViewCars
             // 
-            this.dataGridViewCars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.dataGridViewCars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewCars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCars.Location = new System.Drawing.Point(15, 265);
@@ -272,8 +272,8 @@
             // 
             // dataGridViewPosts
             // 
-            this.dataGridViewPosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dataGridViewPosts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewPosts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPosts.Location = new System.Drawing.Point(15, 462);
@@ -284,19 +284,19 @@
             this.dataGridViewPosts.Size = new System.Drawing.Size(524, 150);
             this.dataGridViewPosts.TabIndex = 24;
             // 
-            // dataGridViewFriends
+            // dataGridViewRelations
             // 
-            this.dataGridViewFriends.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dataGridViewRelations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewFriends.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFriends.Location = new System.Drawing.Point(577, 462);
-            this.dataGridViewFriends.MultiSelect = false;
-            this.dataGridViewFriends.Name = "dataGridViewFriends";
-            this.dataGridViewFriends.ReadOnly = true;
-            this.dataGridViewFriends.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFriends.Size = new System.Drawing.Size(558, 150);
-            this.dataGridViewFriends.TabIndex = 25;
+            this.dataGridViewRelations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRelations.Location = new System.Drawing.Point(577, 462);
+            this.dataGridViewRelations.MultiSelect = false;
+            this.dataGridViewRelations.Name = "dataGridViewRelations";
+            this.dataGridViewRelations.ReadOnly = true;
+            this.dataGridViewRelations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewRelations.Size = new System.Drawing.Size(558, 150);
+            this.dataGridViewRelations.TabIndex = 25;
             // 
             // comboGender
             // 
@@ -376,7 +376,7 @@
             // 
             // dtpDateBirth
             // 
-            this.dtpDateBirth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.dtpDateBirth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDateBirth.CustomFormat = " dd / MM / yyyy";
             this.dtpDateBirth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
@@ -399,7 +399,7 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.comboGender);
-            this.Controls.Add(this.dataGridViewFriends);
+            this.Controls.Add(this.dataGridViewRelations);
             this.Controls.Add(this.dataGridViewPosts);
             this.Controls.Add(this.dataGridViewClubs);
             this.Controls.Add(this.dataGridViewCars);
@@ -416,7 +416,7 @@
             this.Controls.Add(this.lblClubs);
             this.Controls.Add(this.lblGender);
             this.Controls.Add(this.lblLocation);
-            this.Controls.Add(this.lblFriends);
+            this.Controls.Add(this.lblRelations);
             this.Controls.Add(this.lblExperience);
             this.Controls.Add(this.lblMemberName);
             this.Controls.Add(this.lblName);
@@ -426,7 +426,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCars)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClubs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPosts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFriends)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRelations)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -438,7 +438,7 @@
         public System.Windows.Forms.Label lblName;
         public System.Windows.Forms.Label lblMemberName;
         public System.Windows.Forms.Label lblExperience;
-        public System.Windows.Forms.Label lblFriends;
+        public System.Windows.Forms.Label lblRelations;
         public System.Windows.Forms.Label lblLocation;
         public System.Windows.Forms.Label lblGender;
         public System.Windows.Forms.Label lblClubs;
@@ -455,7 +455,7 @@
         public System.Windows.Forms.DataGridView dataGridViewCars;
         public System.Windows.Forms.DataGridView dataGridViewClubs;
         public System.Windows.Forms.DataGridView dataGridViewPosts;
-        public System.Windows.Forms.DataGridView dataGridViewFriends;
+        public System.Windows.Forms.DataGridView dataGridViewRelations;
         public System.Windows.Forms.ComboBox comboGender;
         public System.Windows.Forms.Button btnGuardar;
         public System.Windows.Forms.Button btnDelete;

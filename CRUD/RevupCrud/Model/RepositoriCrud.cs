@@ -161,12 +161,12 @@ namespace RevupCrud.Model
             return posts;
         }
 
-        public List<member> GetFriends(int id)
+        public List<member_relation> GetRelations(int id)
         {
-            List<member> friends = new List<member>();
+            List<member_relation> friends = new List<member_relation>();
             try
             {
-                friends = Repositori.db.member_relation.Where(x => x.member_id1.Equals(id) || x.member_id2.Equals(id)).Select(x => x.member1).ToList();
+                friends = Repositori.db.member_relation.Where(x => x.member_id1.Equals(id) || x.member_id2.Equals(id)).ToList();
             }
             catch
             {

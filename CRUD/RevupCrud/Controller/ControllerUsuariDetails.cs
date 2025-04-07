@@ -71,7 +71,7 @@ namespace RevupCrud.Controller
                 f.dataGridViewCars.DataSource = GetMemberCarTable(usuari.id);                
 
                 f.dataGridViewPosts.DataSource = usuari.posts.ToList();
-                f.dataGridViewFriends.DataSource = r.GetFriends(usuari.id);
+                f.dataGridViewRelations.DataSource = GetMemberRelationTable(usuari.id);
                 f.dataGridViewClubs.DataSource = GetMembersClubTable(false);
 
 
@@ -162,6 +162,31 @@ namespace RevupCrud.Controller
                 carsTable.Add(carT);
             }
             return carsTable;
+        }
+
+        List<MemberRelationTable> GetMemberRelationTable(int id)
+        {
+            List<MemberRelationTable> friendsTable = new List<MemberRelationTable>();
+            List<member_relation> friends = r.GetRelations(id);
+            foreach (var friend in friends)
+            {
+                MemberRelationTable friendT = new MemberRelationTable
+                {
+                    State = friend.relation_state.name
+                };
+                if(friend.member_id1 == id)
+                {
+                    friendT.Id = friend.member_id2;
+                    friendT.Friend = friend.member1.name;
+                }
+                else
+                {
+                    friendT.Id = friend.member_id1;
+                    friendT.Friend = friend.member.name;
+                }
+                friendsTable.Add(friendT);
+            }
+            return friendsTable;
         }
 
         private void BtnGuardar_Click_Update(object sender, EventArgs e)
