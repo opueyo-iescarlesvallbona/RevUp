@@ -29,12 +29,14 @@ namespace RevupCrud.Controller
             form.btnDelete.Enabled = false;
             form.btnGuardar.Enabled = false;
             form.btnUpdate.Enabled = false;
-            new ControllerUsuariDetails(comment.member, form);            
+            new ControllerUsuariDetails(comment.member, form, true);            
         }
 
         private void BtnPost_Click(object sender, EventArgs e)
         {
-            // falta details post
+            ViewPostDetails form = new ViewPostDetails();
+            form.btnDelete.Enabled = false;
+            new ControllerPostDetails(comment.post, form);
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -49,7 +51,7 @@ namespace RevupCrud.Controller
                 f.txtId.Text = comment.id.ToString();
                 f.txtDate.Text = comment.datetime.ToString();
                 f.txtPost.Text = comment.post.title;
-                //f.txtMember.Text = comment.member.name;
+                f.txtMember.Text = comment.member.name;
                 f.txtContent.Text = comment.comment_content;
             }
         }

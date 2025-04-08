@@ -29,7 +29,7 @@ namespace RevupCrud.Controller
             f.btnUsuaris.Click += BtnUsuaris_Click;
             f.btnClub.Click += BtnClub_Click;
             f.btn_post.Click += BtnPost_Click;
-            f.btn_comments.Click += BtnComment_Click;
+            f.btn_comments.Click += BtnComment_Click;            
         }
 
         #region comments
@@ -38,6 +38,7 @@ namespace RevupCrud.Controller
         {
             comments.btnBuscar.Click += BtnBuscar_ClickComment;
             comments.dataGridView.CellDoubleClick += DataGridView_CellDoubleClickComment;
+            comments.dataGridView.CellFormatting += DataGridView_CellFormattingComment;
         }
 
         private void DataGridView_CellDoubleClickComment(object sender, DataGridViewCellEventArgs e)
@@ -151,7 +152,11 @@ namespace RevupCrud.Controller
         {
             SetListenersComment();   
             comments.dataGridView.DataSource = new List<post_comment>();
+            comments.dataGridView.Columns["member_id"].HeaderText = "member";
             comments.dataGridView.Columns["post"].Visible = false;
+            comments.dataGridView.Columns["member"].Visible = false;
+            FormatHeadersDataGrid(comments.dataGridView);
+
 
             comments.dateTimeFrom.Checked = false;
             comments.dateTimeTo.Checked = false;                        
@@ -163,6 +168,22 @@ namespace RevupCrud.Controller
             f.panel.Controls.Clear();
             f.panel.Controls.Add(comments);
             comments.Show();
+        }
+
+        void DataGridView_CellFormattingComment(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridViewColumn column = comments.dataGridView.Columns[e.ColumnIndex];
+            if (e.RowIndex >= 0)
+            {
+                if (column.HeaderText.Equals("Member"))
+                {
+                    post_comment p = comments.dataGridView.Rows[e.RowIndex].DataBoundItem as post_comment;
+                    if (p != null)
+                    {
+                        e.Value = p.member.name;
+                    }
+                }                
+            }
         }
 
         #endregion
@@ -330,7 +351,6 @@ namespace RevupCrud.Controller
         {
             SetListnersPost();
             List<post> Listposts = r.GetAllPosts();
-
             
             List<post_type> post_Types = new List<post_type>();
             post_Types.Add(new post_type { name = "Tots", id = -1 });
@@ -352,6 +372,7 @@ namespace RevupCrud.Controller
             posts.dataGridView.Columns["post_type"].Visible = false;
             posts.dataGridView.Columns["post_comment"].Visible = false;
             posts.dataGridView.Columns["route_id"].Visible = false;
+            FormatHeadersDataGrid(posts.dataGridView);
 
             posts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             posts.dataGridView.BorderStyle = BorderStyle.None;
@@ -684,6 +705,16 @@ namespace RevupCrud.Controller
             }
         }
         #endregion
+
+
+        public void FormatHeadersDataGrid(DataGridView tbl)
+        {
+            for (int i = 0; i < tbl.Columns.Count; i++)
+            {
+                var header = tbl.Columns[i].HeaderText;
+                tbl.Columns[i].HeaderText = char.ToUpper(header[0]) + header.Substring(1);
+            }
+        }
 
         public ControllerCrud()
         {
