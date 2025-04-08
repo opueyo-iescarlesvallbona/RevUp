@@ -16,6 +16,7 @@ namespace RevupCrud.Controller
         RepositoriCrud r = new RepositoriCrud();
         ViewUsuariDetails f;
         member usuari;
+        bool OpenedFromDetails = false;
 
 
         void SetListeners()
@@ -68,7 +69,7 @@ namespace RevupCrud.Controller
                 f.dtpDateBirth.Value = usuari.date_of_birth;
                 f.txtLoginDate.Text = usuari.login_date.Date.ToString("dd-MM-yyyy");
                 f.txtDescription.Text = usuari.description;
-                f.dataGridViewCars.DataSource = usuari.cars.ToList();
+                f.dataGridViewCars.DataSource = GetMemberCarTable(usuari.id);
                 f.dataGridViewPosts.DataSource = usuari.posts.ToList();
                 f.dataGridViewRelations.DataSource = GetMemberRelationTable(usuari.id);
                 f.dataGridViewClubs.DataSource = GetMembersClubTable(false);
@@ -78,9 +79,13 @@ namespace RevupCrud.Controller
                 f.btnUpdate.Click += BtnUpdate_Click;
                 f.btnGuardar.Click += BtnGuardar_Click_Update;
 
-                f.btnGuardar.Enabled = false;
-                f.btnDelete.Enabled = true;
-                f.btnUpdate.Enabled = true;
+                if (!OpenedFromDetails)
+                {
+                    f.btnGuardar.Enabled = false;
+                    f.btnDelete.Enabled = true;
+                    f.btnUpdate.Enabled = true;
+                }
+                    
 
 
                 f.txtLocation.Enabled = false;
@@ -110,9 +115,13 @@ namespace RevupCrud.Controller
                 f.txtDescription.Enabled = true;
 
                 f.btnGuardar.Click += BtnGuardar_Click;
-                f.btnDelete.Enabled = false;
-                f.btnUpdate.Enabled = false;
-                f.btnGuardar.Enabled = true;
+                if (!OpenedFromDetails)
+                {
+                    f.btnDelete.Enabled = false;
+                    f.btnUpdate.Enabled = false;
+                    f.btnGuardar.Enabled = true;
+                }
+                
             }
             f.chbFounder.Checked = false;
         }
@@ -363,8 +372,9 @@ namespace RevupCrud.Controller
             }
         }
 
-        public ControllerUsuariDetails(member usuari, ViewUsuariDetails form)
+        public ControllerUsuariDetails(member usuari, ViewUsuariDetails form, bool OpenedFromDetails=false)
         {
+            this.OpenedFromDetails = OpenedFromDetails;
             if (usuari != null)
             {
                 this.usuari = usuari;
@@ -372,6 +382,12 @@ namespace RevupCrud.Controller
             if (form != null)
             {
                 f = form;
+            }
+            if (OpenedFromDetails)
+            {
+                f.btnDelete.Enabled = false;
+                f.btnUpdate.Enabled = false;
+                f.btnGuardar.Enabled = false;
             }
             SetListeners();
             LoadData();

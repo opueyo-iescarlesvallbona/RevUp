@@ -61,6 +61,7 @@
     <Compile Include="Controller\ControllerCommentsDetails.cs" />
     <Compile Include="Controller\ControllerCrud.cs" />
     <Compile Include="Controller\ControllerPostDetails.cs" />
+    <Compile Include="Controller\ControllerRouteDetails.cs" />
     <Compile Include="Controller\ControllerUsuariDetails.cs" />
     <Compile Include="Model\MemberCarTable.cs" />
     <Compile Include="Model\MemberClubTable.cs" />
@@ -110,6 +111,12 @@
     <Compile Include="View\ViewPosts.Designer.cs">
       <DependentUpon>ViewPosts.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewRouteDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ViewRouteDetails.Designer.cs">
+      <DependentUpon>ViewRouteDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewUsuariDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -151,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewPosts.resx">
       <DependentUpon>ViewPosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewRouteDetails.resx">
+      <DependentUpon>ViewRouteDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewUsuariDetails.resx">
       <DependentUpon>ViewUsuariDetails.cs</DependentUpon>

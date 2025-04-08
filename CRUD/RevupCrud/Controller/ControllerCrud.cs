@@ -199,7 +199,9 @@ namespace RevupCrud.Controller
                     post_date = p.post_date,
                     member = p.member,
                     post_type1 = p.post_type1,
-                    route = p.route
+                    route = p.route,
+                    member_id = p.member_id,
+                    route_id = p.route_id
                 };
                 ViewPostDetails f = new ViewPostDetails();
                 new ControllerPostDetails(post, f);

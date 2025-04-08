@@ -26,3 +26,17 @@ C:\RevUp\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.csproj.CoreCompileInputs
 C:\RevUp\CRUD\RepositoriRevUp\obj\Debug\Reposito.0E5C1E39.Up2Date
 C:\RevUp\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.exe
 C:\RevUp\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.pdb
+C:\ProjecteFinal\CRUD\RepositoriRevUp\bin\Debug\RepositoriRevUp.exe.config
+C:\ProjecteFinal\CRUD\RepositoriRevUp\bin\Debug\RepositoriRevUp.exe
+C:\ProjecteFinal\CRUD\RepositoriRevUp\bin\Debug\RepositoriRevUp.pdb
+C:\ProjecteFinal\CRUD\RepositoriRevUp\bin\Debug\EntityFramework.dll
+C:\ProjecteFinal\CRUD\RepositoriRevUp\bin\Debug\EntityFramework.SqlServer.dll
+C:\ProjecteFinal\CRUD\RepositoriRevUp\bin\Debug\EntityFramework.xml
+C:\ProjecteFinal\CRUD\RepositoriRevUp\bin\Debug\EntityFramework.SqlServer.xml
+C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.csproj.AssemblyReference.cache
+C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.Properties.Resources.resources
+C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.csproj.GenerateResource.cache
+C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.csproj.CoreCompileInputs.cache
+C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\Reposito.0E5C1E39.Up2Date
+C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.exe
+C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.pdb

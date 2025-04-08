@@ -72,3 +72,6 @@ C:\RevUp\CRUD\RevupCrud\bin\Debug\EntityFramework.xml
 C:\RevUp\CRUD\RevupCrud\bin\Debug\EntityFramework.SqlServer.xml
 C:\RevUp\CRUD\RevupCrud\obj\Debug\RevupCrud.csproj.Up2Date
 C:\RevUp\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewCommentDetails.resources
+C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewCommentDetails.resources
+C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewComments.resources
+C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewRouteDetails.resources

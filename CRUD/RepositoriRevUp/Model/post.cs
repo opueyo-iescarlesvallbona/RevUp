@@ -18,6 +18,7 @@ namespace RepositoriRevUp.Model
         public post()
         {
             this.post_comment = new HashSet<post_comment>();
+            this.members1 = new HashSet<member>();
         }
     
         public int id { get; set; }
@@ -33,9 +34,11 @@ namespace RepositoriRevUp.Model
         public long comments { get; set; }
     
         public virtual member member { get; set; }
-        public virtual route route { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<post_comment> post_comment { get; set; }
         public virtual post_type post_type1 { get; set; }
+        public virtual route route { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<member> members1 { get; set; }
     }
 }

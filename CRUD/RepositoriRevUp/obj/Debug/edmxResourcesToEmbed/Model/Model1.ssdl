@@ -165,6 +165,14 @@
     <Property Name="comment_content" Type="text" Nullable="false" />
     <Property Name="datetime" Type="datetime" Nullable="false" />
   </EntityType>
+  <EntityType Name="post_member_like">
+    <Key>
+      <PropertyRef Name="post_id" />
+      <PropertyRef Name="member_id" />
+    </Key>
+    <Property Name="post_id" Type="int" Nullable="false" />
+    <Property Name="member_id" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="post_type">
     <Key>
       <PropertyRef Name="id" />
@@ -194,7 +202,8 @@
     <Property Name="end_address" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="terrain_type_id" Type="int" />
     <Property Name="description" Type="text" />
-    <Property Name="member_id" Type="int" />
+    <Property Name="member_id" Type="int" Nullable="false" />
+    <Property Name="datetime" Type="datetime" />
   </EntityType>
   <EntityType Name="terrain_type">
     <Key>
@@ -443,6 +452,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__post_comm__membe__0697FACD">
+    <End Role="member" Type="Self.member" Multiplicity="1" />
+    <End Role="post_comment" Type="Self.post_comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="post_comment">
+        <PropertyRef Name="member_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__post_comm__post___7C4F7684">
     <End Role="post" Type="Self.post" Multiplicity="1" />
     <End Role="post_comment" Type="Self.post_comment" Multiplicity="*" />
@@ -455,8 +476,32 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__route__member_id__70DDC3D8">
-    <End Role="member" Type="Self.member" Multiplicity="0..1" />
+  <Association Name="FK__post_memb__membe__15DA3E5D">
+    <End Role="member" Type="Self.member" Multiplicity="1" />
+    <End Role="post_member_like" Type="Self.post_member_like" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="post_member_like">
+        <PropertyRef Name="member_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__post_memb__post___16CE6296">
+    <End Role="post" Type="Self.post" Multiplicity="1" />
+    <End Role="post_member_like" Type="Self.post_member_like" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="post">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="post_member_like">
+        <PropertyRef Name="post_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__route__member_id__12FDD1B2">
+    <End Role="member" Type="Self.member" Multiplicity="1" />
     <End Role="route" Type="Self.route" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="member">
@@ -496,6 +541,7 @@
     <EntitySet Name="model" EntityType="Self.model" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="post" EntityType="Self.post" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="post_comment" EntityType="Self.post_comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="post_member_like" EntityType="Self.post_member_like" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="post_type" EntityType="Self.post_type" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="relation_state" EntityType="Self.relation_state" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="route" EntityType="Self.route" Schema="dbo" store:Type="Tables" />
@@ -580,11 +626,23 @@
       <End Role="route" EntitySet="route" />
       <End Role="post" EntitySet="post" />
     </AssociationSet>
+    <AssociationSet Name="FK__post_comm__membe__0697FACD" Association="Self.FK__post_comm__membe__0697FACD">
+      <End Role="member" EntitySet="member" />
+      <End Role="post_comment" EntitySet="post_comment" />
+    </AssociationSet>
     <AssociationSet Name="FK__post_comm__post___7C4F7684" Association="Self.FK__post_comm__post___7C4F7684">
       <End Role="post" EntitySet="post" />
       <End Role="post_comment" EntitySet="post_comment" />
     </AssociationSet>
-    <AssociationSet Name="FK__route__member_id__70DDC3D8" Association="Self.FK__route__member_id__70DDC3D8">
+    <AssociationSet Name="FK__post_memb__membe__15DA3E5D" Association="Self.FK__post_memb__membe__15DA3E5D">
+      <End Role="member" EntitySet="member" />
+      <End Role="post_member_like" EntitySet="post_member_like" />
+    </AssociationSet>
+    <AssociationSet Name="FK__post_memb__post___16CE6296" Association="Self.FK__post_memb__post___16CE6296">
+      <End Role="post" EntitySet="post" />
+      <End Role="post_member_like" EntitySet="post_member_like" />
+    </AssociationSet>
+    <AssociationSet Name="FK__route__member_id__12FDD1B2" Association="Self.FK__route__member_id__12FDD1B2">
       <End Role="member" EntitySet="member" />
       <End Role="route" EntitySet="route" />
     </AssociationSet>

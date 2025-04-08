@@ -157,24 +157,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="routes">
-      <EntityTypeMapping TypeName="revupModel.route">
-        <MappingFragment StoreEntitySet="route">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="waypoints" ColumnName="waypoints" />
-          <ScalarProperty Name="distance" ColumnName="distance" />
-          <ScalarProperty Name="duration" ColumnName="duration" />
-          <ScalarProperty Name="max_elevation" ColumnName="max_elevation" />
-          <ScalarProperty Name="elevation_gain" ColumnName="elevation_gain" />
-          <ScalarProperty Name="start_address" ColumnName="start_address" />
-          <ScalarProperty Name="end_address" ColumnName="end_address" />
-          <ScalarProperty Name="terrain_type_id" ColumnName="terrain_type_id" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="member_id" ColumnName="member_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="terrain_type">
       <EntityTypeMapping TypeName="revupModel.terrain_type">
         <MappingFragment StoreEntitySet="terrain_type">
@@ -220,5 +202,32 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="routes">
+      <EntityTypeMapping TypeName="revupModel.route">
+        <MappingFragment StoreEntitySet="route">
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="member_id" ColumnName="member_id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="terrain_type_id" ColumnName="terrain_type_id" />
+          <ScalarProperty Name="end_address" ColumnName="end_address" />
+          <ScalarProperty Name="start_address" ColumnName="start_address" />
+          <ScalarProperty Name="elevation_gain" ColumnName="elevation_gain" />
+          <ScalarProperty Name="max_elevation" ColumnName="max_elevation" />
+          <ScalarProperty Name="duration" ColumnName="duration" />
+          <ScalarProperty Name="distance" ColumnName="distance" />
+          <ScalarProperty Name="waypoints" ColumnName="waypoints" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="post_member_like" TypeName="revupModel.post_member_like" StoreEntitySet="post_member_like">
+      <EndProperty Name="post">
+        <ScalarProperty Name="id" ColumnName="post_id" />
+      </EndProperty>
+      <EndProperty Name="member">
+        <ScalarProperty Name="id" ColumnName="member_id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

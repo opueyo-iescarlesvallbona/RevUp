@@ -31,7 +31,8 @@ namespace RepositoriRevUp.Model
         public string end_address { get; set; }
         public Nullable<int> terrain_type_id { get; set; }
         public string description { get; set; }
-        public Nullable<int> member_id { get; set; }
+        public int member_id { get; set; }
+        public Nullable<System.DateTime> datetime { get; set; }
     
         public virtual member member { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

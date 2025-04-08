@@ -28,10 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.comboPostType = new System.Windows.Forms.ComboBox();
             this.dataGridViewComments = new System.Windows.Forms.DataGridView();
             this.dataGridViewLikes = new System.Windows.Forms.DataGridView();
             this.txtPostDate = new System.Windows.Forms.TextBox();
@@ -56,49 +53,21 @@
             this.btnOpenRoute = new System.Windows.Forms.Button();
             this.btnOpenMember = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.txtPostType = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLikes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(688, 13);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(71, 39);
-            this.btnUpdate.TabIndex = 62;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            // 
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(609, 13);
+            this.btnDelete.Location = new System.Drawing.Point(753, 13);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(71, 39);
             this.btnDelete.TabIndex = 61;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGuardar.Location = new System.Drawing.Point(768, 13);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(71, 39);
-            this.btnGuardar.TabIndex = 60;
-            this.btnGuardar.Text = "Save";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            // 
-            // comboPostType
-            // 
-            this.comboPostType.Enabled = false;
-            this.comboPostType.FormattingEnabled = true;
-            this.comboPostType.Location = new System.Drawing.Point(97, 100);
-            this.comboPostType.Name = "comboPostType";
-            this.comboPostType.Size = new System.Drawing.Size(442, 21);
-            this.comboPostType.TabIndex = 59;
             // 
             // dataGridViewComments
             // 
@@ -344,11 +313,20 @@
             this.pictureBox.TabIndex = 73;
             this.pictureBox.TabStop = false;
             // 
+            // txtPostType
+            // 
+            this.txtPostType.Location = new System.Drawing.Point(97, 102);
+            this.txtPostType.Name = "txtPostType";
+            this.txtPostType.ReadOnly = true;
+            this.txtPostType.Size = new System.Drawing.Size(442, 20);
+            this.txtPostType.TabIndex = 74;
+            // 
             // ViewPostDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1147, 713);
+            this.Controls.Add(this.txtPostType);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.btnOpenMember);
             this.Controls.Add(this.btnOpenRoute);
@@ -359,10 +337,7 @@
             this.Controls.Add(this.lblRoute);
             this.Controls.Add(this.lblNumLikes);
             this.Controls.Add(this.lblNumComments);
-            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
-            this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.comboPostType);
             this.Controls.Add(this.dataGridViewComments);
             this.Controls.Add(this.dataGridViewLikes);
             this.Controls.Add(this.txtPostDate);
@@ -388,10 +363,7 @@
         }
 
         #endregion
-        public System.Windows.Forms.Button btnUpdate;
         public System.Windows.Forms.Button btnDelete;
-        public System.Windows.Forms.Button btnGuardar;
-        public System.Windows.Forms.ComboBox comboPostType;
         public System.Windows.Forms.DataGridView dataGridViewComments;
         public System.Windows.Forms.DataGridView dataGridViewLikes;
         public System.Windows.Forms.TextBox txtPostDate;
@@ -416,5 +388,6 @@
         public System.Windows.Forms.Button btnOpenRoute;
         public System.Windows.Forms.Button btnOpenMember;
         public System.Windows.Forms.PictureBox pictureBox;
+        public System.Windows.Forms.TextBox txtPostType;
     }
 }

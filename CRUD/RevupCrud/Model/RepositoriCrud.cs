@@ -407,5 +407,52 @@ namespace RevupCrud.Model
             }
             return esborrat;
         }
+
+        public route GetRouteById(int id)
+        {
+            route r = new route();
+            try
+            {
+                r = Repositori.db.routes.Where(x => x.id.Equals(id)).FirstOrDefault();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return r;
+        }
+
+        public bool DeletePost(post post)
+        {
+            bool esborrat = false;
+            try
+            {
+                post p = Repositori.db.posts.Where(x => x.id.Equals(post.id)).FirstOrDefault();
+                Repositori.db.posts.Remove(p);
+                SaveChanges();
+                MessageBox.Show("Post esborrat correctament");
+                esborrat = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error al esborrar el post");
+                Repositori.dbConnect();
+            }
+            return esborrat;
+        }
+
+        public List<post_comment> GetCommentsByPostId(int id)
+        {
+            List<post_comment> comments = new List<post_comment>();
+            try
+            {
+                comments = Repositori.db.post_comment.Where(x => x.post_id.Equals(id)).ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return comments;
+        }
     }
 }
