@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c131ae6fb87f4088bb50d3bb7eddc19e" Name="Diagram1" ZoomLevel="90">
+      <Diagram DiagramId="c131ae6fb87f4088bb50d3bb7eddc19e" Name="Diagram1" ZoomLevel="234">
         <EntityTypeShape EntityType="revupModel.club" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="revupModel.club_event" Width="1.5" PointX="7.5" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="revupModel.gender" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />

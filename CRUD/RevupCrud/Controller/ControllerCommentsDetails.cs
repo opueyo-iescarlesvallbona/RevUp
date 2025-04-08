@@ -36,12 +36,13 @@ namespace RevupCrud.Controller
         {
             ViewPostDetails form = new ViewPostDetails();
             form.btnDelete.Enabled = false;
-            new ControllerPostDetails(comment.post, form);
+            new ControllerPostDetails(comment.post, form, true);
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             r.DeleteComment(comment);
+            f.Close();
         }
 
         void LoadData()

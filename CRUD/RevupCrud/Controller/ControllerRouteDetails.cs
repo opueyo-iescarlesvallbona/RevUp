@@ -24,7 +24,11 @@ namespace RevupCrud.Controller
         {
             if (route != null)
             {
-                //f.txtDate.Text = route.date.ToString("dd-MM-yyyy");
+                if (route.datetime != null)
+                {
+                    f.txtDate.Text = route.datetime?.ToString("dd-MM-yyyy") ?? "";
+                }
+                
                 f.txtDistance.Text = route.distance.ToString();
                 f.txtDuration.Text = route.duration.ToString();
                 f.txtDescription.Text = route.description;
@@ -39,7 +43,8 @@ namespace RevupCrud.Controller
                 f.txtName.Text = route.name;
                 f.txtMemberName.Text = r.GetAllMembers("", "", "", "").Where(x => x.id.Equals(route.member_id)).Select(x => x.membername).FirstOrDefault();
 
-                if(f.txtMemberName.Text != "")
+
+                if (f.txtMemberName.Text != "")
                 {
                     f.btnOpenMember.Click += BtnOpenMember_Click;
                 }

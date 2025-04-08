@@ -15,6 +15,7 @@ namespace RevupCrud.Controller
         RepositoriCrud r = new RepositoriCrud();
         ViewPostDetails f;
         post post;
+        bool OpenedFromDetails = false;
 
         void SetListeners()
         {
@@ -38,7 +39,7 @@ namespace RevupCrud.Controller
                 f.txtPostType.Text = post.post_type1.name;
 
                 f.dataGridViewComments.DataSource = r.GetCommentsByPostId(post.id);
-                //f.dataGridViewLikes.DataSource = r.GetLikesByPostId(post.id);
+                f.dataGridViewLikes.DataSource = r.GetLikesByPostId(post.id);
 
                 f.lblNumComments.Text = "Number of comments: " + post.comments.ToString();
                 f.lblNumLikes.Text = "Number of likes: " + post.likes.ToString();
@@ -47,8 +48,11 @@ namespace RevupCrud.Controller
                 f.btnOpenMember.Click += BtnOpenMember_Click;
 
                 f.btnOpenRoute.Click += BtnOpenRoute_Click;
-
-                f.btnDelete.Enabled = true;
+                if (!OpenedFromDetails)
+                {
+                    f.btnDelete.Enabled = true;
+                }
+                    
 
                 f.txtTitle.Enabled = false;
                 f.txtDescription.Enabled = false;
@@ -106,8 +110,9 @@ namespace RevupCrud.Controller
         {
             (sender as TextBox).BackColor = System.Drawing.Color.White;
         }
-        public ControllerPostDetails(post post, ViewPostDetails form)
+        public ControllerPostDetails(post post, ViewPostDetails form, bool OpenedFromDetails=false)
         {
+            this.OpenedFromDetails = OpenedFromDetails;
             if (post != null)
             {
                 this.post = post;
@@ -115,6 +120,10 @@ namespace RevupCrud.Controller
             if (form != null)
             {
                 f = form;
+            }
+            if (OpenedFromDetails)
+            {
+                f.btnDelete.Enabled = false;
             }
             SetListeners();
             LoadData();

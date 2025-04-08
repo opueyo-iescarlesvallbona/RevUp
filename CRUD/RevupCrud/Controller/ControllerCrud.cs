@@ -194,14 +194,6 @@ namespace RevupCrud.Controller
             posts.btnBuscar.Click += BtnBuscar_ClickPost;
             posts.dataGridView.CellFormatting += DataGridView_CellFormattingPost;
             posts.dataGridView.CellDoubleClick += DataGridView_CellDoubleClickPost;
-            posts.btnInsert.Click += BtnInsert_ClickPost;
-        }
-
-        void BtnInsert_ClickPost(object sender, EventArgs e)
-        {
-            ViewPostDetails f = new ViewPostDetails();
-            f.FormClosed += PostDetailsFormClosed;
-            new ControllerPostDetails(null, f);
         }
 
         void DataGridView_CellDoubleClickPost(object sender, DataGridViewCellEventArgs e)
@@ -244,7 +236,7 @@ namespace RevupCrud.Controller
             DataGridViewColumn column = posts.dataGridView.Columns[e.ColumnIndex];
             if (e.RowIndex >= 0)
             {
-                if (column.HeaderText.Equals("post_type1"))
+                if (column.HeaderText.Equals("Post type"))
                 {
                     post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
                     if (p != null)
@@ -252,7 +244,7 @@ namespace RevupCrud.Controller
                         e.Value = p.post_type1.name;
                     }
                 }
-                else if (column.HeaderText.Equals("member"))
+                else if (column.HeaderText.Equals("Member"))
                 {
                     post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
                     if (p != null)
@@ -260,7 +252,7 @@ namespace RevupCrud.Controller
                         e.Value = p.member.membername;
                     }
                 }
-                else if(column.HeaderText.Equals("route"))
+                else if(column.HeaderText.Equals("Route"))
                 {
                     post p = posts.dataGridView.Rows[e.RowIndex].DataBoundItem as post;
                     if (p.route != null)
@@ -372,6 +364,8 @@ namespace RevupCrud.Controller
             posts.dataGridView.Columns["post_type"].Visible = false;
             posts.dataGridView.Columns["post_comment"].Visible = false;
             posts.dataGridView.Columns["route_id"].Visible = false;
+            posts.dataGridView.Columns["post_type1"].HeaderText = "post type";
+            posts.dataGridView.Columns["members1"].Visible = false;
             FormatHeadersDataGrid(posts.dataGridView);
 
             posts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -603,6 +597,7 @@ namespace RevupCrud.Controller
             usuaris.comboLocation.DataSource = locations;
             usuaris.comboLocation.DisplayMember = "municipality";
 
+
             usuaris.txtName.AutoCompleteCustomSource.AddRange(r.GetAllMembers("", "", "", "").Select(x => x.name).ToArray());
             usuaris.txtName.AutoCompleteCustomSource.AddRange(r.GetAllMembers("", "", "", "").Where(x=>x.membername!=null).Select(x => x.membername).ToArray());
 
@@ -675,7 +670,9 @@ namespace RevupCrud.Controller
             if (TryConnectToDatabase(password))
             {
                 Viewpassword.Dispose();
+                r.GetAllPostTypes();
                 f.ShowDialog();
+
             }
             else
             {

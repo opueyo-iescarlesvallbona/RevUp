@@ -428,6 +428,7 @@ namespace RevupCrud.Model
             try
             {
                 post p = Repositori.db.posts.Where(x => x.id.Equals(post.id)).FirstOrDefault();
+                Repositori.db.post_comment.RemoveRange(Repositori.db.post_comment.Where(x=>x.post_id.Equals(p.id)));
                 Repositori.db.posts.Remove(p);
                 SaveChanges();
                 MessageBox.Show("Post esborrat correctament");
@@ -453,6 +454,20 @@ namespace RevupCrud.Model
                 Repositori.dbConnect();
             }
             return comments;
+        }
+
+        public List<member> GetLikesByPostId(int id)
+        {
+            List<member> likes = new List<member>();
+            try
+            {
+                likes = Repositori.db.posts.Where(x => x.id.Equals(id)).FirstOrDefault().members1.ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return likes;
         }
     }
 }
