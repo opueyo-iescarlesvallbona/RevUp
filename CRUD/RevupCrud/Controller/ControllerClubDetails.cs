@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace RevupCrud.Controller
 {
@@ -45,6 +46,14 @@ namespace RevupCrud.Controller
                 f.dataGridViewMembers.Columns["Id"].Visible = false;
                 f.dataGridViewMembers.Columns["name"].HeaderText = "MemberName";
 
+                f.dataGridViewEvents.Columns["club_id"].Visible = false;
+                f.dataGridViewEvents.Columns["picture"].Visible = false;
+                f.dataGridViewEvents.Columns["state"].Visible = false;
+                f.dataGridViewEvents.Columns["club"].Visible = false;
+                f.dataGridViewEvents.CellFormatting += DataGridView_CellFormattingEvent;
+                FormatHeadersDataGrid(f.dataGridViewEvents);
+
+
 
                 f.btnDelete.Click += BtnDelete_Click;
                 f.btnUpdate.Click += BtnUpdate_Click;
@@ -54,22 +63,38 @@ namespace RevupCrud.Controller
                 f.btnDelete.Enabled = true;
                 f.btnUpdate.Enabled = true;
 
-                f.txtName.ReadOnly = true;
-                f.txtFounder.ReadOnly = true;
-                f.txtDescription.ReadOnly = true;
+                f.txtName.Enabled = false;
+                f.txtFounder.Enabled = false;
+                f.txtDescription.Enabled = false;
             }
             else
             {
                 f.lblTitol.Text = "Nou club";
-                f.txtName.ReadOnly = false;
-                f.txtFounder.ReadOnly = false;
+                f.txtName.Enabled = true;
+                f.txtFounder.Enabled = true;
                 f.txtFounder.AutoCompleteCustomSource.AddRange(r.GetAllMembers("","","","").OrderBy(x => x.name).Select(x => x.membername).ToArray());
-                f.txtDescription.ReadOnly = false;
+                f.txtDescription.Enabled = true;
 
                 f.btnGuardar.Click += BtnGuardar_Click;
                 f.btnDelete.Enabled = false;
                 f.btnUpdate.Enabled = false;
                 f.btnGuardar.Enabled = true;
+            }
+        }
+
+        void DataGridView_CellFormattingEvent(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridViewColumn column = f.dataGridViewEvents.Columns[e.ColumnIndex];
+            if (e.RowIndex >= 0)
+            {
+                if (column.HeaderText.Equals("Event_state"))
+                {
+                    club_event p = f.dataGridViewEvents.Rows[e.RowIndex].DataBoundItem as club_event;
+                    if (p != null)
+                    {
+                        e.Value = p.event_state.name;
+                    }
+                }
             }
         }
 
@@ -187,10 +212,10 @@ namespace RevupCrud.Controller
             f.btnUpdate.Enabled = false;
             f.btnGuardar.Enabled = true;
 
-            f.txtName.ReadOnly = false;
-            f.txtFounder.ReadOnly = false;
+            f.txtName.Enabled = true;
+            f.txtFounder.Enabled = true;
             f.txtFounder.AutoCompleteCustomSource.AddRange(r.GetAllMembers("", "", "", "").OrderBy(x => x.name).Select(x => x.membername).ToArray());
-            f.txtDescription.ReadOnly = false;
+            f.txtDescription.Enabled = true;
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -223,6 +248,14 @@ namespace RevupCrud.Controller
             SetListeners();
             LoadData();
             f.Show();
+        }
+        public void FormatHeadersDataGrid(DataGridView tbl)
+        {
+            for (int i = 0; i < tbl.Columns.Count; i++)
+            {
+                var header = tbl.Columns[i].HeaderText;
+                tbl.Columns[i].HeaderText = char.ToUpper(header[0]) + header.Substring(1);
+            }
         }
     }
 }

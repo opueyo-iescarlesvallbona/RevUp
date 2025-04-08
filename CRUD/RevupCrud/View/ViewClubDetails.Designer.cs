@@ -54,7 +54,6 @@
             this.txtFounder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtFounder.Location = new System.Drawing.Point(109, 104);
             this.txtFounder.Name = "txtFounder";
-            this.txtFounder.ReadOnly = true;
             this.txtFounder.Size = new System.Drawing.Size(430, 20);
             this.txtFounder.TabIndex = 60;
             // 
@@ -131,7 +130,6 @@
             this.txtDescription.Location = new System.Drawing.Point(667, 63);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.ReadOnly = true;
             this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDescription.Size = new System.Drawing.Size(468, 106);
             this.txtDescription.TabIndex = 50;
@@ -140,7 +138,6 @@
             // 
             this.txtName.Location = new System.Drawing.Point(109, 66);
             this.txtName.Name = "txtName";
-            this.txtName.ReadOnly = true;
             this.txtName.Size = new System.Drawing.Size(430, 20);
             this.txtName.TabIndex = 46;
             // 
