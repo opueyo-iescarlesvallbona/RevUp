@@ -49,7 +49,7 @@ namespace RevupCrud.Controller
         {
             if(comment != null)
             {
-                f.txtId.Text = comment.id.ToString();
+                f.lblTitol.Text = "Comment - " + comment.id.ToString();                
                 f.txtDate.Text = comment.datetime.ToString();
                 f.txtPost.Text = comment.post.title;
                 f.txtMember.Text = comment.member.name;

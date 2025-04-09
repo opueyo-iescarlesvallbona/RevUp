@@ -59,10 +59,13 @@
             this.lblDescription = new System.Windows.Forms.Label();
             this.chbFounder = new System.Windows.Forms.CheckBox();
             this.dtpDateBirth = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCars)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClubs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPosts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRelations)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitol
@@ -111,7 +114,7 @@
             this.lblRelations.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblRelations.AutoSize = true;
             this.lblRelations.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRelations.Location = new System.Drawing.Point(574, 442);
+            this.lblRelations.Location = new System.Drawing.Point(574, 568);
             this.lblRelations.Name = "lblRelations";
             this.lblRelations.Size = new System.Drawing.Size(71, 17);
             this.lblRelations.TabIndex = 5;
@@ -143,7 +146,7 @@
             this.lblClubs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblClubs.AutoSize = true;
             this.lblClubs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClubs.Location = new System.Drawing.Point(574, 245);
+            this.lblClubs.Location = new System.Drawing.Point(574, 371);
             this.lblClubs.Name = "lblClubs";
             this.lblClubs.Size = new System.Drawing.Size(47, 17);
             this.lblClubs.TabIndex = 8;
@@ -154,7 +157,7 @@
             // 
             this.lblCars.AutoSize = true;
             this.lblCars.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCars.Location = new System.Drawing.Point(12, 245);
+            this.lblCars.Location = new System.Drawing.Point(12, 371);
             this.lblCars.Name = "lblCars";
             this.lblCars.Size = new System.Drawing.Size(41, 17);
             this.lblCars.TabIndex = 9;
@@ -196,7 +199,7 @@
             // 
             this.lblPosts.AutoSize = true;
             this.lblPosts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPosts.Location = new System.Drawing.Point(15, 442);
+            this.lblPosts.Location = new System.Drawing.Point(15, 568);
             this.lblPosts.Name = "lblPosts";
             this.lblPosts.Size = new System.Drawing.Size(47, 17);
             this.lblPosts.TabIndex = 13;
@@ -250,7 +253,7 @@
             this.dataGridViewCars.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewCars.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCars.Location = new System.Drawing.Point(15, 265);
+            this.dataGridViewCars.Location = new System.Drawing.Point(15, 391);
             this.dataGridViewCars.MultiSelect = false;
             this.dataGridViewCars.Name = "dataGridViewCars";
             this.dataGridViewCars.ReadOnly = true;
@@ -262,7 +265,7 @@
             // 
             this.dataGridViewClubs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewClubs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewClubs.Location = new System.Drawing.Point(577, 265);
+            this.dataGridViewClubs.Location = new System.Drawing.Point(577, 391);
             this.dataGridViewClubs.MultiSelect = false;
             this.dataGridViewClubs.Name = "dataGridViewClubs";
             this.dataGridViewClubs.ReadOnly = true;
@@ -276,12 +279,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewPosts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPosts.Location = new System.Drawing.Point(15, 462);
+            this.dataGridViewPosts.Location = new System.Drawing.Point(15, 588);
             this.dataGridViewPosts.MultiSelect = false;
             this.dataGridViewPosts.Name = "dataGridViewPosts";
             this.dataGridViewPosts.ReadOnly = true;
             this.dataGridViewPosts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPosts.Size = new System.Drawing.Size(524, 150);
+            this.dataGridViewPosts.Size = new System.Drawing.Size(524, 147);
             this.dataGridViewPosts.TabIndex = 24;
             // 
             // dataGridViewRelations
@@ -290,12 +293,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewRelations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRelations.Location = new System.Drawing.Point(577, 462);
+            this.dataGridViewRelations.Location = new System.Drawing.Point(577, 588);
             this.dataGridViewRelations.MultiSelect = false;
             this.dataGridViewRelations.Name = "dataGridViewRelations";
             this.dataGridViewRelations.ReadOnly = true;
             this.dataGridViewRelations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewRelations.Size = new System.Drawing.Size(558, 150);
+            this.dataGridViewRelations.Size = new System.Drawing.Size(558, 147);
             this.dataGridViewRelations.TabIndex = 25;
             // 
             // comboGender
@@ -370,7 +373,7 @@
             // chbFounder
             // 
             this.chbFounder.AutoSize = true;
-            this.chbFounder.Location = new System.Drawing.Point(1059, 242);
+            this.chbFounder.Location = new System.Drawing.Point(1059, 368);
             this.chbFounder.Name = "chbFounder";
             this.chbFounder.Size = new System.Drawing.Size(76, 17);
             this.chbFounder.TabIndex = 35;
@@ -388,11 +391,31 @@
             this.dtpDateBirth.Size = new System.Drawing.Size(130, 20);
             this.dtpDateBirth.TabIndex = 36;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(273, 162);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 17);
+            this.label1.TabIndex = 37;
+            this.label1.Text = "Image:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(329, 162);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(210, 192);
+            this.pictureBox1.TabIndex = 38;
+            this.pictureBox1.TabStop = false;
+            // 
             // ViewUsuariDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1147, 633);
+            this.ClientSize = new System.Drawing.Size(1147, 751);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dtpDateBirth);
             this.Controls.Add(this.chbFounder);
             this.Controls.Add(this.txtDescription);
@@ -430,6 +453,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClubs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPosts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRelations)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -468,5 +492,7 @@
         public System.Windows.Forms.Label lblDescription;
         public System.Windows.Forms.CheckBox chbFounder;
         public System.Windows.Forms.DateTimePicker dtpDateBirth;
+        public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

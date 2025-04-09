@@ -14,7 +14,7 @@ namespace RevupCrud.Controller
     public class ControllerUsuariDetails
     {
         RepositoriCrud r = new RepositoriCrud();
-        ViewUsuariDetails f;
+        ViewUsuariDetails f = new ViewUsuariDetails();
         member usuari;
         bool OpenedFromDetails = false;
 
@@ -27,6 +27,23 @@ namespace RevupCrud.Controller
             f.txtEmail.TextChanged += Txt_TextChanged;
             f.txtLocation.TextChanged += Txt_TextChanged;
             f.chbFounder.CheckedChanged += Chb_CheckedChanged;
+            f.dataGridViewCars.CellDoubleClick += DataGridViewCars_CellDoubleClick;
+        }
+
+        private void DataGridViewCars_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                car carT = r.GetCarById((f.dataGridViewCars.Rows[e.RowIndex].DataBoundItem as MemberCarTable).Id);
+                ViewCarDetails form = new ViewCarDetails();
+                new ControllerCarDetails(carT, form);
+                form.FormClosed += CarDetailsFormClosed;
+            }
+        }
+
+        private void CarDetailsFormClosed(object sender, FormClosedEventArgs e)
+        {
+            f.dataGridViewCars.DataSource = GetMemberCarTable(usuari.id);
         }
 
         private void Txt_TextChanged(object sender, EventArgs e)

@@ -469,5 +469,38 @@ namespace RevupCrud.Model
             }
             return likes;
         }
+
+        public car GetCarById(int id)
+        {
+            car c = new car();
+            try
+            {
+                c = Repositori.db.cars.Where(x => x.id == id).FirstOrDefault();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return c;
+        }
+
+        public bool DeleteCar(car car)
+        {
+            bool esborrat = false;
+            try
+            {
+                car c = Repositori.db.cars.Where(x => x.id.Equals(car.id)).FirstOrDefault();                
+                Repositori.db.cars.Remove(c);
+                SaveChanges();
+                MessageBox.Show("Car deleted correctly");
+                esborrat = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error on delete car");
+                Repositori.dbConnect();
+            }
+            return esborrat;
+        }
     }
 }
