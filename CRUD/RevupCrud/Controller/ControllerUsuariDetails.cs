@@ -27,7 +27,50 @@ namespace RevupCrud.Controller
             f.txtEmail.TextChanged += Txt_TextChanged;
             f.txtLocation.TextChanged += Txt_TextChanged;
             f.chbFounder.CheckedChanged += Chb_CheckedChanged;
-            f.dataGridViewCars.CellDoubleClick += DataGridViewCars_CellDoubleClick;
+            if (!OpenedFromDetails)
+            {
+                f.dataGridViewCars.CellDoubleClick += DataGridViewCars_CellDoubleClick;
+                f.dataGridViewClubs.CellDoubleClick += DataGridViewClubs_CellDoubleClick;
+                f.dataGridViewPosts.CellDoubleClick += DataGridViewPosts_CellDoubleClick;
+                f.dataGridViewRelations.CellDoubleClick += DataGridViewRelations_CellDoubleClick;
+            }            
+        }
+
+        private void DataGridViewRelations_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                List<int> list = new List<int> { (f.dataGridViewRelations.Rows[e.RowIndex].DataBoundItem as MemberRelationTable).Id };
+                List<member> m = r.GetMembersById(list);
+                ViewUsuariDetails form = new ViewUsuariDetails();
+                new ControllerUsuariDetails(m[0], form, true);                
+            }
+        }
+
+        private void DataGridViewPosts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                post p = f.dataGridViewPosts.Rows[e.RowIndex].DataBoundItem as post;
+                ViewPostDetails form = new ViewPostDetails();
+                new ControllerPostDetails(p, form, true);                
+            }
+        }
+
+        private void DataGridViewClubs_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                club clubT = r.GetClubById((f.dataGridViewClubs.Rows[e.RowIndex].DataBoundItem as MemberClubTable).Id);
+                ViewClubDetails form = new ViewClubDetails();
+                new ControllerClubDetails(clubT, form, true);
+                form.FormClosed += ClubDetailsFormClosed;
+            }
+        }
+
+        private void ClubDetailsFormClosed(object sender, FormClosedEventArgs e)
+        {
+            f.dataGridViewClubs.DataSource = GetMembersClubTable(false);
         }
 
         private void DataGridViewCars_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

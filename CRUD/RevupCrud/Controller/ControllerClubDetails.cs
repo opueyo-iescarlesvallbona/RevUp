@@ -16,6 +16,7 @@ namespace RevupCrud.Controller
         RepositoriCrud r = new RepositoriCrud();
         ViewClubDetails f;
         club club;
+        bool OpenedFromDetails = false;
 
         void SetListeners()
         {
@@ -59,9 +60,12 @@ namespace RevupCrud.Controller
                 f.btnUpdate.Click += BtnUpdate_Click;
                 f.btnGuardar.Click += BtnGuardar_Click_Update;
 
-                f.btnGuardar.Enabled = false;
-                f.btnDelete.Enabled = true;
-                f.btnUpdate.Enabled = true;
+                if (!OpenedFromDetails)
+                {
+                    f.btnGuardar.Enabled = false;
+                    f.btnDelete.Enabled = true;
+                    f.btnUpdate.Enabled = true;
+                }                
 
                 f.txtName.Enabled = false;
                 f.txtFounder.Enabled = false;
@@ -76,9 +80,12 @@ namespace RevupCrud.Controller
                 f.txtDescription.Enabled = true;
 
                 f.btnGuardar.Click += BtnGuardar_Click;
-                f.btnDelete.Enabled = false;
-                f.btnUpdate.Enabled = false;
-                f.btnGuardar.Enabled = true;
+                if (!OpenedFromDetails)
+                {
+                    f.btnDelete.Enabled = false;
+                    f.btnUpdate.Enabled = false;
+                    f.btnGuardar.Enabled = true;
+                }                
             }
         }
 
@@ -235,8 +242,9 @@ namespace RevupCrud.Controller
                 //DO NOTHING
             }
         }
-        public ControllerClubDetails(club club, ViewClubDetails form)
+        public ControllerClubDetails(club club, ViewClubDetails form, bool OpenedFromDetails)
         {
+            this.OpenedFromDetails = OpenedFromDetails;
             if (club != null)
             {
                 this.club = club;
@@ -244,6 +252,12 @@ namespace RevupCrud.Controller
             if (form != null)
             {
                 f = form;
+            }
+            if (OpenedFromDetails)
+            {
+                f.btnDelete.Enabled = false;
+                f.btnGuardar.Enabled = false;
+                f.btnUpdate.Enabled = false;
             }
             SetListeners();
             LoadData();

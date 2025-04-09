@@ -392,7 +392,7 @@ namespace RevupCrud.Controller
         {
             ViewClubDetails f = new ViewClubDetails();
             f.FormClosed += ClubDetailsFormClosed;
-            new ControllerClubDetails(null, f);
+            new ControllerClubDetails(null, f, true);
         }
 
         private void DataGridView_CellDoubleClickClub(object sender, DataGridViewCellEventArgs e)
@@ -414,7 +414,7 @@ namespace RevupCrud.Controller
                 };
 
                 ViewClubDetails f = new ViewClubDetails();
-                new ControllerClubDetails(club, f);
+                new ControllerClubDetails(club, f, false);
                 f.FormClosed += ClubDetailsFormClosed;
             }
         }

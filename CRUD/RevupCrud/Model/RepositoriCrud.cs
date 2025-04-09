@@ -484,6 +484,20 @@ namespace RevupCrud.Model
             return c;
         }
 
+        public club GetClubById(int id)
+        {
+            club c = new club();
+            try
+            {
+                c = Repositori.db.clubs.Where(x => x.id == id).FirstOrDefault();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return c;
+        }
+
         public bool DeleteCar(car car)
         {
             bool esborrat = false;
