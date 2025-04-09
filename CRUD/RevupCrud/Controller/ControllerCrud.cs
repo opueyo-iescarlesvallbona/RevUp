@@ -365,7 +365,7 @@ namespace RevupCrud.Controller
             posts.dataGridView.Columns["post_comment"].Visible = false;
             posts.dataGridView.Columns["route_id"].Visible = false;
             posts.dataGridView.Columns["post_type1"].HeaderText = "post type";
-            posts.dataGridView.Columns["members1"].Visible = false;
+            posts.dataGridView.Columns["members"].Visible = false;
             FormatHeadersDataGrid(posts.dataGridView);
 
             posts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;

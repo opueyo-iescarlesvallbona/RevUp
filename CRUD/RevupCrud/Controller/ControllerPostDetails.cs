@@ -3,6 +3,7 @@ using RevupCrud.Model;
 using RevupCrud.View;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,12 @@ namespace RevupCrud.Controller
                 f.lblNumComments.Text = "Number of comments: " + post.comments.ToString();
                 f.lblNumLikes.Text = "Number of likes: " + post.likes.ToString();
 
+
+                if (post.picture != null)
+                {
+                    Image i =  Image.FromFile(post.picture);
+                    f.pictureBox.Image = i;
+                }
                 f.btnDelete.Click += BtnDelete_Click;
                 f.btnOpenMember.Click += BtnOpenMember_Click;
 

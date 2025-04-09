@@ -75,3 +75,5 @@ C:\RevUp\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewCommentDetails.resources
 C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewCommentDetails.resources
 C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewComments.resources
 C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewRouteDetails.resources
+C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewEventDetails.resources
+C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewCarDetails.resources

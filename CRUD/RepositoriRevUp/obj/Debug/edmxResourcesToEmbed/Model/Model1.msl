@@ -113,23 +113,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="posts">
-      <EntityTypeMapping TypeName="revupModel.post">
-        <MappingFragment StoreEntitySet="post">
-          <ScalarProperty Name="comments" ColumnName="comments" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="post_type" ColumnName="post_type" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="post_date" ColumnName="post_date" />
-          <ScalarProperty Name="picture" ColumnName="picture" />
-          <ScalarProperty Name="likes" ColumnName="likes" />
-          <ScalarProperty Name="address" ColumnName="address" />
-          <ScalarProperty Name="route_id" ColumnName="route_id" />
-          <ScalarProperty Name="member_id" ColumnName="member_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="post_comment">
       <EntityTypeMapping TypeName="revupModel.post_comment">
         <MappingFragment StoreEntitySet="post_comment">
@@ -217,6 +200,23 @@
           <ScalarProperty Name="distance" ColumnName="distance" />
           <ScalarProperty Name="waypoints" ColumnName="waypoints" />
           <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="posts">
+      <EntityTypeMapping TypeName="revupModel.post">
+        <MappingFragment StoreEntitySet="post">
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="member_id" ColumnName="member_id" />
+          <ScalarProperty Name="route_id" ColumnName="route_id" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="likes" ColumnName="likes" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="post_date" ColumnName="post_date" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="post_type" ColumnName="post_type" />
+          <ScalarProperty Name="title" ColumnName="title" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

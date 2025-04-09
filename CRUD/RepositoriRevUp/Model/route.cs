@@ -35,8 +35,8 @@ namespace RepositoriRevUp.Model
         public Nullable<System.DateTime> datetime { get; set; }
     
         public virtual member member { get; set; }
+        public virtual terrain_type terrain_type { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<post> posts { get; set; }
-        public virtual terrain_type terrain_type { get; set; }
     }
 }

@@ -148,7 +148,7 @@
     <Property Name="post_type" Type="int" Nullable="false" />
     <Property Name="description" Type="text" />
     <Property Name="post_date" Type="datetime" Nullable="false" />
-    <Property Name="picture" Type="varbinary(max)" />
+    <Property Name="picture" Type="varchar" MaxLength="500" />
     <Property Name="likes" Type="bigint" Nullable="false" />
     <Property Name="address" Type="varchar" MaxLength="100" />
     <Property Name="route_id" Type="int" />

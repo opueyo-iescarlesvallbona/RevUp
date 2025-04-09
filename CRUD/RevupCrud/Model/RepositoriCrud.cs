@@ -461,7 +461,7 @@ namespace RevupCrud.Model
             List<member> likes = new List<member>();
             try
             {
-                likes = Repositori.db.posts.Where(x => x.id.Equals(id)).FirstOrDefault().members1.ToList();
+                likes = Repositori.db.posts.Where(x => x.id.Equals(id)).FirstOrDefault().members.ToList();
             }
             catch
             {

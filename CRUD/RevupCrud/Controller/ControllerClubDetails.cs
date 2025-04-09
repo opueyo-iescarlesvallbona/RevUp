@@ -54,6 +54,9 @@ namespace RevupCrud.Controller
                 f.dataGridViewEvents.CellFormatting += DataGridView_CellFormattingEvent;
                 FormatHeadersDataGrid(f.dataGridViewEvents);
 
+                f.dataGridViewMembers.CellDoubleClick += DataGridViewMembers_CellDoubleClick;
+                f.dataGridViewEvents.CellDoubleClick += DataGridViewEvents_CellDoubleClick;
+
 
 
                 f.btnDelete.Click += BtnDelete_Click;
@@ -75,7 +78,6 @@ namespace RevupCrud.Controller
             {
                 f.lblTitol.Text = "Nou club";
                 f.txtName.Enabled = true;
-                f.txtFounder.Enabled = true;
                 f.txtFounder.AutoCompleteCustomSource.AddRange(r.GetAllMembers("","","","").OrderBy(x => x.name).Select(x => x.membername).ToArray());
                 f.txtDescription.Enabled = true;
 
@@ -87,6 +89,17 @@ namespace RevupCrud.Controller
                     f.btnGuardar.Enabled = true;
                 }                
             }
+        }
+
+        private void DataGridViewEvents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void DataGridViewMembers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ViewUsuariDetails f = new ViewUsuariDetails();
+            new ControllerUsuariDetails(r.GetAllMembers("","","","").Where(x=>x.id.Equals((int)this.f.dataGridViewMembers.Rows[e.RowIndex].Cells["Id"].Value)).FirstOrDefault(), f, true);
         }
 
         void DataGridView_CellFormattingEvent(object sender, DataGridViewCellFormattingEventArgs e)

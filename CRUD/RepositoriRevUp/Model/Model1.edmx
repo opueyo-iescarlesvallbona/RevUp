@@ -153,7 +153,7 @@
           <Property Name="post_type" Type="int" Nullable="false" />
           <Property Name="description" Type="text" />
           <Property Name="post_date" Type="datetime" Nullable="false" />
-          <Property Name="picture" Type="varbinary(max)" />
+          <Property Name="picture" Type="varchar" MaxLength="500" />
           <Property Name="likes" Type="bigint" Nullable="false" />
           <Property Name="address" Type="varchar" MaxLength="100" />
           <Property Name="route_id" Type="int" />
@@ -723,11 +723,11 @@
           <NavigationProperty Name="member_relation1" Relationship="Self.FK__member_re__membe__05D8E0BE" FromRole="member" ToRole="member_relation" />
           <NavigationProperty Name="messages" Relationship="Self.FK__message__receive__10566F31" FromRole="member" ToRole="message" />
           <NavigationProperty Name="messages1" Relationship="Self.FK__message__sender___0F624AF8" FromRole="member" ToRole="message" />
-          <NavigationProperty Name="posts" Relationship="Self.FK__post__member_id__787EE5A0" FromRole="member" ToRole="post" />
           <NavigationProperty Name="cars" Relationship="revupModel.FK__car__member_id__756D6ECB" FromRole="member" ToRole="car" />
           <NavigationProperty Name="post_comment" Relationship="revupModel.FK__post_comm__membe__0697FACD" FromRole="member" ToRole="post_comment" />
           <NavigationProperty Name="routes" Relationship="revupModel.FK__route__member_id__12FDD1B2" FromRole="member" ToRole="route" />
-          <NavigationProperty Name="posts11" Relationship="revupModel.post_member_like" FromRole="member" ToRole="post" />
+          <NavigationProperty Name="posts" Relationship="revupModel.FK__post__member_id__787EE5A0" FromRole="member" ToRole="post" />
+          <NavigationProperty Name="posts1" Relationship="revupModel.post_member_like" FromRole="member" ToRole="post" />
         </EntityType>
         <EntityType Name="member_club">
           <Key>
@@ -797,27 +797,6 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="messages" Relationship="Self.FK__message__state_i__114A936A" FromRole="message_state" ToRole="message" />
         </EntityType>
-        <EntityType Name="post">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="post_type" Type="Int32" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="post_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="likes" Type="Int64" Nullable="false" />
-          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="route_id" Type="Int32" />
-          <Property Name="member_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="member" Relationship="Self.FK__post__member_id__787EE5A0" FromRole="post" ToRole="member" />
-          <NavigationProperty Name="post_comment" Relationship="Self.FK__post_comm__post___7C4F7684" FromRole="post" ToRole="post_comment" />
-          <NavigationProperty Name="post_type1" Relationship="revupModel.FK__post__post_type__1EA48E88" FromRole="post" ToRole="post_type" />
-          <Property Name="comments" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="route" Relationship="revupModel.FK__post__route_id__797309D9" FromRole="post" ToRole="route" />
-          <NavigationProperty Name="members1" Relationship="revupModel.post_member_like" FromRole="post" ToRole="member" />
-        </EntityType>
         <EntityType Name="post_comment">
           <Key>
             <PropertyRef Name="id" />
@@ -827,8 +806,8 @@
           <Property Name="member_id" Type="Int32" Nullable="false" />
           <Property Name="comment_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="post" Relationship="Self.FK__post_comm__post___7C4F7684" FromRole="post_comment" ToRole="post" />
           <NavigationProperty Name="member" Relationship="revupModel.FK__post_comm__membe__0697FACD" FromRole="post_comment" ToRole="member" />
+          <NavigationProperty Name="post" Relationship="revupModel.FK__post_comm__post___7C4F7684" FromRole="post_comment" ToRole="post" />
         </EntityType>
         <EntityType Name="post_type">
           <Key>
@@ -974,18 +953,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__post__member_id__787EE5A0">
-          <End Role="member" Type="Self.member" Multiplicity="1" />
-          <End Role="post" Type="Self.post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="member">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="post">
-              <PropertyRef Name="member_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__member_cl__role___66603565">
           <End Role="member_club_role" Type="Self.member_club_role" Multiplicity="1" />
           <End Role="member_club" Type="Self.member_club" Multiplicity="*" />
@@ -1022,18 +989,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__post_comm__post___7C4F7684">
-          <End Role="post" Type="Self.post" Multiplicity="1" />
-          <End Role="post_comment" Type="Self.post_comment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="post">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="post_comment">
-              <PropertyRef Name="post_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="revupEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="clubs" EntityType="Self.club" />
           <EntitySet Name="club_event" EntityType="Self.club_event" />
@@ -1045,7 +1000,6 @@
           <EntitySet Name="member_relation" EntityType="Self.member_relation" />
           <EntitySet Name="messages" EntityType="Self.message" />
           <EntitySet Name="message_state" EntityType="Self.message_state" />
-          <EntitySet Name="posts" EntityType="Self.post" />
           <EntitySet Name="post_comment" EntityType="Self.post_comment" />
           <EntitySet Name="post_type" EntityType="Self.post_type" />
           <EntitySet Name="relation_state" EntityType="Self.relation_state" />
@@ -1090,10 +1044,6 @@
             <End Role="member" EntitySet="members" />
             <End Role="message" EntitySet="messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__post__member_id__787EE5A0" Association="Self.FK__post__member_id__787EE5A0">
-            <End Role="member" EntitySet="members" />
-            <End Role="post" EntitySet="posts" />
-          </AssociationSet>
           <AssociationSet Name="FK__member_cl__role___66603565" Association="Self.FK__member_cl__role___66603565">
             <End Role="member_club_role" EntitySet="member_club_role" />
             <End Role="member_club" EntitySet="member_club" />
@@ -1105,14 +1055,6 @@
           <AssociationSet Name="FK__message__state_i__114A936A" Association="Self.FK__message__state_i__114A936A">
             <End Role="message_state" EntitySet="message_state" />
             <End Role="message" EntitySet="messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__post_comm__post___7C4F7684" Association="Self.FK__post_comm__post___7C4F7684">
-            <End Role="post" EntitySet="posts" />
-            <End Role="post_comment" EntitySet="post_comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK__post__post_type__1EA48E88" Association="revupModel.FK__post__post_type__1EA48E88">
-            <End Role="post_type" EntitySet="post_type" />
-            <End Role="post" EntitySet="posts" />
           </AssociationSet>
           <EntitySet Name="event_state" EntityType="revupModel.event_state" />
           <AssociationSet Name="FK__club_even__state__531856C7" Association="revupModel.FK__club_even__state__531856C7">
@@ -1143,31 +1085,32 @@
             <End Role="member" EntitySet="members" />
             <End Role="route" EntitySet="routes" />
           </AssociationSet>
+          <AssociationSet Name="FK__route__terrain_t__71D1E811" Association="revupModel.FK__route__terrain_t__71D1E811">
+            <End Role="terrain_type" EntitySet="terrain_type" />
+            <End Role="route" EntitySet="routes" />
+          </AssociationSet>
+          <EntitySet Name="posts" EntityType="revupModel.post" />
+          <AssociationSet Name="FK__post__member_id__787EE5A0" Association="revupModel.FK__post__member_id__787EE5A0">
+            <End Role="member" EntitySet="members" />
+            <End Role="post" EntitySet="posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__post__post_type__1EA48E88" Association="revupModel.FK__post__post_type__1EA48E88">
+            <End Role="post_type" EntitySet="post_type" />
+            <End Role="post" EntitySet="posts" />
+          </AssociationSet>
           <AssociationSet Name="FK__post__route_id__797309D9" Association="revupModel.FK__post__route_id__797309D9">
             <End Role="route" EntitySet="routes" />
             <End Role="post" EntitySet="posts" />
           </AssociationSet>
-          <AssociationSet Name="FK__route__terrain_t__71D1E811" Association="revupModel.FK__route__terrain_t__71D1E811">
-            <End Role="terrain_type" EntitySet="terrain_type" />
-            <End Role="route" EntitySet="routes" />
+          <AssociationSet Name="FK__post_comm__post___7C4F7684" Association="revupModel.FK__post_comm__post___7C4F7684">
+            <End Role="post" EntitySet="posts" />
+            <End Role="post_comment" EntitySet="post_comment" />
           </AssociationSet>
           <AssociationSet Name="post_member_like" Association="revupModel.post_member_like">
             <End Role="member" EntitySet="members" />
             <End Role="post" EntitySet="posts" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="FK__post__post_type__1EA48E88">
-          <End Type="revupModel.post_type" Role="post_type" Multiplicity="1" />
-          <End Type="revupModel.post" Role="post" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="post_type">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="post">
-              <PropertyRef Name="post_type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="event_state">
           <Key>
             <PropertyRef Name="id" />
@@ -1285,8 +1228,8 @@
           <Property Name="member_id" Type="Int32" Nullable="false" />
           <Property Name="datetime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="member" Relationship="revupModel.FK__route__member_id__12FDD1B2" FromRole="route" ToRole="member" />
-          <NavigationProperty Name="posts" Relationship="revupModel.FK__post__route_id__797309D9" FromRole="route" ToRole="post" />
           <NavigationProperty Name="terrain_type" Relationship="revupModel.FK__route__terrain_t__71D1E811" FromRole="route" ToRole="terrain_type" />
+          <NavigationProperty Name="posts" Relationship="revupModel.FK__post__route_id__797309D9" FromRole="route" ToRole="post" />
         </EntityType>
         <Association Name="FK__route__member_id__12FDD1B2">
           <End Type="revupModel.member" Role="member" Multiplicity="1" />
@@ -1297,6 +1240,63 @@
             </Principal>
             <Dependent Role="route">
               <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__route__terrain_t__71D1E811">
+          <End Type="revupModel.terrain_type" Role="terrain_type" Multiplicity="0..1" />
+          <End Type="revupModel.route" Role="route" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="terrain_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="route">
+              <PropertyRef Name="terrain_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="post">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="post_type" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="post_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="likes" Type="Int64" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="route_id" Type="Int32" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="comments" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="member" Relationship="revupModel.FK__post__member_id__787EE5A0" FromRole="post" ToRole="member" />
+          <NavigationProperty Name="post_type1" Relationship="revupModel.FK__post__post_type__1EA48E88" FromRole="post" ToRole="post_type" />
+          <NavigationProperty Name="route" Relationship="revupModel.FK__post__route_id__797309D9" FromRole="post" ToRole="route" />
+          <NavigationProperty Name="post_comment" Relationship="revupModel.FK__post_comm__post___7C4F7684" FromRole="post" ToRole="post_comment" />
+          <NavigationProperty Name="members" Relationship="revupModel.post_member_like" FromRole="post" ToRole="member" />
+        </EntityType>
+        <Association Name="FK__post__member_id__787EE5A0">
+          <End Type="revupModel.member" Role="member" Multiplicity="1" />
+          <End Type="revupModel.post" Role="post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__post__post_type__1EA48E88">
+          <End Type="revupModel.post_type" Role="post_type" Multiplicity="1" />
+          <End Type="revupModel.post" Role="post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="post_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="post">
+              <PropertyRef Name="post_type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1312,15 +1312,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__route__terrain_t__71D1E811">
-          <End Type="revupModel.terrain_type" Role="terrain_type" Multiplicity="0..1" />
-          <End Type="revupModel.route" Role="route" Multiplicity="*" />
+        <Association Name="FK__post_comm__post___7C4F7684">
+          <End Type="revupModel.post" Role="post" Multiplicity="1" />
+          <End Type="revupModel.post_comment" Role="post_comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="terrain_type">
+            <Principal Role="post">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="route">
-              <PropertyRef Name="terrain_type_id" />
+            <Dependent Role="post_comment">
+              <PropertyRef Name="post_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1446,23 +1446,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="posts">
-            <EntityTypeMapping TypeName="revupModel.post">
-              <MappingFragment StoreEntitySet="post">
-                <ScalarProperty Name="comments" ColumnName="comments" />
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="post_type" ColumnName="post_type" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="post_date" ColumnName="post_date" />
-                <ScalarProperty Name="picture" ColumnName="picture" />
-                <ScalarProperty Name="likes" ColumnName="likes" />
-                <ScalarProperty Name="address" ColumnName="address" />
-                <ScalarProperty Name="route_id" ColumnName="route_id" />
-                <ScalarProperty Name="member_id" ColumnName="member_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="post_comment">
             <EntityTypeMapping TypeName="revupModel.post_comment">
               <MappingFragment StoreEntitySet="post_comment">
@@ -1550,6 +1533,23 @@
                 <ScalarProperty Name="distance" ColumnName="distance" />
                 <ScalarProperty Name="waypoints" ColumnName="waypoints" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posts">
+            <EntityTypeMapping TypeName="revupModel.post">
+              <MappingFragment StoreEntitySet="post">
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="route_id" ColumnName="route_id" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="likes" ColumnName="likes" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="post_date" ColumnName="post_date" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="post_type" ColumnName="post_type" />
+                <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

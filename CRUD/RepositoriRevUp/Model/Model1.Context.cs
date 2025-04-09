@@ -17,7 +17,7 @@ namespace RepositoriRevUp.Model
     public partial class revupEntities : DbContext
     {
         public revupEntities(string password)
-    : base(ReplacePassword(password))
+: base(ReplacePassword(password))
         {
         }
         static string ReplacePassword(string password)
@@ -45,7 +45,6 @@ namespace RepositoriRevUp.Model
         public virtual DbSet<member_relation> member_relation { get; set; }
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<message_state> message_state { get; set; }
-        public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<post_comment> post_comment { get; set; }
         public virtual DbSet<post_type> post_type { get; set; }
         public virtual DbSet<relation_state> relation_state { get; set; }
@@ -55,5 +54,6 @@ namespace RepositoriRevUp.Model
         public virtual DbSet<model> models { get; set; }
         public virtual DbSet<car> cars { get; set; }
         public virtual DbSet<route> routes { get; set; }
+        public virtual DbSet<post> posts { get; set; }
     }
 }

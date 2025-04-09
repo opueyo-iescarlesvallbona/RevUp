@@ -23,11 +23,11 @@ namespace RepositoriRevUp.Model
             this.member_relation1 = new HashSet<member_relation>();
             this.messages = new HashSet<message>();
             this.messages1 = new HashSet<message>();
-            this.posts = new HashSet<post>();
             this.cars = new HashSet<car>();
             this.post_comment = new HashSet<post_comment>();
             this.routes = new HashSet<route>();
-            this.posts11 = new HashSet<post>();
+            this.posts = new HashSet<post>();
+            this.posts1 = new HashSet<post>();
         }
     
         public int id { get; set; }
@@ -58,14 +58,14 @@ namespace RepositoriRevUp.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<post> posts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<car> cars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<post_comment> post_comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<route> routes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<post> posts11 { get; set; }
+        public virtual ICollection<post> posts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<post> posts1 { get; set; }
     }
 }
