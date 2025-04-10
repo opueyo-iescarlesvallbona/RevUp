@@ -3,6 +3,7 @@ using RevupCrud.Model;
 using RevupCrud.View;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -134,6 +135,11 @@ namespace RevupCrud.Controller
                 f.dataGridViewRelations.DataSource = GetMemberRelationTable(usuari.id);
                 f.dataGridViewClubs.DataSource = GetMembersClubTable(false);
 
+                if (usuari.profile_picture != null)
+                {
+                    Image i = Image.FromFile(usuari.profile_picture);
+                    f.pictureBox1.Image = i;
+                }
 
                 f.btnDelete.Click += BtnDelete_Click;
                 f.btnUpdate.Click += BtnUpdate_Click;

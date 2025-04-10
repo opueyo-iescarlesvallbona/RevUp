@@ -558,5 +558,19 @@ namespace RevupCrud.Model
             }
             return events;
         }
+
+        public List<club_event> GetClubEventsByState(int club, int state)
+        {
+            List<club_event> club_event = new List<club_event>();
+            try
+            {
+                club_event = Repositori.db.club_event.Where(x => x.club_id.Equals(club) && x.state.Equals(state)).ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return club_event;
+        }
     }
 }

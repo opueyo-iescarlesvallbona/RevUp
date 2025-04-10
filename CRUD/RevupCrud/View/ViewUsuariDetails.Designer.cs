@@ -493,6 +493,6 @@
         public System.Windows.Forms.CheckBox chbFounder;
         public System.Windows.Forms.DateTimePicker dtpDateBirth;
         public System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.PictureBox pictureBox1;
     }
 }

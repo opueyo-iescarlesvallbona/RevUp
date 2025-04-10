@@ -3,6 +3,7 @@ using RevupCrud.Model;
 using RevupCrud.View;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,19 @@ namespace RevupCrud.Controller
         {
             f.txtName.TextChanged += Txt_TextChanged;
             f.txtFounder.TextChanged += Txt_TextChanged;
+            f.cmbState.SelectedIndexChanged += CmbState_SelectedIndexChanged;
+        }
+
+        private void CmbState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(f.cmbState.SelectedItem as String == "All")
+            {
+                f.dataGridViewEvents.DataSource = r.GetEventsByClub(club.id);
+            }
+            else
+            {
+                f.dataGridViewEvents.DataSource = r.GetClubEventsByState(club.id, (f.cmbState.SelectedItem as event_state).id);
+            }            
         }
 
         private void Txt_TextChanged(object sender, EventArgs e)
@@ -52,7 +66,18 @@ namespace RevupCrud.Controller
                 f.dataGridViewEvents.Columns["state"].Visible = false;
                 f.dataGridViewEvents.Columns["club"].Visible = false;
                 f.dataGridViewEvents.CellFormatting += DataGridView_CellFormattingEvent;
-                FormatHeadersDataGrid(f.dataGridViewEvents);            
+                FormatHeadersDataGrid(f.dataGridViewEvents);
+
+                if (club.picture != null)
+                {
+                    Image i = Image.FromFile(club.picture);
+                    f.pictureBox1.Image = i;
+                }
+
+                f.cmbState.Items.Clear();
+                f.cmbState.Items.Add("All");
+                f.cmbState.DataSource = r.GetAllEventStates();
+                f.cmbState.DisplayMember = "name";
 
                 f.btnDelete.Click += BtnDelete_Click;
                 f.btnUpdate.Click += BtnUpdate_Click;
@@ -77,6 +102,11 @@ namespace RevupCrud.Controller
                 f.txtName.Enabled = true;
                 f.txtFounder.AutoCompleteCustomSource.AddRange(r.GetAllMembers("","","","").OrderBy(x => x.name).Select(x => x.membername).ToArray());
                 f.txtDescription.Enabled = true;
+
+                f.cmbState.Items.Clear();
+                f.cmbState.Items.Add("All");
+                f.cmbState.DataSource = r.GetAllEventStates();
+                f.cmbState.DisplayMember = "name";
 
                 f.btnGuardar.Click += BtnGuardar_Click;
                 if (!OpenedFromDetails)
