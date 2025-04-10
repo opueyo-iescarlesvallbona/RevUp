@@ -113,6 +113,12 @@
     <Compile Include="View\ViewEventDetails.Designer.cs">
       <DependentUpon>ViewEventDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\ViewEvents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ViewEvents.Designer.cs">
+      <DependentUpon>ViewEvents.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ViewPostDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewEventDetails.resx">
       <DependentUpon>ViewEventDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ViewEvents.resx">
+      <DependentUpon>ViewEvents.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ViewPostDetails.resx">
       <DependentUpon>ViewPostDetails.cs</DependentUpon>

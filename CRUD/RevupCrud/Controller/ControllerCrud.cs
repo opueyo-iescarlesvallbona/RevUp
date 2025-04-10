@@ -22,6 +22,7 @@ namespace RevupCrud.Controller
         ViewClubs clubs = new ViewClubs { TopLevel = false, TopMost = false };
         ViewPosts posts = new ViewPosts { TopLevel = false, TopMost = false };
         ViewComments comments = new ViewComments { TopLevel = false, TopMost = false };
+        ViewEvents events = new ViewEvents { TopLevel = false, TopMost = false };
 
 
         void SetListeners()
@@ -29,8 +30,173 @@ namespace RevupCrud.Controller
             f.btnUsuaris.Click += BtnUsuaris_Click;
             f.btnClub.Click += BtnClub_Click;
             f.btn_post.Click += BtnPost_Click;
-            f.btn_comments.Click += BtnComment_Click;            
+            f.btn_comments.Click += BtnComment_Click;    
+            f.btnEvents.Click += BtnEvent_Click;
         }
+
+        private void SetListnersEvent()
+        {
+            events.btnSearch.Click += BtnBuscar_ClickEvent;
+            events.dataGridView.CellDoubleClick += DataGridView_CellDoubleClickEvent;
+            events.dataGridView.CellFormatting += DataGridView_CellFormattingEvent;
+        }
+
+        private void DataGridView_CellDoubleClickEvent(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                club_event events = this.events.dataGridView.Rows[e.RowIndex].DataBoundItem as club_event;
+
+                ViewEventDetails f = new ViewEventDetails();
+                new ControllerEventDetails(events, f);
+                f.FormClosed += EventDetailsFormClosed;
+            }
+        }
+
+        private void BtnBuscar_ClickEvent(object sender, EventArgs e)
+        {
+            List<club_event> Listevents = SearchEvents();
+            if (Listevents != null)
+            {
+                events.dataGridView.DataSource = Listevents;
+            }
+            else
+            {
+                events.dataGridView.DataSource = new List<club_event>();
+            }
+        }
+
+        private void EventDetailsFormClosed(object sender, FormClosedEventArgs e)
+        {
+            List<club_event> Listevents = SearchEvents();
+            if (Listevents != null)
+            {
+                events.dataGridView.DataSource = Listevents;
+            }
+        }
+
+        List<club_event> SearchEvents()
+        {
+            //Start filter datetimepickers ok
+            if (events.dateTimeStartTo.Value.Date < events.dateTimeStartFrom.Value.Date && events.dateTimeStartFrom.Checked && events.dateTimeStartTo.Checked)
+            {
+                MessageBox.Show("The To date cannot be earlier than the From date on Start Date Filter", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            //End filter datetimepickers ok
+            if (events.dateTimeEndTo.Value.Date < events.dateTimeEndFrom.Value.Date && events.dateTimeEndFrom.Checked && events.dateTimeEndTo.Checked)
+            {
+                MessageBox.Show("The To date cannot be earlier than the From date on End Date Filter", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            List<club_event> Listevents= r.GetAllEvents().OrderBy(x => x.name).ToList();
+            
+            //Name filter
+            if (events.txtName.Text != "")
+            {
+                Listevents = Listevents.Where(x => x.name.Contains(events.txtName.Text)).ToList();
+            }
+
+            //Club filter
+            if (events.txtClub.Text != "")
+            {
+                Listevents = Listevents.Where(x => x.club.name.Contains(events.txtClub.Text)).ToList();
+            }
+
+            //State filter
+            if (!(events.comboState.SelectedValue as event_state).name.Equals("Tots"))
+            {
+                Listevents = Listevents.Where(x => x.event_state.name.Equals((events.comboState.SelectedValue as event_state).name)).ToList();
+            }
+
+            //Start Date filter
+            if (events.dateTimeStartFrom.Checked && events.dateTimeStartTo.Checked)
+            {
+                Listevents = Listevents.Where(x => x.start_date.Date >= events.dateTimeStartFrom.Value.Date && x.start_date.Date <= events.dateTimeStartTo.Value.Date).ToList();
+            }
+            else if (events.dateTimeStartTo.Checked)
+            {
+                Listevents = Listevents.Where(x => x.start_date.Date <= events.dateTimeStartTo.Value.Date).ToList();
+            }
+            else if (events.dateTimeStartFrom.Checked)
+            {
+                Listevents = Listevents.Where(x => x.start_date.Date >= events.dateTimeStartFrom.Value.Date).ToList();
+            }
+
+            //End Date filter
+            if (events.dateTimeEndFrom.Checked && events.dateTimeEndTo.Checked)
+            {
+                Listevents = Listevents.Where(x => x.end_date.Date >= events.dateTimeEndFrom.Value.Date && x.end_date.Date <= events.dateTimeEndTo.Value.Date).ToList();
+            }
+            else if (events.dateTimeEndTo.Checked)
+            {
+                Listevents = Listevents.Where(x => x.end_date.Date <= events.dateTimeEndTo.Value.Date).ToList();
+            }
+            else if (events.dateTimeEndFrom.Checked)
+            {
+                Listevents = Listevents.Where(x => x.end_date.Date >= events.dateTimeEndFrom.Value.Date).ToList();
+            }
+            return Listevents;
+        }
+
+        private void BtnEvent_Click(object sender, EventArgs e)
+        {
+            SetListnersEvent();
+            events.dateTimeStartFrom.Checked = false;
+            events.dateTimeStartTo.Checked = false;
+            events.dateTimeEndFrom.Checked = false;
+            events.dateTimeEndTo.Checked = false;
+            List<event_state> states = new List<event_state>();
+            states.Add(new event_state { name = "Tots", id = -1 });
+            states.AddRange(r.GetAllEventStates());
+            events.comboState.DataSource = states;
+            events.comboState.DisplayMember = "name";
+            events.dataGridView.DataSource = r.GetAllEvents();
+            events.dataGridView.Columns["club_id"].Visible = false;
+            events.dataGridView.Columns["state"].Visible = false;
+            events.dataGridView.Columns["picture"].Visible = false;
+            events.dataGridView.Columns["description"].Visible = false;
+            events.dataGridView.Columns["start_date"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            events.dataGridView.Columns["end_date"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+
+            events.txtClub.AutoCompleteCustomSource.AddRange(r.GetAllClubs().Select(x => x.name).ToArray());
+            events.txtClub.AutoCompleteMode = AutoCompleteMode.Suggest;
+            FormatHeadersDataGrid(events.dataGridView);
+
+            events.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            events.dataGridView.BorderStyle = BorderStyle.None;
+
+            events.FormBorderStyle = FormBorderStyle.None;
+            f.panel.Controls.Clear();
+            f.panel.Controls.Add(events);
+            events.Show();
+        }
+
+        void DataGridView_CellFormattingEvent(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridViewColumn column = events.dataGridView.Columns[e.ColumnIndex];
+            if (e.RowIndex >= 0)
+            {
+                if (column.HeaderText.Equals("Club"))
+                {
+                    club_event c = events.dataGridView.Rows[e.RowIndex].DataBoundItem as club_event;
+                    if (c != null)
+                    {
+                        e.Value = c.club.name;
+                    }
+                }
+                else if (column.HeaderText.Equals("Event_state"))
+                {
+                    club_event c = events.dataGridView.Rows[e.RowIndex].DataBoundItem as club_event;
+                    if (c != null)
+                    {
+                        e.Value = c.event_state.name;
+                    }
+                }
+            }
+        }
+
+
 
         #region comments
 

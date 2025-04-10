@@ -30,7 +30,6 @@
         {
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.txtClub = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblEndDate = new System.Windows.Forms.Label();
@@ -49,6 +48,9 @@
             this.dateTimeRouteStartDate = new System.Windows.Forms.DateTimePicker();
             this.dateTimeEndDate = new System.Windows.Forms.DateTimePicker();
             this.btnOpenClub = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,16 +73,6 @@
             this.lblDescription.Size = new System.Drawing.Size(83, 17);
             this.lblDescription.TabIndex = 64;
             this.lblDescription.Text = "Description:";
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(780, 16);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(71, 39);
-            this.btnDelete.TabIndex = 61;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // txtClub
             // 
@@ -264,11 +256,44 @@
             this.btnOpenClub.Text = "Open Club";
             this.btnOpenClub.UseVisualStyleBackColor = true;
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdate.Location = new System.Drawing.Point(692, 12);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(71, 39);
+            this.btnUpdate.TabIndex = 77;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Location = new System.Drawing.Point(613, 12);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(71, 39);
+            this.btnDelete.TabIndex = 76;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGuardar.Location = new System.Drawing.Point(772, 12);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(71, 39);
+            this.btnGuardar.TabIndex = 75;
+            this.btnGuardar.Text = "Save";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            // 
             // ViewEventDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 633);
+            this.Controls.Add(this.btnUpdate);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnOpenClub);
             this.Controls.Add(this.dateTimeEndDate);
             this.Controls.Add(this.dateTimeRouteStartDate);
@@ -279,7 +304,6 @@
             this.Controls.Add(this.lblState);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
-            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.txtClub);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblEndDate);
@@ -301,7 +325,6 @@
         #endregion
         public System.Windows.Forms.TextBox txtDescription;
         public System.Windows.Forms.Label lblDescription;
-        public System.Windows.Forms.Button btnDelete;
         public System.Windows.Forms.TextBox txtClub;
         public System.Windows.Forms.TextBox txtName;
         public System.Windows.Forms.Label lblEndDate;
@@ -320,5 +343,8 @@
         public System.Windows.Forms.DateTimePicker dateTimeRouteStartDate;
         public System.Windows.Forms.DateTimePicker dateTimeEndDate;
         public System.Windows.Forms.Button btnOpenClub;
+        public System.Windows.Forms.Button btnUpdate;
+        public System.Windows.Forms.Button btnDelete;
+        public System.Windows.Forms.Button btnGuardar;
     }
 }

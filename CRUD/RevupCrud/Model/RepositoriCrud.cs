@@ -530,5 +530,33 @@ namespace RevupCrud.Model
             }
             return event_state;
         }
+
+        public club_event GetEventById(int id)
+        {
+            club_event c = new club_event();
+            try
+            {
+                c = Repositori.db.club_event.Where(x => x.id == id).FirstOrDefault();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return c;
+        }
+
+        public List<club_event> GetAllEvents()
+        {
+            List<club_event> events = new List<club_event>();
+            try
+            {
+                events = Repositori.db.club_event.ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return events;
+        }
     }
 }

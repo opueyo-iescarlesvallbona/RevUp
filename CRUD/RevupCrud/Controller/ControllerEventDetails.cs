@@ -15,6 +15,7 @@ namespace RevupCrud.Controller
         RepositoriCrud r = new RepositoriCrud();
         ViewEventDetails f;
         club_event c_event;
+        bool OpenedFromDetails = false;
 
         void SetListeners()
         {
@@ -26,7 +27,6 @@ namespace RevupCrud.Controller
             if (c_event != null)
             {
                 f.lblTitol.Text = "Detalls de l'event " + c_event.id;
-
                 f.txtName.Text = c_event.name;
                 f.txtAddress.Text = c_event.address;
                 f.dateTimeStartDate.Value = c_event.start_date;
@@ -39,30 +39,59 @@ namespace RevupCrud.Controller
                 {
                     f.dateTimeRouteStartDate.Value = c_event.route_start_date ?? DateTime.Now;
                 }
+                else
+                {
+                    f.dateTimeRouteStartDate.Checked = false;
+                }
 
-                if(c_event.picture != null)
+                if (c_event.picture != null)
                 {
                     f.pictureBox1.Image = Image.FromFile(c_event.picture);
                 }
 
                 if (f.txtClub.Text != "")
                 {
-                    f.btnOpenClub.Click += BtnOpenMember_Click;
+                    f.btnOpenClub.Click += BtnOpenClub_Click;
+                }
+
+                if (!OpenedFromDetails)
+                {
+                    f.btnGuardar.Enabled = false;
+                    f.btnDelete.Enabled = true;
+                    f.btnUpdate.Enabled = true;
+                }
+                else
+                {
+                    f.btnOpenClub.Visible = false;
+                    f.txtClub.Width = f.txtAddress.Width;
+                }
+            }
+            else
+            {
+                if (!OpenedFromDetails)
+                {
+                    f.btnDelete.Enabled = false;
+                    f.btnUpdate.Enabled = false;
+                    f.btnGuardar.Enabled = true;
                 }
             }
         }
 
-        private void BtnOpenMember_Click(object sender, EventArgs e)
+        private void BtnOpenClub_Click(object sender, EventArgs e)
         {
-            //member member = r.GetAllMembers("", "", "", "").Where(x => x.membername.Equals(f.txtMemberName.Text)).FirstOrDefault();
-            //if (member != null)
-            //{
-            //    new ControllerUsuariDetails(member, new ViewUsuariDetails(), true);
-            //}
+            if (f.txtClub.Text != "")
+            {
+                club club = r.GetAllClubs().Where(x => x.name.Equals(f.txtClub.Text)).FirstOrDefault();
+                if (club != null)
+                {
+                    new ControllerClubDetails(club, new ViewClubDetails(), true);
+                }
+            }
         }
 
-        public ControllerEventDetails(club_event c_event, ViewEventDetails form)
+        public ControllerEventDetails(club_event c_event, ViewEventDetails form, bool OpenedFromDetails = false)
         {
+            this.OpenedFromDetails = OpenedFromDetails;
             if (c_event != null)
             {
                 this.c_event = c_event;
@@ -70,6 +99,12 @@ namespace RevupCrud.Controller
             if (form != null)
             {
                 f = form;
+            }
+            if (OpenedFromDetails)
+            {
+                f.btnDelete.Enabled = false;
+                f.btnGuardar.Enabled = false;
+                f.btnUpdate.Enabled = false;
             }
             SetListeners();
             LoadData();
