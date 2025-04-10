@@ -20,8 +20,11 @@ namespace RevupCrud.Controller
 
         void SetListeners()
         {
-            f.dataGridViewComments.CellDoubleClick += DataGridViewComments_DoubleClick;
-            f.dataGridViewLikes.CellDoubleClick += DataGridViewLikes_DoubleClick;
+            if (!OpenedFromDetails)
+            {
+                f.dataGridViewComments.CellDoubleClick += DataGridViewComments_DoubleClick;
+                f.dataGridViewLikes.CellDoubleClick += DataGridViewLikes_DoubleClick;
+            }            
         }
 
         private void DataGridViewLikes_DoubleClick(object sender, DataGridViewCellEventArgs e)

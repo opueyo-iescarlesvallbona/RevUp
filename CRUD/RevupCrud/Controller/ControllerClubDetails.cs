@@ -52,12 +52,7 @@ namespace RevupCrud.Controller
                 f.dataGridViewEvents.Columns["state"].Visible = false;
                 f.dataGridViewEvents.Columns["club"].Visible = false;
                 f.dataGridViewEvents.CellFormatting += DataGridView_CellFormattingEvent;
-                FormatHeadersDataGrid(f.dataGridViewEvents);
-
-                f.dataGridViewMembers.CellDoubleClick += DataGridViewMembers_CellDoubleClick;
-                f.dataGridViewEvents.CellDoubleClick += DataGridViewEvents_CellDoubleClick;
-
-
+                FormatHeadersDataGrid(f.dataGridViewEvents);            
 
                 f.btnDelete.Click += BtnDelete_Click;
                 f.btnUpdate.Click += BtnUpdate_Click;
@@ -68,6 +63,8 @@ namespace RevupCrud.Controller
                     f.btnGuardar.Enabled = false;
                     f.btnDelete.Enabled = true;
                     f.btnUpdate.Enabled = true;
+                    f.dataGridViewMembers.CellDoubleClick += DataGridViewMembers_CellDoubleClick;
+                    f.dataGridViewEvents.CellDoubleClick += DataGridViewEvents_CellDoubleClick;
                 }                
 
                 f.txtName.Enabled = false;
