@@ -1,57 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="revupModelStoreContainer" CdmEntityContainer="revupEntities">
-    <EntitySetMapping Name="clubs">
-      <EntityTypeMapping TypeName="revupModel.club">
-        <MappingFragment StoreEntitySet="club">
-          <ScalarProperty Name="creation_date" ColumnName="creation_date" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="founder" ColumnName="founder" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="picture" ColumnName="picture" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="club_event">
-      <EntityTypeMapping TypeName="revupModel.club_event">
-        <MappingFragment StoreEntitySet="club_event">
-          <ScalarProperty Name="state" ColumnName="state" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="address" ColumnName="address" />
-          <ScalarProperty Name="club_id" ColumnName="club_id" />
-          <ScalarProperty Name="picture" ColumnName="picture" />
-          <ScalarProperty Name="start_date" ColumnName="start_date" />
-          <ScalarProperty Name="route_start_date" ColumnName="route_start_date" />
-          <ScalarProperty Name="end_date" ColumnName="end_date" />
-          <ScalarProperty Name="description" ColumnName="description" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="genders">
       <EntityTypeMapping TypeName="revupModel.gender">
         <MappingFragment StoreEntitySet="gender">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="name" ColumnName="name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="members">
-      <EntityTypeMapping TypeName="revupModel.member">
-        <MappingFragment StoreEntitySet="member">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="membername" ColumnName="membername" />
-          <ScalarProperty Name="experience" ColumnName="experience" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="gender_id" ColumnName="gender_id" />
-          <ScalarProperty Name="location_id" ColumnName="location_id" />
-          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
-          <ScalarProperty Name="login_date" ColumnName="login_date" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="profile_picture" ColumnName="profile_picture" />
-          <ScalarProperty Name="password" ColumnName="password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -173,18 +127,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="cars">
-      <EntityTypeMapping TypeName="revupModel.car">
-        <MappingFragment StoreEntitySet="car">
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="horse_power" ColumnName="horse_power" />
-          <ScalarProperty Name="model_year" ColumnName="model_year" />
-          <ScalarProperty Name="model_id" ColumnName="model_id" />
-          <ScalarProperty Name="member_id" ColumnName="member_id" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="routes">
       <EntityTypeMapping TypeName="revupModel.route">
         <MappingFragment StoreEntitySet="route">
@@ -217,6 +159,65 @@
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="post_type" ColumnName="post_type" />
           <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cars">
+      <EntityTypeMapping TypeName="revupModel.car">
+        <MappingFragment StoreEntitySet="car">
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="horse_power" ColumnName="horse_power" />
+          <ScalarProperty Name="model_year" ColumnName="model_year" />
+          <ScalarProperty Name="model_id" ColumnName="model_id" />
+          <ScalarProperty Name="member_id" ColumnName="member_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="clubs">
+      <EntityTypeMapping TypeName="revupModel.club">
+        <MappingFragment StoreEntitySet="club">
+          <ScalarProperty Name="creation_date" ColumnName="creation_date" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="founder" ColumnName="founder" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="club_event">
+      <EntityTypeMapping TypeName="revupModel.club_event">
+        <MappingFragment StoreEntitySet="club_event">
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="route_start_date" ColumnName="route_start_date" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="club_id" ColumnName="club_id" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="members">
+      <EntityTypeMapping TypeName="revupModel.member">
+        <MappingFragment StoreEntitySet="member">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="profile_picture" ColumnName="profile_picture" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="login_date" ColumnName="login_date" />
+          <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+          <ScalarProperty Name="location_id" ColumnName="location_id" />
+          <ScalarProperty Name="gender_id" ColumnName="gender_id" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="experience" ColumnName="experience" />
+          <ScalarProperty Name="membername" ColumnName="membername" />
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

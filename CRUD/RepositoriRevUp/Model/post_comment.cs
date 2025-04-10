@@ -20,7 +20,7 @@ namespace RepositoriRevUp.Model
         public string comment_content { get; set; }
         public System.DateTime datetime { get; set; }
     
-        public virtual member member { get; set; }
         public virtual post post { get; set; }
+        public virtual member member { get; set; }
     }
 }

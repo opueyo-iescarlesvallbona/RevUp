@@ -516,5 +516,19 @@ namespace RevupCrud.Model
             }
             return esborrat;
         }
+
+        public List<event_state> GetAllEventStates()
+        {
+            List<event_state> event_state = new List<event_state>();
+            try
+            {
+                event_state = Repositori.db.event_state.ToList();
+            }
+            catch
+            {
+                Repositori.dbConnect();
+            }
+            return event_state;
+        }
     }
 }

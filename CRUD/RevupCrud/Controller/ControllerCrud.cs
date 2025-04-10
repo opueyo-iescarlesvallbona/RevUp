@@ -492,6 +492,8 @@ namespace RevupCrud.Controller
             clubs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             clubs.dataGridView.BorderStyle = BorderStyle.None;
 
+            FormatHeadersDataGrid(clubs.dataGridView);
+
             clubs.FormBorderStyle = FormBorderStyle.None;
             f.panel.Controls.Clear();
             f.panel.Controls.Add(clubs);
@@ -521,7 +523,7 @@ namespace RevupCrud.Controller
             DataGridViewColumn column = usuaris.dataGridView.Columns[e.ColumnIndex];
             if (e.RowIndex >= 0)
             {
-                if (column.HeaderText.Equals("gender"))
+                if (column.HeaderText.Equals("Gender"))
                 {
                     member m = usuaris.dataGridView.Rows[e.RowIndex].DataBoundItem as member;
                     if (m != null)
@@ -529,7 +531,7 @@ namespace RevupCrud.Controller
                         e.Value = m.gender.name;
                     }
                 }
-                else if (column.HeaderText.Equals("member_location"))
+                else if (column.HeaderText.Equals("Member_location"))
                 {
                     member m = usuaris.dataGridView.Rows[e.RowIndex].DataBoundItem as member;
                     if (m != null)
@@ -617,8 +619,12 @@ namespace RevupCrud.Controller
             usuaris.dataGridView.Columns["routes"].Visible = false;
             usuaris.dataGridView.Columns["clubs"].Visible = false;
             usuaris.dataGridView.Columns["cars"].Visible = false;
+            usuaris.dataGridView.Columns["posts1"].Visible = false;
+            usuaris.dataGridView.Columns["post_comment"].Visible = false;
             usuaris.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             usuaris.dataGridView.BorderStyle = BorderStyle.None;
+
+            FormatHeadersDataGrid(usuaris.dataGridView);
 
             usuaris.FormBorderStyle = FormBorderStyle.None;
             f.panel.Controls.Clear();

@@ -17,16 +17,16 @@ namespace RepositoriRevUp.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public member()
         {
+            this.cars = new HashSet<car>();
             this.clubs = new HashSet<club>();
             this.member_club = new HashSet<member_club>();
             this.member_relation = new HashSet<member_relation>();
             this.member_relation1 = new HashSet<member_relation>();
             this.messages = new HashSet<message>();
             this.messages1 = new HashSet<message>();
-            this.cars = new HashSet<car>();
+            this.posts = new HashSet<post>();
             this.post_comment = new HashSet<post_comment>();
             this.routes = new HashSet<route>();
-            this.posts = new HashSet<post>();
             this.posts1 = new HashSet<post>();
         }
     
@@ -40,9 +40,11 @@ namespace RepositoriRevUp.Model
         public System.DateTime date_of_birth { get; set; }
         public System.DateTime login_date { get; set; }
         public string description { get; set; }
-        public byte[] profile_picture { get; set; }
+        public string profile_picture { get; set; }
         public string password { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<car> cars { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<club> clubs { get; set; }
         public virtual gender gender { get; set; }
@@ -58,13 +60,11 @@ namespace RepositoriRevUp.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<car> cars { get; set; }
+        public virtual ICollection<post> posts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<post_comment> post_comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<route> routes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<post> posts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<post> posts1 { get; set; }
     }

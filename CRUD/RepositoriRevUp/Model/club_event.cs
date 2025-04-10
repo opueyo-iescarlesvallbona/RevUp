@@ -18,7 +18,7 @@ namespace RepositoriRevUp.Model
         public string name { get; set; }
         public string address { get; set; }
         public int club_id { get; set; }
-        public byte[] picture { get; set; }
+        public string picture { get; set; }
         public System.DateTime start_date { get; set; }
         public Nullable<System.DateTime> route_start_date { get; set; }
         public System.DateTime end_date { get; set; }

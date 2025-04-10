@@ -24,6 +24,7 @@ namespace RevupCrud.Controller
         {
             if (route != null)
             {
+                f.lblTitol.Text = "Detalls de la ruta " + route.id;
                 if (route.datetime != null)
                 {
                     f.txtDate.Text = route.datetime?.ToString("dd-MM-yyyy") ?? "";

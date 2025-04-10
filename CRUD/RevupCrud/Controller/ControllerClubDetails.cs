@@ -93,7 +93,8 @@ namespace RevupCrud.Controller
 
         private void DataGridViewEvents_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            ViewEventDetails f = new ViewEventDetails();
+            //new ControllerEventDetails(r.GetEventsById((int)this.f.dataGridViewEvents.Rows[e.RowIndex].Cells["Id"].Value), f, true);
         }
 
         private void DataGridViewMembers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

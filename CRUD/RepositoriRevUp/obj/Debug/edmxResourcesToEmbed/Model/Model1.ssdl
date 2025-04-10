@@ -17,6 +17,7 @@
     <Property Name="model_year" Type="int" />
     <Property Name="horse_power" Type="float" />
     <Property Name="description" Type="text" />
+    <Property Name="picture" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="club">
     <Key>
@@ -26,7 +27,7 @@
     <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="founder" Type="int" Nullable="false" />
     <Property Name="description" Type="text" />
-    <Property Name="picture" Type="varbinary(max)" />
+    <Property Name="picture" Type="varchar" MaxLength="500" />
     <Property Name="creation_date" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="club_event">
@@ -37,7 +38,7 @@
     <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="address" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="club_id" Type="int" Nullable="false" />
-    <Property Name="picture" Type="varbinary(max)" />
+    <Property Name="picture" Type="varchar" MaxLength="500" />
     <Property Name="start_date" Type="datetime" Nullable="false" />
     <Property Name="route_start_date" Type="datetime" />
     <Property Name="end_date" Type="datetime" Nullable="false" />
@@ -72,7 +73,7 @@
     <Property Name="date_of_birth" Type="date" Nullable="false" />
     <Property Name="login_date" Type="date" Nullable="false" />
     <Property Name="description" Type="text" />
-    <Property Name="profile_picture" Type="varbinary(max)" />
+    <Property Name="profile_picture" Type="varchar" MaxLength="500" />
     <Property Name="password" Type="text" Nullable="false" />
   </EntityType>
   <EntityType Name="member_club">

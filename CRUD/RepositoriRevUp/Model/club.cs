@@ -25,7 +25,7 @@ namespace RepositoriRevUp.Model
         public string name { get; set; }
         public int founder { get; set; }
         public string description { get; set; }
-        public byte[] picture { get; set; }
+        public string picture { get; set; }
         public System.DateTime creation_date { get; set; }
     
         public virtual member member { get; set; }

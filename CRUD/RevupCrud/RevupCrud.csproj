@@ -61,6 +61,7 @@
     <Compile Include="Controller\ControllerClubDetails.cs" />
     <Compile Include="Controller\ControllerCommentsDetails.cs" />
     <Compile Include="Controller\ControllerCrud.cs" />
+    <Compile Include="Controller\ControllerEventDetails.cs" />
     <Compile Include="Controller\ControllerPostDetails.cs" />
     <Compile Include="Controller\ControllerRouteDetails.cs" />
     <Compile Include="Controller\ControllerUsuariDetails.cs" />

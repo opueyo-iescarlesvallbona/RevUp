@@ -20,8 +20,8 @@ namespace RepositoriRevUp.Model
         public string content_message { get; set; }
         public int state_id { get; set; }
     
+        public virtual message_state message_state { get; set; }
         public virtual member member { get; set; }
         public virtual member member1 { get; set; }
-        public virtual message_state message_state { get; set; }
     }
 }

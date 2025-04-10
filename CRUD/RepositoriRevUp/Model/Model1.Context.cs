@@ -35,10 +35,7 @@ namespace RepositoriRevUp.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<club> clubs { get; set; }
-        public virtual DbSet<club_event> club_event { get; set; }
         public virtual DbSet<gender> genders { get; set; }
-        public virtual DbSet<member> members { get; set; }
         public virtual DbSet<member_club> member_club { get; set; }
         public virtual DbSet<member_club_role> member_club_role { get; set; }
         public virtual DbSet<member_location> member_location { get; set; }
@@ -52,8 +49,11 @@ namespace RepositoriRevUp.Model
         public virtual DbSet<event_state> event_state { get; set; }
         public virtual DbSet<brand> brands { get; set; }
         public virtual DbSet<model> models { get; set; }
-        public virtual DbSet<car> cars { get; set; }
         public virtual DbSet<route> routes { get; set; }
         public virtual DbSet<post> posts { get; set; }
+        public virtual DbSet<car> cars { get; set; }
+        public virtual DbSet<club> clubs { get; set; }
+        public virtual DbSet<club_event> club_event { get; set; }
+        public virtual DbSet<member> members { get; set; }
     }
 }

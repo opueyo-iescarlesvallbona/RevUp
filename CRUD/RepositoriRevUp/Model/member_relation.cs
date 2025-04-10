@@ -18,8 +18,8 @@ namespace RepositoriRevUp.Model
         public int member_id2 { get; set; }
         public int state_id { get; set; }
     
+        public virtual relation_state relation_state { get; set; }
         public virtual member member { get; set; }
         public virtual member member1 { get; set; }
-        public virtual relation_state relation_state { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace RepositoriRevUp.Model
         public Nullable<int> model_year { get; set; }
         public Nullable<double> horse_power { get; set; }
         public string description { get; set; }
+        public string picture { get; set; }
     
         public virtual member member { get; set; }
         public virtual model model { get; set; }
