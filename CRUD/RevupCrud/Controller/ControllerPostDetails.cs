@@ -20,7 +20,28 @@ namespace RevupCrud.Controller
 
         void SetListeners()
         {
+            f.dataGridViewComments.CellDoubleClick += DataGridViewComments_DoubleClick;
+            f.dataGridViewLikes.CellDoubleClick += DataGridViewLikes_DoubleClick;
+        }
 
+        private void DataGridViewLikes_DoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                member m = f.dataGridViewLikes.Rows[e.RowIndex].DataBoundItem as member;
+                ViewUsuariDetails form = new ViewUsuariDetails();
+                new ControllerUsuariDetails(m, form, true);
+            }
+        }
+
+        private void DataGridViewComments_DoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0)
+            {
+                post_comment comment = f.dataGridViewComments.Rows[e.RowIndex].DataBoundItem as post_comment;
+                ViewCommentDetails form = new ViewCommentDetails();
+                new ControllerCommentsDetails(comment, form, true);
+            }
         }
 
         void LoadData()
@@ -40,6 +61,8 @@ namespace RevupCrud.Controller
                 f.txtPostType.Text = post.post_type1.name;
 
                 f.dataGridViewComments.DataSource = r.GetCommentsByPostId(post.id);
+                f.dataGridViewComments.Columns["member"].Visible = false;
+                f.dataGridViewComments.Columns["post"].Visible = false;
                 f.dataGridViewLikes.DataSource = r.GetLikesByPostId(post.id);
 
                 f.lblNumComments.Text = "Number of comments: " + post.comments.ToString();

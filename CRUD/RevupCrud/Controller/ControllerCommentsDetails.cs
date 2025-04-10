@@ -15,6 +15,7 @@ namespace RevupCrud.Controller
         RepositoriCrud r = new RepositoriCrud();
         ViewCommentDetails f;
         post_comment comment;
+        bool OpenedFromDetails;
 
         void SetListeners()
         {
@@ -54,11 +55,18 @@ namespace RevupCrud.Controller
                 f.txtPost.Text = comment.post.title;
                 f.txtMember.Text = comment.member.name;
                 f.txtContent.Text = comment.comment_content;
+                if (OpenedFromDetails)
+                {
+                    f.btnDelete.Enabled = false;
+                    f.btnMember.Enabled = false;
+                    f.btnPost.Enabled = false;
+                }
             }
         }
 
-        public ControllerCommentsDetails(post_comment comment, ViewCommentDetails form)
+        public ControllerCommentsDetails(post_comment comment, ViewCommentDetails form, bool OpenedFromDetails=false)
         {
+            this.OpenedFromDetails = OpenedFromDetails;
             if (comment != null)
             {
                 this.comment = comment;
