@@ -1,21 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\M13\\ProjecteFinal\\RevupAPI\\",
+  "WorkspaceRootPath": "C:\\RevUp\\API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\m13\\projectefinal\\revupapi\\revupapi\\models\\revupcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\models\\revupcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\revup\\api\\revupapi\\controllers\\generalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\generalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\m13\\projectefinal\\revupapi\\revupapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\m13\\projectefinal\\revupapi\\revupapi\\controllers\\genderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\revup\\api\\revupapi\\controllers\\genderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\genderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\m13\\projectefinal\\revupapi\\revupapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\revup\\api\\revupapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,66 +22,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\M13\\ProjecteFinal\\RevupAPI\\RevupAPI\\appsettings.json",
-              "RelativeDocumentMoniker": "RevupAPI\\appsettings.json",
-              "ToolTip": "C:\\M13\\ProjecteFinal\\RevupAPI\\RevupAPI\\appsettings.json",
-              "RelativeToolTip": "RevupAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-01T17:11:23.141Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RevupContext.cs",
-              "DocumentMoniker": "C:\\M13\\ProjecteFinal\\RevupAPI\\RevupAPI\\Models\\RevupContext.cs",
-              "RelativeDocumentMoniker": "RevupAPI\\Models\\RevupContext.cs",
-              "ToolTip": "C:\\M13\\ProjecteFinal\\RevupAPI\\RevupAPI\\Models\\RevupContext.cs",
-              "RelativeToolTip": "RevupAPI\\Models\\RevupContext.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAA1wDQAAADkAAAAAAAAAA==",
+              "Title": "GeneralController.cs",
+              "DocumentMoniker": "C:\\RevUp\\API\\RevupAPI\\Controllers\\GeneralController.cs",
+              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\GeneralController.cs",
+              "ToolTip": "C:\\RevUp\\API\\RevupAPI\\Controllers\\GeneralController.cs*",
+              "RelativeToolTip": "RevupAPI\\Controllers\\GeneralController.cs*",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAqwBIAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T17:09:35.789Z",
+              "WhenOpened": "2025-04-11T17:06:24.712Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "GendersController.cs",
-              "DocumentMoniker": "C:\\M13\\ProjecteFinal\\RevupAPI\\RevupAPI\\Controllers\\GendersController.cs",
-              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\GendersController.cs",
-              "ToolTip": "C:\\M13\\ProjecteFinal\\RevupAPI\\RevupAPI\\Controllers\\GendersController.cs",
-              "RelativeToolTip": "RevupAPI\\Controllers\\GendersController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBEAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-27T20:07:46.871Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\M13\\ProjecteFinal\\RevupAPI\\RevupAPI\\Program.cs",
+              "DocumentMoniker": "C:\\RevUp\\API\\RevupAPI\\Program.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Program.cs",
-              "ToolTip": "C:\\M13\\ProjecteFinal\\RevupAPI\\RevupAPI\\Program.cs",
+              "ToolTip": "C:\\RevUp\\API\\RevupAPI\\Program.cs",
               "RelativeToolTip": "RevupAPI\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-27T20:06:03.125Z",
+              "WhenOpened": "2025-03-27T20:06:03.125Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GendersController.cs",
+              "DocumentMoniker": "C:\\RevUp\\API\\RevupAPI\\Controllers\\GendersController.cs",
+              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\GendersController.cs",
+              "ToolTip": "C:\\RevUp\\API\\RevupAPI\\Controllers\\GendersController.cs",
+              "RelativeToolTip": "RevupAPI\\Controllers\\GendersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T20:07:46.871Z",
               "EditorCaption": ""
             }
           ]
