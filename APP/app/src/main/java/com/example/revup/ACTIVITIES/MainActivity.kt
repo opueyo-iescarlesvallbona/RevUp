@@ -73,13 +73,16 @@ class MainActivity : AppCompatActivity() {
         if(!visible){
             binding.mainActivityBtnAddText.visibility = View.INVISIBLE
             binding.mainActivityBtnAddImage.visibility = View.INVISIBLE
+            binding.mainActivityBtnAddRoute.visibility = View.INVISIBLE
         }else{
             binding.mainActivityBtnAddText.visibility = View.VISIBLE
             binding.mainActivityBtnAddImage.visibility = View.VISIBLE
+            binding.mainActivityBtnAddRoute.visibility = View.VISIBLE
         }
         if(reset && binding.mainActivityBtnAddText.animation != null && binding.mainActivityBtnAddImage.animation != null){
             binding.mainActivityBtnAddText.clearAnimation()
             binding.mainActivityBtnAddImage.clearAnimation()
+            binding.mainActivityBtnAddRoute.clearAnimation()
         }
         setClickable(visible)
     }
@@ -88,9 +91,11 @@ class MainActivity : AppCompatActivity() {
         if(!secFloatingBtnVisible){
             binding.mainActivityBtnAddText.startAnimation(anim_toBottom)
             binding.mainActivityBtnAddImage.startAnimation(anim_toBottom)
+            binding.mainActivityBtnAddRoute.startAnimation(anim_toBottom)
         }else{
             binding.mainActivityBtnAddText.startAnimation(anim_fromBottom)
             binding.mainActivityBtnAddImage.startAnimation(anim_fromBottom)
+            binding.mainActivityBtnAddRoute.startAnimation(anim_fromBottom)
         }
     }
 
@@ -98,9 +103,11 @@ class MainActivity : AppCompatActivity() {
         if(!clickable){
             binding.mainActivityBtnAddText.isClickable = false
             binding.mainActivityBtnAddImage.isClickable = false
+            binding.mainActivityBtnAddRoute.isClickable = false
         }else{
             binding.mainActivityBtnAddText.isClickable = true
             binding.mainActivityBtnAddImage.isClickable = true
+            binding.mainActivityBtnAddRoute.isClickable = true
         }
     }
 
