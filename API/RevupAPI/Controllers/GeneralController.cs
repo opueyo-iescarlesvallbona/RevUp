@@ -19,28 +19,74 @@ namespace RevupAPI.Controllers
             _imagesFolderPath = "C:\\Users\\cv\\Downloads\\";
         }
 
-        // Este método obtiene la imagen de un usuario por su ID
         [HttpGet("GetImage/{path}")]
         public IActionResult GetImage(String path)
         {
-            // Obtener el nombre del archivo de la imagen
             var imageFileName = path;
 
             if (string.IsNullOrEmpty(imageFileName))
                 return NotFound("Image not found");
 
-            // Construir la ruta completa de la imagen
             var imagePath = Path.Combine(_imagesFolderPath, imageFileName);
 
-            // Verificar si la imagen existe en la ruta
             if (!System.IO.File.Exists(imagePath))
                 return NotFound("Image file not found");
 
-            // Abrir la imagen y devolverla en la respuesta
             var imageFile = System.IO.File.OpenRead(imagePath);
 
             // Aquí puedes especificar el tipo de contenido de la imagen (por ejemplo, "image/jpeg", "image/png")
             return File(imageFile, "image/jpeg");
+        }
+
+        [HttpPost("uploadImage")]
+        public IActionResult UploadImage(IFormFile imageFile, Object obj)
+        {
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                return BadRequest("No image file uploaded.");
+            }
+            
+            string dateTimeNow = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string imageFileName = null;
+            string targetFolder = null;
+            switch (obj)
+            {
+                case Post post:
+                    imageFileName = $"{dateTimeNow}_{post.Id}.jpg";
+                    targetFolder = Path.Combine(_imagesFolderPath, "posts");
+                    break;
+                case Member member:
+                    imageFileName = $"{dateTimeNow}_{member.Id}.jpg";
+                    targetFolder = Path.Combine(_imagesFolderPath, "members");
+                    break;
+                case Club club:
+                    imageFileName = $"{dateTimeNow}_{club.Id}.jpg";
+                    targetFolder = Path.Combine(_imagesFolderPath, "clubs");
+                    break;
+                case Car car:
+                    imageFileName = $"{dateTimeNow}_{car.Id}.jpg";
+                    targetFolder = Path.Combine(_imagesFolderPath, "cars");
+                    break;
+            }
+
+            if (imageFileName is null || targetFolder is null)
+            {
+                return BadRequest("Unknown reference object.");
+            }
+
+            if (!Directory.Exists(targetFolder))
+            {
+                Directory.CreateDirectory(targetFolder);
+            }
+
+            string filePath = Path.Combine(targetFolder, imageFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                imageFile.CopyTo(fileStream);
+            }
+
+            return Ok(new { FilePath = filePath, FileName = imageFileName });
         }
     }
 }

@@ -575,3 +575,5 @@ C:\RevUp\API\RevupAPI\obj\Debug\net8.0\refint\RevupAPI.dll
 C:\RevUp\API\RevupAPI\obj\Debug\net8.0\RevupAPI.pdb
 C:\RevUp\API\RevupAPI\obj\Debug\net8.0\RevupAPI.genruntimeconfig.cache
 C:\RevUp\API\RevupAPI\obj\Debug\net8.0\ref\RevupAPI.dll
+C:\RevUp\API\RevupAPI\obj\Debug\net8.0\RevupAPI.RazorAssemblyInfo.cache
+C:\RevUp\API\RevupAPI\obj\Debug\net8.0\RevupAPI.RazorAssemblyInfo.cs
