@@ -21,11 +21,13 @@ namespace RevupAPI.Controllers
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-            var revupContext = _context.Posts.Include(p => p.Member).Include(p => p.Route);
+            var revupContext = _context.Posts.Include(p => p.Member).Include(p => p.PostTypeNavigation).Include(p => p.Route);
             return View(await revupContext.ToListAsync());
         }
 
         // GET: Posts/Details/5
+        [Route("api/details/{id}")]
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,6 +37,7 @@ namespace RevupAPI.Controllers
 
             var post = await _context.Posts
                 .Include(p => p.Member)
+                .Include(p => p.PostTypeNavigation)
                 .Include(p => p.Route)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
@@ -49,6 +52,7 @@ namespace RevupAPI.Controllers
         public IActionResult Create()
         {
             ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id");
+            ViewData["PostType"] = new SelectList(_context.PostTypes, "Id", "Id");
             ViewData["RouteId"] = new SelectList(_context.Routes, "Id", "Id");
             return View();
         }
@@ -58,7 +62,7 @@ namespace RevupAPI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,PostType,Description,PostDate,Picture,Likes,Address,RouteId,MemberId")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,Title,PostType,Description,PostDate,Picture,Likes,Address,RouteId,MemberId,Comments")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +71,7 @@ namespace RevupAPI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", post.MemberId);
+            ViewData["PostType"] = new SelectList(_context.PostTypes, "Id", "Id", post.PostType);
             ViewData["RouteId"] = new SelectList(_context.Routes, "Id", "Id", post.RouteId);
             return View(post);
         }
@@ -85,6 +90,7 @@ namespace RevupAPI.Controllers
                 return NotFound();
             }
             ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", post.MemberId);
+            ViewData["PostType"] = new SelectList(_context.PostTypes, "Id", "Id", post.PostType);
             ViewData["RouteId"] = new SelectList(_context.Routes, "Id", "Id", post.RouteId);
             return View(post);
         }
@@ -94,7 +100,7 @@ namespace RevupAPI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,PostType,Description,PostDate,Picture,Likes,Address,RouteId,MemberId")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,PostType,Description,PostDate,Picture,Likes,Address,RouteId,MemberId,Comments")] Post post)
         {
             if (id != post.Id)
             {
@@ -122,6 +128,7 @@ namespace RevupAPI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", post.MemberId);
+            ViewData["PostType"] = new SelectList(_context.PostTypes, "Id", "Id", post.PostType);
             ViewData["RouteId"] = new SelectList(_context.Routes, "Id", "Id", post.RouteId);
             return View(post);
         }
@@ -136,6 +143,7 @@ namespace RevupAPI.Controllers
 
             var post = await _context.Posts
                 .Include(p => p.Member)
+                .Include(p => p.PostTypeNavigation)
                 .Include(p => p.Route)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
@@ -164,6 +172,123 @@ namespace RevupAPI.Controllers
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.Id == id);
+        }
+
+        [Route("api/PostsByLocation")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByLocation([FromBody] MemberLocation location)
+        {
+            var posts = await _context.Posts.Where(x => x.Member.Location.Country.Equals(location.Country)).ToListAsync();
+
+            return posts;
+        }
+
+        [Route("api/PostsByLikes")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByLikes()
+        {
+            var posts = await _context.Posts.OrderByDescending(x => x.Likes).ToListAsync();
+
+            return posts;
+        }
+
+        [Route("api/Post")]
+        [HttpPost]
+
+        public async Task<IActionResult> PostPost([FromQuery] IFormFile image, [FromBody] Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Posts.Add(post);
+                await _context.SaveChangesAsync();
+
+                if (image != null)
+                {
+                    try
+                    {
+                        GeneralController.UploadImage(image, post);
+                    }
+                    catch { }
+                }
+                return Ok(post);
+            }
+            return BadRequest("Invalid post data");
+        }
+
+        [Route("api/Post")]
+        [HttpPut]
+        public async Task<IActionResult> PutPost([FromBody] Post post)
+        {
+            _context.Entry(post).State = EntityState.Modified;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PostExists(post.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
+        }
+
+        [Route("api/Post/{id}")]
+        [HttpDelete]
+        public async Task<bool> DeletePost(int id)
+        {
+            var post = await _context.Posts.FindAsync(id);
+
+            if (post == null)
+            {
+                return false;
+            }
+
+            var comments = await _context.PostComments.Where(c => c.PostId == id).ToListAsync();
+
+            if (comments != null)
+            {
+                _context.PostComments.RemoveRange(comments);
+            }
+
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        [Route("api/PostLike/{memberId}/{postId}")]
+        [HttpPost]
+        public async Task<IActionResult> LikePost(int memberId, int postId)
+        {
+            var post = await _context.Posts.FindAsync(postId);
+            var member = await _context.Members.FindAsync(memberId);
+            if (post == null || member == null)
+            {
+                return NotFound();
+            }
+            post.Members.Add(member);
+            await _context.SaveChangesAsync();
+            return Ok(post);
+        }
+
+        [Route("api/PostUnLike/{memberId}/{postId}")]
+        [HttpDelete]
+        public async Task<IActionResult> UnlikePost(int memberId, int postId)
+        {
+            var post = await _context.Posts.FindAsync(postId);
+            var member = await _context.Members.FindAsync(memberId);
+            if (post == null || member == null)
+            {
+                return NotFound();
+            }
+            post.Members.Remove(member);
+            await _context.SaveChangesAsync();
+            return Ok(post);
         }
     }
 }

@@ -8204,11 +8204,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\RevUp\\API\\RevupAPI\\RevupAPI.csproj",
+      "projectUniqueName": "C:\\ProjecteFinal\\API\\RevupAPI\\RevupAPI.csproj",
       "projectName": "RevupAPI",
-      "projectPath": "C:\\RevUp\\API\\RevupAPI\\RevupAPI.csproj",
+      "projectPath": "C:\\ProjecteFinal\\API\\RevupAPI\\RevupAPI.csproj",
       "packagesPath": "C:\\Users\\cv\\.nuget\\packages\\",
-      "outputPath": "C:\\RevUp\\API\\RevupAPI\\obj\\",
+      "outputPath": "C:\\ProjecteFinal\\API\\RevupAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8239,9 +8239,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
+        "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -8285,7 +8285,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

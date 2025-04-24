@@ -27,9 +27,11 @@ public partial class Route
 
     public string? Description { get; set; }
 
-    public int? MemberId { get; set; }
+    public int MemberId { get; set; }
 
-    public virtual Member? Member { get; set; }
+    public DateTime? Datetime { get; set; }
+
+    public virtual Member Member { get; set; } = null!;
 
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 

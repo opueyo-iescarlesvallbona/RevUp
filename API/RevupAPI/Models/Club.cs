@@ -13,7 +13,9 @@ public partial class Club
 
     public string? Description { get; set; }
 
-    public byte[]? Picture { get; set; }
+    public string? Picture { get; set; }
+
+    public DateOnly CreationDate { get; set; }
 
     public virtual ICollection<ClubEvent> ClubEvents { get; set; } = new List<ClubEvent>();
 

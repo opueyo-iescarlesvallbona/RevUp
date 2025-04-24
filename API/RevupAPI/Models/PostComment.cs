@@ -15,5 +15,7 @@ public partial class PostComment
 
     public DateTime Datetime { get; set; }
 
+    public virtual Member Member { get; set; } = null!;
+
     public virtual Post Post { get; set; } = null!;
 }

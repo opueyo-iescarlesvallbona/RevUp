@@ -137,8 +137,14 @@ namespace RevupCrud.Controller
 
                 if (usuari.profile_picture != null)
                 {
-                    Image i = Image.FromFile(usuari.profile_picture);
-                    f.pictureBox1.Image = i;
+                    try
+                    {
+                        f.pictureBox1.Image = Image.FromFile(usuari.profile_picture);
+                    }
+                    catch
+                    {
+
+                    }
                 }
 
                 f.btnDelete.Click += BtnDelete_Click;

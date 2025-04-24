@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "88SlJ+YqIVc=",
+  "dgSpecHash": "NuBG3Rpg2rU=",
   "success": true,
-  "projectFilePath": "C:\\RevUp\\API\\RevupAPI\\RevupAPI.csproj",
+  "projectFilePath": "C:\\ProjecteFinal\\API\\RevupAPI\\RevupAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cv\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\cv\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

@@ -572,5 +572,69 @@ namespace RevupCrud.Model
             }
             return club_event;
         }
+
+        public bool DeleteEvent(club_event c_event)
+        {
+            bool esborrat = false;
+            try
+            {
+                club_event c = Repositori.db.club_event.Where(x => x.id.Equals(c_event.id)).FirstOrDefault();
+                Repositori.db.club_event.Remove(c);
+                SaveChanges();
+                MessageBox.Show("Event deleted correctly");
+                esborrat = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error on delete event");
+                Repositori.dbConnect();
+            }
+            return esborrat;
+        }
+
+        public bool UpdateEvent(club_event c_event)
+        {
+            bool updated = false;
+            try
+            {
+                club_event c = Repositori.db.club_event.Where(x => x.id.Equals(c_event.id)).FirstOrDefault();
+                c.name = c_event.name;
+                c.address = c_event.address;
+                c.club_id = c_event.club_id;
+                c.picture = c_event.picture;
+                c.start_date = c_event.start_date;
+                c.route_start_date = c_event.route_start_date;
+                c.end_date = c_event.end_date;
+                c.description = c_event.description;
+                c.state = c_event.state;
+                SaveChanges();
+                MessageBox.Show("Event updated correctly");
+                updated = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error on update event");
+                Repositori.dbConnect();
+            }
+            return updated;
+        }
+
+        public bool AddEvent(club_event c_event)
+        {
+            bool added = false;
+            try
+            {
+                Repositori.db.club_event.Add(c_event);
+                SaveChanges();
+                MessageBox.Show("Event added correctly");
+                added = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error on add event");
+                Repositori.dbConnect();
+            }
+            return added;
+        }
     }
 }

@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PostType" class="control-label"></label>
-                <input asp-for="PostType" class="form-control" />
+                <select asp-for="PostType" class="form-control" asp-items="ViewBag.PostType"></select>
                 <span asp-validation-for="PostType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -57,6 +57,11 @@
                 <label asp-for="MemberId" class="control-label"></label>
                 <select asp-for="MemberId" class="form-control" asp-items="ViewBag.MemberId"></select>
                 <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comments" class="control-label"></label>
+                <input asp-for="Comments" class="form-control" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

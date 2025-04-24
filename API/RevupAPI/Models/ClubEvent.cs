@@ -13,7 +13,7 @@ public partial class ClubEvent
 
     public int ClubId { get; set; }
 
-    public byte[]? Picture { get; set; }
+    public string? Picture { get; set; }
 
     public DateTime StartDate { get; set; }
 
@@ -23,5 +23,9 @@ public partial class ClubEvent
 
     public string? Description { get; set; }
 
+    public int State { get; set; }
+
     public virtual Club Club { get; set; } = null!;
+
+    public virtual EventState StateNavigation { get; set; } = null!;
 }

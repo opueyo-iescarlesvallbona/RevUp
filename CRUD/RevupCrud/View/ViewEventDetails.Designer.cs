@@ -42,7 +42,6 @@
             this.lblTitol = new System.Windows.Forms.Label();
             this.lblState = new System.Windows.Forms.Label();
             this.txtAddress = new System.Windows.Forms.TextBox();
-            this.txtState = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dateTimeStartDate = new System.Windows.Forms.DateTimePicker();
             this.dateTimeRouteStartDate = new System.Windows.Forms.DateTimePicker();
@@ -51,6 +50,7 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.comboState = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,14 +195,6 @@
             this.txtAddress.Size = new System.Drawing.Size(438, 20);
             this.txtAddress.TabIndex = 67;
             // 
-            // txtState
-            // 
-            this.txtState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtState.Location = new System.Drawing.Point(702, 166);
-            this.txtState.Name = "txtState";
-            this.txtState.Size = new System.Drawing.Size(145, 20);
-            this.txtState.TabIndex = 68;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -211,6 +203,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(15, 273);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(832, 348);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 69;
             this.pictureBox1.TabStop = false;
             // 
@@ -286,11 +279,20 @@
             this.btnGuardar.Text = "Save";
             this.btnGuardar.UseVisualStyleBackColor = true;
             // 
+            // comboState
+            // 
+            this.comboState.FormattingEnabled = true;
+            this.comboState.Location = new System.Drawing.Point(702, 165);
+            this.comboState.Name = "comboState";
+            this.comboState.Size = new System.Drawing.Size(145, 21);
+            this.comboState.TabIndex = 78;
+            // 
             // ViewEventDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 633);
+            this.Controls.Add(this.comboState);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnGuardar);
@@ -299,7 +301,6 @@
             this.Controls.Add(this.dateTimeRouteStartDate);
             this.Controls.Add(this.dateTimeStartDate);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.txtState);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.lblState);
             this.Controls.Add(this.txtDescription);
@@ -337,7 +338,6 @@
         public System.Windows.Forms.Label lblTitol;
         public System.Windows.Forms.Label lblState;
         public System.Windows.Forms.TextBox txtAddress;
-        public System.Windows.Forms.TextBox txtState;
         public System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.DateTimePicker dateTimeStartDate;
         public System.Windows.Forms.DateTimePicker dateTimeRouteStartDate;
@@ -346,5 +346,6 @@
         public System.Windows.Forms.Button btnUpdate;
         public System.Windows.Forms.Button btnDelete;
         public System.Windows.Forms.Button btnGuardar;
+        public System.Windows.Forms.ComboBox comboState;
     }
 }

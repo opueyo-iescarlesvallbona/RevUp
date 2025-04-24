@@ -9,7 +9,7 @@ public partial class Member
 
     public string Name { get; set; } = null!;
 
-    public string? Membername { get; set; }
+    public string Membername { get; set; } = null!;
 
     public int? Experience { get; set; }
 
@@ -25,7 +25,7 @@ public partial class Member
 
     public string? Description { get; set; }
 
-    public byte[]? ProfilePicture { get; set; }
+    public string? ProfilePicture { get; set; }
 
     public string Password { get; set; } = null!;
 
@@ -47,7 +47,11 @@ public partial class Member
 
     public virtual ICollection<Message> MessageSenders { get; set; } = new List<Message>();
 
+    public virtual ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
+
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 
     public virtual ICollection<Route> Routes { get; set; } = new List<Route>();
+
+    public virtual ICollection<Post> PostsNavigation { get; set; } = new List<Post>();
 }

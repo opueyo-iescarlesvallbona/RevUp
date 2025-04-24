@@ -21,7 +21,7 @@ namespace RevupAPI.Controllers
         // GET: Cars
         public async Task<IActionResult> Index()
         {
-            var revupContext = _context.Cars.Include(c => c.Member);
+            var revupContext = _context.Cars.Include(c => c.Member).Include(c => c.Model);
             return View(await revupContext.ToListAsync());
         }
 
@@ -35,6 +35,7 @@ namespace RevupAPI.Controllers
 
             var car = await _context.Cars
                 .Include(c => c.Member)
+                .Include(c => c.Model)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (car == null)
             {
@@ -48,6 +49,7 @@ namespace RevupAPI.Controllers
         public IActionResult Create()
         {
             ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id");
+            ViewData["ModelId"] = new SelectList(_context.Models, "Id", "Id");
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace RevupAPI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Brand,Model,ModelYear,Description,MemberId")] Car car)
+        public async Task<IActionResult> Create([Bind("Id,MemberId,ModelId,ModelYear,HorsePower,Description,Picture")] Car car)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +67,7 @@ namespace RevupAPI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", car.MemberId);
+            ViewData["ModelId"] = new SelectList(_context.Models, "Id", "Id", car.ModelId);
             return View(car);
         }
 
@@ -82,6 +85,7 @@ namespace RevupAPI.Controllers
                 return NotFound();
             }
             ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", car.MemberId);
+            ViewData["ModelId"] = new SelectList(_context.Models, "Id", "Id", car.ModelId);
             return View(car);
         }
 
@@ -90,7 +94,7 @@ namespace RevupAPI.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Brand,Model,ModelYear,Description,MemberId")] Car car)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MemberId,ModelId,ModelYear,HorsePower,Description,Picture")] Car car)
         {
             if (id != car.Id)
             {
@@ -118,6 +122,7 @@ namespace RevupAPI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", car.MemberId);
+            ViewData["ModelId"] = new SelectList(_context.Models, "Id", "Id", car.ModelId);
             return View(car);
         }
 
@@ -131,6 +136,7 @@ namespace RevupAPI.Controllers
 
             var car = await _context.Cars
                 .Include(c => c.Member)
+                .Include(c => c.Model)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (car == null)
             {
@@ -158,6 +164,54 @@ namespace RevupAPI.Controllers
         private bool CarExists(int id)
         {
             return _context.Cars.Any(e => e.Id == id);
+        }
+
+        [Route("api/Car")]
+        [HttpPost]
+        public async Task<IActionResult> PostCar([FromBody] Car car)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Cars.Add(car);
+                await _context.SaveChangesAsync();
+                return Ok(car);
+            }
+            return BadRequest("Invalid car data");
+        }
+
+        [Route("api/Cars/{memberId}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Car>>> GetCarsByMemberId(int memberId)
+        {
+            var cars = await _context.Cars.Where(c => c.MemberId == memberId).ToListAsync();
+            if (cars == null || !cars.Any())
+            {
+                return NotFound();
+            }
+            return cars;
+        }
+
+        [Route("api/Car")]
+        [HttpPut]
+        public async Task<IActionResult> PutCar([FromBody] Car car)
+        {
+            _context.Entry(car).State = EntityState.Modified;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CarExists(car.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
         }
     }
 }

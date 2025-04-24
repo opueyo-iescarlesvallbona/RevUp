@@ -15,7 +15,7 @@ public partial class Post
 
     public DateTime PostDate { get; set; }
 
-    public byte[]? Picture { get; set; }
+    public string? Picture { get; set; }
 
     public long Likes { get; set; }
 
@@ -25,9 +25,15 @@ public partial class Post
 
     public int MemberId { get; set; }
 
+    public long Comments { get; set; }
+
     public virtual Member Member { get; set; } = null!;
 
     public virtual ICollection<PostComment> PostComments { get; set; } = new List<PostComment>();
 
+    public virtual PostType PostTypeNavigation { get; set; } = null!;
+
     public virtual Route? Route { get; set; }
+
+    public virtual ICollection<Member> Members { get; set; } = new List<Member>();
 }

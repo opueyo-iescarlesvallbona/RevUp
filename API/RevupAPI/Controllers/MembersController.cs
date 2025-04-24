@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using RevupAPI.Models;
 
 namespace RevupAPI.Controllers
@@ -160,10 +161,111 @@ namespace RevupAPI.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
+         
         private bool MemberExists(int id)
         {
             return _context.Members.Any(e => e.Id == id);
+        }
+
+        [Route("api/MemberById")]
+        [HttpGet]
+        public async Task<ActionResult<Member>> GetMemberById([FromQuery]int id)
+        {
+            var member = await _context.Members.FindAsync(id);
+            if (member == null)
+            {
+                return NotFound();
+            }
+            return member;
+        }
+
+
+        [Route("api/Member")]
+        [HttpPut]
+        public async Task<ActionResult<Member>> UpdateMember([FromBody] Member member)
+        {
+            _context.Entry(member).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MemberExists(member.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        [Route("api/Member")]
+        [HttpPost]
+        public async Task<ActionResult<Member>> PostMember([FromQuery]IFormFile image, [FromBody]Member member)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Members.Add(member);
+                await _context.SaveChangesAsync();
+
+                if (image != null)
+                {
+                    try
+                    {
+                        GeneralController.UploadImage(image, member);
+                    }
+                    catch{}
+                }
+                return Ok(member);
+            }
+            return BadRequest("Invalid member data");
+        }
+
+        [Route("api/Member/{memberName}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Member>>> GetMemberByName(string memberName)
+        {
+            var members = await _context.Members.Where(x => x.Membername.Contains(memberName)).ToListAsync();
+            if (members == null || members.Any())
+            {
+                return NotFound();
+            }
+            return members;
+        }
+
+        [Route("api/MemberByCar/{carName}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Member>>> GetMemberByCar(string carName)
+        {
+            var members = await _context.Members
+                .Include(m => m.Cars)
+                .Where(m => m.Cars.Any(c => c.Model.ModelName.Contains(carName)))
+                .ToListAsync();
+            if (members == null || !members.Any())
+            {
+                return NotFound();
+            }
+            return members;
+        }
+
+        [Route("api/MemberFriends/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Member>>> GetMemberFriends(int id)
+        {
+            var member = await _context.Members.Where(x=>x.Id==id).FirstOrDefaultAsync();
+
+            List<Member> friends = new List<Member>();
+            if (member != null)
+            {
+                friends = member.MemberRelationMemberId2Navigations.Where(x=>x.State.Name.Equals("Friend")).Select(x=>x.MemberId1Navigation).ToList();
+            }
+            return friends;
         }
     }
 }

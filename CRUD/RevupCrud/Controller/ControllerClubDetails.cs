@@ -70,8 +70,14 @@ namespace RevupCrud.Controller
 
                 if (club.picture != null)
                 {
-                    Image i = Image.FromFile(club.picture);
-                    f.pictureBox1.Image = i;
+                    try
+                    {
+                        f.pictureBox1.Image = Image.FromFile(club.picture);
+                    }
+                    catch
+                    {
+
+                    }
                 }
 
                 f.cmbState.Items.Clear();

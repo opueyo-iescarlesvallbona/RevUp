@@ -39,6 +39,14 @@ namespace RevupCrud.Controller
             events.btnSearch.Click += BtnBuscar_ClickEvent;
             events.dataGridView.CellDoubleClick += DataGridView_CellDoubleClickEvent;
             events.dataGridView.CellFormatting += DataGridView_CellFormattingEvent;
+            events.btnInsert.Click += BtnInsert_ClickEvent;
+        }
+
+        private void BtnInsert_ClickEvent(object sender, EventArgs e)
+        {
+            ViewEventDetails f = new ViewEventDetails();
+            f.FormClosed += EventDetailsFormClosed;
+            new ControllerEventDetails(null, f, false);
         }
 
         private void DataGridView_CellDoubleClickEvent(object sender, DataGridViewCellEventArgs e)

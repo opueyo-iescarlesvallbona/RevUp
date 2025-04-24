@@ -21,7 +21,7 @@ namespace RevupAPI.Controllers
         // GET: PostComments
         public async Task<IActionResult> Index()
         {
-            var revupContext = _context.PostComments.Include(p => p.Post);
+            var revupContext = _context.PostComments.Include(p => p.Member).Include(p => p.Post);
             return View(await revupContext.ToListAsync());
         }
 
@@ -34,6 +34,7 @@ namespace RevupAPI.Controllers
             }
 
             var postComment = await _context.PostComments
+                .Include(p => p.Member)
                 .Include(p => p.Post)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (postComment == null)
@@ -47,6 +48,7 @@ namespace RevupAPI.Controllers
         // GET: PostComments/Create
         public IActionResult Create()
         {
+            ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id");
             ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Id");
             return View();
         }
@@ -64,6 +66,7 @@ namespace RevupAPI.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", postComment.MemberId);
             ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Id", postComment.PostId);
             return View(postComment);
         }
@@ -81,6 +84,7 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
+            ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", postComment.MemberId);
             ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Id", postComment.PostId);
             return View(postComment);
         }
@@ -117,6 +121,7 @@ namespace RevupAPI.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MemberId"] = new SelectList(_context.Members, "Id", "Id", postComment.MemberId);
             ViewData["PostId"] = new SelectList(_context.Posts, "Id", "Id", postComment.PostId);
             return View(postComment);
         }
@@ -130,6 +135,7 @@ namespace RevupAPI.Controllers
             }
 
             var postComment = await _context.PostComments
+                .Include(p => p.Member)
                 .Include(p => p.Post)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (postComment == null)
@@ -158,6 +164,34 @@ namespace RevupAPI.Controllers
         private bool PostCommentExists(int id)
         {
             return _context.PostComments.Any(e => e.Id == id);
+        }
+
+
+        [Route("api/Comment")]
+        [HttpPost]
+        public async Task<ActionResult<PostComment>> PostComment([FromBody] PostComment postComment)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.PostComments.Add(postComment);
+                await _context.SaveChangesAsync();
+                return Ok(postComment);
+            }
+            return BadRequest("Invalid comment data");
+        }
+
+        [Route("api/Comment/{id}")]
+        [HttpDelete]
+        public async Task<bool> DeleteComment(int id)
+        {
+            var postComment = await _context.PostComments.FindAsync(id);
+            if (postComment == null)
+            {
+                return false;
+            }
+            _context.PostComments.Remove(postComment);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

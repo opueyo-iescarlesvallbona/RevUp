@@ -15,11 +15,15 @@ public partial class RevupContext : DbContext
     {
     }
 
+    public virtual DbSet<Brand> Brands { get; set; }
+
     public virtual DbSet<Car> Cars { get; set; }
 
     public virtual DbSet<Club> Clubs { get; set; }
 
     public virtual DbSet<ClubEvent> ClubEvents { get; set; }
+
+    public virtual DbSet<EventState> EventStates { get; set; }
 
     public virtual DbSet<Gender> Genders { get; set; }
 
@@ -37,6 +41,8 @@ public partial class RevupContext : DbContext
 
     public virtual DbSet<MessageState> MessageStates { get; set; }
 
+    public virtual DbSet<Model> Models { get; set; }
+
     public virtual DbSet<Post> Posts { get; set; }
 
     public virtual DbSet<PostComment> PostComments { get; set; }
@@ -50,44 +56,63 @@ public partial class RevupContext : DbContext
     public virtual DbSet<TerrainType> TerrainTypes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=172.16.24.136,56265; Database=revup; User Id=founder; Password={PASSWORD_REPLACE}; TrustServerCertificate=True;".Replace("{PASSWORD_REPLACE}", Environment.GetEnvironmentVariable("DB_PASSWORD")));
+        => optionsBuilder.UseSqlServer("Server=.\\sqlexpress; Trusted_Connection=True; Encrypt=false; Database=revup");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Brand>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__brand__3213E83FCE8F4ECF");
+
+            entity.ToTable("brand");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("name");
+        });
+
         modelBuilder.Entity<Car>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__car__3213E83F5587F9B6");
+            entity.HasKey(e => e.Id).HasName("PK__car__3213E83F0ABD7505");
 
             entity.ToTable("car");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Brand)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("brand");
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
+            entity.Property(e => e.HorsePower).HasColumnName("horse_power");
             entity.Property(e => e.MemberId).HasColumnName("member_id");
-            entity.Property(e => e.Model)
-                .HasMaxLength(200)
-                .IsUnicode(false)
-                .HasColumnName("model");
+            entity.Property(e => e.ModelId).HasColumnName("model_id");
             entity.Property(e => e.ModelYear).HasColumnName("model_year");
+            entity.Property(e => e.Picture)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("picture");
 
             entity.HasOne(d => d.Member).WithMany(p => p.Cars)
                 .HasForeignKey(d => d.MemberId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__car__member_id__571DF1D5");
+                .HasConstraintName("FK__car__member_id__756D6ECB");
+
+            entity.HasOne(d => d.Model).WithMany(p => p.Cars)
+                .HasForeignKey(d => d.ModelId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__car__model_id__76619304");
         });
 
         modelBuilder.Entity<Club>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__club__3213E83F42FF2E74");
 
-            entity.ToTable("club");
+            entity.ToTable("club", tb => tb.HasTrigger("club_trigger"));
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreationDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnName("creation_date");
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
@@ -96,7 +121,10 @@ public partial class RevupContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("name");
-            entity.Property(e => e.Picture).HasColumnName("picture");
+            entity.Property(e => e.Picture)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("picture");
 
             entity.HasOne(d => d.FounderNavigation).WithMany(p => p.Clubs)
                 .HasForeignKey(d => d.Founder)
@@ -126,18 +154,42 @@ public partial class RevupContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("name");
-            entity.Property(e => e.Picture).HasColumnName("picture");
+            entity.Property(e => e.Picture)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("picture");
             entity.Property(e => e.RouteStartDate)
                 .HasColumnType("datetime")
                 .HasColumnName("route_start_date");
             entity.Property(e => e.StartDate)
                 .HasColumnType("datetime")
                 .HasColumnName("start_date");
+            entity.Property(e => e.State).HasColumnName("state");
 
             entity.HasOne(d => d.Club).WithMany(p => p.ClubEvents)
                 .HasForeignKey(d => d.ClubId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__club_even__club___693CA210");
+
+            entity.HasOne(d => d.StateNavigation).WithMany(p => p.ClubEvents)
+                .HasForeignKey(d => d.State)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__club_even__state__531856C7");
+        });
+
+        modelBuilder.Entity<EventState>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__event_st__3213E83F31964653");
+
+            entity.ToTable("event_state");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("name");
         });
 
         modelBuilder.Entity<Gender>(entity =>
@@ -160,6 +212,8 @@ public partial class RevupContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__member__3213E83F24B7DD59");
 
             entity.ToTable("member");
+
+            entity.HasIndex(e => e.Membername, "member_membername").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DateOfBirth).HasColumnName("date_of_birth");
@@ -185,7 +239,10 @@ public partial class RevupContext : DbContext
             entity.Property(e => e.Password)
                 .HasColumnType("text")
                 .HasColumnName("password");
-            entity.Property(e => e.ProfilePicture).HasColumnName("profile_picture");
+            entity.Property(e => e.ProfilePicture)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("profile_picture");
 
             entity.HasOne(d => d.Gender).WithMany(p => p.Members)
                 .HasForeignKey(d => d.GenderId)
@@ -340,6 +397,25 @@ public partial class RevupContext : DbContext
                 .HasColumnName("name");
         });
 
+        modelBuilder.Entity<Model>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__model__3213E83FCEA6F1D9");
+
+            entity.ToTable("model");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IdBrand).HasColumnName("id_brand");
+            entity.Property(e => e.ModelName)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("model_name");
+
+            entity.HasOne(d => d.IdBrandNavigation).WithMany(p => p.Models)
+                .HasForeignKey(d => d.IdBrand)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__model__id_brand__44CA3770");
+        });
+
         modelBuilder.Entity<Post>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__post__3213E83F7CCD8E54");
@@ -351,12 +427,16 @@ public partial class RevupContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("address");
+            entity.Property(e => e.Comments).HasColumnName("comments");
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.Likes).HasColumnName("likes");
             entity.Property(e => e.MemberId).HasColumnName("member_id");
-            entity.Property(e => e.Picture).HasColumnName("picture");
+            entity.Property(e => e.Picture)
+                .HasMaxLength(500)
+                .IsUnicode(false)
+                .HasColumnName("picture");
             entity.Property(e => e.PostDate)
                 .HasColumnType("datetime")
                 .HasColumnName("post_date");
@@ -372,16 +452,40 @@ public partial class RevupContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__post__member_id__787EE5A0");
 
+            entity.HasOne(d => d.PostTypeNavigation).WithMany(p => p.Posts)
+                .HasForeignKey(d => d.PostType)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__post__post_type__1EA48E88");
+
             entity.HasOne(d => d.Route).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.RouteId)
                 .HasConstraintName("FK__post__route_id__797309D9");
+
+            entity.HasMany(d => d.Members).WithMany(p => p.PostsNavigation)
+                .UsingEntity<Dictionary<string, object>>(
+                    "PostMemberLike",
+                    r => r.HasOne<Member>().WithMany()
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__post_memb__membe__15DA3E5D"),
+                    l => l.HasOne<Post>().WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__post_memb__post___16CE6296"),
+                    j =>
+                    {
+                        j.HasKey("PostId", "MemberId").HasName("PK__post_mem__65FE3F35A0EB6CA3");
+                        j.ToTable("post_member_like", tb => tb.HasTrigger("after_insert_post_member_like"));
+                        j.IndexerProperty<int>("PostId").HasColumnName("post_id");
+                        j.IndexerProperty<int>("MemberId").HasColumnName("member_id");
+                    });
         });
 
         modelBuilder.Entity<PostComment>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__post_com__3213E83F84427A89");
 
-            entity.ToTable("post_comment");
+            entity.ToTable("post_comment", tb => tb.HasTrigger("after_insert_post_comment"));
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CommentContent)
@@ -392,6 +496,11 @@ public partial class RevupContext : DbContext
                 .HasColumnName("datetime");
             entity.Property(e => e.MemberId).HasColumnName("member_id");
             entity.Property(e => e.PostId).HasColumnName("post_id");
+
+            entity.HasOne(d => d.Member).WithMany(p => p.PostComments)
+                .HasForeignKey(d => d.MemberId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__post_comm__membe__0697FACD");
 
             entity.HasOne(d => d.Post).WithMany(p => p.PostComments)
                 .HasForeignKey(d => d.PostId)
@@ -436,6 +545,9 @@ public partial class RevupContext : DbContext
             entity.ToTable("route");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Datetime)
+                .HasColumnType("datetime")
+                .HasColumnName("datetime");
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
@@ -470,7 +582,8 @@ public partial class RevupContext : DbContext
 
             entity.HasOne(d => d.Member).WithMany(p => p.Routes)
                 .HasForeignKey(d => d.MemberId)
-                .HasConstraintName("FK__route__member_id__70DDC3D8");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__route__member_id__12FDD1B2");
 
             entity.HasOne(d => d.TerrainType).WithMany(p => p.Routes)
                 .HasForeignKey(d => d.TerrainTypeId)

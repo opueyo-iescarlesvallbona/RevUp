@@ -5,8 +5,8 @@ using System.Security.Cryptography;
 
 namespace RevupAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class GeneralController : ControllerBase
     {
         private readonly RevupContext _context;
@@ -15,7 +15,7 @@ namespace RevupAPI.Controllers
         // Constructor
         public GeneralController(RevupContext context, IConfiguration configuration)
         {
-            _context = context;            
+            _context = context;
             _imagesFolderPath = "C:\\Users\\cv\\Downloads\\";
         }
 
@@ -39,39 +39,41 @@ namespace RevupAPI.Controllers
         }
 
         [HttpPost("uploadImage")]
-        public IActionResult UploadImage(IFormFile imageFile, Object obj)
+        public static string UploadImage(IFormFile imageFile, Object obj)
         {
+            string _imagesFolderPath = "C:\\Users\\cv\\Downloads\\";
             if (imageFile == null || imageFile.Length == 0)
             {
-                return BadRequest("No image file uploaded.");
+                return "";
             }
-            
+
             string dateTimeNow = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string imageFileName = null;
-            string targetFolder = null;
+            string imageFileName = "";
+            string targetFolder = "";
             switch (obj)
             {
                 case Post post:
-                    imageFileName = $"{dateTimeNow}_{post.Id}.jpg";
+                    imageFileName = $"{post.Id}.jpg";
                     targetFolder = Path.Combine(_imagesFolderPath, "posts");
+                    
                     break;
                 case Member member:
-                    imageFileName = $"{dateTimeNow}_{member.Id}.jpg";
+                    imageFileName = $"{member.Id}.jpg";
                     targetFolder = Path.Combine(_imagesFolderPath, "members");
                     break;
                 case Club club:
-                    imageFileName = $"{dateTimeNow}_{club.Id}.jpg";
+                    imageFileName = $"{club.Id}.jpg";
                     targetFolder = Path.Combine(_imagesFolderPath, "clubs");
                     break;
                 case Car car:
-                    imageFileName = $"{dateTimeNow}_{car.Id}.jpg";
+                    imageFileName = $"{car.Id}.jpg";
                     targetFolder = Path.Combine(_imagesFolderPath, "cars");
                     break;
             }
 
-            if (imageFileName is null || targetFolder is null)
+            if (imageFileName.Equals("") || targetFolder.Equals(""))
             {
-                return BadRequest("Unknown reference object.");
+                return "";
             }
 
             if (!Directory.Exists(targetFolder))
@@ -86,7 +88,7 @@ namespace RevupAPI.Controllers
                 imageFile.CopyTo(fileStream);
             }
 
-            return Ok(new { FilePath = filePath, FileName = imageFileName });
+            return filePath;
         }
     }
 }

@@ -7,15 +7,19 @@ public partial class Car
 {
     public int Id { get; set; }
 
-    public string Brand { get; set; } = null!;
+    public int MemberId { get; set; }
 
-    public string Model { get; set; } = null!;
+    public int ModelId { get; set; }
 
-    public int ModelYear { get; set; }
+    public int? ModelYear { get; set; }
+
+    public double? HorsePower { get; set; }
 
     public string? Description { get; set; }
 
-    public int MemberId { get; set; }
+    public string? Picture { get; set; }
 
     public virtual Member Member { get; set; } = null!;
+
+    public virtual Model Model { get; set; } = null!;
 }

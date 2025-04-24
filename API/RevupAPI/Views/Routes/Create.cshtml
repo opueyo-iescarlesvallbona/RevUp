@@ -1,0 +1,81 @@
+﻿@model RevupAPI.Models.Route
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Route</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Waypoints" class="control-label"></label>
+                <input asp-for="Waypoints" class="form-control" />
+                <span asp-validation-for="Waypoints" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Distance" class="control-label"></label>
+                <input asp-for="Distance" class="form-control" />
+                <span asp-validation-for="Distance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Duration" class="control-label"></label>
+                <input asp-for="Duration" class="form-control" />
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaxElevation" class="control-label"></label>
+                <input asp-for="MaxElevation" class="form-control" />
+                <span asp-validation-for="MaxElevation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ElevationGain" class="control-label"></label>
+                <input asp-for="ElevationGain" class="form-control" />
+                <span asp-validation-for="ElevationGain" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartAddress" class="control-label"></label>
+                <input asp-for="StartAddress" class="form-control" />
+                <span asp-validation-for="StartAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndAddress" class="control-label"></label>
+                <input asp-for="EndAddress" class="form-control" />
+                <span asp-validation-for="EndAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TerrainTypeId" class="control-label"></label>
+                <select asp-for="TerrainTypeId" class ="form-control" asp-items="ViewBag.TerrainTypeId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberId" class="control-label"></label>
+                <select asp-for="MemberId" class ="form-control" asp-items="ViewBag.MemberId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datetime" class="control-label"></label>
+                <input asp-for="Datetime" class="form-control" />
+                <span asp-validation-for="Datetime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
