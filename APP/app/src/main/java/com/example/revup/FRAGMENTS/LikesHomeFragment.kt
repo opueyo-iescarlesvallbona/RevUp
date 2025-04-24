@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.revup.ADAPTERS.HomeFragmentPostAdapterRV
 import com.example.revup.R
+import com.example.revup._API.RevupCrudAPI
 import com.example.revup.databinding.LikesHomefragmentMainactivityBinding
 
 class LikesHomeFragment : Fragment() {
     lateinit var binding : LikesHomefragmentMainactivityBinding
+    val apiRevUp = RevupCrudAPI()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +32,8 @@ class LikesHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = binding.likesHomeFragmentMainActivityRecyclerView
-        var list = listOf("","","","","","","","")
-        recyclerView.adapter = HomeFragmentPostAdapterRV(list)
+        var list = apiRevUp.getPostsByLikes()
+        recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
         recyclerView.layoutManager = LinearLayoutManager(requireView().context)
     }
 }

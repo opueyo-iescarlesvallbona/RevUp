@@ -1,22 +1,28 @@
 package com.example.revup._API
 
+import com.example.revup._DATACLASS.*
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.w3c.dom.Comment
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.CoroutineContext
 
 class RevupCrudAPI : CoroutineScope {
+    //region Retrofit
     private var job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    var urlApi = "http://172.16.24.136/"
+    var urlApi = "http://172.16.24.136:5178/"
 
     private fun getClient(): OkHttpClient {
         var loggin = HttpLoggingInterceptor()
@@ -31,5 +37,407 @@ class RevupCrudAPI : CoroutineScope {
         return Retrofit.Builder().baseUrl(urlApi).client(getClient())
             .addConverterFactory(GsonConverterFactory.create(gson)).build()
     }
+    //endregion
 
+    //region POSTS
+    fun getPostsByLocation(memberLocation: MemberLocation): MutableList<Post>?{
+        var resposta : Response<MutableList<Post>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getPostsByLocation(memberLocation)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getPostsByLikes(): MutableList<Post>?{
+        var resposta : Response<MutableList<Post>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getPostsByLikes()
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun postPost(post: Post): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<Post>? = null
+            val cor= launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).postPost(null, post)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+
+    fun putPost(post: Post): Boolean{
+        var modificat: Boolean = false
+        runBlocking {
+            var resposta : Response<Post>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).putPost(null, post)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                modificat = true
+            else
+                modificat = false
+        }
+        return modificat
+    }
+
+    fun deletePost(postId: Int): Boolean{
+        var esborrat: Boolean = false
+        runBlocking {
+            var resposta: Response<Boolean>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).deletePost(postId)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                esborrat = true
+            else
+                esborrat = false
+        }
+        return esborrat
+    }
+
+    fun postLike(memberId: Int, postId: Int): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<Post>? = null
+            val cor= launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).postLike(memberId, postId)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+
+    fun postUnLike(memberId: Int, postId: Int): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<Post>? = null
+            val cor= launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).postUnLike(memberId, postId)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+    //endregion
+
+    //region MEMBERS
+    fun getMemberById(memberId: Int): Member?{
+        var resposta : Response<Member>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getMemberById(memberId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun putMember(member: Member): Boolean{
+        var modificat: Boolean = false
+        runBlocking {
+            var resposta : Response<Member>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).putMember(null, member)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                modificat = true
+            else
+                modificat = false
+        }
+        return modificat
+    }
+
+    fun postMember(member: Member): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<Member>? = null
+            val cor= launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).postMember(null, member)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+
+    fun getMembersByMemberName(memberName: String): MutableList<Member>?{
+        var resposta : Response<MutableList<Member>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getMembersByMemberName(memberName)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getMembersByCarName(carName: String): MutableList<Member>?{
+        var resposta : Response<MutableList<Member>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getMembersByCarName(carName)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getFriends(memberId: Int): MutableList<Member>?{
+        var resposta : Response<MutableList<Member>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getFriends(memberId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+    //endregion
+
+    //region COMMENTS
+    fun postComments(post_comment: PostComment): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<Comment>? = null
+            val cor= launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).postComment(post_comment)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+
+    fun deleteComment(post_commentId: Int): Boolean{
+        var esborrat: Boolean = false
+        runBlocking {
+            var resposta: Response<Boolean>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).deleteComment(post_commentId)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                esborrat = true
+            else
+                esborrat = false
+        }
+        return esborrat
+    }
+    //endregion
+
+    //region CARS
+    fun postCar(car: Car): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<Car>? = null
+            val cor= launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).postCar(null, car)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+
+    fun getCarsByMember(memberId: Int): MutableList<Car>?{
+        var resposta : Response<MutableList<Car>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getCarsByMember(memberId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun putCar(car: Car): Boolean{
+        var modificat: Boolean = false
+        runBlocking {
+            var resposta : Response<Car>? = null
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).putCar(null, car)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                modificat = true
+            else
+                modificat = false
+        }
+        return modificat
+    }
+
+    fun getBrands(): MutableList<Brand>?{
+        var resposta : Response<MutableList<Brand>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getBrands()
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getModels(): MutableList<Model>?{
+        var resposta : Response<MutableList<Model>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getModels()
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+    //endregion
+
+    //region EVENTS
+    fun postEvent(clubEvent: ClubEvent): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<ClubEvent>? = null
+            val cor= launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).postEvent(null, clubEvent)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+
+    fun getAllEventsByClub(clubId: Int): MutableList<ClubEvent>?{
+        var resposta : Response<MutableList<ClubEvent>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getAllEventsByClub(clubId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getEvent(eventId: Int): ClubEvent?{
+        var resposta : Response<ClubEvent>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getEvent(eventId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+    //endregion
+
+    //region ROUTE
+    fun postRoute(route: Route): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<Route>? = null
+            val cor= launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).postRoute(route)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+
+    fun getAllRoutesByMember(memberId: Int): MutableList<Route>?{
+        var resposta : Response<MutableList<Route>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getAllRoutesByMember(memberId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getRoute(routeId: Int): Route?{
+        var resposta : Response<Route>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getRoute(routeId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+    //endregion
 }

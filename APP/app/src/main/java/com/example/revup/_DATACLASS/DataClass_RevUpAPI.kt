@@ -2,6 +2,8 @@ package com.example.revup._DATACLASS
 
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Date
 
 class Brand(
@@ -58,7 +60,7 @@ class Post (
     var title: String? = null,
     var postType: Int = 0,
     var description: String? = null,
-    var postDate: Date = Date(),
+    var postDate: String,
     var picture: String? = null,
     var likes: Long = 0,
     var address: String? = null,
@@ -87,7 +89,7 @@ class PostComment (
     var postId: Int = 0,
     var memberId: Int = 0,
     var commentContent: String = "",
-    var datetime: java.util.Date = java.util.Date(),
+    var datetime: String,
 
     var post: Post? = null,
     var member: Member? = null
@@ -148,8 +150,8 @@ class Member (
     var email: String? = null,
     var genderId: Int = 0,
     var locationId: Int = 0,
-    var dateOfBirth: java.util.Date = java.util.Date(),
-    var loginDate: java.util.Date = java.util.Date(),
+    var dateOfBirth: String,
+    var loginDate: String,
     var description: String? = null,
     var profilePicture: String? = null,
     var password: String? = null,
@@ -187,7 +189,7 @@ class MemberClub (
     var memberId: Int = 0,
     var clubId: Int = 0,
     var roleType: Int = 0,
-    var joinDate: Date = Date(),
+    var joinDate: String,
 
     var memberClubRole: MemberClubRole? = null,
     var club: Club? = null,
@@ -221,7 +223,7 @@ class Route (
     var terrainTypeId: Int? = null,
     var description: String? = null,
     var memberId: Int = 0,
-    var datetime: LocalDateTime? = null,
+    var datetime: String? = null,
 
     var terrainType: TerrainType? = null,
     var posts: MutableSet<Post> = HashSet(),
@@ -234,3 +236,9 @@ class TerrainType (
 
     var routes: MutableSet<Route> = HashSet()
 )
+
+fun FormatDate(date: String): Date {
+    val formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS")
+    var local_datetime = LocalDateTime.parse(date,formater)
+    return Date.from(local_datetime.atZone(ZoneId.systemDefault()).toInstant())
+}

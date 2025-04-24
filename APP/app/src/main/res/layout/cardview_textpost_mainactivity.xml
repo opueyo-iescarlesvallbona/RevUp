@@ -33,6 +33,7 @@
                     android:id="@+id/cardview_post_mainactivity_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start"
                     android:text="Username"
                     android:textSize="18sp"
                     android:textStyle="bold"

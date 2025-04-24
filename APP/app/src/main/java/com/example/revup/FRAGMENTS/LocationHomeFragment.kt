@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.revup.ADAPTERS.HomeFragmentPostAdapterRV
 import com.example.revup.R
+import com.example.revup._API.RevupCrudAPI
 import com.example.revup.databinding.LocationHomefragmentMainactivityBinding
 
 class LocationHomeFragment : Fragment() {
     lateinit var binding : LocationHomefragmentMainactivityBinding
+    val apiRevUp = RevupCrudAPI()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +32,9 @@ class LocationHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = binding.locationHomeFragmentMainActivityRecyclerView
-        var list = listOf("","","","","","","","")
-        recyclerView.adapter = HomeFragmentPostAdapterRV(list)
-        recyclerView.layoutManager = LinearLayoutManager(requireView().context)
+//        val recyclerView = binding.locationHomeFragmentMainActivityRecyclerView
+//        var list = listOf("","","","","","","","")
+//        recyclerView.adapter = HomeFragmentPostAdapterRV(list)
+//        recyclerView.layoutManager = LinearLayoutManager(requireView().context)
     }
 }

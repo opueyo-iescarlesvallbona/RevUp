@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.example.revup.ADAPTERS.HomeFragment_ViewPagerAdapter
+import com.example.revup._API.RevupCrudAPI
+import com.example.revup._DATACLASS.Post
 import com.example.revup.databinding.HomeFragmentMainactivityBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
