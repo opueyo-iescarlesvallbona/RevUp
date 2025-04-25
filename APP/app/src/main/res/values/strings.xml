@@ -14,4 +14,6 @@
     <string name="addPostActivity_btnImage">Upload Image</string>
     <string name="addRoutePostActivity_posttype">Route Post</string>
     <string name="addRoutePostActivity_route">Select the route</string>
+    <string name="addPostActivity_deleteImage">Click to delete</string>
+    <string name="google_maps_key">AIzaSyDS2-Zq8iF077PS8WA1t2PpVX2XLp0NeYY</string>
 </resources>

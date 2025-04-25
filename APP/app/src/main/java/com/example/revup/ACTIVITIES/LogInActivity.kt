@@ -31,6 +31,8 @@ class LogInActivity : AppCompatActivity() {
         }
 
         binding.logInActivityBtnLogIn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             if(!binding.logInActivityUsernameTextField.text.isNullOrEmpty()&&
                 !binding.logInActivityPasswordTextField.text.isNullOrEmpty()){
 

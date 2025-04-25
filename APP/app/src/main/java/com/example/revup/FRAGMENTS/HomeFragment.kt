@@ -7,13 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.viewpager2.widget.ViewPager2
-import com.example.revup.ADAPTERS.HomeFragment_ViewPagerAdapter
-import com.example.revup._API.RevupCrudAPI
-import com.example.revup._DATACLASS.Post
+import com.example.revup.ADAPTERS.ViewPagerAdapter
 import com.example.revup.databinding.HomeFragmentMainactivityBinding
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
@@ -36,7 +31,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val listOfFragments = listOf(LocationHomeFragment(), LikesHomeFragment())
-        var adapter = HomeFragment_ViewPagerAdapter(
+        var adapter = ViewPagerAdapter(
             listOfFragments,
             requireActivity().supportFragmentManager,
             lifecycle

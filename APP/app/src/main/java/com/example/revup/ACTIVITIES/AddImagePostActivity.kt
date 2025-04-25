@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentTransaction
+import androidx.transition.Visibility
 import com.example.revup.R
 import com.example.revup.databinding.ActivityAddImagePostBinding
 
@@ -37,10 +39,10 @@ class AddImagePostActivity : AppCompatActivity() {
 
         val pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
             if (uri != null) {
+                binding.addImagePostActivityPreviewImage.visibility = View.VISIBLE
+                binding.addImagePostActivityNoSelectedImage.visibility = View.INVISIBLE
                 selectedImageUri = uri
                 binding.addImagePostActivityPreviewImage.setImageURI(selectedImageUri)
-            } else {
-                selectedImageUri = null
             }
         }
 
@@ -55,7 +57,10 @@ class AddImagePostActivity : AppCompatActivity() {
             // Save post
         }
 
-        binding.addImagePostActivityBtnImage.setOnClickListener{
+        binding.addImagePostActivityPreviewImage.setOnClickListener{
+            pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+        }
+        binding.addImagePostActivityNoSelectedImage.setOnClickListener{
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
     }

@@ -4,10 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.revup.FRAGMENTS.LikesHomeFragment
-import com.example.revup.FRAGMENTS.LocationHomeFragment
 
-class HomeFragment_ViewPagerAdapter(
+class ViewPagerAdapter(
     private val fragments: List<Fragment>,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
