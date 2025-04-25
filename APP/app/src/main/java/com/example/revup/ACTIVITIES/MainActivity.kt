@@ -1,5 +1,6 @@
 package com.example.revup.ACTIVITIES
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
@@ -32,9 +33,13 @@ class MainActivity : AppCompatActivity() {
 
         initFragment(HomeFragment())
         binding.mainActivityBottomNavigationView.setOnItemSelectedListener {
+            if(it.itemId != R.id.home){
+                activeCreatePostButton(false)
+            }
             when (it.itemId) {
                 R.id.home -> {
                     initFragment(HomeFragment())
+                    activeCreatePostButton(true)
                     true
                 }
                 R.id.events -> {
@@ -54,6 +59,29 @@ class MainActivity : AppCompatActivity() {
         }
         binding.mainActivityBtnAdd.setOnClickListener{
             onAddButtonClicked()
+        }
+        binding.mainActivityBtnAddText.setOnClickListener {
+            val intent = Intent(this, AddTextPostActivity::class.java)
+            startActivity(intent)
+        }
+        binding.mainActivityBtnAddImage.setOnClickListener {
+            val intent = Intent(this, AddImagePostActivity::class.java)
+            startActivity(intent)
+        }
+        binding.mainActivityBtnAddRoute.setOnClickListener {
+            val intent = Intent(this, AddRoutePostActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun activeCreatePostButton(activate: Boolean){
+        if(secFloatingBtnVisible){
+            setEnableFloatingButtons(false, true)
+        }
+        if(activate){
+            binding.mainActivityBtnAdd.visibility = View.VISIBLE
+        }else{
+            binding.mainActivityBtnAdd.visibility = View.INVISIBLE
         }
     }
 
