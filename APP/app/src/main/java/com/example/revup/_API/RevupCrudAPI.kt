@@ -210,6 +210,34 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
+    fun getMemberExist(memberName: String): Boolean?{
+        var resposta : Response<Boolean>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getMemberExist(memberName)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun checkPassword(memberName: String, password: String): Boolean?{
+        var resposta : Response<Boolean>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(RevupAPIService::class.java).getMemberExist(memberName)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
     fun getMembersByCarName(carName: String): MutableList<Member>?{
         var resposta : Response<MutableList<Member>>? = null
         runBlocking {

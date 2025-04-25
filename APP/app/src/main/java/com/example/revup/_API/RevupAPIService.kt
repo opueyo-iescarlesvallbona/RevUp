@@ -68,6 +68,17 @@ interface RevupAPIService {
         @Query("memberName") memberName: String
     ): Response<MutableList<Member>>
 
+    @GET("/api/MemberExists/")
+    suspend fun getMemberExist(
+        @Query("memberName") memberName: String
+    ): Response<Boolean>
+
+    @GET("/api/CheckPassword/")
+    suspend fun getCheckPassword(
+        @Query("memberName") memberName: String,
+        @Query("password") password: String
+    ): Response<Boolean>
+
     @GET("/api/Members/")
     suspend fun getMembersByCarName(
         @Query("carName") carName: String
