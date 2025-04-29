@@ -868,3 +868,5 @@ C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\refint\RevupAPI.dll
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\RevupAPI.pdb
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\RevupAPI.genruntimeconfig.cache
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\ref\RevupAPI.dll
+C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

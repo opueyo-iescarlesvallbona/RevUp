@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using RevupAPI.Models;
 
 namespace RevupAPI.Controllers
@@ -207,29 +212,86 @@ namespace RevupAPI.Controllers
 
         [Route("api/Member")]
         [HttpPost]
-        public async Task<ActionResult<Member>> PostMember([FromQuery]IFormFile image, [FromBody]Member member)
+        public async Task<ActionResult<Member>> PostMember([FromBody] Member member)//[FromQuery]IFormFile image, [FromBody]Member member)
         {
-            if (ModelState.IsValid)
-            {
+                string password = member.Password;
+
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+
+                member.Password = hashedPassword;
+
                 _context.Members.Add(member);
                 await _context.SaveChangesAsync();
 
-                if (image != null)
-                {
-                    try
-                    {
-                        GeneralController.UploadImage(image, member);
-                    }
-                    catch{}
-                }
+                //if (image != null)
+                //{
+                //    try
+                //    {
+                //        GeneralController.UploadImage(image, member);
+                //    }
+                //    catch{}
+                //}
                 return Ok(member);
-            }
             return BadRequest("Invalid member data");
         }
 
-        [Route("api/Member/{memberName}")]
+        [Route("/api/login")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Member>>> GetMemberByName(string memberName)
+        public async Task<ActionResult<String>> Login([FromQuery] string memberName, [FromQuery] string password)
+        {
+            var member = await _context.Members.FirstOrDefaultAsync(x => x.Membername.Equals(memberName));
+            if (member == null)
+            {
+                return NotFound();
+            }
+            if (BCrypt.Net.BCrypt.Verify(password, member.Password))
+            {
+                String token = GenerateJwtToken(member);
+                if (token!=null)
+                {
+                    return Ok(token);
+                }
+            }
+            return Unauthorized(null);
+        }
+
+        private string GenerateJwtToken(Member member)
+        {
+            string pass = Environment.GetEnvironmentVariable("TOKEN");
+            if(string.IsNullOrEmpty(pass))
+            {
+                return null;
+            }
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, member.Id.ToString())
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(pass));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: "RevUp",
+                audience: "RevUpApp",
+                claims: claims,
+                expires: DateTime.Now.AddHours(24),
+                signingCredentials: creds);
+
+            var finalToken = "";
+
+            try
+            {
+                finalToken = new JwtSecurityTokenHandler().WriteToken(token);
+            }
+            catch
+            {
+            }
+            return finalToken;
+        }
+
+        [Route("api/Members/{memberName}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Member>>> GetMembersByName(string memberName)
         {
             var members = await _context.Members.Where(x => x.Membername.Contains(memberName)).ToListAsync();
             if (members == null || members.Any())
@@ -266,6 +328,32 @@ namespace RevupAPI.Controllers
                 friends = member.MemberRelationMemberId2Navigations.Where(x=>x.State.Name.Equals("Friend")).Select(x=>x.MemberId1Navigation).ToList();
             }
             return friends;
+        }
+
+        [Route("api/MemberExists")]
+        [HttpGet]
+        public async Task<ActionResult<bool>> MemberExists([FromQuery]string memberName)
+        {
+
+            var member = await _context.Members.Where(x=>x.Membername.Equals(memberName)).FirstOrDefaultAsync();
+            if (member != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        [Authorize]
+        [Route("api/MemberByName")]
+        [HttpGet]
+        public async Task<ActionResult<Member>> GetMemberByName([FromQuery] string memberName)
+        {
+            var member = await _context.Members.Where(x => x.Membername.Equals(memberName)).FirstOrDefaultAsync();
+            if (member == null)
+            {
+                return NotFound();
+            }
+            return member;
         }
     }
 }
