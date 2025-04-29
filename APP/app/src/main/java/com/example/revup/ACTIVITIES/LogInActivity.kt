@@ -4,15 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
+import com.example.revup._DATACLASS.current_user
 import com.example.revup.databinding.ActivityLogInBinding
 
 
@@ -30,6 +34,32 @@ class LogInActivity : AppCompatActivity() {
             insets
         }
 
+        val prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val autoMemberName = prefs.getString("membername", null)
+        val autoPassword = prefs.getString("password", null)
+        if(autoMemberName!=null){
+            val token = apiRevUp.login(autoMemberName.toString(), autoPassword.toString(), applicationContext)
+            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+            sharedPreferences.edit() {
+                putString("token", token)
+                apply()
+            }
+            try{
+                val member = apiRevUp.getMemberByMemberName(autoMemberName, this)
+                if(member!=null){
+                    current_user = member
+                    Log.i("member", current_user.toString())
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(this, "Member doesn't exists", Toast.LENGTH_LONG).show()
+                }
+            }catch(e: Exception){
+                Toast.makeText(this, "Error getting member: $e", Toast.LENGTH_LONG).show()
+            }
+        }
+
+
         binding.logInActivityBtnLogIn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -37,17 +67,24 @@ class LogInActivity : AppCompatActivity() {
                 !binding.logInActivityPasswordTextField.text.isNullOrEmpty()){
 
                 val password = binding.logInActivityPasswordTextField.text
-                val username = binding.logInActivityUsernameTextField.text
+                val memberName = binding.logInActivityUsernameTextField.text
 
-                val userExists = apiRevUp.getMemberExist(username.toString())
+                val userExists = apiRevUp.getMemberExist(memberName.toString(), applicationContext)
                 if(!userExists!!){
                     //ERROR
                 }else{
-                    val credentialsOk = apiRevUp.checkPassword(username.toString(), password.toString())
-
-                    if(!credentialsOk!!){
+                    val token = apiRevUp.login(memberName.toString(), password.toString(), applicationContext)
+                    if(token==null||token==""){
                         //ERROR
                     }else{
+                        val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                        sharedPreferences.edit() {
+                            putString("token", token)
+                            putString("membername", memberName.toString())
+                            putString("password", password.toString())
+                            apply()
+                        }
+
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }

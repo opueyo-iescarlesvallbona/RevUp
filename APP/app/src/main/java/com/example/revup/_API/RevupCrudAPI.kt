@@ -1,5 +1,7 @@
 package com.example.revup._API
 
+import android.content.Context
+import android.util.Log
 import com.example.revup._DATACLASS.*
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -7,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.w3c.dom.Comment
@@ -24,27 +27,31 @@ class RevupCrudAPI : CoroutineScope {
 
     var urlApi = "http://172.16.24.136:5178/"
 
-    private fun getClient(): OkHttpClient {
+    private fun getClient(context: Context): OkHttpClient {
         var loggin = HttpLoggingInterceptor()
         loggin.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        return OkHttpClient.Builder().addInterceptor(loggin).build()
+        return OkHttpClient.Builder().addInterceptor(loggin).addInterceptor(AuthInterceptor(context)).build()
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(context))
+            .build()
     }
 
-    private fun getRetrofit(): Retrofit {
+    private fun getRetrofit(context: Context): Retrofit {
         val gson = GsonBuilder().setLenient().create()
 
-        return Retrofit.Builder().baseUrl(urlApi).client(getClient())
+        return Retrofit.Builder().baseUrl(urlApi).client(getClient(context))
             .addConverterFactory(GsonConverterFactory.create(gson)).build()
     }
     //endregion
 
     //region POSTS
-    fun getPostsByLocation(memberLocation: MemberLocation): MutableList<Post>?{
+    fun getPostsByLocation(memberLocation: MemberLocation, context: Context): MutableList<Post>?{
         var resposta : Response<MutableList<Post>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getPostsByLocation(memberLocation)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getPostsByLocation(memberLocation)
             }
             cor.join()
         }
@@ -54,11 +61,11 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun getPostsByLikes(): MutableList<Post>?{
+    fun getPostsByLikes(context: Context): MutableList<Post>?{
         var resposta : Response<MutableList<Post>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getPostsByLikes()
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getPostsByLikes()
             }
             cor.join()
         }
@@ -68,12 +75,12 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun postPost(post: Post): Boolean{
+    fun postPost(post: Post, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
             var resposta : Response<Post>? = null
             val cor= launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).postPost(null, post)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postPost(null, post)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -84,12 +91,12 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun putPost(post: Post): Boolean{
+    fun putPost(post: Post, context: Context): Boolean{
         var modificat: Boolean = false
         runBlocking {
             var resposta : Response<Post>? = null
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).putPost(null, post)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putPost(null, post)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -100,12 +107,12 @@ class RevupCrudAPI : CoroutineScope {
         return modificat
     }
 
-    fun deletePost(postId: Int): Boolean{
+    fun deletePost(postId: Int, context: Context): Boolean{
         var esborrat: Boolean = false
         runBlocking {
             var resposta: Response<Boolean>? = null
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).deletePost(postId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).deletePost(postId)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -116,12 +123,12 @@ class RevupCrudAPI : CoroutineScope {
         return esborrat
     }
 
-    fun postLike(memberId: Int, postId: Int): Boolean{
+    fun postLike(memberId: Int, postId: Int, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
             var resposta : Response<Post>? = null
             val cor= launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).postLike(memberId, postId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postLike(memberId, postId)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -132,12 +139,12 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun postUnLike(memberId: Int, postId: Int): Boolean{
+    fun postUnLike(memberId: Int, postId: Int, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
             var resposta : Response<Post>? = null
             val cor= launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).postUnLike(memberId, postId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postUnLike(memberId, postId)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -150,11 +157,11 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region MEMBERS
-    fun getMemberById(memberId: Int): Member?{
+    fun getMemberById(memberId: Int, context: Context): Member?{
         var resposta : Response<Member>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getMemberById(memberId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getMemberById(memberId)
             }
             cor.join()
         }
@@ -164,12 +171,12 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun putMember(member: Member): Boolean{
+    fun putMember(member: Member, context: Context): Boolean{
         var modificat: Boolean = false
         runBlocking {
             var resposta : Response<Member>? = null
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).putMember(null, member)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putMember(null, member)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -180,12 +187,12 @@ class RevupCrudAPI : CoroutineScope {
         return modificat
     }
 
-    fun postMember(member: Member): Boolean{
+    fun postMember(member: Member, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
             var resposta : Response<Member>? = null
             val cor= launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).postMember(null, member)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postMember(member)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -196,11 +203,26 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun getMembersByMemberName(memberName: String): MutableList<Member>?{
+    fun login(memberName: String, password: String, context: Context): String?{
+        var resposta : Response<String>? = null
+        runBlocking {
+            val cor = launch {
+                resposta =
+                    getRetrofit(context).create(RevupAPIService::class.java).login(memberName, password)
+            }
+        }
+        Log.i("resposta", resposta.toString())
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getMembersByMemberName(memberName: String, context: Context): MutableList<Member>?{
         var resposta : Response<MutableList<Member>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getMembersByMemberName(memberName)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getMembersByMemberName(memberName)
             }
             cor.join()
         }
@@ -210,11 +232,25 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun getMemberExist(memberName: String): Boolean?{
+    fun getMemberByMemberName(memberName: String, context: Context): Member?{
+        var resposta : Response<Member>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getMemberByMemberName(memberName)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getMemberExist(memberName: String, context: Context): Boolean?{
         var resposta : Response<Boolean>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getMemberExist(memberName)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getMemberExist(memberName)
             }
             cor.join()
         }
@@ -224,25 +260,11 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun checkPassword(memberName: String, password: String): Boolean?{
-        var resposta : Response<Boolean>? = null
-        runBlocking {
-            val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getMemberExist(memberName)
-            }
-            cor.join()
-        }
-        if (resposta!!.isSuccessful)
-            return resposta!!.body()
-        else
-            return null
-    }
-
-    fun getMembersByCarName(carName: String): MutableList<Member>?{
+    fun getMembersByCarName(carName: String, context: Context): MutableList<Member>?{
         var resposta : Response<MutableList<Member>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getMembersByCarName(carName)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getMembersByCarName(carName)
             }
             cor.join()
         }
@@ -252,11 +274,11 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun getFriends(memberId: Int): MutableList<Member>?{
+    fun getFriends(memberId: Int, context: Context): MutableList<Member>?{
         var resposta : Response<MutableList<Member>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getFriends(memberId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getFriends(memberId)
             }
             cor.join()
         }
@@ -268,12 +290,12 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region COMMENTS
-    fun postComments(post_comment: PostComment): Boolean{
+    fun postComments(post_comment: PostComment, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
             var resposta : Response<Comment>? = null
             val cor= launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).postComment(post_comment)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postComment(post_comment)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -284,12 +306,12 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun deleteComment(post_commentId: Int): Boolean{
+    fun deleteComment(post_commentId: Int, context: Context): Boolean{
         var esborrat: Boolean = false
         runBlocking {
             var resposta: Response<Boolean>? = null
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).deleteComment(post_commentId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).deleteComment(post_commentId)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -302,12 +324,12 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region CARS
-    fun postCar(car: Car): Boolean{
+    fun postCar(car: Car, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
             var resposta : Response<Car>? = null
             val cor= launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).postCar(null, car)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postCar(null, car)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -318,11 +340,11 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun getCarsByMember(memberId: Int): MutableList<Car>?{
+    fun getCarsByMember(memberId: Int, context: Context): MutableList<Car>?{
         var resposta : Response<MutableList<Car>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getCarsByMember(memberId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getCarsByMember(memberId)
             }
             cor.join()
         }
@@ -332,12 +354,12 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun putCar(car: Car): Boolean{
+    fun putCar(car: Car, context: Context): Boolean{
         var modificat: Boolean = false
         runBlocking {
             var resposta : Response<Car>? = null
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).putCar(null, car)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putCar(null, car)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -348,11 +370,11 @@ class RevupCrudAPI : CoroutineScope {
         return modificat
     }
 
-    fun getBrands(): MutableList<Brand>?{
+    fun getBrands(context: Context): MutableList<Brand>?{
         var resposta : Response<MutableList<Brand>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getBrands()
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getBrands()
             }
             cor.join()
         }
@@ -362,11 +384,11 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun getModels(): MutableList<Model>?{
+    fun getModels(context: Context): MutableList<Model>?{
         var resposta : Response<MutableList<Model>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getModels()
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getModels()
             }
             cor.join()
         }
@@ -378,12 +400,12 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region EVENTS
-    fun postEvent(clubEvent: ClubEvent): Boolean{
+    fun postEvent(clubEvent: ClubEvent, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
             var resposta : Response<ClubEvent>? = null
             val cor= launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).postEvent(null, clubEvent)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postEvent(null, clubEvent)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -394,11 +416,11 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun getAllEventsByClub(clubId: Int): MutableList<ClubEvent>?{
+    fun getAllEventsByClub(clubId: Int, context: Context): MutableList<ClubEvent>?{
         var resposta : Response<MutableList<ClubEvent>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getAllEventsByClub(clubId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getAllEventsByClub(clubId)
             }
             cor.join()
         }
@@ -408,11 +430,11 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun getEvent(eventId: Int): ClubEvent?{
+    fun getEvent(eventId: Int, context: Context): ClubEvent?{
         var resposta : Response<ClubEvent>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getEvent(eventId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getEvent(eventId)
             }
             cor.join()
         }
@@ -424,12 +446,12 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region ROUTE
-    fun postRoute(route: Route): Boolean{
+    fun postRoute(route: Route, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
             var resposta : Response<Route>? = null
             val cor= launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).postRoute(route)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postRoute(route)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -440,11 +462,11 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun getAllRoutesByMember(memberId: Int): MutableList<Route>?{
+    fun getAllRoutesByMember(memberId: Int, context: Context): MutableList<Route>?{
         var resposta : Response<MutableList<Route>>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getAllRoutesByMember(memberId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getAllRoutesByMember(memberId)
             }
             cor.join()
         }
@@ -454,11 +476,11 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun getRoute(routeId: Int): Route?{
+    fun getRoute(routeId: Int, context: Context): Route?{
         var resposta : Response<Route>? = null
         runBlocking {
             val cor = launch {
-                resposta = getRetrofit().create(RevupAPIService::class.java).getRoute(routeId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getRoute(routeId)
             }
             cor.join()
         }
@@ -468,4 +490,18 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
     //endregion
+
+    class AuthInterceptor(private val context: Context) : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+            val prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            val token = prefs.getString("token", null)
+
+            val requestBuilder = chain.request().newBuilder()
+            if (!token.isNullOrEmpty()) {
+                requestBuilder.addHeader("Authorization", "Bearer $token")
+            }
+
+            return chain.proceed(requestBuilder.build())
+        }
+    }
 }

@@ -57,16 +57,24 @@ interface RevupAPIService {
         @Part image: MultipartBody.Part?,
         @Body member: Member): Response<Member>
 
-    @Multipart
+    //@Multipart
     @POST("/api/Member/")
     suspend fun postMember(
-        @Part image: MultipartBody.Part?,
+//        @Part image: MultipartBody.Part?,
         @Body member: Member): Response<Member>
+
+    @GET("/api/login/")
+    suspend fun login(@Query("memberName") memberName: String, @Query ("password") password: String): Response<String>
 
     @GET("/api/Members/")
     suspend fun getMembersByMemberName(
         @Query("memberName") memberName: String
     ): Response<MutableList<Member>>
+
+    @GET("/api/MemberByName/")
+    suspend fun getMemberByMemberName(
+        @Query("memberName") memberName: String
+    ): Response<Member>
 
     @GET("/api/MemberExists/")
     suspend fun getMemberExist(

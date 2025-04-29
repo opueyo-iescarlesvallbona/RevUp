@@ -34,7 +34,7 @@ class LikesHomeFragment : Fragment() {
 
         val recyclerView = binding.likesHomeFragmentMainActivityRecyclerView
         try {
-            var list = apiRevUp.getPostsByLikes()
+            var list = apiRevUp.getPostsByLikes(requireView().context)
             recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
             recyclerView.layoutManager = LinearLayoutManager(requireView().context)
         }catch (e: Exception){

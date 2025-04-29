@@ -55,7 +55,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val member = apiRevUp.getMemberById(list[position].memberId)
+        val member = apiRevUp.getMemberById(list[position].memberId, holder.vista.context)
         holder.user.setText(member!!.name)
         if(getItemViewType(position) == VIEW_TYPE_TEXT){
             holder.content.setText(list[position].description)
