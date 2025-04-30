@@ -171,4 +171,9 @@ interface RevupAPIService {
     @DELETE("/api/Route/")
     suspend fun deleteRoute(@Query("id") id: Int): Response<Boolean>
     //endregion
+
+    //region GENDER
+    @GET("/api/Genders/")
+    suspend fun getGenders(): Response<List<Gender>>
+    //endregion
 }

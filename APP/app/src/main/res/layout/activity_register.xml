@@ -7,88 +7,214 @@
     android:layout_height="match_parent"
     tools:context=".ACTIVITIES.RegisterActivity">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/registerActivity_imageLogo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
-    <com.google.android.material.textfield.TextInputLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        app:boxCornerRadiusBottomEnd="7dp"
-        app:boxCornerRadiusBottomStart="7dp"
-        app:boxCornerRadiusTopEnd="7dp"
-        app:boxCornerRadiusTopStart="7dp"
-        android:id="@+id/registerActivity_layoutUsernameTextField"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerActivity_imageLogo"
-        android:layout_marginHorizontal="20dp">
-        <com.google.android.material.textfield.TextInputEditText
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/registerActivity_usernameTextField"
-            android:hint="Member Name"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+
+            <ImageView
+                android:id="@+id/registerActivity_imageLogo"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerActivity_layoutNameTextField"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:boxCornerRadiusBottomEnd="7dp"
+                app:boxCornerRadiusBottomStart="7dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerActivity_nameTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Full Name" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        app:boxCornerRadiusBottomEnd="7dp"
-        app:boxCornerRadiusBottomStart="7dp"
-        app:boxCornerRadiusTopEnd="7dp"
-        app:boxCornerRadiusTopStart="7dp"
-        android:id="@+id/registerActivity_layoutPasswordTextField"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registerActivity_layoutUsernameTextField"
-        android:layout_marginHorizontal="20dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/registerActivity_passwordTextField"
-            android:hint="Password"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerActivity_layoutUsernameTextField"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:boxCornerRadiusBottomEnd="7dp"
+                app:boxCornerRadiusBottomStart="7dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Account"
-        android:id="@+id/registerActivity_btnregister"
-        android:layout_margin="30dp"
-        app:cornerRadius="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/registerActivity_layoutPasswordTextField"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerActivity_usernameTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Member Name" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerActivity_btnregister">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Have an account already? "/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#00D2FF"
-            android:id="@+id/registerActivity_btnLogIn"
-            android:text="Log In"
-            android:textStyle="bold"/>
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerActivity_layoutPasswordTextField"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:boxCornerRadiusBottomEnd="7dp"
+                app:boxCornerRadiusBottomStart="7dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerActivity_passwordTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Password" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerActivity_layoutGenderTextField"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp"
+                android:layout_marginTop="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                app:boxStrokeColor="@color/black"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="Gender">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/registerActivity_GenderTextField"
+                    android:inputType="none"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerActivity_layoutLocationTextField"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp"
+                android:layout_marginTop="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                app:boxStrokeColor="@color/black"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="Location">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/registerActivity_LocationTextField"
+                    android:inputType="none"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerActivity_layoutExperienceTextField"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerActivity_experienceTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Experience" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerActivity_layoutEmailTextField"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:boxCornerRadiusBottomEnd="7dp"
+                app:boxCornerRadiusBottomStart="7dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerActivity_emailTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Email" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerActivity_layoutDateofBirthTextField"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:boxCornerRadiusBottomEnd="7dp"
+                app:boxCornerRadiusBottomStart="7dp"
+                app:boxCornerRadiusTopEnd="7dp"
+                app:boxCornerRadiusTopStart="7dp"
+                app:endIconDrawable="@drawable/baseline_calendar_month_24"
+                app:endIconMode="custom">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerActivity_dateofbirthTextField"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Date of Birth" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/registerActivity_btnregister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="30dp"
+                android:text="Create Account"
+                app:cornerRadius="5dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Have an account already? " />
+
+                <TextView
+                    android:id="@+id/registerActivity_btnLogIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log In"
+                    android:textColor="#00D2FF"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="150dp"/>
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

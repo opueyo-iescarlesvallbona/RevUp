@@ -7,6 +7,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils.loadAnimation
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import com.example.revup.FRAGMENTS.ChatsFragment
 import com.example.revup.FRAGMENTS.EventsFragment
@@ -30,6 +31,14 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.mainActivityBtnSearch.setOnClickListener {
+            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+            sharedPreferences.edit() {
+                clear()
+                apply()
+            }
+        }
 
         initFragment(HomeFragment())
         binding.mainActivityBottomNavigationView.setOnItemSelectedListener {

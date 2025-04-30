@@ -523,6 +523,23 @@ class RevupCrudAPI : CoroutineScope {
     }
     //endregion
 
+    //region COMMENTS
+    fun getAllGenders(context: Context): List<Gender>?{
+        var resposta : Response<List<Gender>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getGenders()
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    //endregion
+
     class AuthInterceptor(private val context: Context) : Interceptor {
         override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
             val prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)

@@ -38,12 +38,17 @@ class LogInActivity : AppCompatActivity() {
         val autoMemberName = prefs.getString("membername", null)
         val autoPassword = prefs.getString("password", null)
         if(autoMemberName!=null){
-            val token = apiRevUp.login(autoMemberName.toString(), autoPassword.toString(), applicationContext)
-            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-            sharedPreferences.edit() {
-                putString("token", token)
-                apply()
+            try{
+                val token = apiRevUp.login(autoMemberName.toString(), autoPassword.toString(), applicationContext)
+                val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                sharedPreferences.edit() {
+                    putString("token", token)
+                    apply()
+                }
+            }catch (e: Exception){
+                Toast.makeText(this, "Error getting token: $e", Toast.LENGTH_LONG).show()
             }
+
             try{
                 val member = apiRevUp.getMemberByMemberName(autoMemberName, this)
                 if(member!=null){
@@ -71,11 +76,17 @@ class LogInActivity : AppCompatActivity() {
 
                 val userExists = apiRevUp.getMemberExist(memberName.toString(), applicationContext)
                 if(!userExists!!){
-                    //ERROR
+                    Toast.makeText(this, "The member doesn't exists", Toast.LENGTH_LONG).show()
                 }else{
-                    val token = apiRevUp.login(memberName.toString(), password.toString(), applicationContext)
-                    if(token==null||token==""){
-                        //ERROR
+                    var token = ""
+                    try{
+                        token = apiRevUp.login(memberName.toString(), password.toString(), applicationContext).toString()
+                    }catch(e: Exception){
+                        Toast.makeText(this, "Error getting token: $e", Toast.LENGTH_LONG).show()
+                    }
+
+                    if(token==""){
+                        Toast.makeText(this, "Error getting token", Toast.LENGTH_LONG).show()
                     }else{
                         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
                         sharedPreferences.edit() {
