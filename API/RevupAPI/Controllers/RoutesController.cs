@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -180,9 +181,10 @@ namespace RevupAPI.Controllers
             return BadRequest("Invalid route data");
         }
 
-        [Route("api/Routes/{id}")]
+        [Authorize]
+        [Route("api/RoutesByMember")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Models.Route>>> GetRoutesByMember(int id)
+        public async Task<ActionResult<IEnumerable<Models.Route>>> GetRoutesByMember([FromQuery]int id)
         {
             var routes = await _context.Routes.Where(x=>x.MemberId==id).ToListAsync();
             if (routes == null || !routes.Any())
@@ -202,6 +204,21 @@ namespace RevupAPI.Controllers
                 return NotFound();
             }
             return route;
+        }
+
+        [Authorize]
+        [Route("api/Route")]
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteRoute([FromQuery]int id)
+        {
+            var route = await _context.Routes.FindAsync(id);
+            if (route == null)
+            {
+                return false;
+            }
+            _context.Routes.Remove(route);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

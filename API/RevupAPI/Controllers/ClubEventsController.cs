@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -202,6 +203,21 @@ namespace RevupAPI.Controllers
                 return NotFound();
             }
             return ClubEvent;
+        }
+
+        [Authorize]
+        [Route("api/Event")]
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteEvent([FromQuery]int id)
+        {
+            var clubEvent = await _context.ClubEvents.FindAsync(id);
+            if (clubEvent == null)
+            {
+                return false;
+            }
+            _context.ClubEvents.Remove(clubEvent);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

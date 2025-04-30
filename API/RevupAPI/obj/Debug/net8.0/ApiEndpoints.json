@@ -163,6 +163,32 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.ClubEventsController",
+    "Method": "DeleteEvent",
+    "RelativePath": "api/Event",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubEventsController",
     "Method": "GetEvent",
     "RelativePath": "api/Event/{id}",
     "HttpMethod": "GET",
@@ -666,6 +692,32 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.RoutesController",
+    "Method": "DeleteRoute",
+    "RelativePath": "api/Route",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.RoutesController",
     "Method": "GetRoute",
     "RelativePath": "api/Route/{id}",
     "HttpMethod": "GET",
@@ -693,7 +745,7 @@
   {
     "ContainingType": "RevupAPI.Controllers.RoutesController",
     "Method": "GetRoutesByMember",
-    "RelativePath": "api/Routes/{id}",
+    "RelativePath": "api/RoutesByMember",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -701,7 +753,7 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
