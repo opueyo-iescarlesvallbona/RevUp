@@ -1,101 +1,68 @@
-//package com.example.revup.ADAPTERS
-//
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.ImageView
-//import android.widget.TextView
-//import androidx.recyclerview.widget.RecyclerView
-//import com.example.revup.R
-//import com.example.revup._API.RevupCrudAPI
-//import com.example.revup._DATACLASS.FormatDate
-//import com.example.revup._DATACLASS.Post
-//import com.example.revup._DATACLASS.Route
-//import java.util.Calendar
-//import java.util.Date
-//import java.util.concurrent.TimeUnit
-//
-//class EventsRoutesListAdapter(var list: MutableList<Route>): RecyclerView.Adapter<EventsRoutesListAdapter.ViewHolder>() {
-//    val apiRevUp = RevupCrudAPI()
-//    companion object {
-//        const val VIEW_TYPE_TEXT = 0
-//        const val VIEW_TYPE_IMAGE = 1
-//    }
-//
-//    class ViewHolder(val vista: View): RecyclerView.ViewHolder(vista) {
-//        val user = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_username)
-//        val content = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_contentText)
-//        val timeAgo = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_timeAgo)
-//        val image = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_contentImage)
-//    }
-//
-//    override fun getItemViewType(position: Int): Int {
-//        val post = list[position]
-//        return if (post.picture.isNullOrEmpty()) {
-//            VIEW_TYPE_TEXT
-//        } else {
-//            VIEW_TYPE_IMAGE
-//        }
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val layout = LayoutInflater.from(parent.context)
-//        return when (viewType) {
-//            VIEW_TYPE_IMAGE -> {
-//                val view = layout.inflate(R.layout.cardview_imagepost_mainactivity, parent, false)
-//                ViewHolder(view)
-//            }
-//            else -> {
-//                val view = layout.inflate(R.layout.cardview_textpost_mainactivity, parent, false)
-//                ViewHolder(view)
-//            }
-//        }
-//    }
-//
-//    override fun getItemCount() = list.size
-//
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val member = apiRevUp.getMemberById(list[position].memberId)
-//        holder.user.setText(member!!.name)
-//        if(getItemViewType(position) == VIEW_TYPE_TEXT){
-//            holder.content.setText(list[position].description)
-//        }else{
-//            holder.image.setImageResource(R.drawable.car_test)
-//        }
-//
-//        holder.timeAgo.setText(getTimeAgo(FormatDate(list[position].postDate.toString())))
-//    }
-//
-//    fun getTimeAgo(postDate: Date): String {
-//        val currentDate = Date()
-//
-//        val diffInMillis = currentDate.time - postDate.time
-//
-//        val days = TimeUnit.MILLISECONDS.toDays(diffInMillis)
-//        val hours = TimeUnit.MILLISECONDS.toHours(diffInMillis) % 24
-//        val minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis) % 60
-//
-//        val calendarPost = Calendar.getInstance()
-//        calendarPost.time = postDate
-//        val calendarCurrent = Calendar.getInstance()
-//        calendarCurrent.time = currentDate
-//
-//        val years = calendarCurrent.get(Calendar.YEAR) - calendarPost.get(Calendar.YEAR)
-//        val months = calendarCurrent.get(Calendar.MONTH) - calendarPost.get(Calendar.MONTH)
-//
-//        val adjustedMonths = if (months < 0) {
-//            months + 12
-//        } else {
-//            months
-//        }
-//
-//        return when {
-//            years > 0 -> "$years year${if (years > 1) "s" else ""} ago"
-//            adjustedMonths > 0 -> "$adjustedMonths month${if (adjustedMonths > 1) "s" else ""} ago"
-//            days >= 1 -> "$days day${if (days > 1) "s" else ""} ago"
-//            hours >= 1 -> "$hours hour${if (hours > 1) "s" else ""} ago"
-//            minutes >= 1 -> "$minutes minute${if (minutes > 1) "s" else ""} ago"
-//            else -> "just now"
-//        }
-//    }
-//}
+package com.example.revup.ADAPTERS
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.revup.R
+import com.example.revup._API.RevupCrudAPI
+import com.example.revup._DATACLASS.ClubEvent
+import com.example.revup._DATACLASS.FormatDate
+import com.example.revup._DATACLASS.Route
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+
+class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter<EventsRoutesListAdapter.ViewHolder>() {
+    val apiRevUp = RevupCrudAPI()
+
+    class ViewHolder(val vista: View): RecyclerView.ViewHolder(vista) {
+        val title = vista.findViewById<TextView>(R.id.cardview_listEventsRoutes_title)
+        val date = vista.findViewById<TextView>(R.id.cardview_listEventsRoutes_date)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layout = LayoutInflater.from(parent.context)
+        return ViewHolder(layout.inflate(R.layout.cardview_list_events_routes, parent, false))
+    }
+
+    override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val item = list[position]
+        when (item) {
+            is Route -> {
+                holder.title.setText(item.name)
+                holder.date.setText(dateFormat.format(FormatDate(item.datetime!!)))
+            }
+            is ClubEvent -> {
+                holder.title.setText(item.name)
+                if (dateFormat.format(FormatDate(item.startDate)).equals(dateFormat.format(FormatDate(item.endDate)))){
+                    holder.date.setText(dateFormat.format(FormatDate(item.startDate)))
+                }else{
+                    holder.date.setText(dateFormat.format(FormatDate(item.startDate)) + " - " + dateFormat.format(FormatDate(item.endDate)))
+                }
+            }
+        }
+        holder.vista.findViewById<ImageButton>(R.id.cardview_listEventsRoutes_mapButton).setOnClickListener{
+            // go to map tab
+        }
+        holder.vista.findViewById<ImageButton>(R.id.cardview_listEventsRoutes_deleteButton).setOnClickListener{
+            when(item){
+                is Route -> {
+                    apiRevUp.deleteRoute(item.id, holder.vista.context)
+                    list.remove(item)
+                    notifyDataSetChanged()
+                }
+                is ClubEvent -> {
+                    apiRevUp.deleteEvent(item.id, holder.vista.context)
+                    list.remove(item)
+                    notifyDataSetChanged()
+                }
+            }
+        }
+    }
+
+}

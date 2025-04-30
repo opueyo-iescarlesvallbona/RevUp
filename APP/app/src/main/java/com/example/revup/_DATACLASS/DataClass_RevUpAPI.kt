@@ -45,9 +45,9 @@ class ClubEvent(
     var address: String,
     var clubId: Int,
     var picture: String,
-    var startDate: Date,
-    var routeStartDate: Date? = null,
-    var endDate: Date,
+    var startDate: String,
+    var routeStartDate: String? = null,
+    var endDate: String,
     var description: String,
     var state: Int,
 
@@ -238,7 +238,18 @@ class TerrainType (
 )
 
 fun FormatDate(date: String): Date {
-    val formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS")
-    var local_datetime = LocalDateTime.parse(date,formater)
-    return Date.from(local_datetime.atZone(ZoneId.systemDefault()).toInstant())
+    var formater: DateTimeFormatter? = null
+    var local_datetime: LocalDateTime? = null
+    try{
+        formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS")
+        local_datetime = LocalDateTime.parse(date,formater)
+    }catch(e: Exception){
+        try{
+            formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+            local_datetime = LocalDateTime.parse(date,formater)
+        }catch(e: Exception){
+            return Date()
+        }
+    }
+    return Date.from(local_datetime!!.atZone(ZoneId.systemDefault()).toInstant())
 }

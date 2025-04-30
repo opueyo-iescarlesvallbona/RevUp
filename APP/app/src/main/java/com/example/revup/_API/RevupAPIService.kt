@@ -142,13 +142,16 @@ interface RevupAPIService {
 
     @GET("/api/Events/")
     suspend fun getAllEventsByClub(
-        @Query("id") id: Int
+        @Query("clubId") clubId: Int
     ): Response<MutableList<ClubEvent>>
 
     @GET("/api/Event/")
     suspend fun getEvent(
         @Query("id") id: Int
     ): Response<ClubEvent>
+
+    @DELETE("/api/Event/")
+    suspend fun deleteEvent(@Query("id") id: Int): Response<Boolean>
     //endregion
 
     //region ROUTES
@@ -164,5 +167,8 @@ interface RevupAPIService {
     suspend fun getRoute(
         @Query("id") id: Int
     ): Response<Route>
+
+    @DELETE("/api/Route/")
+    suspend fun deleteRoute(@Query("id") id: Int): Response<Boolean>
     //endregion
 }

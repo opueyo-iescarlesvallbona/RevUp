@@ -18,31 +18,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Routes 1"/>
+                android:text="@string/title_list_routes"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listRoutesFragment_eventsFragment_mainActivity_recyclerView1"
+                android:id="@+id/listRoutesFragment_eventsFragment_mainActivity_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Routes 2"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listRoutesFragment_eventsFragment_mainActivity_recyclerView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Routes 3"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listRoutesFragment_eventsFragment_mainActivity_recyclerView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
         </LinearLayout>
     </ScrollView>
 

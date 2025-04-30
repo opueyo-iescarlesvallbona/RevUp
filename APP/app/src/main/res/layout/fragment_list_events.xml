@@ -19,27 +19,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Events 1"/>
+                android:text="@string/title_list_events_current"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listEventsFragment_eventsFragment_mainActivity_recyclerView1"
+                android:id="@+id/listEventsFragment_eventsFragment_mainActivity_recyclerView_current"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Events 2"/>
+                android:text="@string/title_list_events_past"
+                android:layout_margin="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listEventsFragment_eventsFragment_mainActivity_recyclerView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Events 3"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listEventsFragment_eventsFragment_mainActivity_recyclerView3"
+                android:id="@+id/listEventsFragment_eventsFragment_mainActivity_recyclerView_past"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

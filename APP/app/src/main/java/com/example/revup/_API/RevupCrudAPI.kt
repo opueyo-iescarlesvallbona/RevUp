@@ -443,6 +443,22 @@ class RevupCrudAPI : CoroutineScope {
         else
             return null
     }
+
+    fun deleteEvent(event_id: Int, context: Context): Boolean{
+        var esborrat: Boolean = false
+        runBlocking {
+            var resposta: Response<Boolean>? = null
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).deleteEvent(event_id)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                esborrat = true
+            else
+                esborrat = false
+        }
+        return esborrat
+    }
     //endregion
 
     //region ROUTE
@@ -488,6 +504,22 @@ class RevupCrudAPI : CoroutineScope {
             return resposta!!.body()
         else
             return null
+    }
+
+    fun deleteRoute(route_id: Int, context: Context): Boolean{
+        var esborrat: Boolean = false
+        runBlocking {
+            var resposta: Response<Boolean>? = null
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).deleteRoute(route_id)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                esborrat = true
+            else
+                esborrat = false
+        }
+        return esborrat
     }
     //endregion
 
