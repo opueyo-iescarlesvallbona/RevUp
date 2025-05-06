@@ -214,24 +214,28 @@ namespace RevupAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Member>> PostMember([FromBody] Member member)//[FromQuery]IFormFile image, [FromBody]Member member)
         {
+            if (member.Password != null)
+            {
                 string password = member.Password;
 
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
 
                 member.Password = hashedPassword;
+            }
 
-                _context.Members.Add(member);
-                await _context.SaveChangesAsync();
 
-                //if (image != null)
-                //{
-                //    try
-                //    {
-                //        GeneralController.UploadImage(image, member);
-                //    }
-                //    catch{}
-                //}
-                return Ok(member);
+            _context.Members.Add(member);
+            await _context.SaveChangesAsync();
+
+            //if (image != null)
+            //{
+            //    try
+            //    {
+            //        GeneralController.UploadImage(image, member);
+            //    }
+            //    catch{}
+            //}
+            return Ok(member);
             return BadRequest("Invalid member data");
         }
 

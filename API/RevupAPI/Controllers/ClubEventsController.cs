@@ -181,9 +181,9 @@ namespace RevupAPI.Controllers
             return BadRequest("Invalid event data");
         }
 
-        [Route("api/Events/{clubId}")]
+        [Route("api/Events")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClubEvent>>> GetEvents(int clubId)
+        public async Task<ActionResult<IEnumerable<ClubEvent>>> GetEvents([FromQuery]int clubId)
         {
             var events = await _context.ClubEvents.Where(x=>x.ClubId==clubId).ToListAsync();
             if (events == null || !events.Any())
