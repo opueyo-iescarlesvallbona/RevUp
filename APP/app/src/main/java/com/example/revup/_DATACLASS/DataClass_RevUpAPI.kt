@@ -237,6 +237,18 @@ class TerrainType (
     var routes: MutableSet<Route> = HashSet()
 )
 
+class Notification(
+    var title: String,
+    var description: String,
+    var content: String,
+    var imageContent: String,
+    var icon: Int,
+    var priority: Int,
+    var date: String,
+    var seen: Boolean,
+    var activity: String
+)
+
 fun FormatDate(date: String): Date {
     var formater: DateTimeFormatter? = null
     var local_datetime: LocalDateTime? = null
