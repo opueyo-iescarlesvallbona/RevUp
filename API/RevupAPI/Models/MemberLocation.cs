@@ -18,4 +18,5 @@ public partial class MemberLocation
     public double Longitude { get; set; }
 
     public virtual ICollection<Member> Members { get; set; } = new List<Member>();
+    public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 }

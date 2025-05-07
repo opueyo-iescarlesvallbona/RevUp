@@ -28,10 +28,10 @@
                 @Html.DisplayNameFor(model => model.Likes)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.Comments)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Comments)
+                @Html.DisplayNameFor(model => model.LocationId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Member)
@@ -41,6 +41,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Route)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
             </th>
             <th></th>
         </tr>
@@ -64,10 +67,10 @@
                 @Html.DisplayFor(modelItem => item.Likes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.Comments)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Comments)
+                @Html.DisplayFor(modelItem => item.LocationId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Member.Id)
@@ -77,6 +80,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Route.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

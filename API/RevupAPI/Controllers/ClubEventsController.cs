@@ -168,6 +168,7 @@ namespace RevupAPI.Controllers
             return _context.ClubEvents.Any(e => e.Id == id);
         }
 
+        [Authorize]
         [Route("api/Event")]
         [HttpPost]
         public async Task<IActionResult> PostEvent([FromBody] ClubEvent clubEvent)
@@ -181,6 +182,7 @@ namespace RevupAPI.Controllers
             return BadRequest("Invalid event data");
         }
 
+        [Authorize]
         [Route("api/Events")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClubEvent>>> GetEvents([FromQuery]int clubId)
@@ -193,9 +195,10 @@ namespace RevupAPI.Controllers
             return events;
         }
 
-        [Route("api/Event/{id}")]
+        [Authorize]
+        [Route("api/Event")]
         [HttpGet]
-        public async Task<ActionResult<ClubEvent>> GetEvent(int id)
+        public async Task<ActionResult<ClubEvent>> GetEvent([FromQuery]int id)
         {
             var ClubEvent = await _context.ClubEvents.FindAsync(id);
             if (ClubEvent == null)
@@ -219,5 +222,58 @@ namespace RevupAPI.Controllers
             await _context.SaveChangesAsync();
             return true;
         }
+
+        [Authorize]
+        [Route("api/Event")]
+        [HttpPut]
+        public async Task<ActionResult<ClubEvent>> UpdateMember([FromBody] ClubEvent clubEvent)
+        {
+            _context.Entry(clubEvent).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ClubEventExists(clubEvent.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        [Authorize]
+        [Route("api/EventStateById")]
+        [HttpGet]
+        public async Task<ActionResult<EventState>> GetEventStateById([FromQuery] int id)
+        {
+            var eventState = await _context.EventStates.FindAsync(id);
+            if (eventState == null)
+            {
+                return NotFound();
+            }
+            return eventState;
+        }
+
+        [Authorize]
+        [Route("api/EventStates")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EventState>>> GetEventStates()
+        {
+            var eventStates = await _context.EventStates.ToListAsync();
+            if (eventStates == null || !eventStates.Any())
+            {
+                return NotFound();
+            }
+            return eventStates;
+        }
+
     }
 }

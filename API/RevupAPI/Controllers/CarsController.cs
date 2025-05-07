@@ -179,9 +179,9 @@ namespace RevupAPI.Controllers
             return BadRequest("Invalid car data");
         }
 
-        [Route("api/Cars/{memberId}")]
+        [Route("api/Cars")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Car>>> GetCarsByMemberId(int memberId)
+        public async Task<ActionResult<IEnumerable<Car>>> GetCarsByMemberId([FromQuery]int memberId)
         {
             var cars = await _context.Cars.Where(c => c.MemberId == memberId).ToListAsync();
             if (cars == null || !cars.Any())

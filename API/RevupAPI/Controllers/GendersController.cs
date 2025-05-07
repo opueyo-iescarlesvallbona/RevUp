@@ -160,7 +160,26 @@ namespace RevupAPI.Controllers
         {
             var genders = await _context.Genders.ToListAsync();
 
+            if (genders == null || !genders.Any())
+            {
+                return NotFound();
+            }
+
             return genders;
+        }
+
+        [Authorize]
+        [Route("api/Gender")]
+        [HttpGet]
+        public async Task<ActionResult<Gender>> GetGenderById([FromQuery] int id)
+        {
+            var gender = await _context.Genders.FindAsync(id);
+            if (gender == null)
+            {
+                return NotFound();
+            }
+
+            return gender;
         }
     }
 }

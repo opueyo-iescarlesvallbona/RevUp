@@ -175,12 +175,16 @@ namespace RevupAPI.Controllers
             return _context.Posts.Any(e => e.Id == id);
         }
 
-        [Route("api/PostsByLocation")]
+        [Route("api/PostsByLocationId")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByLocation([FromBody] MemberLocation location)
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByLocation([FromQuery] int location_id)
         {
-            var posts = await _context.Posts.Where(x => x.Member.Location.Country.Equals(location.Country)).ToListAsync();
+            var posts = await _context.Posts.Where(x => x.LocationId==location_id).ToListAsync();
 
+            if (posts == null || !posts.Any())
+            {
+                return NotFound();
+            }
             return posts;
         }
 
@@ -191,6 +195,28 @@ namespace RevupAPI.Controllers
         {
             var posts = await _context.Posts.OrderByDescending(x => x.Likes).ToListAsync();
 
+            return posts;
+        }
+
+        [Authorize]
+        [Route("api/PostsByMemberFriends")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByMemberFriends([FromQuery] int memberId)
+        {
+            var member = await _context.MemberRelations.Where(x=>x.MemberId1==memberId&&x.State.Name.Equals("Friend")).Select(x=>x.MemberId2).ToListAsync();
+
+            if (member == null)
+            {
+                return NotFound();
+            }
+            var posts = await _context.Posts
+                .Where(p => member.Contains(p.MemberId))
+                .ToListAsync();
+            if (posts == null || !posts.Any())
+            {
+                return NotFound();
+            }
+            
             return posts;
         }
 
@@ -240,9 +266,9 @@ namespace RevupAPI.Controllers
             return NoContent();
         }
 
-        [Route("api/Post/{id}")]
+        [Route("api/Post")]
         [HttpDelete]
-        public async Task<bool> DeletePost(int id)
+        public async Task<bool> DeletePost([FromQuery] int id)
         {
             var post = await _context.Posts.FindAsync(id);
 
@@ -263,9 +289,9 @@ namespace RevupAPI.Controllers
             return true;
         }
 
-        [Route("api/PostLike/{memberId}/{postId}")]
+        [Route("api/PostLike")]
         [HttpPost]
-        public async Task<IActionResult> LikePost(int memberId, int postId)
+        public async Task<IActionResult> LikePost([FromQuery]int memberId, [FromQuery]int postId)
         {
             var post = await _context.Posts.FindAsync(postId);
             var member = await _context.Members.FindAsync(memberId);
@@ -278,9 +304,9 @@ namespace RevupAPI.Controllers
             return Ok(post);
         }
 
-        [Route("api/PostUnLike/{memberId}/{postId}")]
+        [Route("api/PostUnLike")]
         [HttpDelete]
-        public async Task<IActionResult> UnlikePost(int memberId, int postId)
+        public async Task<IActionResult> UnlikePost([FromQuery] int memberId, [FromQuery] int postId)
         {
             var post = await _context.Posts.FindAsync(postId);
             var member = await _context.Members.FindAsync(memberId);
@@ -291,6 +317,21 @@ namespace RevupAPI.Controllers
             post.Members.Remove(member);
             await _context.SaveChangesAsync();
             return Ok(post);
+        }
+
+        [Authorize]
+        [Route("api/PostIsLikedByMember")]
+        [HttpGet]
+        public async Task<ActionResult<bool>> IsPostLiked([FromQuery] int memberId, [FromQuery] int postId)
+        {
+            var post = await _context.Posts.FindAsync(postId);
+            var member = await _context.Members.FindAsync(memberId);
+            if (post == null || member == null)
+            {
+                return NotFound();
+            }
+            var isLiked = post.Members.Contains(member);
+            return isLiked;
         }
     }
 }

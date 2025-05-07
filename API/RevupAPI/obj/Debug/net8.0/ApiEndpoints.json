@@ -1,6 +1,32 @@
 [
   {
     "ContainingType": "RevupAPI.Controllers.BrandsController",
+    "Method": "GetBrandById",
+    "RelativePath": "api/Brand",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.Brand",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.BrandsController",
     "Method": "GetBrands",
     "RelativePath": "api/Brands",
     "HttpMethod": "GET",
@@ -54,7 +80,7 @@
   {
     "ContainingType": "RevupAPI.Controllers.CarsController",
     "Method": "GetCarsByMemberId",
-    "RelativePath": "api/Cars/{memberId}",
+    "RelativePath": "api/Cars",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -62,12 +88,132 @@
       {
         "Name": "memberId",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Car, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "PostEvent",
+    "RelativePath": "api/Club",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "club",
+        "Type": "RevupAPI.Models.Club",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "UpdateMember",
+    "RelativePath": "api/Club",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "club",
+        "Type": "RevupAPI.Models.Club",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.Club",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "ClubById",
+    "RelativePath": "api/ClubById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.Club",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "GetMembersByClub",
+    "RelativePath": "api/ClubMembers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clubId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Member, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "GetMembersByName",
+    "RelativePath": "api/Clubs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clubName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Club, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -106,7 +252,7 @@
   {
     "ContainingType": "RevupAPI.Controllers.PostCommentsController",
     "Method": "DeleteComment",
-    "RelativePath": "api/Comment/{id}",
+    "RelativePath": "api/Comment",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -114,12 +260,38 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
         "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.PostCommentsController",
+    "Method": "GetCommentsByPostId",
+    "RelativePath": "api/CommentsByPostId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[RevupAPI.Models.PostComment, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -163,6 +335,32 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.ClubEventsController",
+    "Method": "GetEvent",
+    "RelativePath": "api/Event",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.ClubEvent",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubEventsController",
     "Method": "DeleteEvent",
     "RelativePath": "api/Event",
     "HttpMethod": "DELETE",
@@ -189,15 +387,15 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.ClubEventsController",
-    "Method": "GetEvent",
-    "RelativePath": "api/Event/{id}",
-    "HttpMethod": "GET",
+    "Method": "UpdateMember",
+    "RelativePath": "api/Event",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "clubEvent",
+        "Type": "RevupAPI.Models.ClubEvent",
         "IsRequired": true
       }
     ],
@@ -240,6 +438,78 @@
     ]
   },
   {
+    "ContainingType": "RevupAPI.Controllers.ClubEventsController",
+    "Method": "GetEventStateById",
+    "RelativePath": "api/EventStateById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.EventState",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubEventsController",
+    "Method": "GetEventStates",
+    "RelativePath": "api/EventStates",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.EventState, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.GendersController",
+    "Method": "GetGenderById",
+    "RelativePath": "api/Gender",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.Gender",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "RevupAPI.Controllers.GendersController",
     "Method": "GetAllGenders",
     "RelativePath": "api/Genders",
@@ -250,6 +520,156 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Gender, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberLocationsController",
+    "Method": "P\u00F4stLocation",
+    "RelativePath": "api/Location",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberLocation",
+        "Type": "RevupAPI.Models.MemberLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.MemberLocation",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberLocationsController",
+    "Method": "GetLocationById",
+    "RelativePath": "api/LocationById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.MemberLocation",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberLocationsController",
+    "Method": "GetAllLocations",
+    "RelativePath": "api/Locations",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.MemberLocation, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberLocationsController",
+    "Method": "GetLocationsByCcaa",
+    "RelativePath": "api/LocationsByCcaa",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ccaa",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.MemberLocation, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberLocationsController",
+    "Method": "GetLocationsByCountry",
+    "RelativePath": "api/LocationsByCountry",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "country",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.MemberLocation, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberLocationsController",
+    "Method": "GetLocationsByMunicipality",
+    "RelativePath": "api/LocationsByMunicipality",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "municipality",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.MemberLocation, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -345,7 +765,7 @@
   {
     "ContainingType": "RevupAPI.Controllers.MembersController",
     "Method": "GetMemberByCar",
-    "RelativePath": "api/MemberByCar/{carName}",
+    "RelativePath": "api/MemberByCar",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -353,7 +773,7 @@
       {
         "Name": "carName",
         "Type": "System.String",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -421,6 +841,83 @@
     ]
   },
   {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "GetMemberClubRoleById",
+    "RelativePath": "api/MemberClubRoleById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clubId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "memberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.MemberClubRole",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "GetMemberClubRoles",
+    "RelativePath": "api/MemberClubRoles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.MemberClubRole, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MembersController",
+    "Method": "GetClubsByMember",
+    "RelativePath": "api/MemberClubs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Club, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "RevupAPI.Controllers.MembersController",
     "Method": "MemberExists",
     "RelativePath": "api/MemberExists",
@@ -449,7 +946,7 @@
   {
     "ContainingType": "RevupAPI.Controllers.MembersController",
     "Method": "GetMemberFriends",
-    "RelativePath": "api/MemberFriends/{id}",
+    "RelativePath": "api/MemberFriends",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -457,7 +954,7 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -473,9 +970,103 @@
     ]
   },
   {
+    "ContainingType": "RevupAPI.Controllers.MemberRelationsController",
+    "Method": "PostMemberRelation",
+    "RelativePath": "api/MemberRelation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberRelation",
+        "Type": "RevupAPI.Models.MemberRelation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.MemberRelation",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberRelationsController",
+    "Method": "PutMemberRelation",
+    "RelativePath": "api/MemberRelation",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberRelation",
+        "Type": "RevupAPI.Models.MemberRelation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.MemberRelation",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberRelationsController",
+    "Method": "DeleteMemberRelation",
+    "RelativePath": "api/MemberRelation",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.MemberRelation",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MemberRelationsController",
+    "Method": "GetMemberRelationsByMemberId",
+    "RelativePath": "api/MemberRelationsByMemberId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "RevupAPI.Controllers.MembersController",
     "Method": "GetMembersByName",
-    "RelativePath": "api/Members/{memberName}",
+    "RelativePath": "api/Members",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -483,12 +1074,38 @@
       {
         "Name": "memberName",
         "Type": "System.String",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Member, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.BrandsController",
+    "Method": "GetModelById",
+    "RelativePath": "api/Model",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.Model",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -583,7 +1200,7 @@
   {
     "ContainingType": "RevupAPI.Controllers.PostsController",
     "Method": "DeletePost",
-    "RelativePath": "api/Post/{id}",
+    "RelativePath": "api/Post",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -591,7 +1208,38 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.PostsController",
+    "Method": "IsPostLiked",
+    "RelativePath": "api/PostIsLikedByMember",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -609,7 +1257,7 @@
   {
     "ContainingType": "RevupAPI.Controllers.PostsController",
     "Method": "LikePost",
-    "RelativePath": "api/PostLike/{memberId}/{postId}",
+    "RelativePath": "api/PostLike",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -617,12 +1265,12 @@
       {
         "Name": "memberId",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       },
       {
         "Name": "postId",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -650,15 +1298,15 @@
   {
     "ContainingType": "RevupAPI.Controllers.PostsController",
     "Method": "GetPostsByLocation",
-    "RelativePath": "api/PostsByLocation",
+    "RelativePath": "api/PostsByLocationId",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "location",
-        "Type": "RevupAPI.Models.MemberLocation",
-        "IsRequired": true
+        "Name": "location_id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -675,8 +1323,86 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.PostsController",
+    "Method": "GetPostsByMemberFriends",
+    "RelativePath": "api/PostsByMemberFriends",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Post, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.PostTypesController",
+    "Method": "GetPostTypeById",
+    "RelativePath": "api/PostTypeById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.PostType",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.PostTypesController",
+    "Method": "GetPostTypesByName",
+    "RelativePath": "api/PostTypeByName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.PostType",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.PostsController",
     "Method": "UnlikePost",
-    "RelativePath": "api/PostUnLike/{memberId}/{postId}",
+    "RelativePath": "api/PostUnLike",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -684,15 +1410,67 @@
       {
         "Name": "memberId",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       },
       {
         "Name": "postId",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.RelationStatesController",
+    "Method": "GetRelationStateById",
+    "RelativePath": "api/RelationStateById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.RelationState",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.RelationStatesController",
+    "Method": "GetRelationStateByName",
+    "RelativePath": "api/RelationStateByName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.RelationState",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "RevupAPI.Controllers.RoutesController",
@@ -709,6 +1487,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.RoutesController",
+    "Method": "GetRoute",
+    "RelativePath": "api/Route",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.Route",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "RevupAPI.Controllers.RoutesController",
@@ -738,15 +1542,15 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.RoutesController",
-    "Method": "GetRoute",
-    "RelativePath": "api/Route/{id}",
-    "HttpMethod": "GET",
+    "Method": "UpdateRoute",
+    "RelativePath": "api/Route",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "route",
+        "Type": "RevupAPI.Models.Route",
         "IsRequired": true
       }
     ],
@@ -779,6 +1583,58 @@
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Route, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.TerrainTypesController",
+    "Method": "GetTerrainTypeById",
+    "RelativePath": "api/TerrainTypeById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.TerrainType",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.TerrainTypesController",
+    "Method": "GetTerrainTypeByName",
+    "RelativePath": "api/TerrainTypeByName",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.TerrainType",
         "MediaTypes": [
           "text/plain",
           "application/json",

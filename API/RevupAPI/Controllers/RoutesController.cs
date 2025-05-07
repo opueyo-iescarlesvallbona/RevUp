@@ -194,9 +194,9 @@ namespace RevupAPI.Controllers
             return routes;
         }
 
-        [Route("api/Route/{id}")]
+        [Route("api/Route")]
         [HttpGet]
-        public async Task<ActionResult<Models.Route>> GetRoute(int id)
+        public async Task<ActionResult<Models.Route>> GetRoute([FromQuery] int id)
         {
             var route = await _context.Routes.FindAsync(id);
             if (route == null)
@@ -219,6 +219,19 @@ namespace RevupAPI.Controllers
             _context.Routes.Remove(route);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        [Route("api/Route")]
+        [HttpPut]
+        public async Task<ActionResult<Models.Route>> UpdateRoute([FromBody] Models.Route route)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Routes.Update(route);
+                await _context.SaveChangesAsync();
+                return route;
+            }
+            return BadRequest("Incorrect route data");
         }
     }
 }

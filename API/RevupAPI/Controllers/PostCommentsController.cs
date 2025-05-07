@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -166,7 +167,7 @@ namespace RevupAPI.Controllers
             return _context.PostComments.Any(e => e.Id == id);
         }
 
-
+        [Authorize]
         [Route("api/Comment")]
         [HttpPost]
         public async Task<ActionResult<PostComment>> PostComment([FromBody] PostComment postComment)
@@ -180,9 +181,10 @@ namespace RevupAPI.Controllers
             return BadRequest("Invalid comment data");
         }
 
-        [Route("api/Comment/{id}")]
+        [Authorize]
+        [Route("api/Comment")]
         [HttpDelete]
-        public async Task<bool> DeleteComment(int id)
+        public async Task<bool> DeleteComment([FromQuery]int id)
         {
             var postComment = await _context.PostComments.FindAsync(id);
             if (postComment == null)
@@ -193,5 +195,19 @@ namespace RevupAPI.Controllers
             await _context.SaveChangesAsync();
             return true;
         }
+
+        [Authorize]
+        [Route("api/CommentsByPostId")]
+        [HttpGet]
+        public async Task<ActionResult<List<PostComment>>> GetCommentsByPostId([FromQuery] int postId)
+        {
+            var comments = await _context.PostComments.Where(x=>x.PostId==postId).ToListAsync();
+            if (comments == null || !comments.Any())
+            {
+                return NotFound();
+            }
+            return Ok(comments);
+        }
+
     }
 }

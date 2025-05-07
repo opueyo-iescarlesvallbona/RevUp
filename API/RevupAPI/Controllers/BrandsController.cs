@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -153,6 +154,20 @@ namespace RevupAPI.Controllers
             return _context.Brands.Any(e => e.Id == id);
         }
 
+        [Authorize]
+        [Route("api/Brand")]
+        [HttpGet]
+        public async Task<ActionResult<Brand>> GetBrandById([FromQuery] int id)
+        {
+            var brand = await _context.Brands.FindAsync(id);
+            if (brand == null)
+            {
+                return NotFound();
+            }
+            return brand;
+        }
+
+        [Authorize]
         [Route("api/Brands")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Brand>>> GetBrands()
@@ -165,6 +180,20 @@ namespace RevupAPI.Controllers
             return brands;
         }
 
+        [Authorize]
+        [Route("api/Model")]
+        [HttpGet]
+        public async Task<ActionResult<Model>> GetModelById([FromQuery] int id)
+        {
+            var model = await _context.Models.FindAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return model;
+        }
+
+        [Authorize]
         [Route("api/Models")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Model>>> GetModels()

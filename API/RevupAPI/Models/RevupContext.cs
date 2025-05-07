@@ -165,6 +165,8 @@ public partial class RevupContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("start_date");
             entity.Property(e => e.State).HasColumnName("state");
+            entity.Property(e => e.Lat).HasColumnName("lat");
+            entity.Property(e => e.Long).HasColumnName("long");
 
             entity.HasOne(d => d.Club).WithMany(p => p.ClubEvents)
                 .HasForeignKey(d => d.ClubId)
@@ -423,10 +425,6 @@ public partial class RevupContext : DbContext
             entity.ToTable("post");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Address)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("address");
             entity.Property(e => e.Comments).HasColumnName("comments");
             entity.Property(e => e.Description)
                 .HasColumnType("text")
@@ -446,6 +444,10 @@ public partial class RevupContext : DbContext
                 .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("title");
+            entity.Property(e => e.LocationId)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("location_id");
 
             entity.HasOne(d => d.Member).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.MemberId)
@@ -460,6 +462,10 @@ public partial class RevupContext : DbContext
             entity.HasOne(d => d.Route).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.RouteId)
                 .HasConstraintName("FK__post__route_id__797309D9");
+            entity.HasOne(d => d.Location).WithMany(p => p.Posts)
+                .HasForeignKey(d => d.LocationId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__post__location_i__19AACF41");
 
             entity.HasMany(d => d.Members).WithMany(p => p.PostsNavigation)
                 .UsingEntity<Dictionary<string, object>>(

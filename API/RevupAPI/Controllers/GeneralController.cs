@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RevupAPI.Models;
 using System.IO;
 using System.Security.Cryptography;
@@ -19,8 +20,10 @@ namespace RevupAPI.Controllers
             _imagesFolderPath = "C:\\Users\\cv\\Downloads\\";
         }
 
-        [HttpGet("GetImage/{path}")]
-        public IActionResult GetImage(String path)
+        [Authorize]
+        [Route("api/GetImage")]
+        [HttpGet]
+        public IActionResult GetImage([FromQuery] String path)
         {
             var imageFileName = path;
 
@@ -34,11 +37,20 @@ namespace RevupAPI.Controllers
 
             var imageFile = System.IO.File.OpenRead(imagePath);
 
-            // Aquí puedes especificar el tipo de contenido de la imagen (por ejemplo, "image/jpeg", "image/png")
-            return File(imageFile, "image/jpeg");
+            string extension = Path.GetExtension(imagePath).ToLowerInvariant();
+            string contentType = extension switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                ".gif" => "image/gif",
+                ".bmp" => "image/bmp",
+                ".webp" => "image/webp",
+                _ => "application/octet-stream"
+            };
+
+            return File(imageFile, contentType);
         }
 
-        [HttpPost("uploadImage")]
         public static string UploadImage(IFormFile imageFile, Object obj)
         {
             string _imagesFolderPath = "C:\\Users\\cv\\Downloads\\";
@@ -47,27 +59,33 @@ namespace RevupAPI.Controllers
                 return "";
             }
 
-            string dateTimeNow = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string fileType = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+
+            //string dateTimeNow = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             string imageFileName = "";
             string targetFolder = "";
             switch (obj)
             {
                 case Post post:
-                    imageFileName = $"{post.Id}.jpg";
+                    imageFileName = $"{post.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "posts");
                     
                     break;
                 case Member member:
-                    imageFileName = $"{member.Id}.jpg";
+                    imageFileName = $"{member.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "members");
                     break;
                 case Club club:
-                    imageFileName = $"{club.Id}.jpg";
+                    imageFileName = $"{club.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "clubs");
                     break;
                 case Car car:
-                    imageFileName = $"{car.Id}.jpg";
+                    imageFileName = $"{car.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "cars");
+                    break;
+                case ClubEvent clubEvent:
+                    imageFileName = $"{clubEvent.Id}.{fileType}";
+                    targetFolder = Path.Combine(_imagesFolderPath, "events");
                     break;
             }
 
@@ -83,12 +101,52 @@ namespace RevupAPI.Controllers
 
             string filePath = Path.Combine(targetFolder, imageFileName);
 
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 imageFile.CopyTo(fileStream);
             }
 
             return filePath;
+        }
+
+        public static bool DeleteImage(string imageFileName, Object obj)
+        {
+            string _imagesFolderPath = "C:\\Users\\cv\\Downloads\\";
+            string targetFolder = "";
+            switch (obj)
+            {
+                case Post post:
+                    targetFolder = Path.Combine(_imagesFolderPath, "posts");
+                    break;
+                case Member member:
+                    targetFolder = Path.Combine(_imagesFolderPath, "members");
+                    break;
+                case Club club:
+                    targetFolder = Path.Combine(_imagesFolderPath, "clubs");
+                    break;
+                case Car car:
+                    targetFolder = Path.Combine(_imagesFolderPath, "cars");
+                    break;
+                case ClubEvent clubEvent:
+                    targetFolder = Path.Combine(_imagesFolderPath, "events");
+                    break;
+            }
+            if (targetFolder.Equals(""))
+            {
+                return false;
+            }
+            string filePath = Path.Combine(targetFolder, imageFileName);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -19,13 +19,13 @@ public partial class Post
 
     public long Likes { get; set; }
 
-    public string? Address { get; set; }
-
     public int? RouteId { get; set; }
 
     public int MemberId { get; set; }
 
     public long Comments { get; set; }
+
+    public int? LocationId { get; set; }
 
     public virtual Member Member { get; set; } = null!;
 
@@ -36,4 +36,5 @@ public partial class Post
     public virtual Route? Route { get; set; }
 
     public virtual ICollection<Member> Members { get; set; } = new List<Member>();
+    public virtual MemberLocation? Location { get; set; }
 }

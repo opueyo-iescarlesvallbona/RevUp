@@ -184,7 +184,7 @@ namespace RevupAPI.Controllers
             return member;
         }
 
-
+        [Authorize]
         [Route("api/Member")]
         [HttpPut]
         public async Task<ActionResult<Member>> UpdateMember([FromBody] Member member)
@@ -293,21 +293,23 @@ namespace RevupAPI.Controllers
             return finalToken;
         }
 
-        [Route("api/Members/{memberName}")]
+        [Authorize]
+        [Route("api/Members")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Member>>> GetMembersByName(string memberName)
+        public async Task<ActionResult<IEnumerable<Member>>> GetMembersByName([FromQuery]string memberName)
         {
             var members = await _context.Members.Where(x => x.Membername.Contains(memberName)).ToListAsync();
-            if (members == null || members.Any())
+            if (members == null || !members.Any())
             {
                 return NotFound();
             }
             return members;
         }
 
-        [Route("api/MemberByCar/{carName}")]
+        [Authorize]
+        [Route("api/MemberByCar")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Member>>> GetMemberByCar(string carName)
+        public async Task<ActionResult<IEnumerable<Member>>> GetMemberByCar([FromQuery] string carName)
         {
             var members = await _context.Members
                 .Include(m => m.Cars)
@@ -320,9 +322,9 @@ namespace RevupAPI.Controllers
             return members;
         }
 
-        [Route("api/MemberFriends/{id}")]
+        [Route("api/MemberFriends")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Member>>> GetMemberFriends(int id)
+        public async Task<ActionResult<IEnumerable<Member>>> GetMemberFriends([FromQuery]int id)
         {
             var member = await _context.Members.Where(x=>x.Id==id).FirstOrDefaultAsync();
 
@@ -358,6 +360,21 @@ namespace RevupAPI.Controllers
                 return NotFound();
             }
             return member;
+        }
+
+        [Authorize]
+        [Route("api/MemberClubs")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Club>>> GetClubsByMember([FromQuery] int id)
+        {
+            var member = await _context.Members.FindAsync(id);
+
+            var clubs = member.Clubs.ToList();
+            if (clubs == null || !clubs.Any())
+            {
+                return NotFound();
+            }
+            return clubs;
         }
     }
 }
