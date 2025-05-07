@@ -15,9 +15,9 @@ import retrofit2.http.Query
 
 interface RevupAPIService {
     //region POSTS
-    @GET("/api/PostsByLocation/")
+    @GET("/api/PostsByLocationId/")
     suspend fun getPostsByLocation(
-        @Body memberLocation: MemberLocation
+        @Query("location_id") locationId: Int
     ): Response<MutableList<Post>>
 
     @GET("/api/PostsByLikes/")
@@ -43,6 +43,27 @@ interface RevupAPIService {
 
     @DELETE("/api/PostUnLike/")
     suspend fun postUnLike(@Query("memberId") memberId: Int, @Query("postId") postId: Int): Response<Post>
+
+    @GET("/api/PostsByMemberFriends/")
+    suspend fun getPostsByFriends(
+        @Query("memberId") memberId: Int
+    ): Response<MutableList<Post>>
+
+    @GET("/api/PostIsLikedByMember/")
+    suspend fun getPostIsLikedByMember(
+        @Query("memberId") memberId: Int,
+        @Query("postId") postId: Int
+    ): Response<Boolean>
+
+    @GET("/api/PostTypeById/")
+    suspend fun getPostTypeById(
+        @Query("id") id: Int
+    ): Response<PostType>
+
+    @GET("/api/PostTypeByName/")
+    suspend fun getPostTypeByName(
+        @Query("name") name: String
+    ): Response<PostType>
     //endregion
 
     //region MEMBERS
@@ -57,10 +78,10 @@ interface RevupAPIService {
         @Part image: MultipartBody.Part?,
         @Body member: Member): Response<Member>
 
-    //@Multipart
+    @Multipart
     @POST("/api/Member/")
     suspend fun postMember(
-//        @Part image: MultipartBody.Part?,
+        @Part image: MultipartBody.Part?,
         @Body member: Member): Response<Member>
 
     @GET("/api/login/")
@@ -96,6 +117,37 @@ interface RevupAPIService {
     suspend fun getFriends(
         @Query("id") id: Int
     ): Response<MutableList<Member>>
+
+    @GET("/api/ClubMembers/")
+    suspend fun getMembersByClub(@Query("clubId") clubId: Int): Response<MutableList<Member>>
+
+    @GET("/api/MemberClubRoleById/")
+    suspend fun getMemberClubRoleById(@Query("clubId") clubId: Int, @Query("memberId") memberId: Int): Response<MemberClubRole>
+
+    @GET("/api/MemberClubRoles/")
+    suspend fun getMemberClubRoles(): Response<MutableList<MemberClubRole>>
+
+    @GET("/api/MemberRelationsByMemberId/")
+    suspend fun getMemberRelationsByMemberId(@Query("id") id: Int): Response<MutableList<MemberRelation>>
+
+    @PUT("/api/MemberRelation/")
+    suspend fun putMemberRelation(@Body memberRelation: MemberRelation): Response<MemberRelation>
+
+    @POST("/api/MemberRelation/")
+    suspend fun postMemberRelation(@Body memberRelation: MemberRelation): Response<MemberRelation>
+
+    @DELETE("/api/MemberRelation/")
+    suspend fun deleteMemberRelation(@Query("id") id: Int): Response<Boolean>
+
+    @GET("/api/RelationStateById/")
+    suspend fun getRelationStateById(
+        @Query("id") id: Int
+    ): Response<RelationState>
+
+    @GET("/api/RelationStateByName/")
+    suspend fun getRelationStateByName(
+        @Query("name") name: String
+    ): Response<RelationState>
     //endregion
 
     //region COMMENTS
@@ -104,6 +156,11 @@ interface RevupAPIService {
 
     @DELETE("/api/Comment/")
     suspend fun deleteComment(@Query("id") id: Int): Response<Boolean>
+
+    @GET("/api/CommentsByPostId/")
+    suspend fun getCommentsByPostId(
+        @Query("postId") postId: Int
+    ): Response<MutableList<PostComment>>
     //endregion
 
     //region CARS
@@ -128,8 +185,16 @@ interface RevupAPIService {
     @GET("/api/Brands/")
     suspend fun getBrands(): Response<MutableList<Brand>>
 
+    @GET("/api/Brand/")
+    suspend fun getBrand(
+        @Query("id") brandId: Int
+    ): Response<Brand>
+
     @GET("/api/Models/")
     suspend fun getModels(): Response<MutableList<Model>>
+
+    @GET("/api/Model/")
+    suspend fun getModelById(@Query("id") id: Int): Response<Model>
     //endregion
 
     //region EVENTS
@@ -152,6 +217,20 @@ interface RevupAPIService {
 
     @DELETE("/api/Event/")
     suspend fun deleteEvent(@Query("id") id: Int): Response<Boolean>
+
+    @Multipart
+    @PUT("/api/Event/")
+    suspend fun putEvent(
+        @Part image: MultipartBody.Part?,
+        @Body clubEvent: ClubEvent): Response<ClubEvent>
+
+    @GET("/api/EventStateById/")
+    suspend fun getEventStateById(
+        @Query("id") id: Int
+    ): Response<EventState>
+
+    @GET("/api/EventStates/")
+    suspend fun getEventStates(): Response<MutableList<EventState>>
     //endregion
 
     //region ROUTES
@@ -170,10 +249,76 @@ interface RevupAPIService {
 
     @DELETE("/api/Route/")
     suspend fun deleteRoute(@Query("id") id: Int): Response<Boolean>
+
+    @PUT("/api/Route/")
+    suspend fun putRoute(
+        @Body route: Route): Response<Route>
+
+    @GET("/api/TerrainTypeById/")
+    suspend fun getTerrainTypeById(
+        @Query("id") id: Int
+    ): Response<TerrainType>
+
+    @GET("/api/TerrainTypeByName/")
+    suspend fun getTerrainTypeByName(
+        @Query("name") name: String
+    ): Response<TerrainType>
     //endregion
 
     //region GENDER
     @GET("/api/Genders/")
     suspend fun getGenders(): Response<List<Gender>>
+
+    @GET("/api/Gender/")
+    suspend fun getGenderById(@Query("id") id: Int): Response<Gender>
     //endregion
+
+    // region CLUBS
+    @GET("/api/MemberClubs/")
+    suspend fun getClubsByMember(
+        @Query("id") id: Int
+    ): Response<MutableList<Club>>
+
+    @GET("/api/Clubs/")
+    suspend fun getClubsByName(
+        @Query("clubName") clubName: String
+    ): Response<MutableList<Club>>
+
+    @GET("/api/ClubById/")
+    suspend fun getClubById(
+        @Query("id") clubId: Int
+    ): Response<Club>
+
+    @Multipart
+    @POST("/api/Club/")
+    suspend fun postClub(
+        @Part image: MultipartBody.Part?,
+        @Body club: Club): Response<Club>
+
+    @Multipart
+    @PUT("/api/Club/")
+    suspend fun putClub(
+        @Part image: MultipartBody.Part?,
+        @Body club: Club): Response<Club>
+    // endregion
+
+    // region LOCATION
+    @GET("/api/LocationById/")
+    suspend fun getLocationById(@Query("id") id: Int): Response<MemberLocation>
+
+    @GET("/api/LocationByCountry/")
+    suspend fun getLocationsByCountry(@Query("country") countryName: String): Response<MutableList<MemberLocation>>
+
+    @GET("/api/LocationByMunicipality/")
+    suspend fun getLocationsByMunicipality(@Query("municipality") municipality: String): Response<MutableList<MemberLocation>>
+
+    @GET("/api/LocationByCcaa/")
+    suspend fun getLocationsByCcaa(@Query("ccaa") ccaa: String): Response<MutableList<MemberLocation>>
+
+    @GET("/api/Locations/")
+    suspend fun getAllLocations(): Response<MutableList<MemberLocation>>
+
+    @POST("/api/Location/")
+    suspend fun postLocation(@Body location: MemberLocation): Response<MemberLocation>
+    // endregion
 }

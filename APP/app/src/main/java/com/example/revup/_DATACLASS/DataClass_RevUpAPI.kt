@@ -1,5 +1,8 @@
 package com.example.revup._DATACLASS
 
+import android.content.Context
+import android.net.Uri
+import java.io.File
 import java.math.BigDecimal
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -50,6 +53,8 @@ class ClubEvent(
     var endDate: String,
     var description: String,
     var state: Int,
+    var lat: Double,
+    var long: Double,
 
     var club: Club? = null,
     var eventState: EventState? = null
@@ -63,16 +68,17 @@ class Post (
     var postDate: String,
     var picture: String? = null,
     var likes: Long = 0,
-    var address: String? = null,
     var routeId: Int? = null,
     var memberId: Int = 0,
     var comments: Long = 0,
+    var location_id: Int? = null,
 
     var postType1: PostType? = null,
     var route: Route? = null,
     var postComments: MutableSet<PostComment> = HashSet(),
     var member: Member? = null,
-    var members: MutableSet<Member> = HashSet()
+    var members: MutableSet<Member> = HashSet(),
+    var location: MemberLocation? = null
 )
 
 class Model (
@@ -264,4 +270,13 @@ fun FormatDate(date: String): Date {
         }
     }
     return Date.from(local_datetime!!.atZone(ZoneId.systemDefault()).toInstant())
+}
+
+fun uriToFile(context: Context, uri: Uri): File {
+    val inputStream = context.contentResolver.openInputStream(uri)
+    val tempFile = File.createTempFile("upload", ".jpg", context.cacheDir)
+    tempFile.outputStream().use { fileOut ->
+        inputStream?.copyTo(fileOut)
+    }
+    return tempFile
 }
