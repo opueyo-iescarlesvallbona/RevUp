@@ -16,6 +16,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ACTIVITIES.PostDetailsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            />
+        <activity
+            android:name=".ACTIVITIES.RoutePostDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ACTIVITIES.NotificationsActivity"
             android:exported="false" />
         <activity
@@ -43,7 +51,7 @@
             android:name=".ACTIVITIES.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

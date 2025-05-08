@@ -96,7 +96,7 @@ class RegisterActivity : AppCompatActivity() {
                     //Add member
                     var afegit = false
                     try{
-                        apiRevUp.postMember(member, applicationContext)
+                        apiRevUp.postMember(member, null, applicationContext)
                         afegit = true
                     }catch (e: Exception){}
 

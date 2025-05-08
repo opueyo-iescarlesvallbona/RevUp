@@ -93,6 +93,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/cardview_text_post_commentlayout"
             android:orientation="horizontal">
 
             <ImageButton

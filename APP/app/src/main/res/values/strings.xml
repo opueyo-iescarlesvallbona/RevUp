@@ -19,4 +19,5 @@
     <string name="title_list_routes">Your Routes</string>
     <string name="title_list_events_current">Current Events</string>
     <string name="title_list_events_past">Past Events</string>
+    <string name="post_details_header">Post</string>
 </resources>

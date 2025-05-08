@@ -80,6 +80,20 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
+    fun getPostById(postId: Int, context: Context): Post?{
+        var resposta : Response<Post>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getPostsById(postId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
     fun postPost(post: Post, image_path: Uri?, context: Context): Boolean{
         var afegit: Boolean = false
         var body: MultipartBody.Part? = null

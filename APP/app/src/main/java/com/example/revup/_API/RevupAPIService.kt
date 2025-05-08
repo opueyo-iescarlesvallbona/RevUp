@@ -23,6 +23,11 @@ interface RevupAPIService {
     @GET("/api/PostsByLikes/")
     suspend fun getPostsByLikes(): Response<MutableList<Post>>
 
+    @GET("/api/PostById/")
+    suspend fun getPostsById(
+        @Query("id") id: Int
+    ): Response<Post>
+
     @Multipart
     @POST("/api/Post/")
     suspend fun postPost(

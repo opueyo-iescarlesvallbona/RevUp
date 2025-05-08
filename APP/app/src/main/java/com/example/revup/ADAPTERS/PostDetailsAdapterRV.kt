@@ -1,27 +1,28 @@
 package com.example.revup.ADAPTERS
 
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.revup.ACTIVITIES.PostDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.Post
-import org.w3c.dom.Text
+import com.example.revup._DATACLASS.PostComment
 import java.util.Calendar
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
-class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapter<HomeFragmentPostAdapterRV.ViewHolder>() {
+class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): RecyclerView.Adapter<PostDetailsAdapterRV.ViewHolder>() {
     val apiRevUp = RevupCrudAPI()
     companion object {
-        const val VIEW_TYPE_TEXT = 0
-        const val VIEW_TYPE_IMAGE = 1
+        const val VIEW_TYPE_COMMENT = 0
+        const val VIEW_TYPE_POST_TEXT = 1
+        const val VIEW_TYPE_POST_IMAGE = 2
     }
 
     class ViewHolder(val vista: View): RecyclerView.ViewHolder(vista) {
@@ -32,46 +33,54 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
     }
 
     override fun getItemViewType(position: Int): Int {
-        val post = list[position]
-        return if (post.picture.isNullOrEmpty()) {
-            VIEW_TYPE_TEXT
+        return if (position==0) {
+            if (post.picture.isNullOrEmpty()){
+                VIEW_TYPE_POST_TEXT
+            }else{
+                VIEW_TYPE_POST_IMAGE
+            }
         } else {
-            VIEW_TYPE_IMAGE
+            VIEW_TYPE_COMMENT
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = LayoutInflater.from(parent.context)
         return when (viewType) {
-            VIEW_TYPE_IMAGE -> {
+            VIEW_TYPE_POST_IMAGE -> {
                 val view = layout.inflate(R.layout.cardview_imagepost_mainactivity, parent, false)
                 ViewHolder(view)
             }
-            else -> {
+            VIEW_TYPE_POST_TEXT -> {
                 val view = layout.inflate(R.layout.cardview_textpost_mainactivity, parent, false)
+                ViewHolder(view)
+            }
+            else -> {
+                val view = layout.inflate(R.layout.cardview_comment, parent, false)
                 ViewHolder(view)
             }
         }
     }
 
-    override fun getItemCount() = list.size
+    override fun getItemCount() = list.size+1
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val member = apiRevUp.getMemberById(list[position].memberId, holder.vista.context)
-        holder.user.setText(member!!.name)
-        if(getItemViewType(position) == VIEW_TYPE_TEXT){
-            holder.content.setText(list[position].description)
+        Log.i("HOLAAA", getItemViewType(position).toString())
+        if(getItemViewType(position) == VIEW_TYPE_POST_IMAGE||getItemViewType(position) == VIEW_TYPE_POST_TEXT){
+
+            val member = apiRevUp.getMemberById(post.memberId, holder.vista.context)
+            holder.user.setText(member!!.name)
+            if(getItemViewType(position) == VIEW_TYPE_POST_TEXT){
+                holder.content.setText(post.description)
+                val layout = holder.vista.findViewById<LinearLayout>(R.id.cardview_text_post_commentlayout)
+                layout.visibility = View.GONE
+            }else{
+                holder.image.setImageResource(R.drawable.car_test)
+                val layout = holder.vista.findViewById<LinearLayout>(R.id.cardview_image_post_commentlayout)
+                layout.visibility = View.GONE
+            }
         }else{
-            holder.image.setImageResource(R.drawable.car_test)
-        }
-
-        holder.timeAgo.setText(getTimeAgo(FormatDate(list[position].postDate.toString())))
-
-        holder.vista.setOnClickListener{
-            val intent = Intent(holder.vista.context, PostDetailsActivity::class.java)
-            intent.putExtra("postId", list[position].id)
-            holder.vista.context.startActivity(intent)
-
+            val pos = position-1
         }
     }
 
