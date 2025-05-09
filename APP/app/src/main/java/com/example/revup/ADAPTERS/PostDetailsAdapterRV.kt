@@ -1,5 +1,6 @@
 package com.example.revup.ADAPTERS
 
+import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.FormatDate
@@ -90,7 +92,11 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
         }else{
             val pos = position-1
             val member = apiRevUp.getMemberById(list[pos].memberId, holder.vista.context)
-            Log.i("memberssssss", member!!.membername.toString())
+            
+
+            Glide.with(holder.vista.context).load("http://172.16.24.136:5178/api/GetImage/?path="+member.profilePicture).circleCrop().into(holder.commentUserPhoto)
+
+
             holder.commentUser.setText(member!!.membername.toString())
             holder.commentText.setText(list[pos].commentContent)
             holder.commentTimeAgo.setText(getTimeAgo(FormatDate(list[pos].datetime.toString())))
