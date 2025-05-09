@@ -11,9 +11,10 @@ import com.example.revup.ADAPTERS.MemberDetailsPostsAdapter
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup.databinding.FragmentMemberDetailsPostsBinding
 
-class MemberDetailsPostsFragment(memberId: Int) : Fragment() {
+class MemberDetailsPostsFragment : Fragment() {
     lateinit var binding: FragmentMemberDetailsPostsBinding
     val apiRevUp = RevupCrudAPI()
+    private var memberId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,23 +29,22 @@ class MemberDetailsPostsFragment(memberId: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        try {
-//            val posts = apiRevUp.getPosts(memberId, requireContext())
-//            val recyclerView = binding.memberDetailsPostsActivityRecyclerView
-//            recyclerView.adapter = MemberDetailsPostsAdapter(current_events!!)
-//            recyclerView.layoutManager = LinearLayoutManager(requireView().context)
-//        }catch (e: Exception){
-//            Toast.makeText(this, "Error on club details. $e.message", Toast.LENGTH_SHORT).show()
-//        }
+        try {
+            var posts = apiRevUp.getPostsByMemberId(memberId, requireContext())
+            val recyclerView = binding.memberDetailsPostsActivityRecyclerView
+            if (posts == null) posts = mutableListOf()
+            recyclerView.adapter = MemberDetailsPostsAdapter(posts)
+            recyclerView.layoutManager = LinearLayoutManager(requireView().context)
+        }catch (e: Exception){
+            Toast.makeText(requireContext(), "Error on club details. $e.message", Toast.LENGTH_SHORT).show()
+        }
     }
 
     companion object {
-        private const val ARG_MEMBER_ID = "member_id"
-
         fun newInstance(memberId: Int): MemberDetailsCarsFragment {
-            val fragment = MemberDetailsCarsFragment(memberId)
+            val fragment = MemberDetailsCarsFragment()
             val args = Bundle()
-            args.putInt(ARG_MEMBER_ID, memberId)
+            args.putInt("member_id", memberId)
             fragment.arguments = args
             return fragment
         }

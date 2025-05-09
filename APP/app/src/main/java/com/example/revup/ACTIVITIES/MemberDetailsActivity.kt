@@ -6,12 +6,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.example.revup.ADAPTERS.ViewPagerAdapter
 import com.example.revup.FRAGMENTS.MemberDetailsCarsFragment
 import com.example.revup.FRAGMENTS.MemberDetailsPostsFragment
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Member
+import com.example.revup._DATACLASS.image_path
 import com.example.revup.databinding.ActivityMemberDetailsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -34,7 +36,11 @@ class MemberDetailsActivity : AppCompatActivity() {
 
         if (member != null){
             try {
-                //TODO get image
+                if(member.profilePicture != null && member.profilePicture != ""){
+                    Glide.with(this).load(image_path+member.profilePicture).circleCrop().into(binding.memberDetailsActivityPicture)
+                }else{
+                    binding.memberDetailsActivityPicture.setImageResource(R.drawable.baseline_account_circle_24)
+                }
                 binding.memberDetailsActivityMemberName.text = member.name
                 binding.memberDetailsActivityName.text = member.name
                 binding.clubDetailsActivityDescription.text = member.description
@@ -44,7 +50,10 @@ class MemberDetailsActivity : AppCompatActivity() {
                     binding.memberDetailsActivityLocation.text = location.municipality
                 }
 
-                val listOfFragments = listOf(MemberDetailsCarsFragment(member.id), MemberDetailsPostsFragment(member.id))
+                val listOfFragments = listOf(
+                    MemberDetailsCarsFragment.newInstance(member.id),
+                    MemberDetailsPostsFragment.newInstance(member.id)
+                )
                 var adapter = ViewPagerAdapter(
                     listOfFragments,
                     this.supportFragmentManager,

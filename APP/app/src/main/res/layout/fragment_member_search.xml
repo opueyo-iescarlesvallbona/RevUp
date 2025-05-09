@@ -7,33 +7,6 @@
     tools:context=".FRAGMENTS.MemberSearchFragment"
     android:orientation="vertical">
 
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/memberSearchFragment_searchFragment_mainActivity_toggleButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:singleSelection="true"
-        android:layout_marginHorizontal="10dp"
-        app:selectionRequired="true"
-        >
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/memberSearchFragment_searchFragment_mainActivity_memberNameButton"
-            android:text="@string/memberSearchFragment_memberName"
-            />
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/memberSearchFragment_searchFragment_mainActivity_carNameButton"
-            android:text="@string/memberSearchFragment_carName"
-            />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/memberSearchFragment_searchFragment_mainActivity_recyclerView"
         android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.parcelize.Parcelize
 import java.io.File
 import java.math.BigDecimal
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -285,6 +286,11 @@ fun uriToFile(context: Context, uri: Uri): File {
         inputStream?.copyTo(fileOut)
     }
     return tempFile
+}
+
+fun toSimpleDateString(date: Date) : String {
+    val format = SimpleDateFormat("dd/MM/yyy")
+    return format.format(date)
 }
 
 class SearchViewModel : ViewModel() {

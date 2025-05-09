@@ -8,10 +8,12 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.revup.ACTIVITIES.MemberDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Member
+import com.example.revup._DATACLASS.image_path
 
 class ClubDetailsMembersAdapter(var list: MutableList<Member>): RecyclerView.Adapter<ClubDetailsMembersAdapter.ViewHolder>() {
     val apiRevUp = RevupCrudAPI()
@@ -29,7 +31,11 @@ class ClubDetailsMembersAdapter(var list: MutableList<Member>): RecyclerView.Ada
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.picture.setImageResource()
+        if(list[position].profilePicture != null && list[position].profilePicture != ""){
+            Glide.with(holder.vista.context).load(image_path+list[position].profilePicture).circleCrop().into(holder.picture)
+        }else{
+            holder.picture.setImageResource(R.drawable.baseline_account_circle_24)
+        }
         holder.memberName.setText(list[position].membername)
         holder.vista.setOnClickListener{
             val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)

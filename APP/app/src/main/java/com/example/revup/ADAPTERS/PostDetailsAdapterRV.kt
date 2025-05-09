@@ -92,10 +92,8 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
         }else{
             val pos = position-1
             val member = apiRevUp.getMemberById(list[pos].memberId, holder.vista.context)
-            
 
-            Glide.with(holder.vista.context).load("http://172.16.24.136:5178/api/GetImage/?path="+member.profilePicture).circleCrop().into(holder.commentUserPhoto)
-
+            Glide.with(holder.vista.context).load("http://172.16.24.136:5178/api/GetImage/?path="+member!!.profilePicture).circleCrop().into(holder.commentUserPhoto)
 
             holder.commentUser.setText(member!!.membername.toString())
             holder.commentText.setText(list[pos].commentContent)

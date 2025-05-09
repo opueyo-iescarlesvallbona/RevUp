@@ -9,12 +9,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.revup.ADAPTERS.ClubDetailsMembersAdapter
 import com.example.revup.ADAPTERS.ClubSearchAdapter
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Club
 import com.example.revup._DATACLASS.FormatDate
+import com.example.revup._DATACLASS.image_path
+import com.example.revup._DATACLASS.toSimpleDateString
 import com.example.revup.databinding.ActivityClubDetailsBinding
 
 class ClubDetailsActivity : AppCompatActivity() {
@@ -35,9 +38,13 @@ class ClubDetailsActivity : AppCompatActivity() {
 
         if (club != null){
             try {
-                //TODO get image
+                if(club.picture != null && club.picture != ""){
+                    Glide.with(this).load(image_path+club.picture).circleCrop().into(binding.clubDetailsActivityPicture)
+                }else{
+                    binding.clubDetailsActivityPicture.setImageResource(R.drawable.baseline_account_circle_24)
+                }
                 binding.clubDetailsActivityName.text = club.name
-                binding.clubDetailsActivityDate.text = FormatDate(club.creationDate).toString()
+                binding.clubDetailsActivityDate.text = "Creation date: ${toSimpleDateString(FormatDate(club.creationDate))}"
                 if(club.description != null){
                     binding.clubDetailsActivityDescription.text = club.description.toString()
                 }else{
@@ -46,7 +53,7 @@ class ClubDetailsActivity : AppCompatActivity() {
 
                 val founder = apiRevUp.getMemberById(club.founder, this)
                 if(founder != null){
-                    binding.clubDetailsActivityFounder.text = founder.name
+                    binding.clubDetailsActivityFounder.text = "Founder: ${founder.name}"
                 }
 
                 val members = apiRevUp.getMembersByClub(club.id, this)

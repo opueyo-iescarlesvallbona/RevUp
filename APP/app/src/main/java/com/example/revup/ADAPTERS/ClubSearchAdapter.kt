@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Space
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.revup.ACTIVITIES.ClubDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Car
 import com.example.revup._DATACLASS.Club
+import com.example.revup._DATACLASS.image_path
 
 class ClubSearchAdapter(var list: MutableList<Club>): RecyclerView.Adapter<ClubSearchAdapter.ViewHolder>() {
     val apiRevUp = RevupCrudAPI()
@@ -31,7 +34,14 @@ class ClubSearchAdapter(var list: MutableList<Club>): RecyclerView.Adapter<ClubS
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //holder.picture.setImageResource()
+        if(position == list.size-1){
+            holder.vista.findViewById<Space>(R.id.cardview_clubSearch_space).layoutParams.height = 250
+        }
+        if(list[position].picture != null && list[position].picture != ""){
+            Glide.with(holder.vista.context).load(image_path+list[position].picture).circleCrop().into(holder.picture)
+        }else{
+            holder.picture.setImageResource(R.drawable.baseline_account_circle_24)
+        }
         holder.carName.setText(list[position].name)
         holder.vista.findViewById<ImageView>(R.id.cardview_clubSearch_picture).setOnClickListener{
             val intent = Intent(holder.vista.context, ClubDetailsActivity::class.java)

@@ -40,9 +40,10 @@ class ClubSearchFragment : Fragment() {
         viewModel.filter.observe(viewLifecycleOwner, Observer { text ->
             if(viewModel.current_tab.value == 1){
                 try {
-                    val clubList = apiRevUp.getClubsByName(text, requireContext())
+                    var clubList = apiRevUp.getClubsByName(text, requireContext())
                     val recyclerView = binding.clubSearchFragmentSearchFragmentMainActivityRecyclerView
-                    recyclerView.adapter = ClubSearchAdapter(clubList!!)
+                    if (clubList == null) clubList = mutableListOf()
+                    recyclerView.adapter = ClubSearchAdapter(clubList)
                     recyclerView.layoutManager = GridLayoutManager(requireView().context, 2)
                 }catch (e: Exception){
                     Toast.makeText(requireContext(), "Cant load club list", Toast.LENGTH_SHORT).show()

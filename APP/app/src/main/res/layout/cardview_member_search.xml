@@ -48,35 +48,16 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
+            <ImageButton
+                android:id="@+id/cardview_memberSearch_picture"
                 android:layout_gravity="center"
-                >
-
-                <ImageButton
-                    android:id="@+id/cardview_memberSearch_picture"
-                    android:layout_gravity="center"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/baseline_account_circle_24"
-                    android:background="@android:color/transparent"
-                    android:layout_marginHorizontal="10dp"
-                    />
-
-                <ImageButton
-                    android:id="@+id/cardview_memberSearch_optionsButton"
-                    android:layout_gravity="center"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/baseline_more_vert_24"
-                    android:background="@android:color/transparent"
-                    android:layout_marginHorizontal="10dp"
-                    />
-
-            </LinearLayout>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_account_circle_24"
+                android:background="@android:color/transparent"
+                android:layout_marginHorizontal="10dp"
+                android:layout_margin="10dp"
+                />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

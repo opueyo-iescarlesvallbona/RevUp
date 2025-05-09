@@ -50,15 +50,20 @@ class ListEventsFragment : Fragment() {
             var all_events = apiRevUp.getAllEventsByClub(6, requireView().context)
             var past_events = mutableListOf<ClubEvent>()
             var current_events = mutableListOf<ClubEvent>()
-            var localdatetime_now = Date.from(LocalDateTime.now()!!.atZone(ZoneId.systemDefault()).toInstant())
-            for(event in all_events!!){
-                if(FormatDate(event.endDate).before(localdatetime_now)){
-                    past_events.add(event)
-                }else{
-                    current_events.add(event)
+            if (all_events == null){
+                all_events = mutableListOf()
+            }else {
+                var localdatetime_now =
+                    Date.from(LocalDateTime.now()!!.atZone(ZoneId.systemDefault()).toInstant())
+                for (event in all_events!!) {
+                    if (FormatDate(event.endDate).before(localdatetime_now)) {
+                        past_events.add(event)
+                    } else {
+                        current_events.add(event)
+                    }
                 }
             }
-            recyclerView_current.adapter = EventsRoutesListAdapter(current_events!!)
+            recyclerView_current.adapter = EventsRoutesListAdapter(current_events)
             recyclerView_current.layoutManager = LinearLayoutManager(requireView().context)
             recyclerView_past.adapter = EventsRoutesListAdapter(past_events!!)
             recyclerView_past.layoutManager = LinearLayoutManager(requireView().context)

@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.revup.ADAPTERS.EventsRoutesListAdapter
 import com.example.revup.databinding.FragmentMemberDetailsCarsBinding
 
-class MemberDetailsCarsFragment(memberId: Int) : Fragment() {
+class MemberDetailsCarsFragment : Fragment() {
     lateinit var bindig: FragmentMemberDetailsCarsBinding
+    private val memberId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val memberId = arguments?.getInt("member_id")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,12 +30,10 @@ class MemberDetailsCarsFragment(memberId: Int) : Fragment() {
     }
 
     companion object {
-        private const val ARG_MEMBER_ID = "member_id"
-
         fun newInstance(memberId: Int): MemberDetailsCarsFragment {
-            val fragment = MemberDetailsCarsFragment(memberId)
+            val fragment = MemberDetailsCarsFragment()
             val args = Bundle()
-            args.putInt(ARG_MEMBER_ID, memberId)
+            args.putInt("member_id", memberId)
             fragment.arguments = args
             return fragment
         }
