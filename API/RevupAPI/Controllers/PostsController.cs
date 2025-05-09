@@ -220,6 +220,19 @@ namespace RevupAPI.Controllers
             return posts;
         }
 
+        [Authorize]
+        [Route("api/PostById")]
+        [HttpGet]
+        public async Task<ActionResult<Post>> GetPost([FromQuery] int id)
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(m => m.Id == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return post;
+        }
+
         [Route("api/Post")]
         [HttpPost]
 

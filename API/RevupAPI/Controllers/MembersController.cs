@@ -298,7 +298,16 @@ namespace RevupAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Member>>> GetMembersByName([FromQuery]string memberName)
         {
-            var members = await _context.Members.Where(x => x.Membername.Contains(memberName)).ToListAsync();
+            List <Member> members = new List<Member>();
+            if (memberName == null)
+            {
+                members = await _context.Members.ToListAsync();
+            }
+            else
+            {
+                members = await _context.Members.Where(x => x.Membername.Contains(memberName)).ToListAsync();
+            }
+                
             if (members == null || !members.Any())
             {
                 return NotFound();

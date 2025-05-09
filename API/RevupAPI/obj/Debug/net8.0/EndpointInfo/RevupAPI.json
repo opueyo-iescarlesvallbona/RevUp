@@ -916,7 +916,7 @@
         }
       }
     },
-    "/GetImage/{path}": {
+    "/api/GetImage": {
       "get": {
         "tags": [
           "General"
@@ -924,8 +924,7 @@
         "parameters": [
           {
             "name": "path",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "string"
             }
@@ -2084,6 +2083,45 @@
                   "items": {
                     "$ref": "#/components/schemas/Post"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PostById": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
                 }
               }
             }

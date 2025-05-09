@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\ProjecteFinal\\API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\generalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\generalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\postscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\postscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\generalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\generalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,26 +34,37 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "PostsController.cs",
+              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\PostsController.cs",
+              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\PostsController.cs",
+              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\PostsController.cs",
+              "RelativeToolTip": "RevupAPI\\Controllers\\PostsController.cs",
+              "ViewState": "AgIAANcAAAAAAAAAAAAAwN8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T15:00:41.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "GeneralController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\GeneralController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\GeneralController.cs",
               "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\GeneralController.cs",
               "RelativeToolTip": "RevupAPI\\Controllers\\GeneralController.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAcwC8AAAARAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAAAcwDkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-07T16:31:31.319Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-07T16:31:31.319Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MembersController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\MembersController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\MembersController.cs",
               "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\MembersController.cs",
               "RelativeToolTip": "RevupAPI\\Controllers\\MembersController.cs",
-              "ViewState": "AgIAAMwAAAAAAAAAAAAWwNMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACEBAAAAAAAAAADgvzMBAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-06T17:24:01.551Z",
               "EditorCaption": ""

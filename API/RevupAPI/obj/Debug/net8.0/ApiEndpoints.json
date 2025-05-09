@@ -530,6 +530,22 @@
     ]
   },
   {
+    "ContainingType": "RevupAPI.Controllers.GeneralController",
+    "Method": "GetImage",
+    "RelativePath": "api/GetImage",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "path",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "RevupAPI.Controllers.MemberLocationsController",
     "Method": "P\u00F4stLocation",
     "RelativePath": "api/Location",
@@ -1225,6 +1241,32 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.PostsController",
+    "Method": "GetPost",
+    "RelativePath": "api/PostById",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RevupAPI.Models.Post",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.PostsController",
     "Method": "IsPostLiked",
     "RelativePath": "api/PostIsLikedByMember",
     "HttpMethod": "GET",
@@ -1643,21 +1685,5 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "RevupAPI.Controllers.GeneralController",
-    "Method": "GetImage",
-    "RelativePath": "GetImage/{path}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "path",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
   }
 ]
