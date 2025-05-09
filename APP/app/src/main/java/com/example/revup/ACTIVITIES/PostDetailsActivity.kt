@@ -41,8 +41,19 @@ class PostDetailsActivity : AppCompatActivity() {
 
             if (post != null) {
                 Log.i("Post", postId.toString())
-                post.postComments.add(PostComment(0, 5, 5, "HOPA", "2020-02-02"))
-                post.postComments.add(PostComment(1, 5, 5, "HOPA2", "2020-02-03"))
+                var comments : MutableList<PostComment>? = null
+                try{
+                    comments = apiRevUp.getCommentsByPostId(post.id, this)
+
+                }catch(e: Exception){
+                    Toast.makeText(this, "Error getting comments", Toast.LENGTH_SHORT).show()
+                }
+
+                if(comments == null){
+                    comments = mutableListOf()
+                }
+                post.postComments = comments.toMutableSet()
+
                 val layoutManager = LinearLayoutManager(this)
                 layoutManager.setStackFromEnd(true)
                 binding.PostDetailsActivityRecyclerView.adapter =

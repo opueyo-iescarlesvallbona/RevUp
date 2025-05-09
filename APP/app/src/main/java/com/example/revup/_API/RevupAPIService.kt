@@ -15,6 +15,11 @@ import retrofit2.http.Query
 
 interface RevupAPIService {
     //region POSTS
+    @GET("/api/PostsByMemberId/")
+    suspend fun getPostsByMemberId(
+        @Query("memberId") memberId: Int
+    ): Response<MutableList<Post>>
+
     @GET("/api/PostsByLocationId/")
     suspend fun getPostsByLocation(
         @Query("location_id") locationId: Int

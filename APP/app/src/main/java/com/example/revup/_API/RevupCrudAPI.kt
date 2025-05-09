@@ -52,6 +52,20 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region POSTS
+    fun getPostsByMemberId(memberId: Int, context: Context): MutableList<Post>?{
+        var resposta : Response<MutableList<Post>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getPostsByMemberId(memberId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
     fun getPostsByLocation(memberLocationId: Int, context: Context): MutableList<Post>?{
         var resposta : Response<MutableList<Post>>? = null
         runBlocking {

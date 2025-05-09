@@ -30,6 +30,14 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
         val content = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_contentText)
         val timeAgo = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_timeAgo)
         val image = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_contentImage)
+
+        //COMETNS
+
+        val commentText = vista.findViewById<TextView>(R.id.cardview_post_postdetails_commenttext)
+        val commentTimeAgo = vista.findViewById<TextView>(R.id.cardview_post_postdetails_commenttimeAgo)
+        val commentUser = vista.findViewById<TextView>(R.id.cardview_post_postdetails_commentusername)
+        val commentUserPhoto = vista.findViewById<ImageView>(R.id.cardview_post_postdetails_commentuserPhoto)
+        val moreOptions = vista.findViewById<ImageView>(R.id.cardview_post_postdetails_commentmoreOptions)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -81,10 +89,16 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
             }
         }else{
             val pos = position-1
+            val member = apiRevUp.getMemberById(list[pos].memberId, holder.vista.context)
+            Log.i("memberssssss", member!!.membername.toString())
+            holder.commentUser.setText(member!!.membername.toString())
+            holder.commentText.setText(list[pos].commentContent)
+            holder.commentTimeAgo.setText(getTimeAgo(FormatDate(list[pos].datetime.toString())))
         }
     }
 
     fun getTimeAgo(postDate: Date): String {
+
         val currentDate = Date()
 
         val diffInMillis = currentDate.time - postDate.time
