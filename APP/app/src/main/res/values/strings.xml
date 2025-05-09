@@ -20,4 +20,12 @@
     <string name="title_list_events_current">Current Events</string>
     <string name="title_list_events_past">Past Events</string>
     <string name="post_details_header">Post</string>
+    <string name="memberSearchFragment_memberName">Member</string>
+    <string name="memberSearchFragment_carName">Car</string>
+    <string name="get_back">Back</string>
+    <string name="clubDetailsActivity_membersTitle">Club members</string>
+    <string name="clubDetailsActivity_memberClubRelation">Join in</string>
+    <string name="memberDetailsActivity_memberRelation">Follow up</string>
+    <string name="memberDetailsActivity_memberCars">Own cars</string>
+    <string name="memberDetailsPostsActivity_memberPosts">Own Posts</string>
 </resources>

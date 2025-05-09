@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FRAGMENTS.CarSearchFragment"
+    tools:context=".FRAGMENTS.ClubSearchFragment"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/carSearchFragment_searchFragment_mainActivity_recyclerView"
+        android:id="@+id/clubSearchFragment_searchFragment_mainActivity_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />

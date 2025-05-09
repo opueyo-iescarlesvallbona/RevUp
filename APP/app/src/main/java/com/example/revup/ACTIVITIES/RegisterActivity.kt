@@ -90,7 +90,7 @@ class RegisterActivity : AppCompatActivity() {
                     val date: Date = format.parse(dateOfBirth)!!
 
                     //Create member
-                    val member = Member(name = memberName, memberName = memberName, genderId = 1, locationId = 1, email = email,
+                    val member = Member(name = memberName, membername = memberName, genderId = 1, locationId = 1, email = email,
                         dateOfBirth = format.format(date), loginDate = format.format(Date()), password = password)
 
                     //Add member
@@ -104,7 +104,7 @@ class RegisterActivity : AppCompatActivity() {
                     if(afegit){
                         var token:String? = null
                         try{
-                            token = apiRevUp.login(member.memberName.toString(), member.password.toString(), applicationContext)
+                            token = apiRevUp.login(member.membername.toString(), member.password.toString(), applicationContext)
                         }catch (e: Exception){
                             Toast.makeText(this, "Error getting token: $e", Toast.LENGTH_LONG).show()
                         }

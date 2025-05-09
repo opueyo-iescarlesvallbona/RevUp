@@ -2,6 +2,10 @@ package com.example.revup._DATACLASS
 
 import android.content.Context
 import android.net.Uri
+import android.os.Parcelable
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import kotlinx.parcelize.Parcelize
 import java.io.File
 import java.math.BigDecimal
 import java.time.LocalDateTime
@@ -29,18 +33,19 @@ class Car(
     var model: Model? = null
 )
 
+@Parcelize
 class Club(
     var id: Int,
     var name: String,
     var founder: Int,
-    var description: String,
+    var description: String?,
     var picture: String,
-    var creationDate: Date,
+    var creationDate: String,
 
-    var member: Member? = null,
-    var clubEvent: MutableList<ClubEvent> = mutableListOf(),
-    var memberClub: MutableList<MemberClub> = mutableListOf()
-)
+//    var member: Member? = null,
+//    var clubEvent: MutableList<ClubEvent> = mutableListOf(),
+//    var memberClub: MutableList<MemberClub> = mutableListOf()
+): Parcelable
 
 class ClubEvent(
     var id: Int,
@@ -148,10 +153,11 @@ class MemberClubRole (
     var memberClub: MutableSet<MemberClub> = HashSet()
 )
 
+@Parcelize
 class Member (
     var id: Int = 0,
     var name: String? = null,
-    var memberName: String? = null,
+    var membername: String? = null,
     var experience: Int? = null,
     var email: String? = null,
     var genderId: Int = 0,
@@ -162,20 +168,20 @@ class Member (
     var profilePicture: String? = null,
     var password: String? = null,
 
-    var cars: MutableSet<Car> = HashSet(),
-    var clubs: MutableSet<Club> = HashSet(),
-    var gender: Gender? = null,
-    var memberLocation: MemberLocation? = null,
-    var memberClub: MutableSet<MemberClub> = HashSet(),
-    var memberRelation: MutableSet<MemberRelation> = HashSet(),
-    var memberRelation1: MutableSet<MemberRelation> = HashSet(),
-    var messages: MutableSet<Message> = HashSet(),
-    var messages1: MutableSet<Message> = HashSet(),
-    var posts: MutableSet<Post> = HashSet(),
-    var postComment: MutableSet<PostComment> = HashSet(),
-    var routes: MutableSet<Route> = HashSet(),
-    var posts1: MutableSet<Post> = HashSet()
-)
+//    var cars: MutableSet<Car> = HashSet(),
+//    var clubs: MutableSet<Club> = HashSet(),
+//    var gender: Gender? = null,
+//    var memberLocation: MemberLocation? = null,
+//    var memberClub: MutableSet<MemberClub> = HashSet(),
+//    var memberRelation: MutableSet<MemberRelation> = HashSet(),
+//    var memberRelation1: MutableSet<MemberRelation> = HashSet(),
+//    var messages: MutableSet<Message> = HashSet(),
+//    var messages1: MutableSet<Message> = HashSet(),
+//    var posts: MutableSet<Post> = HashSet(),
+//    var postComment: MutableSet<PostComment> = HashSet(),
+//    var routes: MutableSet<Route> = HashSet(),
+//    var posts1: MutableSet<Post> = HashSet()
+): Parcelable
 
 class Gender (
     var id: Int = 0,
@@ -279,4 +285,9 @@ fun uriToFile(context: Context, uri: Uri): File {
         inputStream?.copyTo(fileOut)
     }
     return tempFile
+}
+
+class SearchViewModel : ViewModel() {
+    val filter: MutableLiveData<String> = MutableLiveData("")
+    val current_tab: MutableLiveData<Int> = MutableLiveData(0)
 }
