@@ -63,12 +63,12 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/cardview_post_postdetails_commentmoreOptions"
+            android:id="@+id/cardview_post_postdetails_commentdelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/baseline_more_vert_24" />
+            android:src="@drawable/outline_delete_24" />
     </LinearLayout>
 
 

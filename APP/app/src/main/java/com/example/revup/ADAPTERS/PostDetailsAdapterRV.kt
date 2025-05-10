@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,6 +16,8 @@ import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.Post
 import com.example.revup._DATACLASS.PostComment
+import com.example.revup._DATACLASS.current_user
+import com.example.revup._DATACLASS.image_path
 import java.util.Calendar
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -29,6 +32,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
 
     class ViewHolder(val vista: View): RecyclerView.ViewHolder(vista) {
         val user = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_username)
+        val userImage = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_userPhoto)
         val content = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_contentText)
         val timeAgo = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_timeAgo)
         val image = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_contentImage)
@@ -39,12 +43,12 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
         val commentTimeAgo = vista.findViewById<TextView>(R.id.cardview_post_postdetails_commenttimeAgo)
         val commentUser = vista.findViewById<TextView>(R.id.cardview_post_postdetails_commentusername)
         val commentUserPhoto = vista.findViewById<ImageView>(R.id.cardview_post_postdetails_commentuserPhoto)
-        val moreOptions = vista.findViewById<ImageView>(R.id.cardview_post_postdetails_commentmoreOptions)
+        val delete = vista.findViewById<ImageView>(R.id.cardview_post_postdetails_commentdelete)
     }
 
     override fun getItemViewType(position: Int): Int {
         return if (position==0) {
-            if (post.picture.isNullOrEmpty()){
+            if (post.postType==1){
                 VIEW_TYPE_POST_TEXT
             }else{
                 VIEW_TYPE_POST_IMAGE
@@ -75,7 +79,6 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
     override fun getItemCount() = list.size+1
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.i("HOLAAA", getItemViewType(position).toString())
         if(getItemViewType(position) == VIEW_TYPE_POST_IMAGE||getItemViewType(position) == VIEW_TYPE_POST_TEXT){
 
             val member = apiRevUp.getMemberById(post.memberId, holder.vista.context)
@@ -85,12 +88,34 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                 val layout = holder.vista.findViewById<LinearLayout>(R.id.cardview_text_post_commentlayout)
                 layout.visibility = View.GONE
             }else{
-                holder.image.setImageResource(R.drawable.car_test)
+                Glide.with(holder.vista.context).load(image_path+post.picture).into(holder.image)
                 val layout = holder.vista.findViewById<LinearLayout>(R.id.cardview_image_post_commentlayout)
                 layout.visibility = View.GONE
             }
+
+
+            if(member!!.profilePicture!=null){
+                Glide.with(holder.vista.context).load(image_path+member!!.profilePicture).circleCrop().into(holder.userImage)
+            }else{
+                //DEFAULT PHOTO
+            }
+
+
         }else{
             val pos = position-1
+
+            if(current_user!!.id!=list[pos].memberId){
+                holder.delete.visibility = View.INVISIBLE
+            }else{
+                holder.delete.setOnClickListener {
+                    apiRevUp.deleteComment(list[pos].id, holder.vista.context)
+                    list.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(pos, list.size)
+                }
+            }
+
+
             val member = apiRevUp.getMemberById(list[pos].memberId, holder.vista.context)
 
             Glide.with(holder.vista.context).load("http://172.16.24.136:5178/api/GetImage/?path="+member!!.profilePicture).circleCrop().into(holder.commentUserPhoto)

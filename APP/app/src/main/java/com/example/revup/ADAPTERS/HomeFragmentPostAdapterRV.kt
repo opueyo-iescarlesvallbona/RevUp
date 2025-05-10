@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.revup.ACTIVITIES.PostDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.Post
+import com.example.revup._DATACLASS.image_path
 import org.w3c.dom.Text
 import java.util.Calendar
 import java.util.Date
@@ -22,6 +24,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
     companion object {
         const val VIEW_TYPE_TEXT = 0
         const val VIEW_TYPE_IMAGE = 1
+        const val VIEW_TYPE_ROUTE = 2
     }
 
     class ViewHolder(val vista: View): RecyclerView.ViewHolder(vista) {
@@ -29,14 +32,15 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
         val content = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_contentText)
         val timeAgo = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_timeAgo)
         val image = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_contentImage)
+        val userImage = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_userPhoto)
     }
 
     override fun getItemViewType(position: Int): Int {
         val post = list[position]
-        return if (post.picture.isNullOrEmpty()) {
-            VIEW_TYPE_TEXT
-        } else {
-            VIEW_TYPE_IMAGE
+        return when(post.postType) {
+            1 -> VIEW_TYPE_TEXT
+            2 -> VIEW_TYPE_IMAGE
+            else -> VIEW_TYPE_ROUTE
         }
     }
 
@@ -58,11 +62,12 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val member = apiRevUp.getMemberById(list[position].memberId, holder.vista.context)
+        Glide.with(holder.vista.context).load(image_path+member!!.profilePicture).circleCrop().into(holder.userImage)
         holder.user.setText(member!!.name)
         if(getItemViewType(position) == VIEW_TYPE_TEXT){
             holder.content.setText(list[position].description)
-        }else{
-            holder.image.setImageResource(R.drawable.car_test)
+        }else if(getItemViewType(position) == VIEW_TYPE_IMAGE){
+            Glide.with(holder.vista.context).load(image_path+list[position].picture).into(holder.image)
         }
 
         holder.timeAgo.setText(getTimeAgo(FormatDate(list[position].postDate.toString())))
