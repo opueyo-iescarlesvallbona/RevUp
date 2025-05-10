@@ -1,5 +1,6 @@
 package com.example.revup.ACTIVITIES
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,15 +26,32 @@ class PostDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         binding = ActivityPostDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
+            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+
+            v.setPadding(
+                systemBars.left,
+                systemBars.top,
+                systemBars.right,
+                if (imeVisible) imeInsets.bottom else systemBars.bottom
+            )
+
             insets
         }
+
+        binding.PostDetailsActivityBackButton.setOnClickListener {
+            this.onBackPressed()
+            val returnIntent = Intent()
+            setResult(RESULT_OK, returnIntent)
+            finish()
+        }
+
+
 
         val postId = intent.getIntExtra("postId", -1)
 

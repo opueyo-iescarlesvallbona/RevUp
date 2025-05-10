@@ -118,9 +118,9 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
 
             val member = apiRevUp.getMemberById(list[pos].memberId, holder.vista.context)
 
-            Glide.with(holder.vista.context).load("http://172.16.24.136:5178/api/GetImage/?path="+member!!.profilePicture).circleCrop().into(holder.commentUserPhoto)
+            Glide.with(holder.vista.context).load(image_path+member!!.profilePicture).circleCrop().into(holder.commentUserPhoto)
 
-            holder.commentUser.setText(member!!.membername.toString())
+            holder.commentUser.setText(member.membername.toString())
             holder.commentText.setText(list[pos].commentContent)
             holder.commentTimeAgo.setText(getTimeAgo(FormatDate(list[pos].datetime.toString())))
         }
