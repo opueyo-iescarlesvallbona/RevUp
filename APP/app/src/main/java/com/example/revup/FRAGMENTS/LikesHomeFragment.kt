@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.revup.ADAPTERS.HomeFragmentPostAdapterRV
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
+import com.example.revup._DATACLASS.Post
 import com.example.revup.databinding.LikesHomefragmentMainactivityBinding
 
 class LikesHomeFragment : Fragment() {
@@ -34,7 +35,10 @@ class LikesHomeFragment : Fragment() {
 
         val recyclerView = binding.likesHomeFragmentMainActivityRecyclerView
         try {
-            var list = apiRevUp.getPostsByLikes(requireView().context)
+            var list = apiRevUp.getPostsByLikes(requireView().context)//añadir por fecha
+            for(p: Post in list!!){
+                p.member = apiRevUp.getMemberById(p.memberId, requireView().context)
+            }
             recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
             recyclerView.layoutManager = LinearLayoutManager(requireView().context)
         }catch (e: Exception){

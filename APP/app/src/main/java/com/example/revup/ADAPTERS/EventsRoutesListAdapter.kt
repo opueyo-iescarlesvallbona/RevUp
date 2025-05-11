@@ -11,6 +11,7 @@ import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.ClubEvent
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.Route
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 
@@ -52,14 +53,37 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
         holder.vista.findViewById<ImageButton>(R.id.cardview_listEventsRoutes_deleteButton).setOnClickListener{
             when(item){
                 is Route -> {
-                    apiRevUp.deleteRoute(item.id, holder.vista.context)
-                    list.remove(item)
-                    notifyDataSetChanged()
+                    MaterialAlertDialogBuilder(holder.vista.context)
+                        .setTitle("Delete Route")
+                        .setMessage("Do you want to delete this route?")
+                        .setPositiveButton("Delete") { dialog, _ ->
+                            apiRevUp.deleteRoute(item.id, holder.vista.context)
+                            list.remove(item)
+                            notifyItemRemoved(position)
+                            notifyItemRangeChanged(position, list.size)
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("Cancel") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
                 }
                 is ClubEvent -> {
-                    apiRevUp.deleteEvent(item.id, holder.vista.context)
-                    list.remove(item)
-                    notifyDataSetChanged()
+                    MaterialAlertDialogBuilder(holder.vista.context) // use "this" if inside Activity
+                        .setTitle("Delete Event")
+                        .setMessage("Do you want to delete this event?")
+                        .setPositiveButton("Delete") { dialog, _ ->
+                            apiRevUp.deleteEvent(item.id, holder.vista.context)
+                            list.remove(item)
+                            notifyItemRemoved(position)
+                            notifyItemRangeChanged(position, list.size)
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("Cancel") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+
                 }
             }
         }

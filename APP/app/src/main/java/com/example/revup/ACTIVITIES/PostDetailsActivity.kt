@@ -18,6 +18,7 @@ import com.example.revup.ADAPTERS.PostDetailsAdapterRV
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.PostComment
+import com.example.revup._DATACLASS.curr_post
 import com.example.revup.databinding.ActivityPostDetailsBinding
 
 class PostDetailsActivity : AppCompatActivity() {
@@ -52,38 +53,36 @@ class PostDetailsActivity : AppCompatActivity() {
         }
 
 
+        val post = curr_post
 
-        val postId = intent.getIntExtra("postId", -1)
+        if (post != null) {
+            var comments: MutableList<PostComment>? = null
+            try {
+                comments = apiRevUp.getCommentsByPostId(post.id, this)
 
-        if (postId != -1) {
-            val post = apiRevUp.getPostById(postId, applicationContext)
-
-            if (post != null) {
-                Log.i("Post", postId.toString())
-                var comments : MutableList<PostComment>? = null
-                try{
-                    comments = apiRevUp.getCommentsByPostId(post.id, this)
-
-                }catch(e: Exception){
-                    Toast.makeText(this, "Error getting comments", Toast.LENGTH_SHORT).show()
-                }
-
-                if(comments == null){
-                    comments = mutableListOf()
-                }
-                post.postComments = comments.toMutableSet()
-
-                val layoutManager = LinearLayoutManager(this)
-                layoutManager.setStackFromEnd(true)
-                binding.PostDetailsActivityRecyclerView.adapter =
-                    PostDetailsAdapterRV(post.postComments.toMutableList(), post)
-                binding.PostDetailsActivityRecyclerView.layoutManager =
-                    LinearLayoutManager(this)
-            } else {
-                Toast.makeText(applicationContext, "Error getting post", Toast.LENGTH_SHORT)
-                    .show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error getting comments", Toast.LENGTH_SHORT).show()
             }
 
+            if (comments == null) {
+                comments = mutableListOf()
+            }
+            post.postComments = comments.toMutableSet()
+            for(c: PostComment in post.postComments){
+                c.member = apiRevUp.getMemberById(c.memberId, this)
+            }
+
+            val layoutManager = LinearLayoutManager(this)
+            layoutManager.setStackFromEnd(true)
+            binding.PostDetailsActivityRecyclerView.adapter =
+                PostDetailsAdapterRV(post.postComments.toMutableList(), post)
+            binding.PostDetailsActivityRecyclerView.layoutManager =
+                LinearLayoutManager(this)
+        } else {
+            Toast.makeText(applicationContext, "Error getting post", Toast.LENGTH_SHORT)
+                .show()
         }
+
+
     }
 }

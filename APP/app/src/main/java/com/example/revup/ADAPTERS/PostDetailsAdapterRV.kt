@@ -18,6 +18,7 @@ import com.example.revup._DATACLASS.Post
 import com.example.revup._DATACLASS.PostComment
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Calendar
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -81,7 +82,8 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(getItemViewType(position) == VIEW_TYPE_POST_IMAGE||getItemViewType(position) == VIEW_TYPE_POST_TEXT){
 
-            val member = apiRevUp.getMemberById(post.memberId, holder.vista.context)
+            //val member = apiRevUp.getMemberById(post.memberId, holder.vista.context)
+            val member = post.member
             holder.user.setText(member!!.name)
             if(getItemViewType(position) == VIEW_TYPE_POST_TEXT){
                 holder.content.setText(post.description)
@@ -108,15 +110,27 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                 holder.delete.visibility = View.INVISIBLE
             }else{
                 holder.delete.setOnClickListener {
-                    apiRevUp.deleteComment(list[pos].id, holder.vista.context)
-                    list.removeAt(position)
-                    notifyItemRemoved(position)
-                    notifyItemRangeChanged(pos, list.size)
+                    MaterialAlertDialogBuilder(holder.vista.context)
+                        .setTitle("Delete Comment")
+                        .setMessage("Do you want to delete this comment?")
+                        .setPositiveButton("Delete") { dialog, _ ->
+                            apiRevUp.deleteComment(list[pos].id, holder.vista.context)
+                            list.removeAt(pos)
+                            notifyItemRemoved(position)
+                            notifyItemRangeChanged(pos, list.size)
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("Cancel") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+
                 }
             }
 
 
-            val member = apiRevUp.getMemberById(list[pos].memberId, holder.vista.context)
+            //val member = apiRevUp.getMemberById(list[pos].memberId, holder.vista.context)
+            val member = list[pos].member
 
             Glide.with(holder.vista.context).load(image_path+member!!.profilePicture).circleCrop().into(holder.commentUserPhoto)
 

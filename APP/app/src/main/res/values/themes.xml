@@ -13,6 +13,6 @@
 
     <style name="ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">10%</item>
     </style>
 </resources>

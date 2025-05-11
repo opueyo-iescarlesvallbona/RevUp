@@ -14,6 +14,7 @@ import com.example.revup.FRAGMENTS.EventsFragment
 import com.example.revup.FRAGMENTS.HomeFragment
 import com.example.revup.FRAGMENTS.SearchFragment
 import com.example.revup.R
+import com.example.revup._DATACLASS.current_user
 import com.example.revup.databinding.ActivityMainBinding
 import com.google.android.material.animation.AnimationUtils
 
@@ -32,19 +33,20 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.mainActivityBtnSearch.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-            sharedPreferences.edit() {
-                clear()
-                apply()
-            }
+        binding.mainActivityBtnProfile.setOnClickListener {
+            val intent = Intent(this, MemberDetailsActivity::class.java)
+            intent.putExtra("member", current_user)
+            startActivity(intent)
+
+//            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+//            sharedPreferences.edit() {
+//                clear()
+//                apply()
+//            }
         }
 
         initFragment(HomeFragment())
         binding.mainActivityBottomNavigationView.setOnItemSelectedListener {
-            if(it.itemId != R.id.home){
-                activeCreatePostButton(false)
-            }
             when (it.itemId) {
                 R.id.home -> {
                     initFragment(HomeFragment())
@@ -65,19 +67,28 @@ class MainActivity : AppCompatActivity() {
                 }
                 else -> {true}
             }
+
+
+            if(it.itemId != R.id.home){
+                activeCreatePostButton(false)
+            }
+            true
         }
         binding.mainActivityBtnAdd.setOnClickListener{
             onAddButtonClicked()
         }
         binding.mainActivityBtnAddText.setOnClickListener {
+            binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
             val intent = Intent(this, AddTextPostActivity::class.java)
             startActivity(intent)
         }
         binding.mainActivityBtnAddImage.setOnClickListener {
+            binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
             val intent = Intent(this, AddImagePostActivity::class.java)
             startActivity(intent)
         }
         binding.mainActivityBtnAddRoute.setOnClickListener {
+            binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
             val intent = Intent(this, AddRoutePostActivity::class.java)
             startActivity(intent)
         }
@@ -129,10 +140,12 @@ class MainActivity : AppCompatActivity() {
             binding.mainActivityBtnAddText.startAnimation(anim_toBottom)
             binding.mainActivityBtnAddImage.startAnimation(anim_toBottom)
             binding.mainActivityBtnAddRoute.startAnimation(anim_toBottom)
+            binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
         }else{
             binding.mainActivityBtnAddText.startAnimation(anim_fromBottom)
             binding.mainActivityBtnAddImage.startAnimation(anim_fromBottom)
             binding.mainActivityBtnAddRoute.startAnimation(anim_fromBottom)
+            binding.mainActivityBtnAdd.animate().rotationBy(45f).setDuration(500).start()
         }
     }
 

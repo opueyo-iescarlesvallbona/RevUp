@@ -13,6 +13,7 @@ import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.Post
+import com.example.revup._DATACLASS.curr_post
 import com.example.revup._DATACLASS.image_path
 import org.w3c.dom.Text
 import java.util.Calendar
@@ -61,9 +62,9 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val member = apiRevUp.getMemberById(list[position].memberId, holder.vista.context)
-        Glide.with(holder.vista.context).load(image_path+member!!.profilePicture).circleCrop().into(holder.userImage)
-        holder.user.setText(member!!.name)
+        //val member = apiRevUp.getMemberById(list[position].memberId, holder.vista.context)
+        Glide.with(holder.vista.context).load(image_path+list[position].member!!.profilePicture).circleCrop().into(holder.userImage)
+        holder.user.setText(list[position].member!!.name)
         if(getItemViewType(position) == VIEW_TYPE_TEXT){
             holder.content.setText(list[position].description)
         }else if(getItemViewType(position) == VIEW_TYPE_IMAGE){
@@ -74,7 +75,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
 
         holder.vista.setOnClickListener{
             val intent = Intent(holder.vista.context, PostDetailsActivity::class.java)
-            intent.putExtra("postId", list[position].id)
+            curr_post = list[position]
             holder.vista.context.startActivity(intent)
 
         }

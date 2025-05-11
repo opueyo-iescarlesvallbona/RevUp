@@ -297,3 +297,8 @@ class SearchViewModel : ViewModel() {
     val filter: MutableLiveData<String> = MutableLiveData("")
     val current_tab: MutableLiveData<Int> = MutableLiveData(0)
 }
+
+class ChatViewModel : ViewModel() {
+    val filter: MutableLiveData<String> = MutableLiveData("")
+    val current_tab: MutableLiveData<Int> = MutableLiveData(0)
+}

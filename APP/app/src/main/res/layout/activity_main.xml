@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/mainActivity_btnSearch"
+            android:id="@+id/mainActivity_btnProfile"
             android:src="@drawable/baseline_account_circle_24"
             app:shapeAppearanceOverlay="@style/fab_3_rounded"
             android:backgroundTint="@color/yellow"

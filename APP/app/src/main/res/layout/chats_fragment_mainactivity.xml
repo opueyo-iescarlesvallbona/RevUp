@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FRAGMENTS.ChatsFragment"
-    android:background="@color/orange">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FRAGMENTS.SearchFragment"
+    android:background="@color/dark_white"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/chatFragment_mainActivity_tabs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="CHATS" />
+        android:layout_height="70dp"
+        app:tabMaxWidth="0dp"
+        app:tabGravity="center"
+        app:tabMode="fixed"/>
 
-</FrameLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/chatFragment_mainActivity_searchTextLayout"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:hint="Search..."
+        app:hintEnabled="false"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="10dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/chatFragment_mainActivity_searchText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="15sp"
+            android:hint="Search..."/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/chatFragment_mainActivity_viewPager"
+        />
+
+</LinearLayout>
