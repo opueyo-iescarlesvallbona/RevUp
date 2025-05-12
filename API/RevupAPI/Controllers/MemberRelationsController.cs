@@ -158,17 +158,13 @@ namespace RevupAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMemberRelationsByMemberId([FromQuery]int id)
         {
-            var memberRelation = await _context.MemberRelations
-                .Include(m => m.MemberId1Navigation)
-                .Include(m => m.MemberId2Navigation)
-                .Include(m => m.State)
-                .FirstOrDefaultAsync(m => m.MemberId1 == id);
+            var memberRelation = await _context.MemberRelations.Where(x=>x.MemberId1==id).ToListAsync();
             if (memberRelation == null)
             {
                 return NotFound();
             }
 
-            return View(memberRelation);
+            return Ok(memberRelation);
         }
 
         [Authorize]
@@ -176,13 +172,17 @@ namespace RevupAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<MemberRelation>> PostMemberRelation([FromBody] MemberRelation memberRelation)
         {
-            if (ModelState.IsValid)
+            try
             {
                 _context.Add(memberRelation);
                 await _context.SaveChangesAsync();
                 return memberRelation;
             }
-            return BadRequest("Incorrect member relation data");
+            catch
+            {
+                return BadRequest("Incorrect member relation data");
+            }
+            
         }
 
         [Authorize]
@@ -202,16 +202,16 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/MemberRelation")]
         [HttpDelete]
-        public async Task<ActionResult<MemberRelation>> DeleteMemberRelation([FromQuery] int id)
+        public async Task<ActionResult<bool>> DeleteMemberRelation([FromQuery] int memberId1, [FromQuery] int memberId2)
         {
-            var memberRelation = await _context.MemberRelations.FindAsync(id);
+            var memberRelation = await _context.MemberRelations.Where(x=>x.MemberId1==memberId1&&x.MemberId2==memberId2).FirstOrDefaultAsync();
             if (memberRelation == null)
             {
                 return NotFound();
             }
             _context.MemberRelations.Remove(memberRelation);
             await _context.SaveChangesAsync();
-            return memberRelation;
+            return true;
         }
 
     }

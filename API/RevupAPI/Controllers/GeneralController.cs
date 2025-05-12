@@ -20,7 +20,7 @@ namespace RevupAPI.Controllers
             _imagesFolderPath = "C:\\Users\\cv\\Downloads\\";
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("api/GetImage")]
         [HttpGet]
         public IActionResult GetImage([FromQuery] String path)
@@ -64,28 +64,33 @@ namespace RevupAPI.Controllers
             //string dateTimeNow = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             string imageFileName = "";
             string targetFolder = "";
+            string pathSaved = "";
             switch (obj)
             {
                 case Post post:
                     imageFileName = $"{post.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "posts");
-                    
+                    pathSaved = Path.Combine("posts", imageFileName);
                     break;
                 case Member member:
                     imageFileName = $"{member.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "members");
+                    pathSaved = Path.Combine("members", imageFileName);
                     break;
                 case Club club:
                     imageFileName = $"{club.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "clubs");
+                    pathSaved = Path.Combine("clubs", imageFileName);
                     break;
                 case Car car:
                     imageFileName = $"{car.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "cars");
+                    pathSaved = Path.Combine("cars", imageFileName);
                     break;
                 case ClubEvent clubEvent:
                     imageFileName = $"{clubEvent.Id}.{fileType}";
                     targetFolder = Path.Combine(_imagesFolderPath, "events");
+                    pathSaved = Path.Combine("events", imageFileName);
                     break;
             }
 
@@ -111,7 +116,7 @@ namespace RevupAPI.Controllers
                 imageFile.CopyTo(fileStream);
             }
 
-            return filePath;
+            return pathSaved;
         }
 
         public static bool DeleteImage(string imageFileName, Object obj)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -212,6 +213,21 @@ namespace RevupAPI.Controllers
                 }
             }
             return NoContent();
+        }
+
+        [Authorize]
+        [Route("api/Car")]
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteCar(int id)
+        {
+            var car = await _context.Cars.FindAsync(id);
+            if (car == null)
+            {
+                return NotFound(false);
+            }
+            _context.Cars.Remove(car);
+            await _context.SaveChangesAsync();
+            return Ok(true);
         }
     }
 }

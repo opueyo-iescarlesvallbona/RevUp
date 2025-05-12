@@ -212,7 +212,7 @@ namespace RevupAPI.Controllers
 
         [Route("api/Member")]
         [HttpPost]
-        public async Task<ActionResult<Member>> PostMember([FromBody] Member member)//[FromQuery]IFormFile image, [FromBody]Member member)
+        public async Task<ActionResult<Member>> PostMember([FromBody]IFormFile image, [FromBody]Member member)
         {
             if (member.Password != null)
             {
@@ -224,17 +224,17 @@ namespace RevupAPI.Controllers
             }
 
 
+            if (image != null)
+            {
+                try
+                {
+                    string path = GeneralController.UploadImage(image, member);
+                    member.ProfilePicture = path;
+                }
+                catch { }
+            }
             _context.Members.Add(member);
             await _context.SaveChangesAsync();
-
-            //if (image != null)
-            //{
-            //    try
-            //    {
-            //        GeneralController.UploadImage(image, member);
-            //    }
-            //    catch{}
-            //}
             return Ok(member);
             return BadRequest("Invalid member data");
         }

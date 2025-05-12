@@ -79,6 +79,32 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.CarsController",
+    "Method": "DeleteCar",
+    "RelativePath": "api/Car",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.CarsController",
     "Method": "GetCarsByMemberId",
     "RelativePath": "api/Cars",
     "HttpMethod": "GET",
@@ -239,7 +265,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RevupAPI.Models.PostComment",
+        "Type": "System.Boolean",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -761,6 +787,11 @@
     "Order": 0,
     "Parameters": [
       {
+        "Name": "image",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": true
+      },
+      {
         "Name": "member",
         "Type": "RevupAPI.Models.Member",
         "IsRequired": true
@@ -1046,14 +1077,19 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "memberId1",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "memberId2",
         "Type": "System.Int32",
         "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "RevupAPI.Models.MemberRelation",
+        "Type": "System.Boolean",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1367,6 +1403,32 @@
     "ContainingType": "RevupAPI.Controllers.PostsController",
     "Method": "GetPostsByMemberFriends",
     "RelativePath": "api/PostsByMemberFriends",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Post, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.PostsController",
+    "Method": "GetPostsByMemberId",
+    "RelativePath": "api/PostsByMemberId",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

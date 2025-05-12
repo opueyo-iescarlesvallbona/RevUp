@@ -274,9 +274,8 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-
-            var role = member_club.RoleTypeNavigation;
-            return role;
+            var role = await _context.MemberClubRoles.Where(x => x.Id == member_club.RoleType).FirstOrDefaultAsync();
+            return Ok(role);
         }
 
         [Authorize]

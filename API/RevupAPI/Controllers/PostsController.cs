@@ -327,7 +327,10 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-            post.Members.Remove(member);
+
+            await _context.Database.ExecuteSqlRawAsync("DELETE FROM post_member_like WHERE post_id = {0} AND member_id = {1}", postId, memberId);
+            
+            //post.Members.Remove(member);
             await _context.SaveChangesAsync();
             return Ok(post);
         }
@@ -339,12 +342,28 @@ namespace RevupAPI.Controllers
         {
             var post = await _context.Posts.FindAsync(postId);
             var member = await _context.Members.FindAsync(memberId);
+            
             if (post == null || member == null)
             {
                 return NotFound();
             }
-            var isLiked = post.Members.Contains(member);
-            return isLiked;
+            
+            var members = _context.Posts.Where(x => x.Id == postId).SelectMany(x => x.Members).ToList();
+            var isLiked = members.Contains(member);
+            return Ok(isLiked);
+        }
+
+        [Authorize]
+        [Route("api/PostsByMemberId")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByMemberId([FromQuery] int memberId)
+        {
+            var posts = await _context.Posts.Where(x => x.MemberId == memberId).ToListAsync();
+            if (posts == null || !posts.Any())
+            {
+                return NotFound();
+            }
+            return posts;
         }
     }
 }

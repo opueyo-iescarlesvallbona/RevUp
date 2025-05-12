@@ -170,15 +170,19 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/Comment")]
         [HttpPost]
-        public async Task<ActionResult<PostComment>> PostComment([FromBody] PostComment postComment)
+        public async Task<ActionResult<bool>> PostComment([FromBody] PostComment postComment)
         {
-            if (ModelState.IsValid)
+            try
             {
                 _context.PostComments.Add(postComment);
                 await _context.SaveChangesAsync();
-                return Ok(postComment);
+                return Ok(true);
             }
-            return BadRequest("Invalid comment data");
+            catch
+            {
+                return BadRequest(false);
+            }
+            
         }
 
         [Authorize]
