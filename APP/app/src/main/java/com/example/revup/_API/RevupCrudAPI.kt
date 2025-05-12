@@ -489,12 +489,12 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun deleteMemberRelation(memberRelationId: Int, context: Context): Boolean{
+    fun deleteMemberRelation(memberId1: Int, memberId2: Int, context: Context): Boolean{
         var esborrat: Boolean = false
         runBlocking {
             var resposta: Response<Boolean>? = null
             val cor = launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).deleteMemberRelation(memberRelationId)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).deleteMemberRelation(memberId1, memberId2)
             }
             cor.join()
             if (resposta!!.isSuccessful)

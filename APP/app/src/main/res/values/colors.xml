@@ -7,4 +7,9 @@
     <color name="red">#FF0000</color>
     <color name="green">#10FF00</color>
     <color name="dark_white">#BFBFBF</color>
+    <color name="clubRole_Member">#00B29F</color>
+    <color name="clubRole_Founder">#002289</color>
+    <color name="clubRole_Administrator">#00840B</color>
+    <color name="memberRelation_Friend">#2196F3</color>
+    <color name="memberRelation_NoFriend">#FF5722</color>
 </resources>

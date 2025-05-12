@@ -9,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 import java.io.File
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -151,7 +152,7 @@ class MemberClubRole (
     var id: Int = 0,
     var name: String = "",
 
-    var memberClub: MutableSet<MemberClub> = HashSet()
+    //var memberClub: MutableSet<MemberClub> = HashSet()
 )
 
 @Parcelize
@@ -264,19 +265,31 @@ class Notification(
 
 fun FormatDate(date: String): Date {
     var formater: DateTimeFormatter? = null
+    var formats: List<String> = listOf("yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SS", "yyyy-MM-dd'T'HH:mm:ssss")
     var local_datetime: LocalDateTime? = null
-    try{
-        formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SS")
-        local_datetime = LocalDateTime.parse(date,formater)
-    }catch(e: Exception){
+    var local_date: LocalDate? = null
+
+    for (format in formats){
         try{
-            formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+            formater = DateTimeFormatter.ofPattern(format)
             local_datetime = LocalDateTime.parse(date,formater)
+            break
         }catch(e: Exception){
-            return Date()
+            try{
+                formater = DateTimeFormatter.ofPattern(format)
+                local_date = LocalDate.parse(date,formater)
+                break
+            }catch (e: Exception){
+                continue
+            }
         }
     }
-    return Date.from(local_datetime!!.atZone(ZoneId.systemDefault()).toInstant())
+
+    if(local_datetime == null){
+        return Date.from(local_date!!.atStartOfDay(ZoneId.systemDefault()).toInstant())
+    }else{
+        return Date.from(local_datetime!!.atZone(ZoneId.systemDefault()).toInstant())
+    }
 }
 
 fun uriToFile(context: Context, uri: Uri): File {

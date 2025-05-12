@@ -1,5 +1,6 @@
 package com.example.revup.ADAPTERS
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.text.Layout
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.example.revup.ACTIVITIES.MemberDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Member
+import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
 
 class MemberSearchAdapter(var list: MutableList<Member>): RecyclerView.Adapter<MemberSearchAdapter.ViewHolder>() {
@@ -36,6 +38,7 @@ class MemberSearchAdapter(var list: MutableList<Member>): RecyclerView.Adapter<M
 
     override fun getItemCount() = list.size
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(position == list.size-1){
             holder.vista.findViewById<Space>(R.id.cardview_memberSearch_space).layoutParams.height = 250
@@ -45,7 +48,12 @@ class MemberSearchAdapter(var list: MutableList<Member>): RecyclerView.Adapter<M
         }else{
             holder.picture.setImageResource(R.drawable.baseline_account_circle_24)
         }
-        holder.memberName.setText(list[position].membername)
+        if(list[position].membername == current_user!!.membername){
+            holder.memberName.setText("Me")
+            holder.memberName.setTextColor(holder.vista.context.getColor(R.color.orange))
+        }else{
+            holder.memberName.setText(list[position].membername)
+        }
         if (list[position].locationId != null){
             val location = apiRevUp.getLocationById(list[position].locationId!!, holder.vista.context)
             holder.memberLocation.setText(location!!.municipality)

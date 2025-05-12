@@ -147,7 +147,7 @@ interface RevupAPIService {
     suspend fun postMemberRelation(@Body memberRelation: MemberRelation): Response<MemberRelation>
 
     @DELETE("/api/MemberRelation/")
-    suspend fun deleteMemberRelation(@Query("id") id: Int): Response<Boolean>
+    suspend fun deleteMemberRelation(@Query("memberId1") memberId1: Int, @Query("memberId2") memberId2: Int): Response<Boolean>
 
     @GET("/api/RelationStateById/")
     suspend fun getRelationStateById(

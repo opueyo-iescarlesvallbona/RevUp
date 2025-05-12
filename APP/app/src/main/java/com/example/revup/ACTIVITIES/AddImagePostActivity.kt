@@ -39,10 +39,10 @@ class AddImagePostActivity : AppCompatActivity() {
 
         val pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
             if (uri != null) {
-                binding.addImagePostActivityPreviewImage.visibility = View.VISIBLE
-                binding.addImagePostActivityNoSelectedImage.visibility = View.INVISIBLE
                 selectedImageUri = uri
                 binding.addImagePostActivityPreviewImage.setImageURI(selectedImageUri)
+            }else{
+                binding.addImagePostActivityPreviewImage.setImageResource(R.drawable.baseline_add_photo_alternate_24)
             }
         }
 
@@ -58,9 +58,6 @@ class AddImagePostActivity : AppCompatActivity() {
         }
 
         binding.addImagePostActivityPreviewImage.setOnClickListener{
-            pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
-        }
-        binding.addImagePostActivityNoSelectedImage.setOnClickListener{
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
     }

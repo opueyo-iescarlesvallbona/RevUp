@@ -22,6 +22,8 @@ class MemberSearchFragment : Fragment() {
     lateinit var binding: FragmentMemberSearchBinding
     val apiRevUp = RevupCrudAPI()
     private lateinit var viewModel: SearchViewModel
+    var memberList: MutableList<Member>? = null
+    var memberListFiltered: MutableList<Member> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,15 +39,21 @@ class MemberSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        memberList = apiRevUp.getMembersByMemberName("", requireContext())
         viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
 
         viewModel.filter.observe(viewLifecycleOwner, Observer { text ->
             try {
-                var memberList = apiRevUp.getMembersByMemberName(text, requireContext())
                 val recyclerView = binding.memberSearchFragmentSearchFragmentMainActivityRecyclerView
-                if (memberList == null) memberList = mutableListOf()
-                recyclerView.adapter = MemberSearchAdapter(memberList)
+                if (memberList == null){
+                    memberListFiltered = mutableListOf()
+                }else{
+                    memberListFiltered = memberList!!.filter { it.membername!!.contains(text) } as MutableList<Member>
+                    if (memberListFiltered.isEmpty()){
+                        memberListFiltered = mutableListOf()
+                    }
+                }
+                recyclerView.adapter = MemberSearchAdapter(memberListFiltered)
                 recyclerView.layoutManager = GridLayoutManager(requireView().context, 2)
             }catch (e: Exception){
                 Toast.makeText(requireContext(), "Cant load member list", Toast.LENGTH_SHORT).show()

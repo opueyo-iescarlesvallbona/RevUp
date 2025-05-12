@@ -1,5 +1,6 @@
 package com.example.revup.ACTIVITIES
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -16,6 +17,7 @@ import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Club
 import com.example.revup._DATACLASS.FormatDate
+import com.example.revup._DATACLASS.curr_club
 import com.example.revup._DATACLASS.image_path
 import com.example.revup._DATACLASS.toSimpleDateString
 import com.example.revup.databinding.ActivityClubDetailsBinding
@@ -36,8 +38,23 @@ class ClubDetailsActivity : AppCompatActivity() {
         }
         val club = intent.getParcelableExtra<Club>("club")
 
+        binding.clubDetailsActivityBackButton.setOnClickListener{
+            this.onBackPressed()
+            val returnIntent = Intent()
+            setResult(RESULT_OK, returnIntent)
+            finish()
+        }
+
+        binding.clubDetailsActivityBackButtonText.setOnClickListener {
+            this.onBackPressed()
+            val returnIntent = Intent()
+            setResult(RESULT_OK, returnIntent)
+            finish()
+        }
+
         if (club != null){
             try {
+                curr_club = club
                 if(club.picture != null && club.picture != ""){
                     Glide.with(this).load(image_path+club.picture).circleCrop().into(binding.clubDetailsActivityPicture)
                 }else{

@@ -22,10 +22,17 @@
     <string name="post_details_header">Post</string>
     <string name="memberSearchFragment_memberName">Member</string>
     <string name="memberSearchFragment_carName">Car</string>
-    <string name="get_back">Back</string>
     <string name="clubDetailsActivity_membersTitle">Club members</string>
     <string name="clubDetailsActivity_memberClubRelation">Join in</string>
     <string name="memberDetailsActivity_memberRelation">Follow up</string>
     <string name="memberDetailsActivity_memberCars">Own cars</string>
     <string name="memberDetailsPostsActivity_memberPosts">Own Posts</string>
+    <string name="addEventActivity_addType">New Event</string>
+    <string name="addEventActivity_hint_name">Name</string>
+    <string name="addEventActivity_hint_startDate">Start date</string>
+    <string name="addEventActivity_hint_endDate">End date [Optional]</string>
+    <string name="addEventActivity_hint_description">Description</string>
+    <string name="addEventActivity_hint_location">Select event location</string>
+    <string name="memberDetailsActivity_back_button_text">Member</string>
+    <string name="clubDetailsActivity_back_button_text">Club</string>
 </resources>
