@@ -378,7 +378,8 @@ namespace RevupAPI.Controllers
         {
             var member = await _context.Members.FindAsync(id);
 
-            var clubs = member.Clubs.ToList();
+            var clubs = await _context.MemberClubs.Where(x=>x.MemberId==member.Id).Select(x => x.Club).ToListAsync();
+
             if (clubs == null || !clubs.Any())
             {
                 return NotFound();

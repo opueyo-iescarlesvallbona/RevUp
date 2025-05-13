@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using RevupAPI.Models;
 
 namespace RevupAPI.Controllers
@@ -289,6 +290,61 @@ namespace RevupAPI.Controllers
                 return NotFound();
             }
             return memberRole;
+        }
+
+
+        [Authorize]
+        [Route("api/MemberClub")]
+        [HttpPost]
+        public async Task<ActionResult<bool>> PostMemberClub([FromBody] MemberClub memberClub)
+        {
+            try {
+                _context.MemberClubs.Add(memberClub);
+                await _context.SaveChangesAsync();
+                return Ok(memberClub);
+            }
+            catch
+            {
+                return BadRequest("Invalid member club data");
+            }
+        }
+
+        [Authorize]
+        [Route("api/MemberClub")]
+        [HttpPut]
+        public async Task<ActionResult<bool>> PutMemberClub([FromBody] MemberClub memberClub)
+        {
+            var existingMemberClub = await _context.MemberClubs.Where(x=>x.ClubId==memberClub.ClubId&&x.MemberId==memberClub.MemberId).FirstOrDefaultAsync();
+
+            if (existingMemberClub != null)
+            {
+                existingMemberClub.RoleType = memberClub.RoleType;
+                _context.Entry(existingMemberClub).State = EntityState.Modified;
+                _context.SaveChanges();
+                return Ok(memberClub);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [Authorize]
+        [Route("api/MemberClub")]
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteMemberClub([FromQuery] int memberId, [FromQuery] int clubId)
+        {
+            var MemberClub = await _context.MemberClubs.Where(x => x.ClubId == clubId && x.MemberId == memberId).FirstOrDefaultAsync();
+            if (MemberClub != null)
+            {
+                _context.MemberClubs.Remove(MemberClub);
+                await _context.SaveChangesAsync();
+                return Ok(true);
+            }
+            else
+            {
+                return NotFound(false);
+            }
         }
 
     }

@@ -25,9 +25,9 @@ public partial class ClubEvent
 
     public int State { get; set; }
 
-    public double Lat { get; set; }
+    public decimal Lat { get; set; }
 
-    public double Long { get; set; }
+    public decimal Long { get; set; }
 
     public virtual Club Club { get; set; } = null!;
 

@@ -205,5 +205,18 @@ namespace RevupAPI.Controllers
             }
             return models;
         }
+
+        [Authorize]
+        [Route("api/ModelsByBrand")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Model>>> GetModelsByBrand([FromQuery] int brandId)
+        {
+            var models = await _context.Models.Where(m => m.IdBrand == brandId).ToListAsync();
+            if (models == null || !models.Any())
+            {
+                return NotFound();
+            }
+            return models;
+        }
     }
 }

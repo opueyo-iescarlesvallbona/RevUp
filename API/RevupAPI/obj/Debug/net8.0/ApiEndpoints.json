@@ -889,6 +889,89 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "PostMemberClub",
+    "RelativePath": "api/MemberClub",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberClub",
+        "Type": "RevupAPI.Models.MemberClub",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "PutMemberClub",
+    "RelativePath": "api/MemberClub",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberClub",
+        "Type": "RevupAPI.Models.MemberClub",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "DeleteMemberClub",
+    "RelativePath": "api/MemberClub",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "clubId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
     "Method": "GetMemberClubRoleById",
     "RelativePath": "api/MemberClubRoleById",
     "HttpMethod": "GET",
@@ -1175,6 +1258,32 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Model, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.BrandsController",
+    "Method": "GetModelsByBrand",
+    "RelativePath": "api/ModelsByBrand",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "brandId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.Model, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
