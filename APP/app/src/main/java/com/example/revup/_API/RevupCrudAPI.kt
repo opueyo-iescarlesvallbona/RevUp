@@ -684,6 +684,22 @@ class RevupCrudAPI : CoroutineScope {
         else
             return null
     }
+
+    fun deleteCar(carId: Int, context: Context): Boolean{
+        var esborrat: Boolean = false
+        runBlocking {
+            var resposta: Response<Boolean>? = null
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).deleteCar(carId)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                esborrat = true
+            else
+                esborrat = false
+        }
+        return esborrat
+    }
     //endregion
 
     //region EVENTS

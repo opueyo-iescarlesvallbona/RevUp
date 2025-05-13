@@ -19,6 +19,7 @@ import com.example.revup.ACTIVITIES.MemberDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Member
+import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
 
@@ -60,12 +61,12 @@ class MemberSearchAdapter(var list: MutableList<Member>): RecyclerView.Adapter<M
         }
         holder.vista.setOnClickListener{
             val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)
-            intent.putExtra("member", list[position])
+            curr_member = list[position]
             holder.vista.context.startActivity(intent)
         }
         holder.picture.setOnClickListener{
             val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)
-            intent.putExtra("member", list[position])
+            curr_member = list[position]
             holder.vista.context.startActivity(intent)
         }
     }

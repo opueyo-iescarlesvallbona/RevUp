@@ -35,4 +35,12 @@
     <string name="addEventActivity_hint_location">Select event location</string>
     <string name="memberDetailsActivity_back_button_text">Member</string>
     <string name="clubDetailsActivity_back_button_text">Club</string>
+    <string name="carDetailsActivity_edit">Edit Car</string>
+    <string name="carDetailsActivity_back_button_text">Car</string>
+    <string name="carDetailsActivity_hint_brand">Brand</string>
+    <string name="carDetailsActivity_hint_model">Model</string>
+    <string name="carDetailsActivity_hint_year">Year</string>
+    <string name="carDetailsActivity_hint_power">Horse power</string>
+    <string name="carDetailsActivity_hint_descript">Description</string>
+    <string name="memberDetailsActivity_logOut">Log out</string>
 </resources>

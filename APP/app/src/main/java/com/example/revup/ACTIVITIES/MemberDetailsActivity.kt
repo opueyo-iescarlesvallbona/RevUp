@@ -3,11 +3,13 @@ package com.example.revup.ACTIVITIES
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.transition.Visibility
 import com.bumptech.glide.Glide
 import com.example.revup.ADAPTERS.ViewPagerAdapter
 import com.example.revup.FRAGMENTS.MemberDetailsCarsFragment
@@ -16,11 +18,14 @@ import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Member
 import com.example.revup._DATACLASS.MemberRelation
+import com.example.revup._DATACLASS.curr_car
+import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
 import com.example.revup.databinding.ActivityMemberDetailsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
+import androidx.core.content.edit
 
 class MemberDetailsActivity : AppCompatActivity() {
     lateinit var binding : ActivityMemberDetailsBinding
@@ -38,7 +43,7 @@ class MemberDetailsActivity : AppCompatActivity() {
             insets
         }
 
-        val member = intent.getParcelableExtra<Member>("member")
+        val member = curr_member
 
         binding.memberDetailsActivityBackButton.setOnClickListener{
             this.onBackPressed()
@@ -54,6 +59,17 @@ class MemberDetailsActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.memberDetailsActivityLogOut.setOnClickListener{
+            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+            sharedPreferences.edit(){
+                clear()
+                apply()
+            }
+            val intent = Intent(this, LogInActivity::class.java)
+            current_user = null
+            startActivity(intent)
+        }
+
         binding.memberDetailsActivityMemberRelation.setOnClickListener {
             if(binding.memberDetailsActivityMemberRelation.text == "Follow Up"){
                 try{
@@ -64,7 +80,7 @@ class MemberDetailsActivity : AppCompatActivity() {
                 }catch(e: Exception){
                     Toast.makeText(this, "Error on following. $e.message", Toast.LENGTH_SHORT).show()
                 }
-            }else{
+            }else if(binding.memberDetailsActivityMemberRelation.text == "Following"){
                 try{
                     if(memberRelation != null){
                         MaterialAlertDialogBuilder(this)
@@ -90,6 +106,8 @@ class MemberDetailsActivity : AppCompatActivity() {
                 }catch(e: Exception){
                     Toast.makeText(this, "Error on unfollowing. $e.message", Toast.LENGTH_SHORT).show()
                 }
+            }else if(binding.memberDetailsActivityMemberRelation.text == "Edit"){
+                // intent to edit member
             }
         }
 
@@ -100,9 +118,13 @@ class MemberDetailsActivity : AppCompatActivity() {
                 }else{
                     binding.memberDetailsActivityPicture.setImageResource(R.drawable.baseline_account_circle_24)
                 }
-                binding.memberDetailsActivityMemberName.text = member.name
+                binding.memberDetailsActivityMemberName.text = member.membername
                 binding.memberDetailsActivityName.text = member.name
-                binding.clubDetailsActivityDescription.text = member.description
+                if(member.description == null || member.description == ""){
+                    binding.memberDetailsActivityDescription.visibility = View.GONE
+                }else{
+                    binding.memberDetailsActivityDescription.text = member.description
+                }
 
                 val location = apiRevUp.getLocationById(member.locationId, this)
                 if(location != null){
@@ -110,8 +132,8 @@ class MemberDetailsActivity : AppCompatActivity() {
                 }
 
                 val listOfFragments = listOf(
-                    MemberDetailsCarsFragment.newInstance(member.id),
-                    MemberDetailsPostsFragment.newInstance(member.id)
+                    MemberDetailsCarsFragment(),
+                    MemberDetailsPostsFragment()
                 )
                 var adapter = ViewPagerAdapter(
                     listOfFragments,
@@ -119,8 +141,8 @@ class MemberDetailsActivity : AppCompatActivity() {
                     lifecycle
                 )
 
-                binding.clubDetailsActivityViewPager.adapter = adapter
-                TabLayoutMediator(binding.clubDetailsActivityTabs, binding.clubDetailsActivityViewPager){ tab, position ->
+                binding.memberDetailsActivityViewPager.adapter = adapter
+                TabLayoutMediator(binding.memberDetailsActivityTabs, binding.memberDetailsActivityViewPager){ tab, position ->
                     tab.text = when (position){
                         0 -> "Cars"
                         1 -> "Posts"
@@ -128,26 +150,32 @@ class MemberDetailsActivity : AppCompatActivity() {
                     }
                 }.attach()
 
-                var member_relations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id, this)
-                if (member_relations != null){
-                    val member_relation = member_relations!!.find{it.memberId2 == member.id}
-                    if(member_relation != null) {
-                        memberRelation = member_relation
-                        binding.memberDetailsActivityMemberRelation.setText("Following")
-                        binding.memberDetailsActivityMemberRelation.setTextColor(resources.getColor(R.color.memberRelation_Friend))
+                binding.memberDetailsActivityViewPager.isUserInputEnabled = false
+
+                if(member.id == current_user!!.id){
+                    binding.memberDetailsActivityMemberRelation.text = "Edit"
+                    binding.memberDetailsActivityLogOut.visibility = View.VISIBLE
+                }else{
+                    binding.memberDetailsActivityLogOut.visibility = View.GONE
+                    var member_relations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id, this)
+                    if (member_relations != null){
+                        val member_relation = member_relations!!.find{it.memberId2 == member.id}
+                        if(member_relation != null) {
+                            memberRelation = member_relation
+                            binding.memberDetailsActivityMemberRelation.setText("Following")
+                            binding.memberDetailsActivityMemberRelation.setTextColor(resources.getColor(R.color.memberRelation_Friend))
+                        }else{
+                            binding.memberDetailsActivityMemberRelation.setText("Follow Up")
+                            binding.memberDetailsActivityMemberRelation.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                        }
                     }else{
                         binding.memberDetailsActivityMemberRelation.setText("Follow Up")
                         binding.memberDetailsActivityMemberRelation.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
                     }
-                }else{
-                    binding.memberDetailsActivityMemberRelation.setText("Follow Up")
-                    binding.memberDetailsActivityMemberRelation.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
                 }
 
-
-
             }catch (e: Exception){
-                Toast.makeText(this, "Error on club details. $e.message", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error on member details. $e.message", Toast.LENGTH_SHORT).show()
             }
         }
     }

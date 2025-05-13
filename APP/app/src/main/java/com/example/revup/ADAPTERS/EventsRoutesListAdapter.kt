@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
@@ -53,37 +54,52 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
         holder.vista.findViewById<ImageButton>(R.id.cardview_listEventsRoutes_deleteButton).setOnClickListener{
             when(item){
                 is Route -> {
-                    MaterialAlertDialogBuilder(holder.vista.context)
-                        .setTitle("Delete Route")
-                        .setMessage("Do you want to delete this route?")
-                        .setPositiveButton("Delete") { dialog, _ ->
-                            apiRevUp.deleteRoute(item.id, holder.vista.context)
-                            list.remove(item)
-                            notifyItemRemoved(position)
-                            notifyItemRangeChanged(position, list.size)
-                            dialog.dismiss()
-                        }
-                        .setNegativeButton("Cancel") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .show()
+                    try{
+                        MaterialAlertDialogBuilder(holder.vista.context)
+                            .setTitle("Delete Route")
+                            .setMessage("Do you want to delete this route?")
+                            .setPositiveButton("Delete") { dialog, _ ->
+                                val result = apiRevUp.deleteRoute(item.id, holder.vista.context)
+                                if(result){
+                                    list.remove(item)
+                                    notifyItemRemoved(position)
+                                    notifyItemRangeChanged(position, list.size)
+                                    dialog.dismiss()
+                                }else{
+                                    throw Exception("Error on delete route")
+                                }
+                            }
+                            .setNegativeButton("Cancel") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
+                    }catch (e: Exception){
+                        Toast.makeText(holder.vista.context, "Error on deleting route. $e.message", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 is ClubEvent -> {
-                    MaterialAlertDialogBuilder(holder.vista.context) // use "this" if inside Activity
-                        .setTitle("Delete Event")
-                        .setMessage("Do you want to delete this event?")
-                        .setPositiveButton("Delete") { dialog, _ ->
-                            apiRevUp.deleteEvent(item.id, holder.vista.context)
-                            list.remove(item)
-                            notifyItemRemoved(position)
-                            notifyItemRangeChanged(position, list.size)
-                            dialog.dismiss()
-                        }
-                        .setNegativeButton("Cancel") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .show()
-
+                    try{
+                        MaterialAlertDialogBuilder(holder.vista.context) // use "this" if inside Activity
+                            .setTitle("Delete Event")
+                            .setMessage("Do you want to delete this event?")
+                            .setPositiveButton("Delete") { dialog, _ ->
+                                val result = apiRevUp.deleteEvent(item.id, holder.vista.context)
+                                if(result){
+                                    list.remove(item)
+                                    notifyItemRemoved(position)
+                                    notifyItemRangeChanged(position, list.size)
+                                    dialog.dismiss()
+                                }else{
+                                    throw Exception("Error on delete route")
+                                }
+                            }
+                            .setNegativeButton("Cancel") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
+                    }catch (e: Exception){
+                        Toast.makeText(holder.vista.context, "Error on deleting event. $e.message", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

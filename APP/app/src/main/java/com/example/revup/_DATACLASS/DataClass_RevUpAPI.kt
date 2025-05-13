@@ -90,7 +90,7 @@ class Post (
 
 class Model (
     var id: Int = 0,
-    var brandId: Int = 0,
+    var idBrand: Int = 0,
     var modelName: String? = null,
 
     var brand: Brand? = null,

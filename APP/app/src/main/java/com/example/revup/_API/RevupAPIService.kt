@@ -205,6 +205,9 @@ interface RevupAPIService {
 
     @GET("/api/Model/")
     suspend fun getModelById(@Query("id") id: Int): Response<Model>
+
+    @DELETE("/api/Car/")
+    suspend fun deleteCar(@Query("id") id: Int): Response<Boolean>
     //endregion
 
     //region EVENTS

@@ -37,12 +37,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, MemberDetailsActivity::class.java)
             intent.putExtra("member", current_user)
             startActivity(intent)
-
-//            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-//            sharedPreferences.edit() {
-//                clear()
-//                apply()
-//            }
         }
 
         initFragment(HomeFragment())

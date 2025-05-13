@@ -66,8 +66,6 @@ class LogInActivity : AppCompatActivity() {
 
 
         binding.logInActivityBtnLogIn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             if(!binding.logInActivityUsernameTextField.text.isNullOrEmpty()&&
                 !binding.logInActivityPasswordTextField.text.isNullOrEmpty()){
 
@@ -95,7 +93,8 @@ class LogInActivity : AppCompatActivity() {
                             putString("password", password.toString())
                             apply()
                         }
-
+                        val member = apiRevUp.getMemberByMemberName(memberName.toString(), this)
+                        current_user = member
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
