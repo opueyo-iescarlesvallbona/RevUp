@@ -1,8 +1,12 @@
 package com.example.revup._DATACLASS
 
+import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Parcelable
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.parcelize.Parcelize
@@ -64,7 +68,8 @@ class ClubEvent(
     var long: Double,
 
     var club: Club? = null,
-    var eventState: EventState? = null
+    var eventState: EventState? = null,
+    var bitmap: Bitmap? = null
 )
 
 class Post (
@@ -79,6 +84,8 @@ class Post (
     var memberId: Int = 0,
     var comments: Long = 0,
     var location_id: Int? = null,
+
+    var liked: Boolean = false,
 
     var postType1: PostType? = null,
     var route: Route? = null,
@@ -265,7 +272,7 @@ class Notification(
 
 fun FormatDate(date: String): Date {
     var formater: DateTimeFormatter? = null
-    var formats: List<String> = listOf("yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SS", "yyyy-MM-dd'T'HH:mm:ssss")
+    var formats: List<String> = listOf("yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SS", "yyyy-MM-dd'T'HH:mm:ssss", "yyyy-MM-dd'T'HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.S")
     var local_datetime: LocalDateTime? = null
     var local_date: LocalDate? = null
 
@@ -315,3 +322,11 @@ class ChatViewModel : ViewModel() {
     val filter: MutableLiveData<String> = MutableLiveData("")
     val current_tab: MutableLiveData<Int> = MutableLiveData(0)
 }
+
+fun hideKeyboard(activity: Activity) {
+    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val view = activity.currentFocus ?: View(activity)
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+data class CardViewEventMap(val event: ClubEvent)

@@ -9,13 +9,17 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.FormatDate
+import com.example.revup._DATACLASS.MemberRelation
 import com.example.revup._DATACLASS.Post
 import com.example.revup._DATACLASS.PostComment
+import com.example.revup._DATACLASS.curr_post
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,14 +35,22 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
         const val VIEW_TYPE_POST_IMAGE = 2
     }
 
+    fun update(newItems: MutableList<PostComment>){
+        list = newItems
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(val vista: View): RecyclerView.ViewHolder(vista) {
         val user = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_username)
         val userImage = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_userPhoto)
         val content = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_contentText)
         val timeAgo = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_timeAgo)
         val image = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_contentImage)
+        val animation = vista.findViewById<LottieAnimationView>(R.id.animation_like_imagepost_details)
+        val like = vista.findViewById<ImageButton>(R.id.cardview_postdetails_like)
+        val follow = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_following)
 
-        //COMETNS
+        //COMMENTS
 
         val commentText = vista.findViewById<TextView>(R.id.cardview_post_postdetails_commenttext)
         val commentTimeAgo = vista.findViewById<TextView>(R.id.cardview_post_postdetails_commenttimeAgo)
@@ -81,8 +93,105 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(getItemViewType(position) == VIEW_TYPE_POST_IMAGE||getItemViewType(position) == VIEW_TYPE_POST_TEXT){
+            if(post.liked){
+                holder.animation.frame = 50
+            }
 
-            //val member = apiRevUp.getMemberById(post.memberId, holder.vista.context)
+            var memberRelation: MemberRelation? = null
+
+            var member_relations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id, holder.vista.context)
+            if (member_relations != null){
+                Log.i("MEMBER_RELATIONS", list.size.toString()+"    "+position)
+                val member_relation = member_relations!!.find{it.memberId2 == post.member!!.id}
+                if(member_relation != null) {
+                    memberRelation = member_relation
+                    holder.follow.setText("Following")
+                    //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_Friend))
+                }else{
+                    holder.follow.setText("Follow Up")
+                    //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                }
+            }else{
+                holder.follow.setText("Follow Up")
+                //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+            }
+            if(post.member!!.id==current_user!!.id){
+                holder.follow.visibility = View.GONE
+            }else{
+                holder.follow.visibility = View.VISIBLE
+            }
+
+            holder.follow.setOnClickListener {
+                if(holder.follow.text == "Follow Up"){
+                    try{
+                        apiRevUp.postMemberRelation(MemberRelation(current_user!!.id, list[position].member!!.id, 1), holder.vista.context)
+                        holder.follow.setText("Following")
+                        //holder.follow.setTextColor(getColor(R.color.memberRelation_Friend))
+                        memberRelation = MemberRelation(current_user!!.id, list[position].member!!.id, 1)
+                    }catch(e: Exception){
+                        Toast.makeText(holder.vista.context, "Error on following. $e.message", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    try{
+                        if(memberRelation != null){
+                            MaterialAlertDialogBuilder(holder.vista.context)
+                                .setTitle("Unfollow ${list[position].member!!.membername}")
+                                .setMessage("You are going to unfollow ${list[position].member!!.membername}. Are you sure?")
+                                .setPositiveButton("Delete") { dialog, _ ->
+                                    var result = apiRevUp.deleteMemberRelation(current_user!!.id, memberRelation!!.memberId2, holder.vista.context)
+                                    if(result){
+                                        holder.follow.setText("Follow Up")
+                                        //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                                    }else{
+                                        throw Exception("Error on unfollowing")
+                                    }
+                                    dialog.dismiss()
+                                }
+                                .setNegativeButton("Cancel") { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                                .show()
+                        }else{
+                            Toast.makeText(holder.vista.context, "Error on unfollowing", Toast.LENGTH_SHORT).show()
+                        }
+                    }catch(e: Exception){
+                        Toast.makeText(holder.vista.context, "Error on unfollowing. $e.message", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+
+            holder.animation.setAnimationFromUrl("https://lottie.host/c7f572a9-3d2f-4f8e-8b67-64e5f22595d7/eZvXIuktZb.lottie")
+            holder.like.setOnClickListener {
+                if(post.liked){
+                    apiRevUp.postUnLike(current_user!!.id, post.id, holder.vista.context)
+                    Toast.makeText(holder.vista.context, "UnLiked", Toast.LENGTH_SHORT).show()
+                    holder.animation.speed = -1f
+
+                    holder.like.animate()
+                        .setDuration(100)
+                        .withEndAction {
+                            holder.like.visibility = View.VISIBLE
+                        }
+                    holder.animation.playAnimation()
+
+                    post.liked = false
+                    curr_post!!.liked = false
+                }else{
+                    apiRevUp.postLike(current_user!!.id, post.id, holder.vista.context)
+                    Toast.makeText(holder.vista.context, "Liked", Toast.LENGTH_SHORT).show()
+                    holder.animation.speed = 1f
+                    holder.animation.playAnimation()
+                    holder.like.animate()
+                        .setDuration(200)
+                        .withEndAction {
+                            holder.like.visibility = View.GONE
+                        }
+                    post.liked = true
+                    curr_post!!.liked = true
+
+                }
+            }
             val member = post.member
             holder.user.setText(member!!.name)
             if(getItemViewType(position) == VIEW_TYPE_POST_TEXT){
@@ -99,7 +208,13 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
             if(member!!.profilePicture!=null){
                 Glide.with(holder.vista.context).load(image_path+member!!.profilePicture).circleCrop().into(holder.userImage)
             }else{
-                //DEFAULT PHOTO
+                holder.userImage.setImageResource(R.drawable.default_profile_picture)
+            }
+
+            try{
+                holder.timeAgo.setText(getTimeAgo(FormatDate(post.postDate.toString())))
+            }catch(e: Exception){
+                Toast.makeText(holder.vista.context, "Error getting time ago", Toast.LENGTH_SHORT).show()
             }
 
 
@@ -108,7 +223,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
 
             if(current_user!!.id!=list[pos].memberId){
                 holder.delete.visibility = View.INVISIBLE
-            }else{
+            }else {
                 holder.delete.setOnClickListener {
                     MaterialAlertDialogBuilder(holder.vista.context)
                         .setTitle("Delete Comment")
@@ -124,19 +239,27 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                             dialog.dismiss()
                         }
                         .show()
-
                 }
             }
 
-
-            //val member = apiRevUp.getMemberById(list[pos].memberId, holder.vista.context)
             val member = list[pos].member
 
-            Glide.with(holder.vista.context).load(image_path+member!!.profilePicture).circleCrop().into(holder.commentUserPhoto)
+            if(member!!.profilePicture!=null){
+                Glide.with(holder.vista.context).load(image_path+member!!.profilePicture).circleCrop().into(holder.commentUserPhoto)
+            }else{
+                holder.commentUserPhoto.setImageResource(R.drawable.default_profile_picture)
+            }
+
 
             holder.commentUser.setText(member.membername.toString())
             holder.commentText.setText(list[pos].commentContent)
-            holder.commentTimeAgo.setText(getTimeAgo(FormatDate(list[pos].datetime.toString())))
+            Log.i("COMMENT", list[pos].id.toString())
+            try{
+                holder.commentTimeAgo.setText(getTimeAgo(FormatDate(list[pos].datetime.toString())))
+            }catch(e: Exception){
+                Toast.makeText(holder.vista.context, "Error getting time ago", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 

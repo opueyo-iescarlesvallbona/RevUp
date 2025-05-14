@@ -43,4 +43,5 @@
     <string name="carDetailsActivity_hint_power">Horse power</string>
     <string name="carDetailsActivity_hint_descript">Description</string>
     <string name="memberDetailsActivity_logOut">Log out</string>
+    <string name="map_style">Map style</string>
 </resources>

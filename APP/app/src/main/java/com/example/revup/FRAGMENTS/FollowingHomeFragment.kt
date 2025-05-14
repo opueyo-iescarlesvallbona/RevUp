@@ -15,10 +15,11 @@ import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Post
 import com.example.revup._DATACLASS.current_user
+import com.example.revup.databinding.FragmentFollowingHomeBinding
 import com.example.revup.databinding.LikesHomefragmentMainactivityBinding
 
-class LikesHomeFragment : Fragment() {
-    lateinit var binding : LikesHomefragmentMainactivityBinding
+class FollowingHomeFragment : Fragment() {
+    lateinit var binding : FragmentFollowingHomeBinding
     val apiRevUp = RevupCrudAPI()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +30,7 @@ class LikesHomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = LikesHomefragmentMainactivityBinding.inflate(layoutInflater, container, false)
+        binding = FragmentFollowingHomeBinding.inflate(layoutInflater, container, false)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -37,9 +38,9 @@ class LikesHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = binding.likesHomeFragmentMainActivityRecyclerView
+        val recyclerView = binding.FollowingHomeFragmentMainActivityRecyclerView
         try {
-            var list = apiRevUp.getPostsByLikes(requireView().context)//añadir por fecha
+            var list = apiRevUp.getPostsByFriends(current_user!!.id, requireView().context)//añadir por fecha
 
             for(p: Post in list!!){
                 p.member = apiRevUp.getMemberById(p.memberId, requireView().context)

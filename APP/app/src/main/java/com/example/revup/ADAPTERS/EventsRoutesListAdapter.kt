@@ -1,5 +1,6 @@
 package com.example.revup.ADAPTERS
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,14 +8,17 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.revup.ACTIVITIES.EventDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.ClubEvent
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.Route
+import com.example.revup._DATACLASS.curr_event
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
+import kotlin.jvm.java
 
 class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter<EventsRoutesListAdapter.ViewHolder>() {
     val apiRevUp = RevupCrudAPI()
@@ -38,6 +42,9 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
             is Route -> {
                 holder.title.setText(item.name)
                 holder.date.setText(dateFormat.format(FormatDate(item.datetime!!)))
+                holder.vista.setOnClickListener {
+                    TODO("INTENT DETAILS ROUTE")
+                }
             }
             is ClubEvent -> {
                 holder.title.setText(item.name)
@@ -45,6 +52,11 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
                     holder.date.setText(dateFormat.format(FormatDate(item.startDate)))
                 }else{
                     holder.date.setText(dateFormat.format(FormatDate(item.startDate)) + " - " + dateFormat.format(FormatDate(item.endDate)))
+                }
+                holder.vista.setOnClickListener {
+                    val intent = Intent(holder.vista.context, EventDetailsActivity::class.java)
+                    curr_event = item
+                    holder.vista.context.startActivity(intent)
                 }
             }
         }

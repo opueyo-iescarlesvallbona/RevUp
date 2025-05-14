@@ -10,15 +10,21 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.revup.ADAPTERS.PostDetailsAdapterRV
+import com.example.revup.FRAGMENTS.LikesHomeFragment
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.PostComment
 import com.example.revup._DATACLASS.curr_post
+import com.example.revup._DATACLASS.current_user
+import com.example.revup._DATACLASS.hideKeyboard
 import com.example.revup.databinding.ActivityPostDetailsBinding
+import okhttp3.internal.notify
+import java.time.LocalDateTime
 
 class PostDetailsActivity : AppCompatActivity() {
     val apiRevUp = RevupCrudAPI()
     lateinit var binding: ActivityPostDetailsBinding
+    lateinit var adapter: PostDetailsAdapterRV
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,9 +52,28 @@ class PostDetailsActivity : AppCompatActivity() {
             setResult(RESULT_OK, returnIntent)
             finish()
         }
-
-
         val post = curr_post
+
+        binding.activityPostdetailsCommentButton.setOnClickListener {
+            val comment = PostComment(postId = post!!.id, memberId = current_user!!.id, commentContent = binding.activityPostdetailsCommentText.text.toString(), datetime = LocalDateTime.now().toString())
+            val uploaded = apiRevUp.postComments(comment, this)
+            binding.activityPostdetailsCommentText.setText("")
+            hideKeyboard(this)
+            if(uploaded){
+                comment.member = current_user
+                post.postComments.add(comment)
+                adapter.update(post.postComments.toMutableList())
+                if(post.postComments.size>0){
+                    binding.PostDetailsActivityRecyclerView.scrollToPosition(post.postComments.size-1)
+                }
+                Toast.makeText(this, "Comment uploaded", Toast.LENGTH_SHORT).show()
+            }else {
+                Toast.makeText(this, "There was an error uploading the comment", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
 
         if (post != null) {
             var comments: MutableList<PostComment>? = null
@@ -69,8 +94,8 @@ class PostDetailsActivity : AppCompatActivity() {
 
             val layoutManager = LinearLayoutManager(this)
             layoutManager.setStackFromEnd(true)
-            binding.PostDetailsActivityRecyclerView.adapter =
-                PostDetailsAdapterRV(post.postComments.toMutableList(), post)
+            adapter = PostDetailsAdapterRV(post.postComments.toMutableList(), post)
+            binding.PostDetailsActivityRecyclerView.adapter = adapter
             binding.PostDetailsActivityRecyclerView.layoutManager =
                 LinearLayoutManager(this)
         } else {

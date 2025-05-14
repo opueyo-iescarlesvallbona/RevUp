@@ -538,7 +538,7 @@ class RevupCrudAPI : CoroutineScope {
     fun postComments(post_comment: PostComment, context: Context): Boolean{
         var afegit: Boolean = false
         runBlocking {
-            var resposta : Response<Comment>? = null
+            var resposta : Response<Boolean>? = null
             val cor= launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).postComment(post_comment)
             }

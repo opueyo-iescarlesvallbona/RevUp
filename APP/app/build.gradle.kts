@@ -57,7 +57,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("org.mindrot:jbcrypt:0.4")
+
+    implementation("com.airbnb.android:lottie:5.2.0")
 }

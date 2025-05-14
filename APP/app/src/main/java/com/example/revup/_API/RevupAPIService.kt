@@ -162,7 +162,7 @@ interface RevupAPIService {
 
     //region COMMENTS
     @POST("/api/Comment/")
-    suspend fun postComment(@Body comment: PostComment): Response<Comment>
+    suspend fun postComment(@Body comment: PostComment): Response<Boolean>
 
     @DELETE("/api/Comment/")
     suspend fun deleteComment(@Query("id") id: Int): Response<Boolean>

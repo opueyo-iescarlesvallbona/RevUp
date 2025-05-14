@@ -53,7 +53,6 @@ class LogInActivity : AppCompatActivity() {
                 val member = apiRevUp.getMemberByMemberName(autoMemberName, this)
                 if(member!=null){
                     current_user = member
-                    Log.i("member", current_user.toString())
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 }else{

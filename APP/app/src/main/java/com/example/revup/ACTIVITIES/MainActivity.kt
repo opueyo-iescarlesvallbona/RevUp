@@ -43,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         binding.mainActivityBottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
+                    setAnimation(false)
+                    if(binding.mainActivityBtnAdd.rotation==45f) {
+                        secFloatingBtnVisible = !secFloatingBtnVisible
+                    }
                     initFragment(HomeFragment())
                     activeCreatePostButton(true)
                     true
@@ -131,15 +135,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun setAnimation(secFloatingBtnVisible: Boolean){
         if(!secFloatingBtnVisible){
+            if(binding.mainActivityBtnAdd.rotation==45f) {
             binding.mainActivityBtnAddText.startAnimation(anim_toBottom)
             binding.mainActivityBtnAddImage.startAnimation(anim_toBottom)
             binding.mainActivityBtnAddRoute.startAnimation(anim_toBottom)
-            binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
+
+                binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
+            }
         }else{
+            if(binding.mainActivityBtnAdd.rotation==0f) {
             binding.mainActivityBtnAddText.startAnimation(anim_fromBottom)
             binding.mainActivityBtnAddImage.startAnimation(anim_fromBottom)
             binding.mainActivityBtnAddRoute.startAnimation(anim_fromBottom)
-            binding.mainActivityBtnAdd.animate().rotationBy(45f).setDuration(500).start()
+
+                binding.mainActivityBtnAdd.animate().rotationBy(45f).setDuration(500).start()
+            }
         }
     }
 

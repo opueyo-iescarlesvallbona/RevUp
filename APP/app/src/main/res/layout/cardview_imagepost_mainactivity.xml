@@ -52,6 +52,12 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/cardview_post_mainactivity_following"
                 android:gravity="center"
@@ -62,8 +68,40 @@
                 android:text="Following"
                 android:textColor="@color/orange"
                 android:textStyle="bold"
+                android:paddingStart="50dp"
                 android:textSize="15sp"
                 />
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/white" >
+
+                    <ImageButton
+                        android:background="@android:color/transparent"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/cardview_postdetails_like"
+                        android:src="@drawable/baseline_favorite_border_24"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animation_like_imagepost_details"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignTop="@id/cardview_postdetails_like"
+                        android:layout_alignBottom="@id/cardview_postdetails_like"
+                        android:layout_alignStart="@id/cardview_postdetails_like"
+                        android:layout_alignEnd="@id/cardview_postdetails_like"
+                        android:scaleY="3.7"
+                        android:scaleX="3.7"/>
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/cardview_post_mainactivity_moreOptions"
@@ -93,20 +131,43 @@
         </LinearLayout>
 
         <LinearLayout
+            android:background="@drawable/border_cardview_imagepost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/cardview_image_post_commentlayout"
             android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/cardview_post_mainactivity_likeButton"
-                android:layout_gravity="center"
+            <RelativeLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/baseline_favorite_border_24"
-                android:background="@android:color/transparent"
+                android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
-                />
+                android:background="@color/white" >
+
+                <ImageButton
+                    android:id="@+id/cardview_post_mainactivity_likeButton"
+                    android:layout_gravity="center"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/baseline_favorite_border_24"
+                    android:background="@android:color/transparent"
+                    android:layout_marginHorizontal="10dp"
+                    />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignStart="@id/cardview_post_mainactivity_likeButton"
+                    android:layout_alignTop="@id/cardview_post_mainactivity_likeButton"
+                    android:layout_alignEnd="@id/cardview_post_mainactivity_likeButton"
+                    android:layout_alignBottom="@id/cardview_post_mainactivity_likeButton"
+                    android:layout_marginStart="-0.5dp"
+                    android:layout_marginEnd="0.5dp"
+                    android:scaleX="3.7"
+                    android:scaleY="3.7" />
+            </RelativeLayout>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/cardview_post_mainactivity_commentTextLayout"
@@ -120,16 +181,16 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/cardview_post_mainactivity_commentText"
+                    android:id="@+id/cardview_imagepost_mainactivity_commentText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="15sp"
-                    android:hint="Comment..."/>
+                    android:hint="Fast Comment..."/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
-                android:id="@+id/cardview_post_mainactivity_commentButton"
+                android:id="@+id/cardview_imagepost_mainactivity_commentButton"
                 android:layout_gravity="center"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -139,7 +200,12 @@
                 />
 
         </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/cardview_imagepost_spacer"
+            android:background="@color/dark_white"
+            />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

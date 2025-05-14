@@ -79,7 +79,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cardview_post_mainactivity_commentTextLayout"
+            android:id="@+id/activity_postdetails_commentTextLayout"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/cardview_post_mainactivity_commentText"
+                android:id="@+id/activity_postdetails_commentText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -102,7 +102,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
-            android:id="@+id/cardview_post_mainactivity_commentButton"
+            android:id="@+id/activity_postdetails_commentButton"
             android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"

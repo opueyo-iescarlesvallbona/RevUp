@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listOfFragments = listOf(LocationHomeFragment(), LikesHomeFragment())
+        val listOfFragments = listOf(FollowingHomeFragment(), LocationHomeFragment(), LikesHomeFragment())
         var adapter = ViewPagerAdapter(
             listOfFragments,
             requireActivity().supportFragmentManager,
@@ -41,8 +41,9 @@ class HomeFragment : Fragment() {
 
         TabLayoutMediator(binding.homeFragmentMainActivityTabs, binding.homeFragmentMainActivityViewPager){ tab, position ->
             tab.text = when (position){
-                0 -> "Location"
-                1 -> "Likes"
+                0 -> "Following"
+                1 -> "Location"
+                2 -> "Likes"
                 else -> ""
             }
         }.attach()
