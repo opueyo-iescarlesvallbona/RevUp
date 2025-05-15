@@ -107,7 +107,9 @@ class MemberDetailsActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error on unfollowing. $e.message", Toast.LENGTH_SHORT).show()
                 }
             }else if(binding.memberDetailsActivityMemberRelation.text == "Edit"){
-                // intent to edit member
+                val intent = Intent(this, EditMemberActivity::class.java)
+                current_user = member
+                startActivity(intent)
             }
         }
 

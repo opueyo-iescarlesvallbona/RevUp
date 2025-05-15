@@ -31,7 +31,7 @@ class EditMemberActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditMemberBinding
     var apiRevUp = RevupCrudAPI()
     var apiMunicipality = MunicipalitiesCrudAPI()
-    private var selectedImageUri: Uri? = null
+    var selectedImageUri: Uri? = null
     var member: Member? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -52,4 +52,8 @@
     <string name="editMemberActivity_hint_location">Location</string>
     <string name="editMemberActivity_hint_dateOfBirth">Date of birth</string>
     <string name="editMemberActivity_hint_name">Name (Full Name)</string>
+    <string name="editClubActivity_back_button_text">Club</string>
+    <string name="editClubActivity_edit">Save club</string>
+    <string name="editClubActivity_hint_name">Name</string>
+    <string name="editClubActivity_hint_description">Description</string>
 </resources>
