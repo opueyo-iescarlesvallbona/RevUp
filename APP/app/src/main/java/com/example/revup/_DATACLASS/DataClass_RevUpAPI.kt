@@ -27,11 +27,11 @@ class Brand(
 )
 
 class Car(
-    var id: Int,
+    var id: Int?,
     var memberId: Int,
     var modelId: Int,
     var modelYear: Int? = null,
-    var horsePower: Double? = null,
+    var horsePower: Double,
     var description: String? = null,
     var picture: String? = null,
 

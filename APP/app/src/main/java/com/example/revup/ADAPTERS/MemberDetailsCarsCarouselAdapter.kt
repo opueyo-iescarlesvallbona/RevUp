@@ -66,7 +66,7 @@ class MemberDetailsCarsCarouselAdapter(var list: MutableList<Car>): RecyclerView
                         .setTitle("Delete ${list[position].model!!.modelName}")
                         .setMessage("You are going to delete ${list[position].model!!.modelName}. Are you sure?")
                         .setPositiveButton("Delete") { dialog, _ ->
-                            var result = apiRevUp.deleteCar(list[position].id, holder.vista.context)
+                            var result = apiRevUp.deleteCar(list[position].id!!, holder.vista.context)
                             if(result){
                                 list.remove(list[position])
                                 notifyItemRemoved(position)

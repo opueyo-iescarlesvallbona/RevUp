@@ -86,7 +86,7 @@ class MemberDetailsActivity : AppCompatActivity() {
                         MaterialAlertDialogBuilder(this)
                             .setTitle("Unfollow ${member!!.membername}")
                             .setMessage("You are going to unfollow ${member!!.membername}. Are you sure?")
-                            .setPositiveButton("Delete") { dialog, _ ->
+                            .setPositiveButton("Unfollow") { dialog, _ ->
                                 var result = apiRevUp.deleteMemberRelation(current_user!!.id, memberRelation!!.memberId2, this)
                                 if(result){
                                     binding.memberDetailsActivityMemberRelation.setText("Follow Up")

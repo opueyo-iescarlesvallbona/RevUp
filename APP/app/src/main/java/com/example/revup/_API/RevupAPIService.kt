@@ -2,6 +2,7 @@ package com.example.revup._API
 
 import com.example.revup._DATACLASS.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.w3c.dom.Comment
 import retrofit2.Response
 import retrofit2.http.Body
@@ -189,8 +190,9 @@ interface RevupAPIService {
     @Multipart
     @PUT("/api/Car/")
     suspend fun putCar(
-        @Part image: MultipartBody.Part?,
-        @Body car: Car): Response<Car>
+        @Part("car") car: RequestBody,
+        @Part image: MultipartBody.Part?
+        ): Response<Car>
 
     @GET("/api/Brands/")
     suspend fun getBrands(): Response<MutableList<Brand>>
@@ -208,6 +210,12 @@ interface RevupAPIService {
 
     @DELETE("/api/Car/")
     suspend fun deleteCar(@Query("id") id: Int): Response<Boolean>
+
+    @GET("/api/ModelsByBrand/")
+    suspend fun getModelsByBrandId(@Query("brandId") brandId: Int): Response<MutableList<Model>>
+
+    @GET("/api/BrandModelCheck/")
+    suspend fun getBrandModelCheck(@Query("brandName") brandName: String, @Query("modelName") modelName: String): Response<Boolean>
     //endregion
 
     //region EVENTS
@@ -313,6 +321,17 @@ interface RevupAPIService {
     suspend fun putClub(
         @Part image: MultipartBody.Part?,
         @Body club: Club): Response<Club>
+
+    @POST("/api/MemberClub/")
+    suspend fun postMemberClub(
+        @Body memberClub: MemberClub): Response<MemberClub>
+
+    @PUT("/api/MemberClub/")
+    suspend fun putMemberClub(
+        @Body memberClub: MemberClub): Response<MemberClub>
+
+    @DELETE("/api/MemberClub/")
+    suspend fun deleteMemberClub(@Query("memberId") memberId: Int, @Query("clubId") clubId: Int): Response<Boolean>
     // endregion
 
     // region LOCATION

@@ -45,7 +45,7 @@ class MemberDetailsPostsFragment : Fragment() {
                 }
             }else{
                 posts = mutableListOf(Post(-1,"",-1,"","","",-1,-1,-1,-1))
-                recyclerView.visibility = View.GONE
+                recyclerView.visibility = View.INVISIBLE
             }
             recyclerView.adapter = MemberDetailsPostsAdapter(posts)
             recyclerView.layoutManager = LinearLayoutManager(requireView().context)

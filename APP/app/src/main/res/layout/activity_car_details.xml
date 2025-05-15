@@ -94,30 +94,43 @@ tools:context=".ACTIVITIES.CarDetailsActivity">
                         android:id="@+id/carDetailsActivity_picture"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/baseline_image_24"/>
                 </androidx.cardview.widget.CardView>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/carDetailsActivity_layoutBrandTextField"
+                    app:boxCornerRadiusTopEnd="7dp"
+                    app:boxCornerRadiusTopStart="7dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
+                    app:boxStrokeColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:hint="@string/carDetailsActivity_hint_brand"
-                    android:layout_marginBottom="10dp">
-                    <com.google.android.material.textfield.TextInputEditText
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/carDetailsActivity_hint_brand">
+                    <AutoCompleteTextView
                         android:layout_width="match_parent"
+                        android:backgroundTint="@android:color/transparent"
                         android:layout_height="match_parent"
-                        android:id="@+id/carDetailsActivity_brand"
+                        android:id="@+id/carDetailsActivity_BrandTextField"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/carDetailsActivity_layoutModelTextField"
+                    app:boxCornerRadiusTopEnd="7dp"
+                    app:boxCornerRadiusTopStart="7dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
+                    app:boxStrokeColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:hint="@string/carDetailsActivity_hint_model"
-                    android:layout_marginBottom="10dp">
-                    <com.google.android.material.textfield.TextInputEditText
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/carDetailsActivity_hint_model">
+                    <AutoCompleteTextView
                         android:layout_width="match_parent"
+                        android:backgroundTint="@android:color/transparent"
                         android:layout_height="match_parent"
-                        android:id="@+id/carDetailsActivity_model"
+                        android:id="@+id/carDetailsActivity_ModelTextField"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,6 +168,9 @@ tools:context=".ACTIVITIES.CarDetailsActivity">
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/carDetailsActivity_descript"
+                        android:lines="5"
+                        android:maxLines="10"
+                        android:gravity="start"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 

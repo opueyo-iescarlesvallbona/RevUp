@@ -4,7 +4,9 @@ import android.content.Context
 import android.net.Uri
 import android.provider.ContactsContract
 import android.util.Log
+import android.view.Display
 import com.example.revup._DATACLASS.*
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +17,9 @@ import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import org.w3c.dom.Comment
 import retrofit2.Response
@@ -583,12 +587,18 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region CARS
-    fun postCar(car: Car, context: Context): Boolean{
+    fun postCar(car: Car, image_path: Uri?, context: Context): Boolean{
         var afegit: Boolean = false
+        var body: MultipartBody.Part? = null
+        if (image_path != null) {
+            var file = uriToFile(context, image_path)
+            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+            body = MultipartBody.Part.createFormData("image", file.name, requestFile)
+        }
         runBlocking {
             var resposta : Response<Car>? = null
             val cor= launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).postCar(null, car)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postCar(body, car)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -613,12 +623,20 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun putCar(car: Car, context: Context): Boolean{
+    fun putCar(car: Car, image_path: Uri?, context: Context): Boolean{
         var modificat: Boolean = false
+        var body: MultipartBody.Part? = null
+        if (image_path != null) {
+            var file = uriToFile(context, image_path)
+            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+            body = MultipartBody.Part.createFormData("image", file.name, requestFile)
+        }
+        val carJson = Gson().toJson(car)
+        val carRequestBody = carJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<Car>? = null
             val cor = launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).putCar(null, car)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putCar(carRequestBody, body)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -699,6 +717,34 @@ class RevupCrudAPI : CoroutineScope {
                 esborrat = false
         }
         return esborrat
+    }
+
+    fun getModelsByBrandId(brandId: Int, context: Context): MutableList<Model>?{
+        var resposta : Response<MutableList<Model>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getModelsByBrandId(brandId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getBrandModelCheck(brandName: String, modelName: String, context: Context): Boolean?{
+        var resposta : Response<Boolean>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getBrandModelCheck(brandName, modelName)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
     }
     //endregion
 
@@ -1041,6 +1087,54 @@ class RevupCrudAPI : CoroutineScope {
                 modificat = false
         }
         return modificat
+    }
+
+    fun postMemberClub(memberClub: MemberClub, context: Context): Boolean{
+        var afegit: Boolean = false
+        runBlocking {
+            var resposta : Response<MemberClub>? = null
+            val cor= launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postMemberClub(memberClub)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                afegit = true
+            else
+                afegit = false
+        }
+        return afegit
+    }
+
+    fun putMemberClub(memberClub: MemberClub, context: Context): Boolean{
+        var modificat: Boolean = false
+        runBlocking {
+            var resposta : Response<MemberClub>? = null
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putMemberClub(memberClub)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                modificat = true
+            else
+                modificat = false
+        }
+        return modificat
+    }
+
+    fun deleteMemberClub(memberId: Int, clubId: Int, context: Context): Boolean{
+        var esborrat: Boolean = false
+        runBlocking {
+            var resposta: Response<Boolean>? = null
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).deleteMemberClub(memberId, clubId)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                esborrat = true
+            else
+                esborrat = false
+        }
+        return esborrat
     }
     //endregion
 

@@ -46,8 +46,8 @@ class MemberDetailsCarsFragment : Fragment() {
                     car.model!!.brand = apiRevUp.getBrand(car.model!!.idBrand, requireContext())
                 }
             }else{
-                cars = mutableListOf(Car(-1,-1,-1))
-                recyclerView.visibility = View.GONE
+                cars = mutableListOf(Car(-1,-1,-1,-1,-1.1))
+                recyclerView.visibility = View.INVISIBLE
             }
             val snapHelper = CarouselSnapHelper()
             snapHelper.attachToRecyclerView(recyclerView)
