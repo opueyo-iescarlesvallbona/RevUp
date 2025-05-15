@@ -33,8 +33,6 @@ class LogInActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
 
         val prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val autoMemberName = prefs.getString("membername", null)
