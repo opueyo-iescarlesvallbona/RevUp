@@ -187,9 +187,27 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/Member")]
         [HttpPut]
-        public async Task<ActionResult<Member>> UpdateMember([FromBody] Member member)
+        public async Task<ActionResult<Member>> UpdateMember([FromForm] IFormFile? image, [FromForm] string member)
         {
-            _context.Entry(member).State = EntityState.Modified;
+            if (member == null)
+            {
+                return BadRequest("Invalid member");
+            }
+            var memberObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Member>(member);
+            if (memberObj == null)
+            {
+                return BadRequest("Invalid member data");
+            }
+            if (image != null)
+            {
+                try
+                {
+                    string path = GeneralController.UploadImage(image, memberObj);
+                    memberObj.ProfilePicture = path;
+                }
+                catch { }
+            }
+            _context.Entry(memberObj).State = EntityState.Modified;
 
             try
             {
@@ -197,7 +215,7 @@ namespace RevupAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MemberExists(member.Id))
+                if (!MemberExists(memberObj.Id))
                 {
                     return NotFound();
                 }
@@ -207,20 +225,29 @@ namespace RevupAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(memberObj);
         }
 
         [Route("api/Member")]
         [HttpPost]
-        public async Task<ActionResult<Member>> PostMember([FromBody]IFormFile image, [FromBody]Member member)
+        public async Task<ActionResult<Member>> PostMember([FromForm] IFormFile? image, [FromForm] string member)
         {
-            if (member.Password != null)
+            if (member == null)
             {
-                string password = member.Password;
+                return BadRequest("Invalid member");
+            }
+            var memberObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Member>(member);
+            if (memberObj == null)
+            {
+                return BadRequest("Invalid member data");
+            }
+            if (memberObj.Password != null)
+            {
+                string password = memberObj.Password;
 
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
 
-                member.Password = hashedPassword;
+                memberObj.Password = hashedPassword;
             }
 
 
@@ -228,15 +255,22 @@ namespace RevupAPI.Controllers
             {
                 try
                 {
-                    string path = GeneralController.UploadImage(image, member);
-                    member.ProfilePicture = path;
+                    string path = GeneralController.UploadImage(image, memberObj);
+                    memberObj.ProfilePicture = path;
                 }
                 catch { }
             }
-            _context.Members.Add(member);
-            await _context.SaveChangesAsync();
-            return Ok(member);
-            return BadRequest("Invalid member data");
+            try
+            {
+                _context.Members.Add(memberObj);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest("Error saving member data");
+            }
+            
+            return Ok(memberObj);
         }
 
         [Route("/api/login")]

@@ -218,5 +218,30 @@ namespace RevupAPI.Controllers
             }
             return models;
         }
+
+        [Authorize]
+        [Route("api/BrandModelCheck")]
+        [HttpGet]
+        public async Task<ActionResult<bool>> CheckBrandModel([FromQuery] string brandName, [FromQuery] string modelName)
+        {
+            var brand = await _context.Brands.Where(x=>x.Name.Equals(brandName)).FirstOrDefaultAsync();
+            if (brand == null)
+            {
+                return NotFound(false);
+            }
+
+            var model = await _context.Models.Where(x=>x.ModelName.Equals(modelName)).FirstOrDefaultAsync();
+            if (model == null)
+            {
+                return NotFound(false);
+            }
+
+            var checkRelation = await _context.Models.Where(x=>x.IdBrand==brand.Id&&x.ModelName.Equals(modelName)).FirstOrDefaultAsync();
+            if (checkRelation == null)
+            {
+                return NotFound(false);
+            }
+            return Ok(true);
+        }
     }
 }

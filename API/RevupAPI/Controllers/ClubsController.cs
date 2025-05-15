@@ -201,31 +201,70 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/Club")]
         [HttpPost]
-        public async Task<IActionResult> PostEvent([FromBody] Club club)
+        public async Task<ActionResult<Club>> PostEvent([FromForm] IFormFile? image, [FromForm] string club)
         {
-            if (ModelState.IsValid)
+            if(club == null)
             {
-                _context.Clubs.Add(club);
-                await _context.SaveChangesAsync();
-                return Ok(club);
+                return BadRequest("Invalid club");
             }
-            return BadRequest("Invalid club data");
+            var clubObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Club>(club);
+            if(clubObj == null)
+            {
+                return BadRequest("Invalid club data");
+            }
+            if(image != null)
+            {
+                try
+                {
+                    string path = GeneralController.UploadImage(image, clubObj);
+                    clubObj.Picture = path;
+                }
+                catch { }
+            }
+            try
+            {
+                _context.Clubs.Add(clubObj);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest("Error saving club");
+            }
+
+            return Ok(clubObj);
         }
 
         [Authorize]
         [Route("api/Club")]
         [HttpPut]
-        public async Task<ActionResult<Club>> UpdateMember([FromBody] Club club)
+        public async Task<ActionResult<Club>> UpdateMember([FromForm] IFormFile? image, [FromForm] string club)
         {
-            _context.Entry(club).State = EntityState.Modified;
-
+            if (club == null)
+            {
+                return BadRequest("Invalid club");
+            }
+            var clubObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Club>(club);
+            if (clubObj == null)
+            {
+                return BadRequest("Invalid club data");
+            }
+            if (image != null)
+            {
+                try
+                {
+                    string path = GeneralController.UploadImage(image, clubObj);
+                    clubObj.Picture = path;
+                }
+                catch { }
+            }
+            _context.Entry(clubObj).State = EntityState.Modified;
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClubExists(club.Id))
+                if (!ClubExists(clubObj.Id))
                 {
                     return NotFound();
                 }
@@ -235,7 +274,7 @@ namespace RevupAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(clubObj);
         }
 
         [Authorize]

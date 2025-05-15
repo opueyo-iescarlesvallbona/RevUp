@@ -236,38 +236,69 @@ namespace RevupAPI.Controllers
         [Route("api/Post")]
         [HttpPost]
 
-        public async Task<IActionResult> PostPost([FromQuery] IFormFile image, [FromBody] Post post)
+        public async Task<ActionResult<Post>> PostPost([FromForm] IFormFile? image, [FromForm] string post)
         {
-            if (ModelState.IsValid)
+            if (post == null)
             {
-                _context.Posts.Add(post);
-                await _context.SaveChangesAsync();
-
-                if (image != null)
-                {
-                    try
-                    {
-                        GeneralController.UploadImage(image, post);
-                    }
-                    catch { }
-                }
-                return Ok(post);
+                return BadRequest("Invalid post");
             }
-            return BadRequest("Invalid post data");
+            var postObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Post>(post);
+            if (postObj == null)
+            {
+                return BadRequest("Invalid post object");
+            }
+            if (image != null)
+            {
+                try
+                {
+                    string path = GeneralController.UploadImage(image, postObj);
+                    postObj.Picture = path;
+                }
+                catch { }
+            }
+            try
+            {
+                _context.Posts.Add(postObj);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest("Error saving post");
+            }
+
+            return Ok(postObj);
         }
 
         [Route("api/Post")]
         [HttpPut]
-        public async Task<IActionResult> PutPost([FromBody] Post post)
+        public async Task<ActionResult<Post>> PutPost([FromForm] IFormFile? image, [FromForm] string post)
         {
-            _context.Entry(post).State = EntityState.Modified;
+            if(post == null)
+            {
+                return BadRequest("Invalid post");
+            }
+            var postObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Post>(post);
+            if (postObj == null)
+            {
+                return BadRequest("Invalid post object");
+            }
+            if (image != null)
+            {
+                try
+                {
+                    string path = GeneralController.UploadImage(image, postObj);
+                    postObj.Picture = path;
+                }
+                catch { }
+            }
+            _context.Entry(postObj).State = EntityState.Modified;
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PostExists(post.Id))
+                if (!PostExists(postObj.Id))
                 {
                     return NotFound();
                 }
@@ -276,7 +307,7 @@ namespace RevupAPI.Controllers
                     throw;
                 }
             }
-            return NoContent();
+            return Ok(postObj);
         }
 
         [Route("api/Post")]

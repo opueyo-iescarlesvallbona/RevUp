@@ -855,12 +855,6 @@ C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\scopedcss\bundle\RevupAPI.styles.
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets.build.json
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets.development.json
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets\msbuild.RevupAPI.Microsoft.AspNetCore.StaticWebAssets.props
-C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets\msbuild.RevupAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
-C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets\msbuild.build.RevupAPI.props
-C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.RevupAPI.props
-C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.RevupAPI.props
-C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets.pack.json
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\RevupAPI.csproj.Up2Date
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\RevupAPI.dll
@@ -870,3 +864,4 @@ C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\RevupAPI.genruntimeconfig.cache
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\ref\RevupAPI.dll
 C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets.build.json.cache

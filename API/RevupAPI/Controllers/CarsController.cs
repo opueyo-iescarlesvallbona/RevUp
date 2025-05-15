@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using RevupAPI.Models;
 
 namespace RevupAPI.Controllers
@@ -169,15 +170,37 @@ namespace RevupAPI.Controllers
 
         [Route("api/Car")]
         [HttpPost]
-        public async Task<IActionResult> PostCar([FromBody] Car car)
+        public async Task<ActionResult<Car>> PostCar([FromForm] IFormFile? image, [FromForm] string car)
         {
-            if (ModelState.IsValid)
+            if (car == null)
             {
-                _context.Cars.Add(car);
-                await _context.SaveChangesAsync();
-                return Ok(car);
+                return BadRequest("Invalid car");
             }
-            return BadRequest("Invalid car data");
+            var carObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Car>(car);
+            if (carObj == null)
+            {
+                return BadRequest("Invalid car data");
+            }
+            if (image != null)
+            {
+                try
+                {
+                    string path = GeneralController.UploadImage(image, carObj);
+                    carObj.Picture = path;
+                }
+                catch { }
+            }
+            try
+            {
+                _context.Cars.Add(carObj);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return BadRequest("Error saving car");
+            }
+
+            return Ok(car);
         }
 
         [Route("api/Cars")]
@@ -194,16 +217,34 @@ namespace RevupAPI.Controllers
 
         [Route("api/Car")]
         [HttpPut]
-        public async Task<IActionResult> PutCar([FromBody] Car car)
+        public async Task<ActionResult<Car>> PutCar([FromForm] string car, [FromForm] IFormFile? image)
         {
-            _context.Entry(car).State = EntityState.Modified;
+            if (car == null)
+            {
+                return BadRequest();
+            }
+            var carObj = JsonConvert.DeserializeObject<Car>(car);
+            if (carObj == null)
+            {
+                return BadRequest("Invalid car data");
+            }
+            if (image != null)
+            {
+                try
+                {
+                    string path = GeneralController.UploadImage(image, carObj);
+                    carObj.Picture = path;
+                }
+                catch { }
+            }
+            _context.Entry(carObj).State = EntityState.Modified;
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CarExists(car.Id))
+                if (!CarExists(carObj.Id))
                 {
                     return NotFound();
                 }
@@ -212,7 +253,7 @@ namespace RevupAPI.Controllers
                     throw;
                 }
             }
-            return NoContent();
+            return Ok(carObj);
         }
 
         [Authorize]
