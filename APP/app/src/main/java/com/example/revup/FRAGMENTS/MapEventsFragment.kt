@@ -84,7 +84,6 @@ class MapEventsFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(map: GoogleMap) {
-        Log.i("GGGG", "HOLA")
         mMap = map
         map!!.mapType = GoogleMap.MAP_TYPE_NORMAL
         map.uiSettings?.isZoomControlsEnabled = true

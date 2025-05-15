@@ -57,4 +57,11 @@
     <string name="editClubActivity_hint_name">Name</string>
     <string name="editClubActivity_hint_description">Description</string>
     <string name="addImagePostActivity_hint_location">Location [Optional]</string>
+    <string name="address">Address</string>
+    <string name="route_start_date">Route Start Date</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="state">Event State</string>
+    <string name="event">Event</string>
+    <string name="edit_event">Edit Event</string>
 </resources>

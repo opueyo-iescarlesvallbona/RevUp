@@ -7,18 +7,17 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".ACTIVITIES.CarDetailsActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,6 +75,13 @@ tools:context=".ACTIVITIES.CarDetailsActivity">
                         />
                 </LinearLayout>
             </LinearLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -175,8 +181,9 @@ tools:context=".ACTIVITIES.CarDetailsActivity">
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+    </ScrollView>
 
         </LinearLayout>
 
-    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
