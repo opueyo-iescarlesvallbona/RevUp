@@ -18,11 +18,14 @@ import com.example.practicamapes_oscarpueyocasas.API.MunicipalitiesCrudAPI
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Brand
+import com.example.revup._DATACLASS.Car
 import com.example.revup._DATACLASS.Gender
 import com.example.revup._DATACLASS.Member
 import com.example.revup._DATACLASS.MemberLocation
 import com.example.revup._DATACLASS.Model
 import com.example.revup._DATACLASS.Municipality
+import com.example.revup._DATACLASS.curr_car
+import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
 import com.example.revup.databinding.ActivityEditMemberBinding
@@ -73,6 +76,8 @@ class EditMemberActivity : AppCompatActivity() {
             if(member_to_save != null){
                 if(apiRevUp.putMember(member_to_save, selectedImageUri, this)){
                     Toast.makeText(this, "Member updated", Toast.LENGTH_LONG).show()
+                    current_user = member_to_save
+                    curr_member = member_to_save
                     val returnIntent = Intent()
                     setResult(RESULT_OK, returnIntent)
                     finish()
@@ -225,6 +230,12 @@ class EditMemberActivity : AppCompatActivity() {
         }catch (e: Exception){
             Toast.makeText(this, "Error getting genders. ${e.message}", Toast.LENGTH_LONG).show()
         }
+
+        if(image == null && curr_car != null){
+            return Member(member!!.id, name, memberName, null, email, genderId!!,
+                locationId!!, member!!.dateOfBirth, member!!.loginDate, description, member!!.profilePicture, member!!.password)
+        }
+
         return Member(member!!.id, name, memberName, null, email, genderId!!,
             locationId!!, member!!.dateOfBirth, member!!.loginDate, description, null, member!!.password)
     }

@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -19,13 +20,23 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.transition.Visibility
+import com.example.practicamapes_oscarpueyocasas.API.MunicipalitiesCrudAPI
 import com.example.revup.R
+import com.example.revup._API.RevupCrudAPI
+import com.example.revup._DATACLASS.Member
+import com.example.revup._DATACLASS.MemberLocation
+import com.example.revup._DATACLASS.Post
+import com.example.revup._DATACLASS.curr_car
 import com.example.revup.databinding.ActivityAddImagePostBinding
+import java.time.LocalDateTime
 
 
 class AddImagePostActivity : AppCompatActivity() {
     lateinit var binding : ActivityAddImagePostBinding
     private var selectedImageUri: Uri? = null
+    var apiRevUp = RevupCrudAPI()
+    var apiMunicipality = MunicipalitiesCrudAPI()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -54,7 +65,20 @@ class AddImagePostActivity : AppCompatActivity() {
         }
 
         binding.addImagePostActivityBtnSave.setOnClickListener{
-            // Save post
+            var post = checkParams()
+            if(post != null){
+                try{
+                    var result = apiRevUp.postPost(post, selectedImageUri, this)
+                    if(result){
+                        Toast.makeText(this, "Post created", Toast.LENGTH_LONG).show()
+                        val returnIntent = Intent()
+                        setResult(RESULT_OK, returnIntent)
+                        finish()
+                    }
+                }catch (e: Exception){
+                    Toast.makeText(this, "Error posting post. ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
 
         binding.addImagePostActivityPreviewImage.setOnClickListener{
@@ -62,17 +86,56 @@ class AddImagePostActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPathFromUri(uri: Uri?): String? {
-        if (uri == null) return null
+    fun checkParams(): Post? {
+        var title: String? = null
+        var description: String? = null
+        var locationId: Int? = null
 
-        val cursor = contentResolver.query(uri, null, null, null, null)
-        cursor?.use {
-            val columnIndex = it.getColumnIndex("_data")
-            if (it.moveToFirst()) {
-                return it.getString(columnIndex)
+        if(selectedImageUri == null){
+            Toast.makeText(this, "Please select a picture", Toast.LENGTH_LONG).show()
+            return null
+        }
+
+        if(binding.addImagePostActivityTitle.text.toString() != ""){
+            title = binding.addImagePostActivityTitle.text.toString()
+        }else{
+            Toast.makeText(this, "Please introduce a title", Toast.LENGTH_LONG).show()
+            return null
+        }
+
+        if(binding.addImagePostActivityLocationTextField.text.toString() != ""){
+            try{
+                var municipalities = apiMunicipality.getMunicipisByName(binding.addImagePostActivityLocationTextField.text.toString())
+                if(municipalities == null || municipalities.isEmpty()){
+                    Toast.makeText(this, "Select a valid location", Toast.LENGTH_LONG).show()
+                    return null
+                }else if(municipalities.size != 1){
+                    Toast.makeText(this, "Select a valid location", Toast.LENGTH_LONG).show()
+                    return null
+                }
+                var location = apiRevUp.getLocationsByMunicipality(binding.addImagePostActivityLocationTextField.text.toString(), this)
+                if(location == null){
+                    var muni = municipalities[0]
+                    var memberLocation = MemberLocation(
+                        id = null,
+                        ccaa = muni.idprovincia.toString(),
+                        municipality = muni.nompoblacio,
+                        latitude = muni.latitut,
+                        longitude = muni.longitut
+                    )
+                    var location = apiRevUp.postLocation(memberLocation, this)
+                    //locationId = location!!.id
+                }else if(location.size != 1){
+                    Toast.makeText(this, "Select a valid location", Toast.LENGTH_LONG).show()
+                    return null
+                }else{
+                    locationId = location[0].id
+                }
+            }catch (e: Exception){
+                Toast.makeText(this, "Error configuring location. ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
 
-        return null // Si no se encuentra la ruta, devolver null
+        return Post(id = null, title = title, description = description, location_id = locationId, postDate = LocalDateTime.now().toString())
     }
 }

@@ -118,7 +118,7 @@ class ClubDetailsActivity : AppCompatActivity() {
                     binding.clubDetailsActivityFounder.text = "Founder: ${founder.name}"
                 }
 
-                val members = apiRevUp.getMembersByClub(club.id, this)
+                val members = apiRevUp.getMembersByClub(club.id!!, this)
                 if(members != null){
                     val recyclerView = binding.clubDetailsActivityMembersRecyclerView
                     recyclerView.adapter = ClubDetailsMembersAdapter(members)

@@ -56,4 +56,5 @@
     <string name="editClubActivity_edit">Save club</string>
     <string name="editClubActivity_hint_name">Name</string>
     <string name="editClubActivity_hint_description">Description</string>
+    <string name="addImagePostActivity_hint_location">Location [Optional]</string>
 </resources>

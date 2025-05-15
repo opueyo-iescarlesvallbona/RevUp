@@ -41,11 +41,11 @@ class Car(
 
 @Parcelize
 class Club(
-    var id: Int,
+    var id: Int?,
     var name: String,
     var founder: Int,
     var description: String?,
-    var picture: String,
+    var picture: String?,
     var creationDate: String,
 
 //    var member: Member? = null,
@@ -73,7 +73,7 @@ class ClubEvent(
 )
 
 class Post (
-    var id: Int = 0,
+    var id: Int? = 0,
     var title: String? = null,
     var postType: Int = 0,
     var description: String? = null,

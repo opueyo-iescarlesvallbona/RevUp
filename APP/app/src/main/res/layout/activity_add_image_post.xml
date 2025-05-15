@@ -101,14 +101,20 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addImagePostActivity_layoutLocationTextField"
+            app:boxCornerRadiusTopEnd="7dp"
+            app:boxCornerRadiusTopStart="7dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
+            app:boxStrokeColor="@color/black"
             android:layout_height="wrap_content"
-            android:hint="@string/addPostActivity_hint_address"
-            android:layout_marginBottom="10dp">
-            <com.google.android.material.textfield.TextInputEditText
+            android:layout_marginBottom="10dp"
+            android:hint="@string/addImagePostActivity_hint_location">
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
+                android:backgroundTint="@android:color/transparent"
                 android:layout_height="match_parent"
-                android:id="@+id/addImagePostActivity_address"
+                android:id="@+id/addImagePostActivity_LocationTextField"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
