@@ -185,7 +185,6 @@ class CarDetailsActivity : AppCompatActivity() {
 
     fun checkParams(): Car? {
         var image: Uri? = null
-        var image_path: String? = null
         var model: Model? = null
         var hp: Double? = null
         var year: Int? = null
@@ -235,11 +234,14 @@ class CarDetailsActivity : AppCompatActivity() {
             Toast.makeText(this, "Value not valid", Toast.LENGTH_LONG).show()
             return null
         }
-
-        if(image == null && curr_car != null){
-            return Car(null, current_user!!.id, model!!.id, year, hp, binding.carDetailsActivityDescript.text.toString(), curr_car!!.picture, null, null)
+        if(binding.carDetailsActivityDescript.text != null){
+            description = binding.carDetailsActivityDescript.text.toString()
         }
 
-        return Car(null, current_user!!.id, model!!.id, year, hp, binding.carDetailsActivityDescript.text.toString())
+        if(image == null && curr_car != null){
+            return Car(null, current_user!!.id, model!!.id, year, hp, description, curr_car!!.picture, null, null)
+        }
+
+        return Car(null, current_user!!.id, model!!.id, year, hp, description)
     }
 }

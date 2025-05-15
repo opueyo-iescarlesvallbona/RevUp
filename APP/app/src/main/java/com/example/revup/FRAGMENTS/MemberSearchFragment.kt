@@ -39,11 +39,11 @@ class MemberSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        memberList = apiRevUp.getMembersByMemberName("", requireContext())
         viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
 
         viewModel.filter.observe(viewLifecycleOwner, Observer { text ->
             try {
+                memberList = apiRevUp.getMembersByMemberName("", requireContext())
                 val recyclerView = binding.memberSearchFragmentSearchFragmentMainActivityRecyclerView
                 if (memberList == null){
                     memberListFiltered = mutableListOf()

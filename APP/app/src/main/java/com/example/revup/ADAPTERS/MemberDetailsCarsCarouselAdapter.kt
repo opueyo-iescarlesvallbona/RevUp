@@ -46,6 +46,12 @@ class MemberDetailsCarsCarouselAdapter(var list: MutableList<Car>): RecyclerView
             holder.model.visibility = View.GONE
             holder.editButton.visibility = View.GONE
             holder.deleteButton.visibility = View.GONE
+            holder.vista.setOnClickListener{
+                val intent = Intent(holder.vista.context, CarDetailsActivity::class.java)
+                intent.putExtra("editable", true)
+                curr_car = null
+                holder.vista.context.startActivity(intent)
+            }
             return
         }
         Glide.with(holder.vista.context).load(image_path+list[position].picture).into(holder.picture)

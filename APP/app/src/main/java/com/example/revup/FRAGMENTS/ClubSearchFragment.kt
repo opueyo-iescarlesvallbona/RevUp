@@ -40,12 +40,12 @@ class ClubSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        clubList = apiRevUp.getClubsByName("", requireContext())
         viewModel = ViewModelProvider(requireActivity()).get(SearchViewModel::class.java)
 
         viewModel.filter.observe(viewLifecycleOwner, Observer { text ->
             if(viewModel.current_tab.value == 1){
                 try {
+                    clubList = apiRevUp.getClubsByName("", requireContext())
                     val recyclerView = binding.clubSearchFragmentSearchFragmentMainActivityRecyclerView
                     if (clubList == null){
                         clubListFiltered = mutableListOf()

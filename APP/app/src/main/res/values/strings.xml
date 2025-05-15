@@ -44,4 +44,12 @@
     <string name="carDetailsActivity_hint_descript">Description</string>
     <string name="memberDetailsActivity_logOut">Log out</string>
     <string name="map_style">Map style</string>
+    <string name="editMemberActivity_back_button_text">Profile</string>
+    <string name="editMemberActivity_edit">Save profile</string>
+    <string name="editMemberActivity_hint_memberName">Member Name (username)</string>
+    <string name="editMemberActivity_hint_email">Email</string>
+    <string name="editMemberActivity_hint_gender">Gender</string>
+    <string name="editMemberActivity_hint_location">Location</string>
+    <string name="editMemberActivity_hint_dateOfBirth">Date of birth</string>
+    <string name="editMemberActivity_hint_name">Name (Full Name)</string>
 </resources>

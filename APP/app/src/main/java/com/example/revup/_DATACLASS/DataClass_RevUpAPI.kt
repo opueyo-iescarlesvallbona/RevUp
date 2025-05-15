@@ -145,7 +145,7 @@ class MemberRelation (
 )
 
 class MemberLocation (
-    var id: Int = 0,
+    var id: Int?,
     var municipality: String? = null,
     var ccaa: String? = null,
     var country: String? = null,
