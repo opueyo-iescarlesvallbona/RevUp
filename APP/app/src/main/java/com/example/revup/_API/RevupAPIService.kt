@@ -38,13 +38,13 @@ interface RevupAPIService {
     @POST("/api/Post/")
     suspend fun postPost(
         @Part image: MultipartBody.Part?,
-        @Body post: Post): Response<Post>
+        @Part("post") post: RequestBody): Response<Post>
 
     @Multipart
     @PUT("/api/Post/")
     suspend fun putPost(
         @Part image: MultipartBody.Part?,
-        @Body post: Post): Response<Post>
+        @Part("post") post: RequestBody): Response<Post>
 
     @DELETE("/api/Post/")
     suspend fun deletePost(@Query("id") id: Int): Response<Boolean>
@@ -87,13 +87,13 @@ interface RevupAPIService {
     @PUT("/api/Member/")
     suspend fun putMember(
         @Part image: MultipartBody.Part?,
-        @Body member: Member): Response<Member>
+        @Part("member") member: RequestBody): Response<Member>
 
     @Multipart
     @POST("/api/Member/")
     suspend fun postMember(
         @Part image: MultipartBody.Part?,
-        @Body member: Member): Response<Member>
+        @Part("member") member: RequestBody): Response<Member>
 
     @GET("/api/login/")
     suspend fun login(@Query("memberName") memberName: String, @Query ("password") password: String): Response<String>
@@ -179,7 +179,7 @@ interface RevupAPIService {
     @POST("/api/Car/")
     suspend fun postCar(
         @Part image: MultipartBody.Part?,
-        @Body car: Car
+        @Part("car") car: RequestBody
     ): Response<Car>
 
     @GET("/api/Cars/")
@@ -223,7 +223,7 @@ interface RevupAPIService {
     @POST("/api/Event/")
     suspend fun postEvent(
         @Part image: MultipartBody.Part?,
-        @Body clubEvent: ClubEvent
+        @Part("clubEvent") clubEvent: RequestBody
     ): Response<ClubEvent>
 
     @GET("/api/Events/")
@@ -243,7 +243,7 @@ interface RevupAPIService {
     @PUT("/api/Event/")
     suspend fun putEvent(
         @Part image: MultipartBody.Part?,
-        @Body clubEvent: ClubEvent): Response<ClubEvent>
+        @Part("clubEvent") clubEvent: RequestBody): Response<ClubEvent>
 
     @GET("/api/EventStateById/")
     suspend fun getEventStateById(
@@ -314,13 +314,13 @@ interface RevupAPIService {
     @POST("/api/Club/")
     suspend fun postClub(
         @Part image: MultipartBody.Part?,
-        @Body club: Club): Response<Club>
+        @Part("club") club: RequestBody): Response<Club>
 
     @Multipart
     @PUT("/api/Club/")
     suspend fun putClub(
         @Part image: MultipartBody.Part?,
-        @Body club: Club): Response<Club>
+        @Part("club") club: RequestBody): Response<Club>
 
     @POST("/api/MemberClub/")
     suspend fun postMemberClub(

@@ -120,10 +120,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val postJson = Gson().toJson(post)
+        val postRequestBody = postJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<Post>? = null
             val cor= launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).postPost(body, post)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postPost(body, postRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -142,10 +144,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val postJson = Gson().toJson(post)
+        val postRequestBody = postJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<Post>? = null
             val cor = launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).putPost(body, post)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putPost(body, postRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -284,10 +288,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val memberJson = Gson().toJson(member)
+        val memberRequestBody = memberJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<Member>? = null
             val cor = launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).putMember(body, member)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putMember(body, memberRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -306,10 +312,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val memberJson = Gson().toJson(member)
+        val memberRequestBody = memberJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<Member>? = null
             val cor= launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).postMember(body, member)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postMember(body, memberRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -595,10 +603,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val carJson = Gson().toJson(car)
+        val carRequestBody = carJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<Car>? = null
             val cor= launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).postCar(body, car)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postCar(body, carRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -757,10 +767,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val clubEventJson = Gson().toJson(clubEvent)
+        val clubEventRequestBody = clubEventJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<ClubEvent>? = null
             val cor= launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).postEvent(body, clubEvent)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postEvent(body, clubEventRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -823,10 +835,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val clubEventJson = Gson().toJson(clubEvent)
+        val clubEventRequestBody = clubEventJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<ClubEvent>? = null
             val cor = launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).putEvent(body, clubEvent)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putEvent(body, clubEventRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -1053,10 +1067,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val clubJson = Gson().toJson(club)
+        val clubRequestBody = clubJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<Club>? = null
             val cor= launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).postClub(body, club)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).postClub(body, clubRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)
@@ -1075,10 +1091,12 @@ class RevupCrudAPI : CoroutineScope {
             val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             body = MultipartBody.Part.createFormData("image", file.name, requestFile)
         }
+        val clubJson = Gson().toJson(club)
+        val clubRequestBody = clubJson.toRequestBody("application/json".toMediaTypeOrNull())
         runBlocking {
             var resposta : Response<Club>? = null
             val cor = launch {
-                resposta = getRetrofit(context).create(RevupAPIService::class.java).putClub(body, club)
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).putClub(body, clubRequestBody)
             }
             cor.join()
             if (resposta!!.isSuccessful)

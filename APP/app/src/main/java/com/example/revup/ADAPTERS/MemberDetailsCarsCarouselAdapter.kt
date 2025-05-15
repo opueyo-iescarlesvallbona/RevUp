@@ -42,6 +42,10 @@ class MemberDetailsCarsCarouselAdapter(var list: MutableList<Car>): RecyclerView
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(list[position].id == -1){
+            holder.picture.setImageResource(R.drawable.baseline_add_24)
+            holder.model.visibility = View.GONE
+            holder.editButton.visibility = View.GONE
+            holder.deleteButton.visibility = View.GONE
             return
         }
         Glide.with(holder.vista.context).load(image_path+list[position].picture).into(holder.picture)
