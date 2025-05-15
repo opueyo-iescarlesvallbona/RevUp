@@ -102,7 +102,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
         holder.animation.setAnimationFromUrl("https://lottie.host/c7f572a9-3d2f-4f8e-8b67-64e5f22595d7/eZvXIuktZb.lottie")
         holder.like.setOnClickListener {
             if(list[position].liked){
-                apiRevUp.postUnLike(current_user!!.id, list[position].id, holder.vista.context)
+                apiRevUp.postUnLike(current_user!!.id, list[position].id!!, holder.vista.context)
                 Toast.makeText(holder.vista.context, "UnLiked", Toast.LENGTH_SHORT).show()
                 holder.animation.speed = -1f
 
@@ -115,7 +115,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
 
                 list[position].liked = false
             }else{
-                apiRevUp.postLike(current_user!!.id, list[position].id, holder.vista.context)
+                apiRevUp.postLike(current_user!!.id, list[position].id!!, holder.vista.context)
                 Toast.makeText(holder.vista.context, "Liked", Toast.LENGTH_SHORT).show()
                 holder.animation.speed = 1f
                 holder.animation.playAnimation()
@@ -134,7 +134,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
         if(getItemViewType(position) == VIEW_TYPE_TEXT){
             holder.content.setText(list[position].description)
             holder.commentTextBtn.setOnClickListener {
-                val comment = PostComment(postId = list[position].id, memberId = current_user!!.id, commentContent = holder.commentText.text.toString(), datetime = LocalDateTime.now().toString())
+                val comment = PostComment(postId = list[position].id!!, memberId = current_user!!.id, commentContent = holder.commentText.text.toString(), datetime = LocalDateTime.now().toString())
                 if(apiRevUp.postComments(comment, holder.vista.context)){
                     Toast.makeText(holder.vista.context, "Comment uploaded", Toast.LENGTH_SHORT).show()
                 }else{
@@ -146,7 +146,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
         }else if(getItemViewType(position) == VIEW_TYPE_IMAGE){
             Glide.with(holder.vista.context).load(image_path+list[position].picture).into(holder.image)
             holder.commentImageBtn.setOnClickListener {
-                val comment = PostComment(postId = list[position].id, memberId = current_user!!.id, commentContent = holder.commentImage.text.toString(), datetime = LocalDateTime.now().toString())
+                val comment = PostComment(postId = list[position].id!!, memberId = current_user!!.id, commentContent = holder.commentImage.text.toString(), datetime = LocalDateTime.now().toString())
                 if (apiRevUp.postComments(comment, holder.vista.context)){
                     Toast.makeText(holder.vista.context, "Comment uploaded", Toast.LENGTH_SHORT).show()
                 }else{

@@ -55,7 +55,7 @@ class PostDetailsActivity : AppCompatActivity() {
         val post = curr_post
 
         binding.activityPostdetailsCommentButton.setOnClickListener {
-            val comment = PostComment(postId = post!!.id, memberId = current_user!!.id, commentContent = binding.activityPostdetailsCommentText.text.toString(), datetime = LocalDateTime.now().toString())
+            val comment = PostComment(postId = post!!.id!!, memberId = current_user!!.id, commentContent = binding.activityPostdetailsCommentText.text.toString(), datetime = LocalDateTime.now().toString())
             val uploaded = apiRevUp.postComments(comment, this)
             binding.activityPostdetailsCommentText.setText("")
             hideKeyboard(this)
@@ -78,7 +78,7 @@ class PostDetailsActivity : AppCompatActivity() {
         if (post != null) {
             var comments: MutableList<PostComment>? = null
             try {
-                comments = apiRevUp.getCommentsByPostId(post.id, this)
+                comments = apiRevUp.getCommentsByPostId(post.id!!, this)
 
             } catch (e: Exception) {
                 Toast.makeText(this, "Error getting comments", Toast.LENGTH_SHORT).show()

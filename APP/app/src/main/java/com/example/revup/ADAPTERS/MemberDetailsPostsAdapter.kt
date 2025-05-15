@@ -60,7 +60,7 @@ class MemberDetailsPostsAdapter(var list: MutableList<Post>): RecyclerView.Adapt
                         .setTitle("Delete Post")
                         .setMessage("Do you want to delete this post?")
                         .setPositiveButton("Delete") { dialog, _ ->
-                            val result = apiRevUp.deletePost(list[position].id, holder.vista.context)
+                            val result = apiRevUp.deletePost(list[position].id!!, holder.vista.context)
                             if(result){
                                 list.removeAt(position)
                                 notifyItemRemoved(position)

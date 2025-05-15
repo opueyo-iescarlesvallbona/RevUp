@@ -94,7 +94,7 @@ class MapEventsFragment : Fragment(), OnMapReadyCallback {
         var events: MutableList<ClubEvent>? = null
         if(clubs!=null){
             for(club in clubs){
-                events = apiRevup.getAllEventsByClub(club.id, requireContext())
+                events = apiRevup.getAllEventsByClub(club.id!!, requireContext())
             }
         }
 

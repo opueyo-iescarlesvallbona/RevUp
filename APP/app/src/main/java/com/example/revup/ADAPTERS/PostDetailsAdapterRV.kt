@@ -164,7 +164,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
             holder.animation.setAnimationFromUrl("https://lottie.host/c7f572a9-3d2f-4f8e-8b67-64e5f22595d7/eZvXIuktZb.lottie")
             holder.like.setOnClickListener {
                 if(post.liked){
-                    apiRevUp.postUnLike(current_user!!.id, post.id, holder.vista.context)
+                    apiRevUp.postUnLike(current_user!!.id, post.id!!, holder.vista.context)
                     Toast.makeText(holder.vista.context, "UnLiked", Toast.LENGTH_SHORT).show()
                     holder.animation.speed = -1f
 
@@ -178,7 +178,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                     post.liked = false
                     curr_post!!.liked = false
                 }else{
-                    apiRevUp.postLike(current_user!!.id, post.id, holder.vista.context)
+                    apiRevUp.postLike(current_user!!.id, post.id!!, holder.vista.context)
                     Toast.makeText(holder.vista.context, "Liked", Toast.LENGTH_SHORT).show()
                     holder.animation.speed = 1f
                     holder.animation.playAnimation()
