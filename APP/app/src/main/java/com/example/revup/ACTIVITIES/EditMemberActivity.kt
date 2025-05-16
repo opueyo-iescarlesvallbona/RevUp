@@ -142,25 +142,17 @@ class EditMemberActivity : AppCompatActivity() {
 
     private fun checkParams(): Member? {
         var image: Uri? = null
-        var image_path: String? = null
-        var memberName: String? = null
         var name: String? = null
         var email: String? = null
         var description: String? = null
         var locationId: Int? = null
         var genderId: Int? = null
 
-        if(selectedImageUri == null && binding.editMemberActivityPicture.drawable == null){
+        if(selectedImageUri == null && curr_member == null){
             Toast.makeText(this, "Please select a picture", Toast.LENGTH_LONG).show()
             return null
         }else if(binding.editMemberActivityPicture.drawable == null){
             image = selectedImageUri
-        }
-
-        if(binding.editMemberActivityMemberName.text.toString() != member!!.membername){
-            memberName = binding.editMemberActivityMemberName.text.toString()
-        }else{
-            memberName = member!!.membername
         }
 
         if(binding.editMemberActivityName.text.toString() != member!!.name){
@@ -201,7 +193,7 @@ class EditMemberActivity : AppCompatActivity() {
                     longitude = muni.longitut
                 )
                 var location = apiRevUp.postLocation(memberLocation, this)
-                //locationId = location!!.id
+                locationId = location!!.id
             }else if(location.size != 1){
                 Toast.makeText(this, "Select a valid location", Toast.LENGTH_LONG).show()
                 return null
@@ -232,11 +224,11 @@ class EditMemberActivity : AppCompatActivity() {
         }
 
         if(image == null && curr_member != null){
-            return Member(member!!.id, name, memberName, null, email, genderId!!,
+            return Member(member!!.id, name, member!!.membername, null, email, genderId!!,
                 locationId!!, member!!.dateOfBirth, member!!.loginDate, description, member!!.profilePicture, member!!.password)
         }
 
-        return Member(member!!.id, name, memberName, null, email, genderId!!,
+        return Member(member!!.id, name, member!!.membername, null, email, genderId!!,
             locationId!!, member!!.dateOfBirth, member!!.loginDate, description, null, member!!.password)
     }
 }

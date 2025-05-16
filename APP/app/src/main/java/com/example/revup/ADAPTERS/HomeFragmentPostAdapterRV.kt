@@ -130,7 +130,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>): RecyclerView.Adapt
         }
 
         Glide.with(holder.vista.context).load(image_path+list[position].member!!.profilePicture).circleCrop().into(holder.userImage)
-        holder.user.setText(list[position].member!!.name)
+        holder.user.setText(list[position].member!!.membername)
         if(getItemViewType(position) == VIEW_TYPE_TEXT){
             holder.content.setText(list[position].description)
             holder.commentTextBtn.setOnClickListener {

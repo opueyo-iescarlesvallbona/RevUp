@@ -7,3 +7,4 @@ var curr_club: Club? = null
 var curr_member: Member? = null
 var curr_car: Car? = null
 var curr_event: ClubEvent? = null
+var recreated: Boolean = true

@@ -595,7 +595,7 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region CARS
-    fun postCar(car: Car, image_path: Uri?, context: Context): Boolean{
+    fun postCar(car: Car, image_path: Uri?, context: Context): Car? {
         var afegit: Boolean = false
         var body: MultipartBody.Part? = null
         if (image_path != null) {
@@ -605,8 +605,8 @@ class RevupCrudAPI : CoroutineScope {
         }
         val carJson = Gson().toJson(car)
         val carRequestBody = carJson.toRequestBody("application/json".toMediaTypeOrNull())
+        var resposta : Response<Car>? = null
         runBlocking {
-            var resposta : Response<Car>? = null
             val cor= launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).postCar(body, carRequestBody)
             }
@@ -616,7 +616,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 afegit = false
         }
-        return afegit
+        return resposta!!.body()
     }
 
     fun getCarsByMember(memberId: Int, context: Context): MutableList<Car>?{
@@ -759,7 +759,7 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region EVENTS
-    fun postEvent(clubEvent: ClubEvent, image_path: Uri?, context: Context): Boolean{
+    fun postEvent(clubEvent: ClubEvent, image_path: Uri?, context: Context): ClubEvent? {
         var afegit: Boolean = false
         var body: MultipartBody.Part? = null
         if (image_path != null) {
@@ -769,8 +769,8 @@ class RevupCrudAPI : CoroutineScope {
         }
         val clubEventJson = Gson().toJson(clubEvent)
         val clubEventRequestBody = clubEventJson.toRequestBody("application/json".toMediaTypeOrNull())
+        var resposta : Response<ClubEvent>? = null
         runBlocking {
-            var resposta : Response<ClubEvent>? = null
             val cor= launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).postEvent(body, clubEventRequestBody)
             }
@@ -780,7 +780,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 afegit = false
         }
-        return afegit
+        return resposta!!.body()
     }
 
     fun getAllEventsByClub(clubId: Int, context: Context): MutableList<ClubEvent>?{
@@ -1059,7 +1059,7 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun postClub(club: Club, image_path: Uri?, context: Context): Boolean{
+    fun postClub(club: Club, image_path: Uri?, context: Context): Club? {
         var afegit: Boolean = false
         var body: MultipartBody.Part? = null
         if (image_path != null) {
@@ -1069,8 +1069,8 @@ class RevupCrudAPI : CoroutineScope {
         }
         val clubJson = Gson().toJson(club)
         val clubRequestBody = clubJson.toRequestBody("application/json".toMediaTypeOrNull())
+        var resposta : Response<Club>? = null
         runBlocking {
-            var resposta : Response<Club>? = null
             val cor= launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).postClub(body, clubRequestBody)
             }
@@ -1080,7 +1080,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 afegit = false
         }
-        return afegit
+        return resposta!!.body()
     }
 
     fun putClub(club: Club, image_path: Uri?, context: Context): Boolean{
@@ -1227,10 +1227,10 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun postLocation(location: MemberLocation, context: Context): Boolean{
+    fun postLocation(location: MemberLocation, context: Context): MemberLocation? {
         var afegit: Boolean = false
+        var resposta : Response<MemberLocation>? = null
         runBlocking {
-            var resposta : Response<MemberLocation>? = null
             val cor= launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).postLocation(location)
             }
@@ -1240,7 +1240,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 afegit = false
         }
-        return afegit
+        return resposta!!.body()
     }
     // endregion
 

@@ -39,7 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:id="@+id/cardview_memberDetailsCarCarousel_picture"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    />
 
             </LinearLayout>
 
@@ -65,6 +66,18 @@
                     android:layout_marginHorizontal="10dp"
                     />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/cardview_memberDetailsCarCarousel_carBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brand"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                />
 
             <LinearLayout
                 android:layout_width="wrap_content"

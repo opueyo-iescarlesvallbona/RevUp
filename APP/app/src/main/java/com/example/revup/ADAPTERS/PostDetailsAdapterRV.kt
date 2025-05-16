@@ -193,7 +193,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                 }
             }
             val member = post.member
-            holder.user.setText(member!!.name)
+            holder.user.setText(member!!.membername)
             if(getItemViewType(position) == VIEW_TYPE_POST_TEXT){
                 holder.content.setText(post.description)
                 val layout = holder.vista.findViewById<LinearLayout>(R.id.cardview_text_post_commentlayout)

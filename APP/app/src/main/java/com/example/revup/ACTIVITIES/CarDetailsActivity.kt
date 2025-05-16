@@ -23,6 +23,7 @@ import com.example.revup._DATACLASS.Model
 import com.example.revup._DATACLASS.curr_car
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
+import com.example.revup._DATACLASS.recreated
 import com.example.revup.databinding.ActivityCarDetailsBinding
 
 
@@ -79,14 +80,18 @@ class CarDetailsActivity : AppCompatActivity() {
             }else{
                 var car = checkParams()
                 if(car != null){
+                    recreated = false
                     try{
                         if(curr_car == null){
                             var result = apiRevUp.postCar(car, selectedImageUri, applicationContext)
-                            if(result){
+                            if(result != null){
                                 Toast.makeText(this, "Car saved", Toast.LENGTH_LONG).show()
                                 binding.carDetailsActivityEditButton.text = "Edit Car"
                                 binding.carDetailsActivityEditButton.setTextColor(getColor(R.color.orange))
-                                disableWidgets(false)
+                                curr_car = null
+                                val returnIntent = Intent()
+                                setResult(RESULT_OK, returnIntent)
+                                finish()
                             }else{
                                 Toast.makeText(this, "Error saving car", Toast.LENGTH_LONG).show()
                             }
@@ -97,7 +102,10 @@ class CarDetailsActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Car saved", Toast.LENGTH_LONG).show()
                                 binding.carDetailsActivityEditButton.text = "Edit Car"
                                 binding.carDetailsActivityEditButton.setTextColor(getColor(R.color.orange))
-                                disableWidgets(false)
+                                curr_car = null
+                                val returnIntent = Intent()
+                                setResult(RESULT_OK, returnIntent)
+                                finish()
                             }else{
                                 Toast.makeText(this, "Error saving car", Toast.LENGTH_LONG).show()
                             }
@@ -189,7 +197,7 @@ class CarDetailsActivity : AppCompatActivity() {
         var hp: Double? = null
         var year: Int? = null
         var description: String? = null
-        if(selectedImageUri == null && binding.carDetailsActivityPicture.drawable == null){
+        if(selectedImageUri == null && curr_car == null){
             Toast.makeText(this, "Please select a picture", Toast.LENGTH_LONG).show()
             return null
         }else if(binding.carDetailsActivityPicture.drawable == null){

@@ -29,6 +29,7 @@ class MemberDetailsCarsCarouselAdapter(var list: MutableList<Car>): RecyclerView
     class ViewHolder(val vista: View): RecyclerView.ViewHolder(vista) {
         val picture = vista.findViewById<ImageView>(R.id.cardview_memberDetailsCarCarousel_picture)
         val model = vista.findViewById<TextView>(R.id.cardview_memberDetailsCarCarousel_carModel)
+        val brand = vista.findViewById<TextView>(R.id.cardview_memberDetailsCarCarousel_carBrand)
         val deleteButton = vista.findViewById<ImageButton>(R.id.cardview_memberDetailsCarCarousel_deleteButton)
         val editButton = vista.findViewById<ImageButton>(R.id.cardview_memberDetailsCarCarousel_editButton)
     }
@@ -43,7 +44,8 @@ class MemberDetailsCarsCarouselAdapter(var list: MutableList<Car>): RecyclerView
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(list[position].id == -1){
             holder.picture.setImageResource(R.drawable.baseline_add_24)
-            holder.model.visibility = View.GONE
+            holder.model.text = ""
+            holder.brand.text = ""
             holder.editButton.visibility = View.GONE
             holder.deleteButton.visibility = View.GONE
             holder.vista.setOnClickListener{
@@ -55,7 +57,8 @@ class MemberDetailsCarsCarouselAdapter(var list: MutableList<Car>): RecyclerView
             return
         }
         Glide.with(holder.vista.context).load(image_path+list[position].picture).into(holder.picture)
-        holder.model.setText(list[position].model!!.brand!!.name + " - " + list[position].model!!.modelName)
+        holder.model.setText(list[position].model!!.modelName)
+        holder.brand.setText(list[position].model!!.brand!!.name)
         holder.vista.setOnClickListener{
             val intent = Intent(holder.vista.context, CarDetailsActivity::class.java)
             intent.putExtra("editable", false)

@@ -69,9 +69,10 @@ class EditClubActivity : AppCompatActivity() {
             var club_to_save = checkParams()
             try{
                 if(club == null){
-                    if(apiRevUp.postClub(club_to_save!!, selectedImageUri, this)){
+                    var result = apiRevUp.postClub(club_to_save!!, selectedImageUri, this)
+                    if(result != null){
                         Toast.makeText(this, "Club saved", Toast.LENGTH_LONG).show()
-                        curr_club = club_to_save
+                        curr_club = result
                         val returnIntent = Intent()
                         setResult(RESULT_OK, returnIntent)
                         finish()
@@ -108,7 +109,7 @@ class EditClubActivity : AppCompatActivity() {
         var founder: Int? = null
         var creationDate: String? = null
 
-        if(selectedImageUri == null && binding.editClubActivityPicture.drawable == null){
+        if(selectedImageUri == null && curr_club == null){
             Toast.makeText(this, "Please select a picture", Toast.LENGTH_LONG).show()
             return null
         }else if(binding.editClubActivityPicture.drawable == null){

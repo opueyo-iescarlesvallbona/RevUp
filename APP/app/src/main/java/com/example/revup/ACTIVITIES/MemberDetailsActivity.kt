@@ -1,31 +1,29 @@
 package com.example.revup.ACTIVITIES
 
+import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.transition.Visibility
 import com.bumptech.glide.Glide
 import com.example.revup.ADAPTERS.ViewPagerAdapter
 import com.example.revup.FRAGMENTS.MemberDetailsCarsFragment
 import com.example.revup.FRAGMENTS.MemberDetailsPostsFragment
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
-import com.example.revup._DATACLASS.Member
 import com.example.revup._DATACLASS.MemberRelation
-import com.example.revup._DATACLASS.curr_car
 import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
+import com.example.revup._DATACLASS.recreated
 import com.example.revup.databinding.ActivityMemberDetailsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
-import androidx.core.content.edit
 
 class MemberDetailsActivity : AppCompatActivity() {
     lateinit var binding : ActivityMemberDetailsBinding
@@ -42,6 +40,7 @@ class MemberDetailsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        recreated = true
 
         val member = curr_member
 
@@ -109,6 +108,7 @@ class MemberDetailsActivity : AppCompatActivity() {
             }else if(binding.memberDetailsActivityMemberRelation.text == "Edit"){
                 val intent = Intent(this, EditMemberActivity::class.java)
                 current_user = member
+                recreated = false
                 startActivity(intent)
             }
         }
@@ -181,4 +181,12 @@ class MemberDetailsActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        if(!recreated){
+            recreate()
+        }
+    }
+
 }
