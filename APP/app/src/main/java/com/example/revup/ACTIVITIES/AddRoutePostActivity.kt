@@ -98,6 +98,6 @@ class AddRoutePostActivity : AppCompatActivity() {
             }
         }
 
-        return Post(id = null, title = title, description = description, postDate = LocalDateTime.now().toString(), routeId = routeId)
+        return Post(id = null, title = title, description = description, postDate = LocalDateTime.now().toString(), routeId = routeId, postType = 1)
     }
 }

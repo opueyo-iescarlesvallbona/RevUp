@@ -136,6 +136,6 @@ class AddImagePostActivity : AppCompatActivity() {
             }
         }
 
-        return Post(id = null, title = title, description = description, location_id = locationId, postDate = LocalDateTime.now().toString())
+        return Post(id = null, title = title, description = description, location_id = locationId, postDate = LocalDateTime.now().toString(), postType = 2)
     }
 }

@@ -231,7 +231,7 @@ class EditMemberActivity : AppCompatActivity() {
             Toast.makeText(this, "Error getting genders. ${e.message}", Toast.LENGTH_LONG).show()
         }
 
-        if(image == null && curr_car != null){
+        if(image == null && curr_member != null){
             return Member(member!!.id, name, memberName, null, email, genderId!!,
                 locationId!!, member!!.dateOfBirth, member!!.loginDate, description, member!!.profilePicture, member!!.password)
         }

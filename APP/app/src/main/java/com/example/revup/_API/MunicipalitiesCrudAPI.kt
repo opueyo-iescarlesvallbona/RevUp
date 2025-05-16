@@ -20,7 +20,7 @@ class MunicipalitiesCrudAPI : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    var urlApi = "http://172.16.24.136/"
+    var urlApi = "http://172.16.24.184/"
 
     private fun getClient(): OkHttpClient {
         var loggin = HttpLoggingInterceptor()
