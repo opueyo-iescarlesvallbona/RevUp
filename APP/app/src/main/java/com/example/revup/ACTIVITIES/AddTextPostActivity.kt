@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Post
+import com.example.revup._DATACLASS.current_user
 import com.example.revup.databinding.ActivityAddTextPostBinding
 import java.time.LocalDateTime
 
@@ -74,6 +75,6 @@ class AddTextPostActivity : AppCompatActivity() {
             return null
         }
 
-        return Post(id = null, title = title, description = description, postDate = LocalDateTime.now().toString(), postType = 3)
+        return Post(id = null, title = title, description = description, postDate = LocalDateTime.now().toString(), postType = 3, memberId = current_user!!.id)
     }
 }

@@ -27,6 +27,7 @@ import com.example.revup._DATACLASS.Member
 import com.example.revup._DATACLASS.MemberLocation
 import com.example.revup._DATACLASS.Post
 import com.example.revup._DATACLASS.curr_car
+import com.example.revup._DATACLASS.current_user
 import com.example.revup.databinding.ActivityAddImagePostBinding
 import java.time.LocalDateTime
 
@@ -136,6 +137,6 @@ class AddImagePostActivity : AppCompatActivity() {
             }
         }
 
-        return Post(id = null, title = title, description = description, location_id = locationId, postDate = LocalDateTime.now().toString(), postType = 2)
+        return Post(id = null, title = title, description = description, location_id = locationId, postDate = LocalDateTime.now().toString(), postType = 2, memberId = current_user!!.id)
     }
 }
