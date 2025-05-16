@@ -14,6 +14,7 @@ import com.example.revup.FRAGMENTS.EventsFragment
 import com.example.revup.FRAGMENTS.HomeFragment
 import com.example.revup.FRAGMENTS.SearchFragment
 import com.example.revup.R
+import com.example.revup._DATACLASS.curr_car
 import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
 import com.example.revup.databinding.ActivityMainBinding
@@ -37,6 +38,11 @@ class MainActivity : AppCompatActivity() {
         binding.mainActivityBtnProfile.setOnClickListener {
             val intent = Intent(this, MemberDetailsActivity::class.java)
             curr_member = current_user
+            startActivity(intent)
+        }
+
+        binding.mainActivityBtnNotifications.setOnClickListener {
+            val intent = Intent(this, RecordRouteActivity::class.java)
             startActivity(intent)
         }
 

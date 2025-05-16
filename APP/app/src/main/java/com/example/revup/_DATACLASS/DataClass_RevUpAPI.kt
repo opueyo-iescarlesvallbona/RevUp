@@ -1,12 +1,16 @@
 package com.example.revup._DATACLASS
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Parcelable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.parcelize.Parcelize
