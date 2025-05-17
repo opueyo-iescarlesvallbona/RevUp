@@ -15,6 +15,7 @@ import com.example.revup.FRAGMENTS.HomeFragment
 import com.example.revup.FRAGMENTS.SearchFragment
 import com.example.revup.R
 import com.example.revup._DATACLASS.curr_car
+import com.example.revup._DATACLASS.curr_event
 import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
 import com.example.revup.databinding.ActivityMainBinding
@@ -59,7 +60,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.events -> {
+                    setAnimation(false)
+                    if(binding.mainActivityBtnAdd.rotation==45f) {
+                        secFloatingBtnVisible = !secFloatingBtnVisible
+                    }
                     initFragment(EventsFragment())
+                    activeCreatePostButton(true)
                     true
                 }
                 R.id.search -> {
@@ -74,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-            if(it.itemId != R.id.home){
+            if(it.itemId != R.id.home&&it.itemId!=R.id.events){
                 activeCreatePostButton(false)
             }
             true
@@ -89,19 +95,37 @@ class MainActivity : AppCompatActivity() {
         }
         binding.mainActivityBtnAddImage.setOnClickListener {
             binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
-            val intent = Intent(this, AddImagePostActivity::class.java)
-            startActivity(intent)
+            if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+                val intent = Intent(this, AddImagePostActivity::class.java)
+                startActivity(intent)
+            }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+                val intent = Intent(this, EventDetailsActivity::class.java)
+                intent.putExtra("editable", true)
+                curr_event = null
+                startActivity(intent)
+            }
+
         }
         binding.mainActivityBtnAddRoute.setOnClickListener {
             binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
-            val intent = Intent(this, AddRoutePostActivity::class.java)
-            startActivity(intent)
+            if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+                val intent = Intent(this, AddRoutePostActivity::class.java)
+                startActivity(intent)
+            }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+                val intent = Intent(this, RecordRouteActivity::class.java)
+                startActivity(intent)
+            }
+
         }
     }
 
     fun activeCreatePostButton(activate: Boolean){
         if(secFloatingBtnVisible){
-            setEnableFloatingButtons(false, true)
+            if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home) {
+                setEnableFloatingButtons(false, true)
+            }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home) {
+                setEnableFloatingButtonsEvent(false, true)
+            }
         }
         if(activate){
             binding.mainActivityBtnAdd.visibility = View.VISIBLE
@@ -118,8 +142,29 @@ class MainActivity : AppCompatActivity() {
 
     fun onAddButtonClicked(){
         secFloatingBtnVisible = !secFloatingBtnVisible
-        setEnableFloatingButtons(secFloatingBtnVisible, false)
+        if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+            setEnableFloatingButtons(secFloatingBtnVisible, false)
+        }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+            setEnableFloatingButtonsEvent(secFloatingBtnVisible, false)
+        }
+
         setAnimation(secFloatingBtnVisible)
+    }
+
+    private fun setEnableFloatingButtonsEvent(visible: Boolean, reset: Boolean){
+        binding.mainActivityBtnAddText.visibility = View.GONE
+        if(!visible){
+            binding.mainActivityBtnAddImage.visibility = View.INVISIBLE
+            binding.mainActivityBtnAddRoute.visibility = View.INVISIBLE
+        }else{
+            binding.mainActivityBtnAddImage.visibility = View.VISIBLE
+            binding.mainActivityBtnAddRoute.visibility = View.VISIBLE
+        }
+        if(reset && binding.mainActivityBtnAddImage.animation != null){
+            binding.mainActivityBtnAddImage.clearAnimation()
+            binding.mainActivityBtnAddRoute.clearAnimation()
+        }
+        setClickable(visible)
     }
 
     private fun setEnableFloatingButtons(visible: Boolean, reset: Boolean){

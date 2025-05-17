@@ -276,7 +276,7 @@ class Notification(
 
 fun FormatDate(date: String): Date {
     var formater: DateTimeFormatter? = null
-    var formats: List<String> = listOf("yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SS", "yyyy-MM-dd'T'HH:mm:ssss", "yyyy-MM-dd'T'HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.S")
+    var formats: List<String> = listOf("dd/MM/yyyy", "dd-MM-yyyy", "yyyy-MM-dd", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SS", "yyyy-MM-dd'T'HH:mm:ssss", "yyyy-MM-dd'T'HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss.S")
     var local_datetime: LocalDateTime? = null
     var local_date: LocalDate? = null
 

@@ -95,9 +95,14 @@ class MapEventsFragment : Fragment(), OnMapReadyCallback {
         if(clubs!=null){
             for(club in clubs){
                 var cevents = apiRevup.getAllEventsByClub(club.id!!, requireContext())
+                if(cevents==null){
+                    cevents = mutableListOf()
+                }
 
-                for (event in cevents!!){
-                    events.add(event)
+                for (event in cevents){
+                    if(event.state==1||event.state==0){
+                        events.add(event)
+                    }
                 }
             }
         }

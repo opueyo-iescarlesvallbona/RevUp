@@ -141,15 +141,21 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/eventDetailsActivity_Layoutclub"
+                    app:boxCornerRadiusTopEnd="7dp"
+                    app:boxCornerRadiusTopStart="7dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
+                    app:boxStrokeColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:hint="@string/clubDetailsActivity_back_button_text">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/eventDetailsActivity_club"
+                    <AutoCompleteTextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:backgroundTint="@android:color/transparent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/eventDetailsActivity_club"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -200,15 +206,21 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/eventDetailsActivity_Layoutstate"
+                    app:boxCornerRadiusTopEnd="7dp"
+                    app:boxCornerRadiusTopStart="7dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
+                    app:boxStrokeColor="@color/black"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:hint="@string/state">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/eventDetailsActivity_state"
+                    <AutoCompleteTextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:backgroundTint="@android:color/transparent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/eventDetailsActivity_state"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
 

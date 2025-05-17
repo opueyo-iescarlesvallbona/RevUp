@@ -80,6 +80,7 @@ class AddImagePostActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error posting post. ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
+            Toast.makeText(this, "Error posting post", Toast.LENGTH_LONG).show()
         }
 
         binding.addImagePostActivityPreviewImage.setOnClickListener{
