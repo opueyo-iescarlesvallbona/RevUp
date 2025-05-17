@@ -36,7 +36,7 @@ class ChatsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listOfFragments = listOf(MemberChatFragment(), ClubChatFragment())
+        val listOfFragments = mutableListOf(MemberChatFragment(), ClubChatFragment())
         var adapter = ViewPagerAdapter(
             listOfFragments,
             activity?.supportFragmentManager!!,

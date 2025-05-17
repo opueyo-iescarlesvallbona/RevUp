@@ -27,7 +27,7 @@ class EventsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listOfFragments = listOf(MapEventsFragment(), ListEventsFragment(), ListRoutesFragment())
+        val listOfFragments = mutableListOf(MapEventsFragment(), ListEventsFragment(), ListRoutesFragment())
         var adapter = ViewPagerAdapter(
             listOfFragments,
             activity?.supportFragmentManager!!,

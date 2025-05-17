@@ -133,7 +133,7 @@ class MemberDetailsActivity : AppCompatActivity() {
                     binding.memberDetailsActivityLocation.text = location.municipality
                 }
 
-                val listOfFragments = listOf(
+                val listOfFragments = mutableListOf(
                     MemberDetailsCarsFragment(),
                     MemberDetailsPostsFragment()
                 )

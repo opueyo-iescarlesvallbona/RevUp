@@ -72,4 +72,6 @@
     <string name="editRouteActivity_distance">Distance</string>
     <string name="editRouteActivity_startAddress">Start address</string>
     <string name="editRouteActivity_endAddress">End address</string>
+    <string name="editRouteActivity_datetime">Date</string>
+    <string name="blankFragment_text">Loading</string>
 </resources>

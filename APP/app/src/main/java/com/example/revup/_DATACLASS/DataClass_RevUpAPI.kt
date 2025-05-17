@@ -314,7 +314,7 @@ fun uriToFile(context: Context, uri: Uri): File {
 }
 
 fun toSimpleDateString(date: Date) : String {
-    val format = SimpleDateFormat("dd/MM/yyy")
+    val format = SimpleDateFormat("dd/MM/yyyy")
     return format.format(date)
 }
 

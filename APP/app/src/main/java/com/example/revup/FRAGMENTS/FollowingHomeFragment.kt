@@ -52,4 +52,6 @@ class FollowingHomeFragment : Fragment() {
             Toast.makeText(requireView().context, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
+
+
 }

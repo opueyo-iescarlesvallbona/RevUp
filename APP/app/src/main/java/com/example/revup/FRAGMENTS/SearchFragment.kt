@@ -36,7 +36,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listOfFragments = listOf(MemberSearchFragment(), ClubSearchFragment())
+        val listOfFragments = mutableListOf(MemberSearchFragment(), ClubSearchFragment())
         var adapter = ViewPagerAdapter(
             listOfFragments,
             activity?.supportFragmentManager!!,
