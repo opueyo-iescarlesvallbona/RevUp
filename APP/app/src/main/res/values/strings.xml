@@ -65,4 +65,11 @@
     <string name="event">Event</string>
     <string name="edit_event">Edit Event</string>
     <string name="set_location">Set Location</string>
+    <string name="editRouteActivity_back_button_text">Route</string>
+    <string name="editRouteActivity_edit">Edit Route</string>
+    <string name="editRouteActivity_name">Name</string>
+    <string name="editRouteActivity_hint_descript">Description</string>
+    <string name="editRouteActivity_distance">Distance</string>
+    <string name="editRouteActivity_startAddress">Start address</string>
+    <string name="editRouteActivity_endAddress">End address</string>
 </resources>

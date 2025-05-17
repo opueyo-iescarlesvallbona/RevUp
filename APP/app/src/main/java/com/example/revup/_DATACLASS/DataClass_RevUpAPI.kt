@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.parcelize.Parcelize
 import java.io.File
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -236,16 +237,16 @@ class RelationState (
 )
 
 class Route (
-    var id: Int = 0,
+    var id: Int? = 0,
     var name: String? = null,
     var waypoints: String? = null,
-    var distance: BigDecimal = BigDecimal.ZERO,
+    var distance: BigDecimal? = BigDecimal.ZERO,
     var duration: Long = 0,
     var maxElevation: BigDecimal? = null,
     var elevationGain: BigDecimal? = null,
     var startAddress: String? = null,
     var endAddress: String? = null,
-    var terrainTypeId: Int? = null,
+    var terrainTypeId: Int? = 1,
     var description: String? = null,
     var memberId: Int = 0,
     var datetime: String? = null,
@@ -331,6 +332,15 @@ fun hideKeyboard(activity: Activity) {
     val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     val view = activity.currentFocus ?: View(activity)
     imm.hideSoftInputFromWindow(view.windowToken, 0)
+}
+
+fun formatDistance(distanceInMeters: BigDecimal): String {
+    return if (distanceInMeters < BigDecimal(1000)) {
+        "${distanceInMeters.setScale(0, RoundingMode.HALF_UP)} m"
+    } else {
+        val distanceInKm = distanceInMeters.divide(BigDecimal(1000))
+        "${distanceInKm.setScale(2, RoundingMode.HALF_UP)} km"
+    }
 }
 
 data class CardViewEventMap(val event: ClubEvent)

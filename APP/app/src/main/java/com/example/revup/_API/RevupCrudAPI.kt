@@ -881,10 +881,10 @@ class RevupCrudAPI : CoroutineScope {
     //endregion
 
     //region ROUTE
-    fun postRoute(route: Route, context: Context): Boolean{
+    fun postRoute(route: Route, context: Context): Route?{
         var afegit: Boolean = false
+        var resposta : Response<Route>? = null
         runBlocking {
-            var resposta : Response<Route>? = null
             val cor= launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).postRoute(route)
             }
@@ -894,7 +894,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 afegit = false
         }
-        return afegit
+        return resposta!!.body()
     }
 
     fun getAllRoutesByMember(memberId: Int, context: Context): MutableList<Route>?{
@@ -941,10 +941,10 @@ class RevupCrudAPI : CoroutineScope {
         return esborrat
     }
 
-    fun putRoute(route: Route, context: Context): Boolean{
+    fun putRoute(route: Route, context: Context): Route? {
         var modificat: Boolean = false
+        var resposta : Response<Route>? = null
         runBlocking {
-            var resposta : Response<Route>? = null
             val cor = launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).putRoute(route)
             }
@@ -954,7 +954,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 modificat = false
         }
-        return modificat
+        return resposta!!.body()
     }
 
     fun getTerrainTypeById(terrainTypeId: Int, context: Context): TerrainType?{
