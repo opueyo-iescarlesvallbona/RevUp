@@ -91,10 +91,14 @@ class MapEventsFragment : Fragment(), OnMapReadyCallback {
 
 
         val clubs = apiRevup.getClubsByMember(current_user!!.id, requireContext())
-        var events: MutableList<ClubEvent>? = null
+        var events: MutableList<ClubEvent> = mutableListOf()
         if(clubs!=null){
             for(club in clubs){
-                events = apiRevup.getAllEventsByClub(club.id!!, requireContext())
+                var cevents = apiRevup.getAllEventsByClub(club.id!!, requireContext())
+
+                for (event in cevents!!){
+                    events.add(event)
+                }
             }
         }
 

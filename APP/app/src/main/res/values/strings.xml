@@ -64,4 +64,5 @@
     <string name="state">Event State</string>
     <string name="event">Event</string>
     <string name="edit_event">Edit Event</string>
+    <string name="set_location">Set Location</string>
 </resources>

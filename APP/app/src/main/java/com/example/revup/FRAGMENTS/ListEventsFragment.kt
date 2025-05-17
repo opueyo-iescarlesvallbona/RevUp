@@ -26,7 +26,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
 class ListEventsFragment : Fragment() {
-    lateinit var binding : FragmentListEventsBinding
+    lateinit var binding: FragmentListEventsBinding
     val apiRevUp = RevupCrudAPI()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,30 +44,30 @@ class ListEventsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView_current = binding.listEventsFragmentEventsFragmentMainActivityRecyclerViewCurrent
+        val recyclerView_current =
+            binding.listEventsFragmentEventsFragmentMainActivityRecyclerViewCurrent
         val recyclerView_past = binding.listEventsFragmentEventsFragmentMainActivityRecyclerViewPast
         try {
-            var all_events = apiRevUp.getAllEventsByClub(6, requireView().context)
-            var past_events = mutableListOf<ClubEvent>()
-            var current_events = mutableListOf<ClubEvent>()
-            if (all_events == null){
-                all_events = mutableListOf()
-            }else {
-                var localdatetime_now =
-                    Date.from(LocalDateTime.now()!!.atZone(ZoneId.systemDefault()).toInstant())
-                for (event in all_events!!) {
-                    if (FormatDate(event.endDate).before(localdatetime_now)) {
-                        past_events.add(event)
-                    } else {
-                        current_events.add(event)
+            val clubs = apiRevUp.getClubsByMember(current_user!!.id, requireContext())
+            var events: MutableList<ClubEvent> = mutableListOf()
+            if (clubs != null) {
+                for (club in clubs) {
+                    var cevents = apiRevUp.getAllEventsByClub(club.id!!, requireContext())
+
+                    for (event in cevents!!) {
+                        events.add(event)
                     }
                 }
             }
+            var localdatetime_now = Date.from(LocalDateTime.now()!!.atZone(ZoneId.systemDefault()).toInstant())
+            var past_events = events.filter { FormatDate(it.endDate).before(localdatetime_now) }.toMutableList()
+            var current_events = events.filter { FormatDate(it.endDate).after(localdatetime_now) }.toMutableList()
+
             recyclerView_current.adapter = EventsRoutesListAdapter(current_events)
             recyclerView_current.layoutManager = LinearLayoutManager(requireView().context)
-            recyclerView_past.adapter = EventsRoutesListAdapter(past_events!!)
+            recyclerView_past.adapter = EventsRoutesListAdapter(past_events)
             recyclerView_past.layoutManager = LinearLayoutManager(requireView().context)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Toast.makeText(requireView().context, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }

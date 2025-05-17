@@ -95,7 +95,7 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
                             .setTitle("Delete Event")
                             .setMessage("Do you want to delete this event?")
                             .setPositiveButton("Delete") { dialog, _ ->
-                                val result = apiRevUp.deleteEvent(item.id, holder.vista.context)
+                                val result = apiRevUp.deleteEvent(item.id!!, holder.vista.context)
                                 if(result){
                                     list.remove(item)
                                     notifyItemRemoved(position)

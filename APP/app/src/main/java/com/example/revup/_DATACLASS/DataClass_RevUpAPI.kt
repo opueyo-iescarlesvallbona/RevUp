@@ -58,11 +58,11 @@ class Club(
 ): Parcelable
 
 class ClubEvent(
-    var id: Int,
+    var id: Int?,
     var name: String,
     var address: String,
     var clubId: Int,
-    var picture: String,
+    var picture: String?,
     var startDate: String,
     var routeStartDate: String? = null,
     var endDate: String,
