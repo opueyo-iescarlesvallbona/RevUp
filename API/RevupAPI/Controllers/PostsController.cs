@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using RevupAPI.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RevupAPI.Controllers
 {
@@ -242,24 +243,38 @@ namespace RevupAPI.Controllers
             {
                 return BadRequest("Invalid post");
             }
-            var postObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Post>(post);
+            var settings = new JsonSerializerSettings
+            {
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Ignore,
+                ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver
+                {
+                    NamingStrategy = new Newtonsoft.Json.Serialization.CamelCaseNamingStrategy()
+                }
+            };
+            post = post.Replace("}", ", \"id\":\"0\"}");
+            var postObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Post>(post, settings);
             if (postObj == null)
             {
                 return BadRequest("Invalid post object");
             }
-            if (image != null)
-            {
-                try
-                {
-                    string path = GeneralController.UploadImage(image, postObj);
-                    postObj.Picture = path;
-                }
-                catch { }
-            }
+            
             try
             {
-                _context.Posts.Add(postObj);
+
+                //_context.Database.ExecuteSqlRaw("", post);
+                var afterPost = _context.Posts.Add(postObj);
                 await _context.SaveChangesAsync();
+                if (image != null)
+                {
+                    try
+                    {
+                        string path = GeneralController.UploadImage(image, afterPost.Entity);
+                        _context.Database.ExecuteSqlRaw("UPDATE post SET picture = {0} WHERE id = {1}", path, afterPost.Entity.Id);
+                        postObj.Picture = path;
+                    }
+                    catch { }
+                }
             }
             catch
             {

@@ -183,13 +183,11 @@ namespace RevupAPI.Controllers
         }
 
         [Authorize]
-        [Route("api/LocationsByMunicipality")]
+        [Route("api/LocationByMunicipality")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberLocation>>> GetLocationsByMunicipality([FromQuery] string municipality)
         {
-            var locations = await _context.MemberLocations
-                .Where(l => l.Municipality.Equals(municipality, StringComparison.OrdinalIgnoreCase))
-                .ToListAsync();
+            var locations = await _context.MemberLocations.Where(l => l.Municipality.Equals(municipality)).ToListAsync();
             if (locations == null || !locations.Any())
             {
                 return NotFound();

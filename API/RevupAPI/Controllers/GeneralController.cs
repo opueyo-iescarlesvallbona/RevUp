@@ -65,6 +65,7 @@ namespace RevupAPI.Controllers
             string imageFileName = "";
             string targetFolder = "";
             string pathSaved = "";
+            fileType = fileType.Substring(1);
             switch (obj)
             {
                 case Post post:
