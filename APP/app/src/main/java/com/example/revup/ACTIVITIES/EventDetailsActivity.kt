@@ -250,18 +250,24 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-        if (event?.bitmap != null) {
-            try {
-                binding.eventDetailsActivityPicture.setImageBitmap(event?.bitmap)
-            } catch (e: Exception) {
-                Toast.makeText(this, "Error setting event image", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            try {
-                Glide.with(this).load(image_path + event?.picture)
-                    .into(binding.eventDetailsActivityPicture)
-            } catch (e: Exception) {
-                Toast.makeText(this, "Error setting event image", Toast.LENGTH_SHORT).show()
+
+
+        if(curr_event==null){
+            binding.eventDetailsActivityPicture.setImageResource(R.drawable.baseline_add_photo_alternate_24)
+        }else{
+            if (event?.bitmap != null) {
+                try {
+                    binding.eventDetailsActivityPicture.setImageBitmap(event?.bitmap)
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Error setting event image", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                try {
+                    Glide.with(this).load(image_path + event?.picture)
+                        .into(binding.eventDetailsActivityPicture)
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Error setting event image", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
