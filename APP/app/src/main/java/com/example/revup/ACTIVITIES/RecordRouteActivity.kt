@@ -1,11 +1,15 @@
 package com.example.revup.ACTIVITIES
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -14,10 +18,12 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.revup.R
+import com.example.revup.SERVICES.LocationService
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Route
 import com.example.revup._DATACLASS.curr_route
@@ -46,10 +52,20 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
     var havePermission: Boolean = false
 
     private lateinit var locationCallback: LocationCallback
-    private lateinit var locationRequest: LocationRequest
     private var isTracking = false
-    private val routePoints = mutableListOf<LatLng>()
+    private var routePoints = mutableListOf<LatLng>()
 
+    private val locationReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val lat = intent?.getDoubleExtra("lat", 0.0) ?: return
+            val lng = intent.getDoubleExtra("lng", 0.0)
+            val point = LatLng(lat, lng)
+            routePoints.add(point)
+            drawRoute(mMap!!, routePoints)
+        }
+    }
+
+    @SuppressLint("ImplicitSamInstance")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -71,12 +87,18 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(this, "You do not have permission for this function.\nYou have to activate it manually.", Toast.LENGTH_SHORT).show()
         }
 
-        binding.recordRouteActivityStartPause.setOnClickListener{
+        if (LocationService.isRunning) {
+            binding.recordRouteActivityStartPause.setImageResource(R.drawable.baseline_pause_circle_filled_24)
+            binding.recordRouteActivityFinish.visibility = View.VISIBLE
+        }
+
+        binding.recordRouteActivityStartPause.setOnClickListener {
             if (isTracking) {
-                stopLocationUpdates()
+                stopService(Intent(this, LocationService::class.java))
                 binding.recordRouteActivityStartPause.setImageResource(R.drawable.baseline_play_circle_filled_24)
             } else {
-                startLocationUpdates()
+                val serviceIntent = Intent(this, LocationService::class.java)
+                startForegroundService(serviceIntent)
                 binding.recordRouteActivityStartPause.setImageResource(R.drawable.baseline_pause_circle_filled_24)
                 binding.recordRouteActivityFinish.visibility = View.VISIBLE
             }
@@ -88,11 +110,11 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
                 .setTitle("Finish Record Route")
                 .setMessage("You are going to finish the record.\nAre you sure you want to finish it?")
                 .setPositiveButton("Finish") { dialog, _ ->
-                    stopLocationUpdates()
+                    stopService(Intent(this, LocationService::class.java))
                     isTracking = false
                     binding.recordRouteActivityStartPause.setImageResource(R.drawable.baseline_play_circle_filled_24)
-                    if(routePoints.size > 5){
-                        val route = addParams()
+                    if(LocationService.routePoints.size > 2){
+                        val route = addParams(LocationService.routePoints)
                         curr_route = route
                         val intent = Intent(this, EditRouteActivity::class.java)
                         startActivity(intent)
@@ -106,29 +128,6 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
                 .show()
         }
-
-        locationRequest = LocationRequest.create().apply {
-            interval = 5000 // cada 5 segundos
-            fastestInterval = 2000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                for (location in locationResult.locations) {
-                    val newPoint = LatLng(location.latitude, location.longitude)
-                    if(routePoints.isEmpty()){
-                        routePoints.add(newPoint)
-                        drawRoute(mMap!!, routePoints)
-                    }else{
-                        if(newPoint != routePoints.last()){
-                            routePoints.add(newPoint)
-                            drawRoute(mMap!!, routePoints)
-                        }
-                    }
-                }
-            }
-        }
     }
 
     override fun onMapReady(map: GoogleMap) {
@@ -140,6 +139,9 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.FOREGROUND_SERVICE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             return
@@ -163,17 +165,22 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             &&
             (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            &&
+            (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.FOREGROUND_SERVICE) == PackageManager.PERMISSION_GRANTED)
         ){
             havePermission = true
         }else{
             if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION))
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.FOREGROUND_SERVICE))
                 havePermission = false
             else{
                 ActivityCompat.requestPermissions(this,
                     arrayOf(
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_LOCATION_CODE
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.FOREGROUND_SERVICE), REQUEST_LOCATION_CODE
                 )
             }
         }
@@ -186,25 +193,13 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_LOCATION_CODE) {
-            if (grantResults != null &&
-                grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-                grantResults[1] == PackageManager.PERMISSION_GRANTED){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED){
                 havePermission = true
                 onMapReady(mMap!!)
             }
             else
                 havePermission = false
         }
-    }
-
-    private fun startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, mainLooper)
-        }
-    }
-
-    private fun stopLocationUpdates() {
-        fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     private fun drawRoute(map: GoogleMap, coordenades: MutableList<LatLng>){
@@ -217,6 +212,7 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    @SuppressLint("ImplicitSamInstance")
     override fun onBackPressed() {
         if (isTracking || routePoints.isNotEmpty()) {
             MaterialAlertDialogBuilder(this)
@@ -224,6 +220,8 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
                 .setMessage("You are going to loose the recorded route.\nAre you sure you want to exit?")
                 .setPositiveButton("Exit") { dialog, _ ->
                     super.onBackPressed()
+                    LocationService.routePoints.clear()
+                    stopService(Intent(this, LocationService::class.java))
                     dialog.dismiss()
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
@@ -235,7 +233,7 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    fun addParams(): Route {
+    fun addParams(points: List<LatLng>): Route {
         var distance: BigDecimal? = null
         var startAddress: String? = null
         var endAddress: String? = null
@@ -253,9 +251,11 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(this, "Error getting start and end address", Toast.LENGTH_LONG).show()
         }
 
-        val waypoints = Gson().toJson(routePoints)
+        val waypoints = Gson().toJson(points)
 
-        return Route(memberId = current_user!!.id, waypoints = waypoints, distance = distance!!, startAddress = startAddress, endAddress = endAddress)
+        val durationMillis = LocationService.routeDurationInMillis
+
+        return Route(memberId = current_user!!.id, waypoints = waypoints, distance = distance!!, startAddress = startAddress, endAddress = endAddress, duration = durationMillis)
     }
 
     fun calculateTotalDistance(points: MutableList<LatLng>): BigDecimal {
@@ -278,6 +278,23 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
         val geocoder = Geocoder(context)
         val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
         return addresses?.firstOrNull()?.getAddressLine(0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter("com.example.revup.LOCATION_UPDATE")
+        ContextCompat.registerReceiver(
+            this,
+            locationReceiver,
+            filter,
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
+        routePoints = LocationService.routePoints
+    }
+
+    override fun onPause() {
+        super.onPause()
+        this.unregisterReceiver(locationReceiver)
     }
 }
 

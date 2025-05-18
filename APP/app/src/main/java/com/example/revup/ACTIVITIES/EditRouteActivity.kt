@@ -1,6 +1,7 @@
 package com.example.revup.ACTIVITIES
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,6 +9,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,13 +17,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.revup.R
+import com.example.revup.SERVICES.LocationService
 import com.example.revup._API.RevupCrudAPI
+import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.Route
 import com.example.revup._DATACLASS.curr_car
 import com.example.revup._DATACLASS.curr_route
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.formatDistance
 import com.example.revup._DATACLASS.recreated
+import com.example.revup._DATACLASS.toSimpleDateString
 import com.example.revup.databinding.ActivityEditRouteBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -42,6 +47,7 @@ class EditRouteActivity : AppCompatActivity(), OnMapReadyCallback {
     var mMap: GoogleMap? = null
     var waypoints: MutableList<LatLng> = mutableListOf()
 
+    @SuppressLint("DefaultLocale")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -81,14 +87,17 @@ class EditRouteActivity : AppCompatActivity(), OnMapReadyCallback {
                     recreated = false
                     try {
                         if (curr_route!!.id == 0) {
+                            new_route.id = null
                             val result = apiRevUp.postRoute(new_route, applicationContext)
                             if (result != null) {
                                 Toast.makeText(this, "Route saved", Toast.LENGTH_LONG).show()
                                 binding.editRouteActivityEditButton.text = "Edit Route"
                                 binding.editRouteActivityEditButton.setTextColor(getColor(R.color.orange))
                                 curr_route = null
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
+                                this.onBackPressed()
+                                val returnIntent = Intent()
+                                setResult(RESULT_OK, returnIntent)
+                                finish()
                             } else {
                                 Toast.makeText(this, "Error saving route", Toast.LENGTH_LONG).show()
                             }
@@ -100,9 +109,10 @@ class EditRouteActivity : AppCompatActivity(), OnMapReadyCallback {
                                 binding.editRouteActivityEditButton.text = "Edit Car"
                                 binding.editRouteActivityEditButton.setTextColor(getColor(R.color.orange))
                                 curr_route = null
-                                curr_route = null
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
+                                this.onBackPressed()
+                                val returnIntent = Intent()
+                                setResult(RESULT_OK, returnIntent)
+                                finish()
                             } else {
                                 Toast.makeText(this, "Error saving route", Toast.LENGTH_LONG).show()
                             }
@@ -130,16 +140,24 @@ class EditRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             }else{
                 binding.editRouteActivityEditButton.text = "Save Route"
                 binding.editRouteActivityEditButton.setTextColor(getColor(R.color.green))
+                binding.editRouteActivityDatetime.visibility = View.GONE
                 disableWidgets(true)
             }
             binding.editRouteActivityDistance.isEnabled = false
+            binding.editRouteActivityDuration.isEnabled = false
             binding.editRouteActivityStartAddress.isEnabled = false
             binding.editRouteActivityEndAddress.isEnabled = false
             binding.editRouteActivityDatetime.isEnabled = false
             binding.editRouteActivityDistance.setText(formatDistance(route!!.distance!!))
+            val durationMillis = LocationService.routeDurationInMillis
+            val seconds = (durationMillis / 1000) % 60
+            val minutes = (durationMillis / (1000 * 60)) % 60
+            val hours = (durationMillis / (1000 * 60 * 60))
+            val formatted = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+            binding.editRouteActivityDuration.setText(formatted)
             binding.editRouteActivityStartAddress.setText(route!!.startAddress.toString())
             binding.editRouteActivityEndAddress.setText(route!!.endAddress.toString())
-            binding.editRouteActivityDatetime.setText(route!!.datetime.toString())
+            binding.editRouteActivityDatetime.setText(toSimpleDateString(FormatDate(route!!.datetime.toString())))
         }
     }
 

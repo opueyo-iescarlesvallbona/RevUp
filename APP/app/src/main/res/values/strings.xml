@@ -74,4 +74,5 @@
     <string name="editRouteActivity_endAddress">End address</string>
     <string name="editRouteActivity_datetime">Date</string>
     <string name="blankFragment_text">Loading</string>
+    <string name="editRouteActivity_duration">Duration</string>
 </resources>
