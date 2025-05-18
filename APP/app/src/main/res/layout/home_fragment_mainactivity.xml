@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FRAGMENTS.HomeFragment"
-    android:background="@color/red"
     android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
@@ -14,7 +13,8 @@
         android:layout_height="70dp"
         app:tabMaxWidth="0dp"
         app:tabGravity="center"
-        app:tabMode="fixed"/>
+        app:tabMode="fixed"
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"

@@ -1,6 +1,8 @@
 package com.example.revup.FRAGMENTS
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -8,12 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.revup.ADAPTERS.ViewPagerAdapter
 import com.example.revup._DATACLASS.SearchViewModel
 import com.example.revup.databinding.SearchFragmentMainactivityBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-
+import kotlinx.coroutines.launch
 
 
 class SearchFragment : Fragment() {
@@ -36,12 +39,42 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listOfFragments = mutableListOf(MemberSearchFragment(), ClubSearchFragment())
-        var adapter = ViewPagerAdapter(
-            listOfFragments,
-            activity?.supportFragmentManager!!,
+        val initialFragments = listOf(BlankFragment(), BlankFragment())
+        val adapter = ViewPagerAdapter(
+            initialFragments.toMutableList(),
+            requireActivity().supportFragmentManager,
             lifecycle
         )
+
+        binding.searchFragmentMainActivityViewPager.adapter = adapter
+        binding.searchFragmentMainActivityViewPager.isUserInputEnabled = false
+
+        TabLayoutMediator(binding.searchFragmentMainActivityTabs, binding.searchFragmentMainActivityViewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Members"
+                1 -> "Clubs"
+                else -> ""
+            }
+        }.attach()
+
+        lifecycleScope.launch {
+            Handler(Looper.getMainLooper()).postDelayed({
+                val realFragments = mutableListOf(MemberSearchFragment(), ClubSearchFragment())
+                adapter.updateFragments(realFragments)
+
+                binding.searchFragmentMainActivityTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                    override fun onTabSelected(tab: TabLayout.Tab?) {
+                        viewModel.current_tab.value = tab?.position
+                    }
+
+                    override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    }
+
+                    override fun onTabReselected(tab: TabLayout.Tab?) {
+                    }
+                })
+            }, 0)
+        }
 
         val textWatcher: TextWatcher = object : TextWatcher {
             override fun beforeTextChanged(
@@ -57,29 +90,6 @@ class SearchFragment : Fragment() {
         }
 
         binding.searchFragmentMainActivitySearchText.addTextChangedListener(textWatcher)
-
-        binding.searchFragmentMainActivityViewPager.adapter = adapter
-        binding.searchFragmentMainActivityViewPager.isUserInputEnabled = false
-
-        TabLayoutMediator(binding.searchFragmentMainActivityTabs, binding.searchFragmentMainActivityViewPager){ tab, position ->
-            tab.text = when (position){
-                0 -> "Members"
-                1 -> "Clubs"
-                else -> ""
-            }
-        }.attach()
-
-        binding.searchFragmentMainActivityTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                viewModel.current_tab.value = tab?.position
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
 
     }
 }
