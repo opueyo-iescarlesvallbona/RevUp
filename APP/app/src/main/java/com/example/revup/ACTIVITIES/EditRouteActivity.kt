@@ -135,11 +135,11 @@ class EditRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.editRouteActivityDistance.isEnabled = false
             binding.editRouteActivityStartAddress.isEnabled = false
             binding.editRouteActivityEndAddress.isEnabled = false
-            binding.editRouteActivityDistance.isEnabled = false
+            binding.editRouteActivityDatetime.isEnabled = false
             binding.editRouteActivityDistance.setText(formatDistance(route!!.distance!!))
             binding.editRouteActivityStartAddress.setText(route!!.startAddress.toString())
             binding.editRouteActivityEndAddress.setText(route!!.endAddress.toString())
-            binding.editRouteActivityDistance.setText(route!!.datetime.toString())
+            binding.editRouteActivityDatetime.setText(route!!.datetime.toString())
         }
     }
 
