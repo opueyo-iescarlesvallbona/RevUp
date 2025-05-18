@@ -102,16 +102,6 @@ class EditMemberActivity : AppCompatActivity() {
             Toast.makeText(this, "Error getting locations: $e", Toast.LENGTH_LONG).show()
         }
 
-        var genders = listOf<Gender>()
-        try{
-            genders = apiRevUp.getAllGenders(this)!!
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, genders.map { it.name }).also { adapter ->
-                nameTextFieldGender.setAdapter(adapter)
-            }
-        }catch (e: Exception){
-            Toast.makeText(this, "Error getting genders: $e", Toast.LENGTH_LONG).show()
-        }
-
         member = current_user
 
         if(member != null){
@@ -129,9 +119,15 @@ class EditMemberActivity : AppCompatActivity() {
                 if(location != null){
                     binding.editMemberActivityLocationTextField.setText(location.municipality)
                 }
-                var gender = apiRevUp.getGenderById(member!!.genderId, this)
-                if(gender != null){
-                    binding.editMemberActivityGenderTextField.setText(gender.name)
+                var genders = listOf<Gender>()
+                try{
+                    genders = apiRevUp.getAllGenders(this)!!
+                    binding.editMemberActivityGenderTextField.setText(genders.find { it.id == member!!.genderId }!!.name)
+                    ArrayAdapter(this, android.R.layout.simple_list_item_1, genders.map { it.name }).also { adapter ->
+                        nameTextFieldGender.setAdapter(adapter)
+                    }
+                }catch (e: Exception){
+                    Toast.makeText(this, "Error getting genders: $e", Toast.LENGTH_LONG).show()
                 }
             }catch(e: Exception){
                 Toast.makeText(this, "Error getting location or gender. ${e.message}", Toast.LENGTH_LONG).show()
