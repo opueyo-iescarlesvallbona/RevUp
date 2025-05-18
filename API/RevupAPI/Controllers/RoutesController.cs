@@ -172,13 +172,16 @@ namespace RevupAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Route([FromBody] Models.Route route)
         {
-            if (ModelState.IsValid)
+            try
             {
                 _context.Routes.Add(route);
                 await _context.SaveChangesAsync();
                 return Ok(route);
             }
-            return BadRequest("Invalid route data");
+            catch
+            {
+                return BadRequest("Invalid route data");
+            }
         }
 
         [Authorize]
@@ -225,13 +228,16 @@ namespace RevupAPI.Controllers
         [HttpPut]
         public async Task<ActionResult<Models.Route>> UpdateRoute([FromBody] Models.Route route)
         {
-            if (ModelState.IsValid)
+            try
             {
                 _context.Routes.Update(route);
                 await _context.SaveChangesAsync();
-                return route;
+                return Ok(route);
             }
-            return BadRequest("Incorrect route data");
+            catch
+            {
+                return BadRequest("Incorrect route data");
+            }
         }
     }
 }
