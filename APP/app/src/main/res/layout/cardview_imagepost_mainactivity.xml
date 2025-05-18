@@ -134,7 +134,7 @@
             android:background="@drawable/border_cardview_imagepost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/cardview_image_post_commentlayout"
+            android:id="@+id/cardview_post_commentlayout"
             android:orientation="horizontal">
             <RelativeLayout
                 android:layout_width="50dp"
@@ -181,7 +181,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/cardview_imagepost_mainactivity_commentText"
+                    android:id="@+id/cardview_post_mainactivity_commentText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="15sp"
@@ -190,7 +190,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageButton
-                android:id="@+id/cardview_imagepost_mainactivity_commentButton"
+                android:id="@+id/cardview_post_mainactivity_commentButton"
                 android:layout_gravity="center"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

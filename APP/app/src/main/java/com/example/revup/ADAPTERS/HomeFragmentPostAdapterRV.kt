@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.example.revup.ACTIVITIES.EventDetailsActivity
 import com.example.revup.ACTIVITIES.PostDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
@@ -51,21 +52,29 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
         val like = vista.findViewById<ImageButton>(R.id.cardview_post_mainactivity_likeButton)
         val animation = vista.findViewById<LottieAnimationView>(R.id.animation)
         val follow = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_following)
-        val mapView = vista.findViewById<MapView?>(R.id.cardview_post_mainactivity_contentRoute)
 
+        val mapView = vista.findViewById<MapView?>(R.id.cardview_post_mainactivity_contentRoute)
         var mMap: GoogleMap? = null
         var waypoints: MutableList<LatLng> = mutableListOf()
 
-        val commentImageBtn = vista.findViewById<ImageButton>(R.id.cardview_imagepost_mainactivity_commentButton)
-        val commentImage = vista.findViewById<TextInputEditText>(R.id.cardview_imagepost_mainactivity_commentText)
-        val commentTextBtn = vista.findViewById<ImageButton>(R.id.cardview_textpost_mainactivity_commentButton)
-        val commentText = vista.findViewById<TextInputEditText>(R.id.cardview_textpost_mainactivity_commentText)
+        val commentTextBtn = vista.findViewById<ImageButton>(R.id.cardview_post_mainactivity_commentButton)
+        val commentText = vista.findViewById<TextInputEditText>(R.id.cardview_post_mainactivity_commentText)
 
         val spacer = vista.findViewById<View>(R.id.cardview_imagepost_spacer)
 
+        var currentPost: Post? = null
+
         override fun onMapReady(map: GoogleMap) {
             mMap = map
+            mMap?.uiSettings?.isZoomControlsEnabled = false
             drawRoute(map, waypoints)
+
+            map.setOnMapClickListener {
+                curr_post = currentPost
+
+                val intent = Intent(vista.context, PostDetailsActivity::class.java)
+                vista.context.startActivity(intent)
+            }
 
             val central = LatLng(
                 (waypoints.first().latitude + waypoints.last().latitude) / 2,
@@ -73,7 +82,8 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
             )
 
             map.addMarker(MarkerOptions().position(waypoints.first()).title(""))
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(central, 13.0f), 2000, null)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(central, 13.0f))
+
             map.addMarker(MarkerOptions().position(waypoints.last()).title(""))
         }
 
@@ -87,7 +97,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
             }
         }
 
-        fun loadMap(wayp: MutableList<LatLng>) {
+        fun loadMap(wayp: MutableList<LatLng>, post: Post) {
             waypoints = wayp
             mapView?.onCreate(null)
             mapView?.onResume()
@@ -117,6 +127,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.currentPost = list[position]
         holder.likeDetails.visibility = View.GONE
 
         if (position == list.size - 1) {
@@ -165,7 +176,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
                 if (route != null) {
                     val type = object : TypeToken<MutableList<LatLng>>() {}.type
                     val wayp: MutableList<LatLng> = Gson().fromJson(route.waypoints, type)
-                    holder.loadMap(wayp)
+                    holder.loadMap(wayp, list[position])
                 }
             }
         }
