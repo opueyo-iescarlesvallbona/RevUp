@@ -228,13 +228,16 @@ namespace RevupAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<MemberLocation>> PôstLocation([FromBody] MemberLocation memberLocation)
         {
-            if (memberLocation == null)
+            try
             {
-                return BadRequest("MemberLocation cannot be null.");
+                _context.MemberLocations.Add(memberLocation);
+                await _context.SaveChangesAsync();
+                return Ok(memberLocation);
             }
-            _context.MemberLocations.Add(memberLocation);
-            await _context.SaveChangesAsync();
-            return memberLocation;
+            catch
+            {
+                return BadRequest("Invalid memberLocation data");
+            }
         }
 
     }

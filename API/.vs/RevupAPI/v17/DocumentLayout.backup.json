@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\ProjecteFinal\\API\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\memberlocationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\memberlocationscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\routescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\routescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -51,6 +55,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MemberLocationsController.cs",
+              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\MemberLocationsController.cs",
+              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\MemberLocationsController.cs",
+              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\MemberLocationsController.cs",
+              "RelativeToolTip": "RevupAPI\\Controllers\\MemberLocationsController.cs",
+              "ViewState": "AgIAAN0AAAAAAAAAAAAqwO8AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-18T17:33:22.767Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "RoutesController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\RoutesController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\RoutesController.cs",
@@ -63,7 +80,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "MembersController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\MembersController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\MembersController.cs",
@@ -75,7 +92,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "GeneralController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\GeneralController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\GeneralController.cs",
@@ -87,7 +104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Post.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Models\\Post.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Models\\Post.cs",
@@ -99,7 +116,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ClubsController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\ClubsController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\ClubsController.cs",
@@ -111,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "CarsController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\CarsController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\CarsController.cs",
@@ -123,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PostsController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\PostsController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\PostsController.cs",
@@ -131,8 +148,7 @@
               "RelativeToolTip": "RevupAPI\\Controllers\\PostsController.cs",
               "ViewState": "AgIAAOoAAAAAAAAAAIAwwAoBAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T15:00:41.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T15:00:41.394Z"
             }
           ]
         }
