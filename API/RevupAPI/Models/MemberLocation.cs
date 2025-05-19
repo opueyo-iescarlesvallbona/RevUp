@@ -5,7 +5,7 @@ namespace RevupAPI.Models;
 
 public partial class MemberLocation
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     public string Municipality { get; set; } = null!;
 

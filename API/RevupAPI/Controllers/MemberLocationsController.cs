@@ -102,7 +102,7 @@ namespace RevupAPI.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MemberLocationExists(memberLocation.Id))
+                    if (!MemberLocationExists((int)memberLocation.Id))
                     {
                         return NotFound();
                     }
@@ -182,7 +182,7 @@ namespace RevupAPI.Controllers
             return Ok(locations);
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("api/LocationByMunicipality")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberLocation>>> GetLocationsByMunicipality([FromQuery] string municipality)
@@ -223,13 +223,14 @@ namespace RevupAPI.Controllers
             return Ok(locations);
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("api/Location")]
         [HttpPost]
         public async Task<ActionResult<MemberLocation>> PôstLocation([FromBody] MemberLocation memberLocation)
         {
             try
             {
+                memberLocation.Id = _context.MemberLocations.Max(x => x.Id) + 1;
                 _context.MemberLocations.Add(memberLocation);
                 await _context.SaveChangesAsync();
                 return Ok(memberLocation);

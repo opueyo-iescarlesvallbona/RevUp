@@ -231,12 +231,19 @@ namespace RevupAPI.Controllers
         [Route("api/Member")]
         [HttpPost]
         public async Task<ActionResult<Member>> PostMember([FromForm] IFormFile? image, [FromForm] string member)
-        {
+        {           
             if (member == null)
             {
                 return BadRequest("Invalid member");
             }
-            var memberObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Member>(member);
+            Member? memberObj = null;
+            try
+            {
+                memberObj = Newtonsoft.Json.JsonConvert.DeserializeObject<Member>(member);
+            }catch(Exception e)
+            {
+                return BadRequest("Invalid member data: " + e.Message);
+            }
             if (memberObj == null)
             {
                 return BadRequest("Invalid member data");
