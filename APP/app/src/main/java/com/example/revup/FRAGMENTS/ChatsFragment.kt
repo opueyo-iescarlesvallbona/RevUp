@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class ChatsFragment : Fragment() {
     lateinit var binding: ChatsFragmentMainactivityBinding
     private lateinit var viewModel: ChatViewModel
-    private lateinit var chatService: ChatService
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,62 +43,34 @@ class ChatsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val initialFragments = listOf(BlankFragment(), BlankFragment())
+        val fragments = mutableListOf(MemberChatFragment(), ClubChatFragment())
         val adapter = ViewPagerAdapter(
-            initialFragments.toMutableList(),
-            requireActivity().supportFragmentManager,
+            fragments,
+            childFragmentManager,
             lifecycle
         )
-        chatService = ChatService(current_user!!.membername.toString())
-        chatService.connect()
-
-        Toast.makeText(requireContext(), "Connected", Toast.LENGTH_SHORT).show()
-        chatService.sendMessageToUser("member1", "Hello to member1!")
-
         binding.chatFragmentMainActivityViewPager.adapter = adapter
         binding.chatFragmentMainActivityViewPager.isUserInputEnabled = false
 
-        TabLayoutMediator(binding.chatFragmentMainActivityTabs, binding.chatFragmentMainActivityViewPager){ tab, position ->
-            tab.text = when (position){
-                0 -> "Members"
-                1 -> "Clubs"
-                else -> ""
-            }
+        TabLayoutMediator(binding.chatFragmentMainActivityTabs, binding.chatFragmentMainActivityViewPager) { tab, position ->
+            tab.text = if (position == 0) "Members" else "Clubs"
         }.attach()
 
-        lifecycleScope.launch {
-            Handler(Looper.getMainLooper()).postDelayed({
-                val realFragments = mutableListOf(MemberChatFragment(), ClubChatFragment())
-                adapter.updateFragments(realFragments)
+        binding.chatFragmentMainActivityTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                viewModel.current_tab.value = tab?.position
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
 
-                binding.chatFragmentMainActivityTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                    override fun onTabSelected(tab: TabLayout.Tab?) {
-                        viewModel.current_tab.value = tab?.position
-                    }
-
-                    override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    }
-
-                    override fun onTabReselected(tab: TabLayout.Tab?) {
-                    }
-                })
-            }, 0)
-        }
-
-        val textWatcher: TextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(
-                p0: CharSequence?,
-                p1: Int,
-                p2: Int,
-                p3: Int
-            ) {}
+        binding.chatFragmentMainActivitySearchText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.filter.value = s.toString()
             }
-            override fun afterTextChanged(p0: Editable?) {}
-        }
-
-        binding.chatFragmentMainActivitySearchText.addTextChangedListener(textWatcher)
-
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
+
 }

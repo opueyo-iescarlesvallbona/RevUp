@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.revup.ACTIVITIES.ClubDetailsActivity
 import com.example.revup.ACTIVITIES.MainActivity
+import com.example.revup.ACTIVITIES.MemberChatActivity
 import com.example.revup.ACTIVITIES.MemberDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Member
 import com.example.revup._DATACLASS.curr_member
+import com.example.revup._DATACLASS.curr_member_chat
 import com.example.revup._DATACLASS.image_path
 
 class MemberChatAdapter(var list: MutableList<Member>): RecyclerView.Adapter<MemberChatAdapter.ViewHolder>() {
@@ -52,13 +54,13 @@ class MemberChatAdapter(var list: MutableList<Member>): RecyclerView.Adapter<Mem
             holder.memberLocation.setText(location!!.municipality)
         }
         holder.vista.setOnClickListener{
-            val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)
-            curr_member = list[position]
+            val intent = Intent(holder.vista.context, MemberChatActivity::class.java)
+            curr_member_chat = list[position]
             holder.vista.context.startActivity(intent)
         }
         holder.picture.setOnClickListener{
-            val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)
-            curr_member = list[position]
+            val intent = Intent(holder.vista.context, MemberChatActivity::class.java)
+            curr_member_chat = list[position]
             holder.vista.context.startActivity(intent)
         }
     }

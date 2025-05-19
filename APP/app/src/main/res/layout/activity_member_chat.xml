@@ -1,11 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ACTIVITIES.PostDetailsActivity">
+    tools:context=".ACTIVITIES.MemberChatActivity">
 
     <LinearLayout
         android:id="@+id/PostDetailsActivity_topBar"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/PostDetailsActivity_back_button"
+            android:id="@+id/ChatActivity_back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -26,12 +26,21 @@
             android:scaleType="center"
             android:src="@drawable/baseline_arrow_back_24" />
 
+        <ImageView
+            android:id="@+id/ChatActivity_ToMember_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:scaleType="center" />
+
         <TextView
+            android:id="@+id/chat_activity_membername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="@string/post_details_header"
+            android:text="@string/chat"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -39,17 +48,17 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/PostDetailsActivity_recyclerView"
+        android:id="@+id/ChatActivity_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/PostDetailsActivity_bottomBar"
+        app:layout_constraintBottom_toTopOf="@id/ChatActivity_bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/PostDetailsActivity_topBar" />
 
 
     <LinearLayout
-        android:id="@+id/PostDetailsActivity_bottomBar"
+        android:id="@+id/ChatActivity_bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#CCCCCC"
@@ -62,11 +71,11 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/activity_postdetails_commentTextLayout"
+            android:id="@+id/activity_chat_messageLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Comment..."
+            android:hint="@string/message"
             android:padding="0dp"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
@@ -74,10 +83,10 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.TextInputLayout.Rounded">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/activity_postdetails_commentText"
+                android:id="@+id/activity_chat_messageText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Comment..."
+                android:hint="@string/message"
                 android:padding="10dp"
                 android:singleLine="true"
                 android:textSize="15sp" />
@@ -85,7 +94,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
-            android:id="@+id/activity_postdetails_commentButton"
+            android:id="@+id/activity_chat_sendButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"

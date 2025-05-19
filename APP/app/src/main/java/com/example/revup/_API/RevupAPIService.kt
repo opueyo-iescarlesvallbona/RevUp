@@ -124,7 +124,7 @@ interface RevupAPIService {
         @Query("carName") carName: String
     ): Response<MutableList<Member>>
 
-    @GET("/api/Friends/")
+    @GET("/api/MemberFriends/")
     suspend fun getFriends(
         @Query("id") id: Int
     ): Response<MutableList<Member>>

@@ -12,3 +12,4 @@ var curr_car: Car? = null
 var curr_event: ClubEvent? = null
 var curr_route: Route? = null
 var recreated: Boolean = true
+var curr_member_chat: Member? = null

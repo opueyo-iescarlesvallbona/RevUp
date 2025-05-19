@@ -115,14 +115,17 @@ class PostComment (
 
 class Message(
     var senderId: Int,
-    var receiverId: Int,
-    var datetime: java.util.Date,
-    var contentMessage: String,
-    var stateId: Int,
+    var receiverId: Int?,
+    var datetime: java.util.Date?,
+    var contentMessage: String?,
+    var stateId: Int?,
 
     var messageState: MessageState?,
     var member: Member?,
-    var member1: Member?
+    var senderMemberName: String?,
+    var recieverMemberName: String?,
+    var member1: Member?,
+    var isOwnMessage: Boolean = false
 )
 
 class MessageState (

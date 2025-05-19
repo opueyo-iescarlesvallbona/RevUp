@@ -75,4 +75,6 @@
     <string name="editRouteActivity_datetime">Date</string>
     <string name="blankFragment_text">Loading</string>
     <string name="editRouteActivity_duration">Duration</string>
+    <string name="chat">Chat</string>
+    <string name="message">Message...</string>
 </resources>
