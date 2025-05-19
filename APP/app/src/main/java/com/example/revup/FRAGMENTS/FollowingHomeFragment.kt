@@ -40,11 +40,11 @@ class FollowingHomeFragment : Fragment() {
 
         val recyclerView = binding.FollowingHomeFragmentMainActivityRecyclerView
         try {
-            var list = apiRevUp.getPostsByFriends(current_user!!.id, requireView().context)//añadir por fecha
+            var list = apiRevUp.getPostsByFriends(current_user!!.id!!, requireView().context)//añadir por fecha
 
             for(p: Post in list!!){
                 p.member = apiRevUp.getMemberById(p.memberId, requireView().context)
-                p.liked = apiRevUp.getPostIsLikedByMember(current_user!!.id, p.id!!, requireView().context)!!
+                p.liked = apiRevUp.getPostIsLikedByMember(current_user!!.id!!, p.id!!, requireView().context)!!
             }
             recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
             recyclerView.layoutManager = LinearLayoutManager(requireView().context)

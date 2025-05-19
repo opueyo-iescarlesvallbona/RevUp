@@ -247,9 +247,9 @@ class CarDetailsActivity : AppCompatActivity() {
         }
 
         if(image == null && curr_car != null){
-            return Car(null, current_user!!.id, model!!.id, year, hp, description, curr_car!!.picture, null, null)
+            return Car(null, current_user!!.id!!, model!!.id, year, hp, description, curr_car!!.picture, null, null)
         }
 
-        return Car(null, current_user!!.id, model!!.id, year, hp, description)
+        return Car(null, current_user!!.id!!, model!!.id, year, hp, description)
     }
 }

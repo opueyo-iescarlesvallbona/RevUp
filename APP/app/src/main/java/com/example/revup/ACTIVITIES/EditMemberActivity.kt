@@ -94,7 +94,7 @@ class EditMemberActivity : AppCompatActivity() {
 
         var locations = listOf<Municipality>()
         try{
-            locations = apiMunicipality.getMunicipisByName("")!!
+            locations = apiMunicipality.getAllMunicipalities()!!
             ArrayAdapter(this, android.R.layout.simple_list_item_1, locations.map { it.nompoblacio }).also { adapter ->
                 nameTextFieldLocation.setAdapter(adapter)
             }

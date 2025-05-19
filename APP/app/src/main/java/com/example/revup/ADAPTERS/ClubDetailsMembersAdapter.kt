@@ -48,7 +48,7 @@ class ClubDetailsMembersAdapter(var list: MutableList<Member>): RecyclerView.Ada
             holder.memberName.setText(list[position].membername)
         }
         Log.i("CLUB_ROLE", "clubid: ${curr_club!!.id}, memberid: ${list[position].id}")
-        val role = apiRevUp.getMemberClubRoleById(curr_club!!.id!!, list[position].id, holder.vista.context)
+        val role = apiRevUp.getMemberClubRoleById(curr_club!!.id!!, list[position].id!!, holder.vista.context)
         when(role!!.name){
             "Founder" -> {
                 holder.role.setTextColor(holder.vista.context.getColor(R.color.clubRole_Founder))

@@ -48,7 +48,7 @@ class ClubChatFragment : Fragment() {
         viewModel.filter.observe(viewLifecycleOwner, Observer { text ->
             if(viewModel.current_tab.value == 1){
                 try {
-                    var clubs = apiRevUp.getClubsByMember(current_user!!.id, requireContext())
+                    var clubs = apiRevUp.getClubsByMember(current_user!!.id!!, requireContext())
                     Log.i("currClubs", clubs.toString())
                     var clubList: MutableList<Club>
                     if(clubs!=null){

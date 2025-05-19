@@ -43,7 +43,7 @@ class MemberDetailsCarsFragment : Fragment() {
 
         var cars: MutableList<Car>? = mutableListOf()
         try {
-            cars = apiRevUp.getCarsByMember(curr_member!!.id, requireContext())
+            cars = apiRevUp.getCarsByMember(curr_member!!.id!!, requireContext())
             val recyclerView = binding.memberDetailsCarsFragmentRecyclerView
             recyclerView.visibility = View.VISIBLE
             if(cars != null && cars.isNotEmpty()){

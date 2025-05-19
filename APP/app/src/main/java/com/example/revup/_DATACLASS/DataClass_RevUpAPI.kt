@@ -1,19 +1,13 @@
 package com.example.revup._DATACLASS
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Parcelable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.parcelize.Parcelize
 import java.io.File
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -44,7 +38,6 @@ class Car(
     var model: Model? = null
 )
 
-@Parcelize
 class Club(
     var id: Int?,
     var name: String,
@@ -56,7 +49,7 @@ class Club(
 //    var member: Member? = null,
 //    var clubEvent: MutableList<ClubEvent> = mutableListOf(),
 //    var memberClub: MutableList<MemberClub> = mutableListOf()
-): Parcelable
+)
 
 class ClubEvent(
     var id: Int?,
@@ -153,7 +146,7 @@ class MemberLocation (
     var id: Int?,
     var municipality: String? = null,
     var ccaa: String? = null,
-    var country: String? = null,
+    var country: String? = "",
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
 
@@ -167,12 +160,11 @@ class MemberClubRole (
     //var memberClub: MutableSet<MemberClub> = HashSet()
 )
 
-@Parcelize
 class Member (
-    var id: Int = 0,
+    var id: Int? = null,
     var name: String? = null,
     var membername: String? = null,
-    var experience: Int? = null,
+    var experience: Int? = 0,
     var email: String? = null,
     var genderId: Int = 0,
     var locationId: Int = 0,
@@ -195,7 +187,7 @@ class Member (
 //    var postComment: MutableSet<PostComment> = HashSet(),
 //    var routes: MutableSet<Route> = HashSet(),
 //    var posts1: MutableSet<Post> = HashSet()
-): Parcelable
+)
 
 class Gender (
     var id: Int = 0,

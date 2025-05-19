@@ -43,7 +43,7 @@ class MemberChatFragment : Fragment() {
 
         viewModel.filter.observe(viewLifecycleOwner, Observer { text ->
             try {
-                val friends = apiRevUp.getFriends(current_user!!.id, requireContext())
+                val friends = apiRevUp.getFriends(current_user!!.id!!, requireContext())
 
                 var memberList: MutableList<Member>
                 if(friends!=null){

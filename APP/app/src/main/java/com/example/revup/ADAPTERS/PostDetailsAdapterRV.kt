@@ -166,7 +166,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
 
             var memberRelation: MemberRelation? = null
 
-            var member_relations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id, holder.vista.context)
+            var member_relations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id!!, holder.vista.context)
             if (member_relations != null){
                 Log.i("MEMBER_RELATIONS", list.size.toString()+"    "+position)
                 val member_relation = member_relations!!.find{it.memberId2 == post.member!!.id}
@@ -191,10 +191,10 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
             holder.follow.setOnClickListener {
                 if(holder.follow.text == "Follow Up"){
                     try{
-                        apiRevUp.postMemberRelation(MemberRelation(current_user!!.id, list[position].member!!.id, 1), holder.vista.context)
+                        apiRevUp.postMemberRelation(MemberRelation(current_user!!.id!!, list[position].member!!.id!!, 1), holder.vista.context)
                         holder.follow.setText("Following")
                         //holder.follow.setTextColor(getColor(R.color.memberRelation_Friend))
-                        memberRelation = MemberRelation(current_user!!.id, list[position].member!!.id, 1)
+                        memberRelation = MemberRelation(current_user!!.id!!, list[position].member!!.id!!, 1)
                     }catch(e: Exception){
                         Toast.makeText(holder.vista.context, "Error on following. $e.message", Toast.LENGTH_SHORT).show()
                     }
@@ -205,7 +205,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                                 .setTitle("Unfollow ${list[position].member!!.membername}")
                                 .setMessage("You are going to unfollow ${list[position].member!!.membername}. Are you sure?")
                                 .setPositiveButton("Delete") { dialog, _ ->
-                                    var result = apiRevUp.deleteMemberRelation(current_user!!.id, memberRelation!!.memberId2, holder.vista.context)
+                                    var result = apiRevUp.deleteMemberRelation(current_user!!.id!!, memberRelation!!.memberId2, holder.vista.context)
                                     if(result){
                                         holder.follow.setText("Follow Up")
                                         //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
@@ -231,7 +231,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
             holder.animation.setAnimationFromUrl("https://lottie.host/c7f572a9-3d2f-4f8e-8b67-64e5f22595d7/eZvXIuktZb.lottie")
             holder.like.setOnClickListener {
                 if(post.liked){
-                    apiRevUp.postUnLike(current_user!!.id, post.id!!, holder.vista.context)
+                    apiRevUp.postUnLike(current_user!!.id!!, post.id!!, holder.vista.context)
                     Toast.makeText(holder.vista.context, "UnLiked", Toast.LENGTH_SHORT).show()
                     holder.animation.speed = -1f
 
@@ -245,7 +245,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                     post.liked = false
                     curr_post!!.liked = false
                 }else{
-                    apiRevUp.postLike(current_user!!.id, post.id!!, holder.vista.context)
+                    apiRevUp.postLike(current_user!!.id!!, post.id!!, holder.vista.context)
                     Toast.makeText(holder.vista.context, "Liked", Toast.LENGTH_SHORT).show()
                     holder.animation.speed = 1f
                     holder.animation.playAnimation()

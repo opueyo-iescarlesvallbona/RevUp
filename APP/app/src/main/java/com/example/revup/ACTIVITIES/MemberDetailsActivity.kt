@@ -72,10 +72,10 @@ class MemberDetailsActivity : AppCompatActivity() {
         binding.memberDetailsActivityMemberRelation.setOnClickListener {
             if(binding.memberDetailsActivityMemberRelation.text == "Follow Up"){
                 try{
-                    apiRevUp.postMemberRelation(MemberRelation(current_user!!.id, member!!.id, 1), this)
+                    apiRevUp.postMemberRelation(MemberRelation(current_user!!.id!!, member!!.id!!, 1), this)
                     binding.memberDetailsActivityMemberRelation.setText("Following")
                     binding.memberDetailsActivityMemberRelation.setTextColor(resources.getColor(R.color.memberRelation_Friend))
-                    memberRelation = MemberRelation(current_user!!.id, member!!.id, 1)
+                    memberRelation = MemberRelation(current_user!!.id!!, member!!.id!!, 1)
                 }catch(e: Exception){
                     Toast.makeText(this, "Error on following. $e.message", Toast.LENGTH_SHORT).show()
                 }
@@ -86,7 +86,7 @@ class MemberDetailsActivity : AppCompatActivity() {
                             .setTitle("Unfollow ${member!!.membername}")
                             .setMessage("You are going to unfollow ${member!!.membername}. Are you sure?")
                             .setPositiveButton("Unfollow") { dialog, _ ->
-                                var result = apiRevUp.deleteMemberRelation(current_user!!.id, memberRelation!!.memberId2, this)
+                                var result = apiRevUp.deleteMemberRelation(current_user!!.id!!, memberRelation!!.memberId2, this)
                                 if(result){
                                     binding.memberDetailsActivityMemberRelation.setText("Follow Up")
                                     binding.memberDetailsActivityMemberRelation.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
@@ -159,7 +159,7 @@ class MemberDetailsActivity : AppCompatActivity() {
                     binding.memberDetailsActivityLogOut.visibility = View.VISIBLE
                 }else{
                     binding.memberDetailsActivityLogOut.visibility = View.GONE
-                    var member_relations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id, this)
+                    var member_relations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id!!, this)
                     if (member_relations != null){
                         val member_relation = member_relations!!.find{it.memberId2 == member.id}
                         if(member_relation != null) {

@@ -75,6 +75,6 @@ class AddTextPostActivity : AppCompatActivity() {
             return null
         }
 
-        return Post(id = null, title = title, description = description, postDate = LocalDateTime.now().toString(), postType = 3, memberId = current_user!!.id)
+        return Post(id = null, title = title, description = description, postDate = LocalDateTime.now().toString(), postType = 3, memberId = current_user!!.id!!)
     }
 }

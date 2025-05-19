@@ -141,14 +141,14 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
         holder.animation.setAnimationFromUrl("https://lottie.host/c7f572a9-3d2f-4f8e-8b67-64e5f22595d7/eZvXIuktZb.lottie")
         holder.like.setOnClickListener {
             if (list[position].liked) {
-                apiRevUp.postUnLike(current_user!!.id, list[position].id!!, holder.vista.context)
+                apiRevUp.postUnLike(current_user!!.id!!, list[position].id!!, holder.vista.context)
                 Toast.makeText(holder.vista.context, "UnLiked", Toast.LENGTH_SHORT).show()
                 holder.animation.speed = -1f
                 holder.animation.playAnimation()
                 holder.like.visibility = View.VISIBLE
                 list[position].liked = false
             } else {
-                apiRevUp.postLike(current_user!!.id, list[position].id!!, holder.vista.context)
+                apiRevUp.postLike(current_user!!.id!!, list[position].id!!, holder.vista.context)
                 Toast.makeText(holder.vista.context, "Liked", Toast.LENGTH_SHORT).show()
                 holder.animation.speed = 1f
                 holder.animation.playAnimation()
@@ -184,7 +184,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
         holder.commentTextBtn.setOnClickListener {
             val comment = PostComment(
                 postId = list[position].id!!,
-                memberId = current_user!!.id,
+                memberId = current_user!!.id!!,
                 commentContent = holder.commentText.text.toString(),
                 datetime = LocalDateTime.now().toString()
             )
@@ -204,7 +204,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
             holder.vista.context.startActivity(intent)
         }
 
-        val memberRelations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id, holder.vista.context)
+        val memberRelations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id!!, holder.vista.context)
         val isFollowing = memberRelations?.any { it.memberId2 == list[position].member!!.id } == true
 
         holder.follow.text = if (isFollowing) "Following" else "Follow Up"
@@ -213,7 +213,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
         holder.follow.setOnClickListener {
             if (!isFollowing) {
                 try {
-                    apiRevUp.postMemberRelation(MemberRelation(current_user!!.id, list[position].member!!.id, 1), holder.vista.context)
+                    apiRevUp.postMemberRelation(MemberRelation(current_user!!.id!!, list[position].member!!.id!!, 1), holder.vista.context)
                     holder.follow.text = "Following"
                 } catch (e: Exception) {
                     Toast.makeText(holder.vista.context, "Error on following. ${e.message}", Toast.LENGTH_SHORT).show()
@@ -225,7 +225,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
                         .setTitle("Unfollow ${list[position].member!!.membername}")
                         .setMessage("You are going to unfollow ${list[position].member!!.membername}. Are you sure?")
                         .setPositiveButton("Delete") { dialog, _ ->
-                            if (apiRevUp.deleteMemberRelation(current_user!!.id, relation.memberId2, holder.vista.context)) {
+                            if (apiRevUp.deleteMemberRelation(current_user!!.id!!, relation.memberId2, holder.vista.context)) {
                                 holder.follow.text = "Follow Up"
                             } else {
                                 Toast.makeText(holder.vista.context, "Error on unfollowing", Toast.LENGTH_SHORT).show()

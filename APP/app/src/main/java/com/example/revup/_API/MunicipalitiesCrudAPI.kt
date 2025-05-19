@@ -64,4 +64,18 @@ class MunicipalitiesCrudAPI : CoroutineScope {
             return null
     }
 
+    fun getAllMunicipalities(): List<Municipality>?{
+        var resposta : Response<List<Municipality>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit().create(MunicipalitiesAPIService::class.java).getAllMunicipalities()
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
 }

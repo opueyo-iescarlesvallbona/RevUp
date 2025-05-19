@@ -16,4 +16,8 @@ interface MunicipalitiesAPIService {
         @Query("latitud") latitud: Double,
         @Query("longitud") longitud: Double
     ): Response<List<Municipality>>
+
+    @GET("/municipis/")
+    suspend fun getAllMunicipalities(
+    ): Response<List<Municipality>>
 }

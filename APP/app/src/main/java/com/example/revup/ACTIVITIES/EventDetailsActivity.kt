@@ -77,7 +77,7 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         var clubs: MutableList<Club>? = mutableListOf<Club>()
         try{
-            clubs = apiRevup.getClubsByMember(current_user!!.id, this)
+            clubs = apiRevup.getClubsByMember(current_user!!.id!!, this)
 
             ArrayAdapter(this, android.R.layout.simple_list_item_1, clubs!!.map { it.name }).also { adapter ->
                 nameTextFieldClub.setAdapter(adapter)
@@ -381,7 +381,7 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             return null
         }
         try {
-            var availableClubs = apiRevup.getClubsByMember(current_user!!.id, this)
+            var availableClubs = apiRevup.getClubsByMember(current_user!!.id!!, this)
             var available = false
             for (clubf in availableClubs!!) {
                 if (clubf.name == binding.eventDetailsActivityClub.text.toString()) {

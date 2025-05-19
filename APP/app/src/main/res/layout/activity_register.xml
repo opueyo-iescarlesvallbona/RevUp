@@ -127,22 +127,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/registerActivity_layoutExperienceTextField"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                app:boxCornerRadiusTopEnd="7dp"
-                app:boxCornerRadiusTopStart="7dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerActivity_experienceTextField"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Experience" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/registerActivity_layoutEmailTextField"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

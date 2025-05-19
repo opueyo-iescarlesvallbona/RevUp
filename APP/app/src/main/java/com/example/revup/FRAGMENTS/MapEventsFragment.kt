@@ -90,7 +90,7 @@ class MapEventsFragment : Fragment(), OnMapReadyCallback {
 
 
 
-        val clubs = apiRevup.getClubsByMember(current_user!!.id, requireContext())
+        val clubs = apiRevup.getClubsByMember(current_user!!.id!!, requireContext())
         var events: MutableList<ClubEvent> = mutableListOf()
         if(clubs!=null){
             for(club in clubs){

@@ -28,6 +28,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.Locale
 import kotlin.collections.listOf
@@ -65,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
 
         var locations = listOf<Municipality>()
         try{
-            locations = apiMunicipality.getMunicipisByName("")!!
+            locations = apiMunicipality.getAllMunicipalities()!!
             ArrayAdapter(this, android.R.layout.simple_list_item_1, locations.map { it.nompoblacio }).also { adapter ->
                 nameTextFieldLocation.setAdapter(adapter)
             }
@@ -103,12 +104,11 @@ class RegisterActivity : AppCompatActivity() {
             val memberName = binding.registerActivityUsernameTextField.text.toString()
             val email = binding.registerActivityEmailTextField.text.toString()
             val name = binding.registerActivityNameTextField.text.toString()
-            val experience = binding.registerActivityExperienceTextField.text.toString()
             val dateOfBirth = binding.registerActivityDateofbirthTextField.text.toString()
             val gender = binding.registerActivityGenderTextField.text.toString()
             val location = binding.registerActivityLocationTextField.text.toString()
 
-            if(!checks(memberName, password, email, name, experience, dateOfBirth, gender, location)){
+            if(!checks(memberName, password, email, name, dateOfBirth, gender, location)){
                 Toast.makeText(this, "Error on fields", Toast.LENGTH_LONG).show()
             }else{
                 var memberExists: Boolean? = false
@@ -118,50 +118,41 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error getting member: $e", Toast.LENGTH_LONG).show()
                 }
 
-
                 if(memberExists==null||memberExists){
                     binding.registerActivityUsernameTextField.error = "Membername already exists"
                     Toast.makeText(this, "Membername already exists", Toast.LENGTH_SHORT).show()
                 }else{
-                    //Parse DateOfBirth from String to Date
-                    val format = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                    val date: Date = format.parse(dateOfBirth)!!
-
                     //Create member
                     val member = Member(name = memberName, membername = memberName, genderId = genderId!!, locationId = locationId!!, email = email,
-                        dateOfBirth = format.format(date), loginDate = format.format(Date()), password = password)
+                        dateOfBirth = dateOfBirth, loginDate = LocalDate.now().toString(), password = password)
 
                     //Add member
-                    var afegit = false
                     try{
-                        apiRevUp.postMember(member, null, applicationContext)
-                        afegit = true
+                        var postMember = apiRevUp.postMember(member, null, applicationContext)
+                        if(postMember != null){
+                            var token:String? = null
+                            try{
+                                token = apiRevUp.login(member.membername.toString(), member.password.toString(), applicationContext)
+                            }catch (e: Exception){
+                                Toast.makeText(this, "Error getting token: $e", Toast.LENGTH_LONG).show()
+                            }
+
+                            if(token==null||token==""){
+                                Toast.makeText(this, "Error getting token", Toast.LENGTH_LONG).show()
+                            }else{
+                                val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                                sharedPreferences.edit() {
+                                    putString("token", token)
+                                    apply()
+                                }
+                            }
+
+                            Toast.makeText(this, "Member created", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }
                     }catch (e: Exception){
                         Toast.makeText(this, "Error adding member: $e", Toast.LENGTH_LONG).show()
-                    }
-
-                    //Login if member created
-                    if(afegit){
-                        var token:String? = null
-                        try{
-                            token = apiRevUp.login(member.membername.toString(), member.password.toString(), applicationContext)
-                        }catch (e: Exception){
-                            Toast.makeText(this, "Error getting token: $e", Toast.LENGTH_LONG).show()
-                        }
-
-                        if(token==null||token==""){
-                            Toast.makeText(this, "Error getting token", Toast.LENGTH_LONG).show()
-                        }else{
-                            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                            sharedPreferences.edit() {
-                                putString("token", token)
-                                apply()
-                            }
-                        }
-
-                        Toast.makeText(this, "Member created", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
                     }
                 }
             }
@@ -172,7 +163,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
     }
-    fun checks(memberName: String, password: String, email: String, name: String, experience: String, dateOfBirth: String, gender: String, location: String): Boolean{
+    fun checks(memberName: String, password: String, email: String, name: String, dateOfBirth: String, gender: String, location: String): Boolean{
         val passwordRegex = Regex("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{13,}")
         var error = false
         if(memberName.isEmpty()){
@@ -193,10 +184,6 @@ class RegisterActivity : AppCompatActivity() {
         }
         if(name.isEmpty()){
             binding.registerActivityNameTextField.error = "Required"
-            error = true
-        }
-        if(experience.isEmpty()){
-            binding.registerActivityExperienceTextField.error = "Required"
             error = true
         }
         if(dateOfBirth.isEmpty()){

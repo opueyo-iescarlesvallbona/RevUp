@@ -62,7 +62,7 @@ class AddRoutePostActivity : AppCompatActivity() {
         val nameTextFieldRoute: AutoCompleteTextView = binding.addRoutePostActivityRouteText
 
         try{
-            routes = apiRevUp.getAllRoutesByMember(current_user!!.id, this)
+            routes = apiRevUp.getAllRoutesByMember(current_user!!.id!!, this)
             ArrayAdapter(this, android.R.layout.simple_list_item_1, routes!!.map { it.name }).also { adapter ->
                 nameTextFieldRoute.setAdapter(adapter)
             }
@@ -99,6 +99,6 @@ class AddRoutePostActivity : AppCompatActivity() {
         }
 
 
-        return Post(id = null, title = title, description = binding.addRoutePostActivityDescription.text.toString(), postDate = LocalDateTime.now().toString(), routeId = routeId, postType = 3, memberId = current_user!!.id)
+        return Post(id = null, title = title, description = binding.addRoutePostActivityDescription.text.toString(), postDate = LocalDateTime.now().toString(), routeId = routeId, postType = 3, memberId = current_user!!.id!!)
     }
 }

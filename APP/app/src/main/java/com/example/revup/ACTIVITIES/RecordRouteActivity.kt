@@ -255,7 +255,7 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val durationMillis = LocationService.routeDurationInMillis
 
-        return Route(memberId = current_user!!.id, waypoints = waypoints, distance = distance!!, startAddress = startAddress, endAddress = endAddress, duration = durationMillis)
+        return Route(memberId = current_user!!.id!!, waypoints = waypoints, distance = distance!!, startAddress = startAddress, endAddress = endAddress, duration = durationMillis)
     }
 
     fun calculateTotalDistance(points: MutableList<LatLng>): BigDecimal {

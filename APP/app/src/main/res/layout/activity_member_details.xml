@@ -108,14 +108,6 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/memberDetailsActivity_experience"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="5dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/baseline_crib_24" />
-
                         <TextView
                             android:id="@+id/memberDetailsActivity_memberName"
                             android:layout_width="match_parent"

@@ -36,7 +36,7 @@ class MemberDetailsPostsFragment : Fragment() {
 
         var posts: MutableList<Post>? = mutableListOf()
         try {
-            posts = apiRevUp.getPostsByMemberId(curr_member!!.id, requireContext())
+            posts = apiRevUp.getPostsByMemberId(curr_member!!.id!!, requireContext())
             val recyclerView = binding.memberDetailsPostsFragmentRecyclerView
             recyclerView.visibility = View.VISIBLE
             if (posts != null && posts.isNotEmpty()){

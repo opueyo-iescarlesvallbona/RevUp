@@ -35,7 +35,7 @@ class ListRoutesFragment : Fragment() {
 
         val recyclerView = binding.listRoutesFragmentEventsFragmentMainActivityRecyclerView
         try {
-            var list = apiRevUp.getAllRoutesByMember(current_user!!.id, requireView().context)
+            var list = apiRevUp.getAllRoutesByMember(current_user!!.id!!, requireView().context)
             recyclerView.adapter = EventsRoutesListAdapter(list!!)
             recyclerView.layoutManager = LinearLayoutManager(requireView().context)
         }catch (e: Exception){

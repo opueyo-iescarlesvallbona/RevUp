@@ -16,6 +16,7 @@ import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Car
 import com.example.revup._DATACLASS.Club
+import com.example.revup._DATACLASS.curr_club
 import com.example.revup._DATACLASS.image_path
 
 class ClubChatAdapter(var list: MutableList<Club>): RecyclerView.Adapter<ClubChatAdapter.ViewHolder>() {
@@ -45,12 +46,12 @@ class ClubChatAdapter(var list: MutableList<Club>): RecyclerView.Adapter<ClubCha
         holder.carName.setText(list[position].name)
         holder.vista.findViewById<ImageView>(R.id.cardview_clubSearch_picture).setOnClickListener{
             val intent = Intent(holder.vista.context, ClubDetailsActivity::class.java)
-            intent.putExtra("club", list[position])
+            curr_club = list[position]
             holder.vista.context.startActivity(intent)
         }
         holder.vista.setOnClickListener{
             val intent = Intent(holder.vista.context, ClubDetailsActivity::class.java)
-            intent.putExtra("club", list[position])
+            curr_club = list[position]
             holder.vista.context.startActivity(intent)
         }
     }

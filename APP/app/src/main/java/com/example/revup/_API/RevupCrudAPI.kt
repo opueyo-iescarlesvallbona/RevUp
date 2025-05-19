@@ -34,7 +34,8 @@ class RevupCrudAPI : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    var urlApi = "http://172.16.24.136:5178/"
+    //var urlApi = "http://172.16.24.136:5178/"
+    var urlApi = "http://172.16.24.154:5178/"
 
     private fun getClient(context: Context): OkHttpClient {
         var loggin = HttpLoggingInterceptor()
@@ -304,7 +305,7 @@ class RevupCrudAPI : CoroutineScope {
         return modificat
     }
 
-    fun postMember(member: Member, image_path: Uri?, context: Context): Boolean{
+    fun postMember(member: Member, image_path: Uri?, context: Context): Member? {
         var afegit: Boolean = false
         var body: MultipartBody.Part? = null
         if (image_path != null) {
@@ -314,8 +315,8 @@ class RevupCrudAPI : CoroutineScope {
         }
         val memberJson = Gson().toJson(member)
         val memberRequestBody = memberJson.toRequestBody("application/json".toMediaTypeOrNull())
+        var resposta : Response<Member>? = null
         runBlocking {
-            var resposta : Response<Member>? = null
             val cor= launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).postMember(body, memberRequestBody)
             }
@@ -325,7 +326,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 afegit = false
         }
-        return afegit
+        return resposta!!.body()
     }
 
     fun login(memberName: String, password: String, context: Context): String?{

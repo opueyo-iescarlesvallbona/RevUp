@@ -48,7 +48,7 @@ class ListEventsFragment : Fragment() {
             binding.listEventsFragmentEventsFragmentMainActivityRecyclerViewCurrent
         val recyclerView_past = binding.listEventsFragmentEventsFragmentMainActivityRecyclerViewPast
         try {
-            val clubs = apiRevUp.getClubsByMember(current_user!!.id, requireContext())
+            val clubs = apiRevUp.getClubsByMember(current_user!!.id!!, requireContext())
             var events: MutableList<ClubEvent> = mutableListOf()
             if (clubs != null) {
                 for (club in clubs) {
