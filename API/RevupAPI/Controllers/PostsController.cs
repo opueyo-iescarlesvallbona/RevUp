@@ -186,6 +186,10 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
+            else
+            {
+                posts = posts.OrderByDescending(x => x.PostDate).ToList();
+            }
             return posts;
         }
 
@@ -217,7 +221,11 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-            
+            else
+            {
+                posts = posts.OrderByDescending(x => x.PostDate).ToList();
+            }
+
             return posts;
         }
 
