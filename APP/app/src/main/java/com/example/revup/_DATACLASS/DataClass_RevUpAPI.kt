@@ -116,7 +116,7 @@ class PostComment (
 class Message(
     var senderId: Int,
     var receiverId: Int?,
-    var datetime: java.util.Date?,
+    var datetime: String?,
     var contentMessage: String?,
     var stateId: Int?,
 

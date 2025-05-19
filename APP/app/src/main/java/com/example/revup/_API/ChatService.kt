@@ -3,21 +3,44 @@ package com.example.revup._API
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import com.example.revup._DATACLASS.Member
 import com.example.revup._DATACLASS.Message
 import com.example.revup._DATACLASS.current_user
+import com.google.gson.Gson
 import com.microsoft.signalr.HubConnection
 import com.microsoft.signalr.HubConnectionBuilder
 import java.util.Date
 
 class ChatService(private val context: Context, private val memberName: String, private val onMessageReceived: (Message) -> Unit) {
-
+    val apiRevUp = RevupCrudAPI()
     private val hubConnection: HubConnection = HubConnectionBuilder
         .create("http://172.16.24.136:5178/Chat")
         .build()
 
     fun connect() {
-        hubConnection.on("ReceiveMessage", { sender, message ->
-            Log.i("MESSAGE", "Message from $sender: $message")
+        hubConnection.on("ReceiveMessage", { sender, chatMessageJson ->
+            var senderObj: Member? = null
+            try{
+                senderObj = apiRevUp.getMemberByMemberName(sender.toString(), context)
+            }catch(e: Exception){
+                Log.e("Error", e.toString())
+            }
+
+            val message = Gson().fromJson(chatMessageJson.toString(), Message::class.java)
+
+            val m = Message(
+                senderId = senderObj!!.id!!, isOwnMessage = if(senderObj.membername == memberName) true else false,
+                receiverId = current_user!!.id!!,
+                datetime = Date().toString(),
+                contentMessage = message.contentMessage,
+                stateId = null,
+                messageState = null,
+                member = senderObj,
+                senderMemberName = senderObj.membername,
+                recieverMemberName = current_user!!.membername,
+                member1 = current_user
+            )
+            onMessageReceived(m)
         }, String::class.java, String::class.java)
 
         hubConnection.on("ReceiveGroupMessage", { sender, message ->
@@ -31,13 +54,13 @@ class ChatService(private val context: Context, private val memberName: String, 
     fun sendMessageToUser(target: String, message: String) {
         hubConnection.send("SendMessageToUser", target, message)
         val m = Message(
-            senderId = current_user!!.id, isOwnMessage = true,
+            senderId = current_user!!.id!!, isOwnMessage = true,
             receiverId = null,
-            datetime = Date(),
+            datetime = Date().toString(),
             contentMessage = message,
             stateId = null,
             messageState = null,
-            member = null,
+            member = current_user!!,
             senderMemberName = memberName,
             recieverMemberName = null,
             member1 = null

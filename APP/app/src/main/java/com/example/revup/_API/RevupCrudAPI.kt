@@ -34,8 +34,8 @@ class RevupCrudAPI : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    //var urlApi = "http://172.16.24.136:5178/"
-    var urlApi = "http://172.16.24.154:5178/"
+    var urlApi = "http://172.16.24.136:5178/"
+    //var urlApi = "http://172.16.24.154:5178/"
 
     private fun getClient(context: Context): OkHttpClient {
         var loggin = HttpLoggingInterceptor()
@@ -1244,6 +1244,21 @@ class RevupCrudAPI : CoroutineScope {
         return resposta!!.body()
     }
     // endregion
+
+    //MESSAGES
+    fun getOldMessages(senderId: Int, receiverId: Int, context: Context): MutableList<Message>?{
+        var resposta : Response<MutableList<Message>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getOldMessages(senderId, receiverId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
 
     class AuthInterceptor(private val context: Context) : Interceptor {
         override fun intercept(chain: Interceptor.Chain): okhttp3.Response {

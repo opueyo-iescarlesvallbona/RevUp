@@ -353,4 +353,9 @@ interface RevupAPIService {
     @POST("/api/Location/")
     suspend fun postLocation(@Body location: MemberLocation): Response<MemberLocation>
     // endregion
+
+
+    // MESSAGES
+    @GET("/api/OldMessages/")
+    suspend fun getOldMessages(@Query("senderId") senderId: Int, @Query("receiverId") receiverId: Int): Response<MutableList<Message>>
 }

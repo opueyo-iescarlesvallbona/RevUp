@@ -57,7 +57,7 @@ class MemberChatActivity : AppCompatActivity() {
             finish()
         }
 
-        Glide.with(this).load(image_path+ ToMember!!.profilePicture).into(binding.ChatActivityToMemberImage)
+        Glide.with(this).load(image_path+ ToMember!!.profilePicture).circleCrop().into(binding.ChatActivityToMemberImage)
 
         binding.ChatActivityToMemberImage.setOnClickListener {
             val intent = Intent(this, MemberDetailsActivity::class.java)
@@ -72,14 +72,21 @@ class MemberChatActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        binding.activityChatSendButton.setOnClickListener {
-//            if(!binding.activityChatMessageText.text.toString().equals("")){
-//                chatService.sendMessageToUser(ToMember!!.membername.toString(), "Hello to member1!")
-//            }else{
-//                Toast.makeText(this, "Empty message", Toast.LENGTH_SHORT).show()
-//            }
-//
-//        }
+        var oldMessages: MutableList<Message>? = null
+        oldMessages = apiRevUp.getOldMessages(current_user!!.id!!, ToMember!!.id!!, this)
+        try{
+
+        }catch(e: Exception){
+            Toast.makeText(this, "Error getting old messages", Toast.LENGTH_SHORT).show()
+        }
+
+        if(oldMessages!=null){
+            for (m: Message in oldMessages){
+                var member = apiRevUp.getMemberById(m.senderId, this)
+                m.senderMemberName = member?.membername
+            }
+            messages.addAll(oldMessages)
+        }
 
         val recyclerView: RecyclerView = findViewById(R.id.ChatActivity_recyclerView)
         adapter = MessageAdapter(messages)
@@ -90,6 +97,7 @@ class MemberChatActivity : AppCompatActivity() {
             runOnUiThread {
                 messages.add(message)
                 adapter.notifyItemInserted(messages.size - 1)
+                recyclerView.scrollToPosition(messages.size-1)
             }
         }
         chatService.connect()
