@@ -1,10 +1,18 @@
 ﻿namespace RevupAPI.Hubs
 {
     using Microsoft.AspNetCore.SignalR;
+    using Microsoft.EntityFrameworkCore;
+    using RevupAPI.Models;
     using System.Collections.Concurrent;
 
     public class ChatHub : Hub
     {
+        private readonly RevupContext _context;
+
+        public ChatHub(RevupContext context)
+        {
+            _context = context;
+        }
         private static ConcurrentDictionary<string, string> Users = new();
 
         public async Task Register(string memberName)
@@ -18,7 +26,30 @@
             var target = Users.FirstOrDefault(kvp => kvp.Value == targetMemberName);
             if (target.Key != null)
             {
+                var senderMemberName = Users.GetValueOrDefault(Context.ConnectionId);
+                var sender = await _context.Members.Where(x => x.Membername.Equals(senderMemberName)).FirstOrDefaultAsync();
+                var reciever = await _context.Members.Where(x => x.Membername.Equals(targetMemberName)).FirstOrDefaultAsync();
+
+                var chatMessage = new Message
+                {
+                    SenderId = sender.Id,
+                    ReceiverId = reciever.Id,
+                    ContentMessage = message,
+                    Datetime = DateTime.UtcNow,
+                    StateId = 1
+                };
+                try
+                {
+                    _context.Messages.Add(chatMessage);
+                    await _context.SaveChangesAsync();
+                }
+                catch
+                {
+
+                }
+                
                 await Clients.Client(target.Key).SendAsync("ReceiveMessage", Users[Context.ConnectionId], message);
+
             }
         }
 
