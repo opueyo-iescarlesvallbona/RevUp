@@ -865,3 +865,9 @@ C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\ref\RevupAPI.dll
 C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\ProjecteFinal\API\RevupAPI\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Microsoft.AspNet.SignalR.Core.dll
+C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Microsoft.Owin.dll
+C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Microsoft.Owin.Host.SystemWeb.dll
+C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Microsoft.Owin.Security.dll
+C:\ProjecteFinal\API\RevupAPI\bin\Debug\net8.0\Owin.dll
