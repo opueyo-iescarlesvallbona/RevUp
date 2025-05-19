@@ -8,11 +8,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.revup.ADAPTERS.ViewPagerAdapter
+import com.example.revup._API.ChatService
 import com.example.revup._DATACLASS.ChatViewModel
+import com.example.revup._DATACLASS.current_user
 import com.example.revup.databinding.ChatsFragmentMainactivityBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -22,6 +25,7 @@ import kotlinx.coroutines.launch
 class ChatsFragment : Fragment() {
     lateinit var binding: ChatsFragmentMainactivityBinding
     private lateinit var viewModel: ChatViewModel
+    private lateinit var chatService: ChatService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,11 @@ class ChatsFragment : Fragment() {
             requireActivity().supportFragmentManager,
             lifecycle
         )
+        chatService = ChatService(current_user!!.membername.toString())
+        chatService.connect()
+
+        Toast.makeText(requireContext(), "Connected", Toast.LENGTH_SHORT).show()
+        chatService.sendMessageToUser("member1", "Hello to member1!")
 
         binding.chatFragmentMainActivityViewPager.adapter = adapter
         binding.chatFragmentMainActivityViewPager.isUserInputEnabled = false

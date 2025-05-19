@@ -63,4 +63,6 @@ dependencies {
     implementation("org.mindrot:jbcrypt:0.4")
 
     implementation("com.airbnb.android:lottie:5.2.0")
+
+    implementation("com.microsoft.signalr:signalr:6.0.1")
 }
