@@ -34,7 +34,8 @@
                 app:boxCornerRadiusBottomEnd="7dp"
                 app:boxCornerRadiusBottomStart="7dp"
                 app:boxCornerRadiusTopEnd="7dp"
-                app:boxCornerRadiusTopStart="7dp">
+                app:boxCornerRadiusTopStart="7dp"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/registerActivity_nameTextField"
@@ -53,7 +54,8 @@
                 app:boxCornerRadiusBottomEnd="7dp"
                 app:boxCornerRadiusBottomStart="7dp"
                 app:boxCornerRadiusTopEnd="7dp"
-                app:boxCornerRadiusTopStart="7dp">
+                app:boxCornerRadiusTopStart="7dp"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/registerActivity_usernameTextField"
@@ -72,7 +74,8 @@
                 app:boxCornerRadiusBottomEnd="7dp"
                 app:boxCornerRadiusBottomStart="7dp"
                 app:boxCornerRadiusTopEnd="7dp"
-                app:boxCornerRadiusTopStart="7dp">
+                app:boxCornerRadiusTopStart="7dp"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/registerActivity_passwordTextField"
@@ -93,7 +96,8 @@
                 app:boxStrokeColor="@color/black"
                 android:layout_height="60dp"
                 android:layout_marginHorizontal="20dp"
-                android:hint="Gender">
+                android:hint="Gender"
+                >
 
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
@@ -135,7 +139,8 @@
                 app:boxCornerRadiusBottomEnd="7dp"
                 app:boxCornerRadiusBottomStart="7dp"
                 app:boxCornerRadiusTopEnd="7dp"
-                app:boxCornerRadiusTopStart="7dp">
+                app:boxCornerRadiusTopStart="7dp"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/registerActivity_emailTextField"
@@ -155,7 +160,8 @@
                 app:boxCornerRadiusTopEnd="7dp"
                 app:boxCornerRadiusTopStart="7dp"
                 app:endIconDrawable="@drawable/baseline_calendar_month_24"
-                app:endIconMode="custom">
+                app:endIconMode="custom"
+                app:boxBackgroundColor="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/registerActivity_dateofbirthTextField"
