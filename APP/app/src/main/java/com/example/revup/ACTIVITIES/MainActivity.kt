@@ -20,6 +20,7 @@ import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
 import com.example.revup.databinding.ActivityMainBinding
 import com.google.android.material.animation.AnimationUtils
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class MainActivity : AppCompatActivity() {
@@ -43,8 +44,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.mainActivityBtnNotifications.setOnClickListener {
-            val intent = Intent(this, RecordRouteActivity::class.java)
-            startActivity(intent)
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Log out")
+                .setMessage("You are going to log out. Are you sure?")
+                .setPositiveButton("Log out") { dialog, _ ->
+                    val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                    sharedPreferences.edit(){
+                        clear()
+                        apply()
+                    }
+                    val intent = Intent(this, LogInActivity::class.java)
+                    current_user = null
+                    startActivity(intent)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
 
         initFragment(HomeFragment())

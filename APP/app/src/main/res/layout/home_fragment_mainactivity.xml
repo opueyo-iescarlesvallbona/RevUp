@@ -11,8 +11,7 @@
         android:id="@+id/homeFragment_mainActivity_tabs"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        app:tabMaxWidth="0dp"
-        app:tabGravity="center"
+        app:tabGravity="start"
         app:tabMode="fixed"
         />
 
