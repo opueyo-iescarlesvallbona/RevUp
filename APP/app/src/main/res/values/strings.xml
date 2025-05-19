@@ -77,4 +77,6 @@
     <string name="editRouteActivity_duration">Duration</string>
     <string name="chat">Chat</string>
     <string name="message">Message...</string>
+    <string name="locationHomeFragment_mainActivity_text">There\'s no posts on your location</string>
+    <string name="FollowingHomeFragment_mainActivity_text">There\'s no posts of the people your following</string>
 </resources>

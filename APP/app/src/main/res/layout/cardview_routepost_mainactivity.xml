@@ -59,27 +59,14 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="end">
 
-            <TextView
-                android:id="@+id/cardview_post_mainactivity_following"
-                android:gravity="center"
-                android:layout_gravity="start"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Following"
-                android:textColor="@color/orange"
-                android:textStyle="bold"
-                android:paddingStart="50dp"
-                android:textSize="15sp"
-                />
             <RelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
                 android:background="@color/white" >
 
                 <ImageButton
@@ -104,17 +91,17 @@
                     android:scaleX="3.7"/>
             </RelativeLayout>
 
-        </LinearLayout>
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/cardview_post_mainactivity_following"
+                android:src="@drawable/outline_person_add_alt_1_24"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                />
 
-        <ImageButton
-            android:id="@+id/cardview_post_mainactivity_moreOptions"
-            android:layout_gravity="center"
-            android:layout_marginEnd="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_more_vert_24"
-            android:background="@android:color/transparent"
-            />
+        </LinearLayout>
 
     </LinearLayout>
 

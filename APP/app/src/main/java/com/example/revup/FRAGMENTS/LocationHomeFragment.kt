@@ -37,14 +37,18 @@ class LocationHomeFragment : Fragment() {
 
         val recyclerView = binding.locationHomeFragmentMainActivityRecyclerView
         try {
-            var list = apiRevUp.getPostsByLocation(current_user!!.locationId, requireView().context)//añadir por fecha
-
-            for(p: Post in list!!){
-                p.member = apiRevUp.getMemberById(p.memberId, requireView().context)
-                p.liked = apiRevUp.getPostIsLikedByMember(current_user!!.id!!, p.id!!, requireView().context)!!
+            var list = apiRevUp.getPostsByLocation(current_user!!.locationId, requireView().context)
+            if(list != null){
+                if(!list!!.isEmpty()){
+                    binding.locationHomeFragmentMainActivityNoData.visibility = View.GONE
+                    for(p: Post in list!!){
+                        p.member = apiRevUp.getMemberById(p.memberId, requireView().context)
+                        p.liked = apiRevUp.getPostIsLikedByMember(current_user!!.id!!, p.id!!, requireView().context)!!
+                    }
+                    recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
+                    recyclerView.layoutManager = LinearLayoutManager(requireView().context)
+                }
             }
-            recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
-            recyclerView.layoutManager = LinearLayoutManager(requireView().context)
         }catch (e: Exception){
             Toast.makeText(requireView().context, e.toString(), Toast.LENGTH_SHORT).show()
         }

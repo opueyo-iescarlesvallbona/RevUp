@@ -59,14 +59,24 @@ class MemberDetailsActivity : AppCompatActivity() {
         }
 
         binding.memberDetailsActivityLogOut.setOnClickListener{
-            val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-            sharedPreferences.edit(){
-                clear()
-                apply()
-            }
-            val intent = Intent(this, LogInActivity::class.java)
-            current_user = null
-            startActivity(intent)
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Log out")
+                .setMessage("You are going to log out. Are you sure?")
+                .setPositiveButton("Log out") { dialog, _ ->
+                    val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+                    sharedPreferences.edit(){
+                        clear()
+                        apply()
+                    }
+                    val intent = Intent(this, LogInActivity::class.java)
+                    current_user = null
+                    startActivity(intent)
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
 
         binding.memberDetailsActivityMemberRelation.setOnClickListener {

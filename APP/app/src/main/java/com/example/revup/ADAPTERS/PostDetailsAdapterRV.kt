@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.example.revup.ACTIVITIES.MemberDetailsActivity
 import com.example.revup.ACTIVITIES.PostDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
@@ -23,6 +24,7 @@ import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.MemberRelation
 import com.example.revup._DATACLASS.Post
 import com.example.revup._DATACLASS.PostComment
+import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.curr_post
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
@@ -62,7 +64,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
         val image = vista.findViewById<ImageView>(R.id.cardview_post_mainactivity_contentImage)
         val animation = vista.findViewById<LottieAnimationView>(R.id.animation_like_imagepost_details)
         val like = vista.findViewById<ImageButton>(R.id.cardview_postdetails_like)
-        val follow = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_following)
+        val follow = vista.findViewById<ImageButton>(R.id.cardview_post_mainactivity_following)
 
         //COMMENTS
 
@@ -160,6 +162,17 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(getItemViewType(position) == VIEW_TYPE_POST_IMAGE||getItemViewType(position) == VIEW_TYPE_POST_TEXT||getItemViewType(position)==VIEW_TYPE_POST_ROUTE){
+            holder.userImage.setOnClickListener {
+                val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)
+                curr_member = post.member
+                holder.vista.context.startActivity(intent)
+            }
+            holder.user.setOnClickListener {
+                val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)
+                curr_member = post.member
+                holder.vista.context.startActivity(intent)
+            }
+
             if(post.liked){
                 holder.animation.frame = 50
             }
@@ -172,15 +185,12 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                 val member_relation = member_relations!!.find{it.memberId2 == post.member!!.id}
                 if(member_relation != null) {
                     memberRelation = member_relation
-                    holder.follow.setText("Following")
-                    //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_Friend))
+                    holder.follow.setImageResource(R.drawable.baseline_person_24)
                 }else{
-                    holder.follow.setText("Follow Up")
-                    //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                    holder.follow.setImageResource(R.drawable.baseline_person_add_alt_1_24)
                 }
             }else{
-                holder.follow.setText("Follow Up")
-                //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                holder.follow.setImageResource(R.drawable.baseline_person_add_alt_1_24)
             }
             if(post.member!!.id==current_user!!.id){
                 holder.follow.visibility = View.GONE
@@ -189,38 +199,32 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
             }
 
             holder.follow.setOnClickListener {
-                if(holder.follow.text == "Follow Up"){
+                if(memberRelation == null){
                     try{
                         apiRevUp.postMemberRelation(MemberRelation(current_user!!.id!!, list[position].member!!.id!!, 1), holder.vista.context)
-                        holder.follow.setText("Following")
-                        //holder.follow.setTextColor(getColor(R.color.memberRelation_Friend))
+                        holder.follow.setImageResource(R.drawable.baseline_person_24)
                         memberRelation = MemberRelation(current_user!!.id!!, list[position].member!!.id!!, 1)
                     }catch(e: Exception){
                         Toast.makeText(holder.vista.context, "Error on following. $e.message", Toast.LENGTH_SHORT).show()
                     }
                 }else{
                     try{
-                        if(memberRelation != null){
-                            MaterialAlertDialogBuilder(holder.vista.context)
-                                .setTitle("Unfollow ${list[position].member!!.membername}")
-                                .setMessage("You are going to unfollow ${list[position].member!!.membername}. Are you sure?")
-                                .setPositiveButton("Delete") { dialog, _ ->
-                                    var result = apiRevUp.deleteMemberRelation(current_user!!.id!!, memberRelation!!.memberId2, holder.vista.context)
-                                    if(result){
-                                        holder.follow.setText("Follow Up")
-                                        //holder.follow.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
-                                    }else{
-                                        throw Exception("Error on unfollowing")
-                                    }
-                                    dialog.dismiss()
+                        MaterialAlertDialogBuilder(holder.vista.context)
+                            .setTitle("Unfollow ${post!!.member!!.membername}")
+                            .setMessage("You are going to unfollow ${post!!.member!!.membername}. Are you sure?")
+                            .setPositiveButton("Unfollow") { dialog, _ ->
+                                var result = apiRevUp.deleteMemberRelation(current_user!!.id!!, memberRelation!!.memberId2, holder.vista.context)
+                                if(result){
+                                    holder.follow.setImageResource(R.drawable.baseline_person_add_alt_1_24)
+                                }else{
+                                    throw Exception("Error on unfollowing")
                                 }
-                                .setNegativeButton("Cancel") { dialog, _ ->
-                                    dialog.dismiss()
-                                }
-                                .show()
-                        }else{
-                            Toast.makeText(holder.vista.context, "Error on unfollowing", Toast.LENGTH_SHORT).show()
-                        }
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton("Cancel") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .show()
                     }catch(e: Exception){
                         Toast.makeText(holder.vista.context, "Error on unfollowing. $e.message", Toast.LENGTH_SHORT).show()
                     }

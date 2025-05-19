@@ -42,16 +42,16 @@ class HomeFragment : Fragment() {
 
         TabLayoutMediator(binding.homeFragmentMainActivityTabs, binding.homeFragmentMainActivityViewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Following"
-                1 -> "Location"
-                2 -> "Likes"
+                0 -> "Likes"
+                1 -> "Following"
+                2 -> "Location"
                 else -> ""
             }
         }.attach()
 
         lifecycleScope.launch {
             Handler(Looper.getMainLooper()).postDelayed({
-                val realFragments = mutableListOf(FollowingHomeFragment(), LocationHomeFragment(), LikesHomeFragment())
+                val realFragments = mutableListOf(LikesHomeFragment(), FollowingHomeFragment(), LocationHomeFragment())
                 adapter.updateFragments(realFragments)
             }, 0)
         }

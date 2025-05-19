@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.revup.ACTIVITIES.EventDetailsActivity
+import com.example.revup.ACTIVITIES.MemberDetailsActivity
 import com.example.revup.ACTIVITIES.PostDetailsActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
@@ -51,7 +52,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
         val likeDetails = vista.findViewById<ImageButton>(R.id.cardview_postdetails_like)
         val like = vista.findViewById<ImageButton>(R.id.cardview_post_mainactivity_likeButton)
         val animation = vista.findViewById<LottieAnimationView>(R.id.animation)
-        val follow = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_following)
+        val follow = vista.findViewById<ImageButton>(R.id.cardview_post_mainactivity_following)
 
         val mapView = vista.findViewById<MapView?>(R.id.cardview_post_mainactivity_contentRoute)
         var mMap: GoogleMap? = null
@@ -127,6 +128,17 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.userImage.setOnClickListener {
+            val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)
+            curr_member = list[position].member
+            holder.vista.context.startActivity(intent)
+        }
+        holder.user.setOnClickListener {
+            val intent = Intent(holder.vista.context, MemberDetailsActivity::class.java)
+            curr_member = list[position].member
+            holder.vista.context.startActivity(intent)
+        }
+
         holder.currentPost = list[position]
         holder.likeDetails.visibility = View.GONE
 
@@ -207,14 +219,18 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
         val memberRelations = apiRevUp.getMemberRelationsByMemberId(current_user!!.id!!, holder.vista.context)
         val isFollowing = memberRelations?.any { it.memberId2 == list[position].member!!.id } == true
 
-        holder.follow.text = if (isFollowing) "Following" else "Follow Up"
+        if(isFollowing){
+            holder.follow.setImageResource(R.drawable.baseline_person_24)
+        }else{
+            holder.follow.setImageResource(R.drawable.baseline_person_add_alt_1_24)
+        }
         holder.follow.visibility = if (list[position].member!!.id == current_user!!.id) View.GONE else View.VISIBLE
 
         holder.follow.setOnClickListener {
             if (!isFollowing) {
                 try {
                     apiRevUp.postMemberRelation(MemberRelation(current_user!!.id!!, list[position].member!!.id!!, 1), holder.vista.context)
-                    holder.follow.text = "Following"
+                    holder.follow.setImageResource(R.drawable.baseline_person_24)
                 } catch (e: Exception) {
                     Toast.makeText(holder.vista.context, "Error on following. ${e.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -224,9 +240,9 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
                     MaterialAlertDialogBuilder(holder.vista.context)
                         .setTitle("Unfollow ${list[position].member!!.membername}")
                         .setMessage("You are going to unfollow ${list[position].member!!.membername}. Are you sure?")
-                        .setPositiveButton("Delete") { dialog, _ ->
+                        .setPositiveButton("Unfollow") { dialog, _ ->
                             if (apiRevUp.deleteMemberRelation(current_user!!.id!!, relation.memberId2, holder.vista.context)) {
-                                holder.follow.text = "Follow Up"
+                                holder.follow.setImageResource(R.drawable.baseline_person_add_alt_1_24)
                             } else {
                                 Toast.makeText(holder.vista.context, "Error on unfollowing", Toast.LENGTH_SHORT).show()
                             }

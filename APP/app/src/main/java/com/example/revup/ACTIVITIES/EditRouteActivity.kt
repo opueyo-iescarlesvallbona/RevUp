@@ -136,6 +136,7 @@ class EditRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             if(route!!.id != 0){
                 binding.editRouteActivityName.setText(route!!.name)
                 binding.editRouteActivityDescript.setText(route!!.description)
+                binding.editRouteActivityDatetime.setText(toSimpleDateString(FormatDate(route!!.datetime!!.toString())))
                 disableWidgets(false)
             }else{
                 binding.editRouteActivityEditButton.text = "Save Route"

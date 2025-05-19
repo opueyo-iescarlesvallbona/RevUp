@@ -40,14 +40,18 @@ class FollowingHomeFragment : Fragment() {
 
         val recyclerView = binding.FollowingHomeFragmentMainActivityRecyclerView
         try {
-            var list = apiRevUp.getPostsByFriends(current_user!!.id!!, requireView().context)//añadir por fecha
-
-            for(p: Post in list!!){
-                p.member = apiRevUp.getMemberById(p.memberId, requireView().context)
-                p.liked = apiRevUp.getPostIsLikedByMember(current_user!!.id!!, p.id!!, requireView().context)!!
+            var list = apiRevUp.getPostsByFriends(current_user!!.id!!, requireView().context)
+            if(list != null){
+                if(!list!!.isEmpty()){
+                    binding.FollowingHomeFragmentMainActivityNoData.visibility = View.GONE
+                    for(p: Post in list!!){
+                        p.member = apiRevUp.getMemberById(p.memberId, requireView().context)
+                        p.liked = apiRevUp.getPostIsLikedByMember(current_user!!.id!!, p.id!!, requireView().context)!!
+                    }
+                    recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
+                    recyclerView.layoutManager = LinearLayoutManager(requireView().context)
+                }
             }
-            recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
-            recyclerView.layoutManager = LinearLayoutManager(requireView().context)
         }catch (e: Exception){
             Toast.makeText(requireView().context, e.toString(), Toast.LENGTH_SHORT).show()
         }

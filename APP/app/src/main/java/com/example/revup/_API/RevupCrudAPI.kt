@@ -281,7 +281,7 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
-    fun putMember(member: Member, image_path: Uri?, context: Context): Boolean{
+    fun putMember(member: Member, image_path: Uri?, context: Context): Member? {
         var modificat: Boolean = false
         var body: MultipartBody.Part? = null
         if (image_path != null) {
@@ -291,8 +291,8 @@ class RevupCrudAPI : CoroutineScope {
         }
         val memberJson = Gson().toJson(member)
         val memberRequestBody = memberJson.toRequestBody("application/json".toMediaTypeOrNull())
+        var resposta : Response<Member>? = null
         runBlocking {
-            var resposta : Response<Member>? = null
             val cor = launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).putMember(body, memberRequestBody)
             }
@@ -302,7 +302,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 modificat = false
         }
-        return modificat
+        return resposta!!.body()
     }
 
     fun postMember(member: Member, image_path: Uri?, context: Context): Member? {

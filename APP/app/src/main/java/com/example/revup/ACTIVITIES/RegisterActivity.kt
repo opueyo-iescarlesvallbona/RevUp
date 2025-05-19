@@ -24,7 +24,9 @@ import com.example.practicamapes_oscarpueyocasas.API.MunicipalitiesCrudAPI
 import com.example.revup._DATACLASS.Gender
 import com.example.revup._DATACLASS.MemberLocation
 import com.example.revup._DATACLASS.Municipality
+import com.example.revup._DATACLASS.current_user
 import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
@@ -32,6 +34,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.Locale
 import kotlin.collections.listOf
+import kotlin.toString
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
@@ -76,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.registerActivityLayoutDateofBirthTextField.setEndIconOnClickListener {
             val constraints = CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now())
+                .setValidator(DateValidatorPointBackward.now())
                 .build()
 
             val startDatePicker = MaterialDatePicker.Builder.datePicker()
@@ -143,13 +146,15 @@ class RegisterActivity : AppCompatActivity() {
                                 val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
                                 sharedPreferences.edit() {
                                     putString("token", token)
+                                    putString("membername", memberName)
+                                    putString("password", password)
                                     apply()
                                 }
+                                current_user = postMember
+                                Toast.makeText(this, "Member created", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
                             }
-
-                            Toast.makeText(this, "Member created", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
                         }
                     }catch (e: Exception){
                         Toast.makeText(this, "Error adding member: $e", Toast.LENGTH_LONG).show()
