@@ -374,14 +374,16 @@ namespace RevupAPI.Controllers
 
         [Route("api/MemberFriends")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Member>>> GetMemberFriends([FromQuery]int id)
+        public async Task<ActionResult<IEnumerable<Member>>> GetMemberFriends([FromQuery] int id)
         {
-            var member = await _context.Members.Where(x=>x.Id==id).FirstOrDefaultAsync();
+            var member = await _context.Members.Where(x => x.Id == id).FirstOrDefaultAsync();
+
 
             List<Member> friends = new List<Member>();
             if (member != null)
             {
-                friends = member.MemberRelationMemberId2Navigations.Where(x=>x.State.Name.Equals("Friend")).Select(x=>x.MemberId1Navigation).ToList();
+                var friendIds = await _context.MemberRelations.Where(x => x.MemberId1 == member.Id && x.State.Name.Equals("Friend")).Select(x => x.MemberId2).ToListAsync();
+                friends = _context.Members.Where(x => friendIds.Contains(x.Id)).ToList();
             }
             return friends;
         }
