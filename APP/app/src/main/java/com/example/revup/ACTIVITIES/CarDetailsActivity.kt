@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
@@ -49,8 +50,7 @@ class CarDetailsActivity : AppCompatActivity() {
             if (uri != null) {
                 selectedImageUri = uri
                 binding.carDetailsActivityPicture.setImageURI(selectedImageUri)
-            }else{
-                binding.carDetailsActivityPicture.setImageResource(R.drawable.baseline_add_photo_alternate_24)
+                binding.carDetailsActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
             }
         }
 
@@ -167,6 +167,7 @@ class CarDetailsActivity : AppCompatActivity() {
 
         if(car != null){
             Glide.with(this).load(image_path+car.picture).into(binding.carDetailsActivityPicture)
+            binding.carDetailsActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
             binding.carDetailsActivityBrandTextField.setText(car.model!!.brand!!.name)
             binding.carDetailsActivityModelTextField.setText(car.model!!.modelName)
             binding.carDetailsActivityYear.setText(car.modelYear.toString())

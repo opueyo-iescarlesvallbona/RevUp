@@ -50,8 +50,6 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     val REQUEST_LOCATION_CODE = 100
     var havePermission: Boolean = false
-
-    private lateinit var locationCallback: LocationCallback
     private var isTracking = false
     private var routePoints = mutableListOf<LatLng>()
 
@@ -85,6 +83,10 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         }else{
             Toast.makeText(this, "You do not have permission for this function.\nYou have to activate it manually.", Toast.LENGTH_SHORT).show()
+            this.onBackPressed()
+            val returnIntent = Intent()
+            setResult(RESULT_OK, returnIntent)
+            finish()
         }
 
         if (LocationService.isRunning) {

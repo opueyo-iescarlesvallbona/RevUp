@@ -148,6 +148,8 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
 
         if (list[position].liked) {
             holder.animation.frame = 50
+        }else{
+            holder.animation.frame = 0
         }
 
         holder.animation.setAnimationFromUrl("https://lottie.host/c7f572a9-3d2f-4f8e-8b67-64e5f22595d7/eZvXIuktZb.lottie")
@@ -156,15 +158,23 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
                 apiRevUp.postUnLike(current_user!!.id!!, list[position].id!!, holder.vista.context)
                 Toast.makeText(holder.vista.context, "UnLiked", Toast.LENGTH_SHORT).show()
                 holder.animation.speed = -1f
+                holder.like.animate()
+                    .setDuration(100)
+                    .withEndAction {
+                        holder.like.visibility = View.VISIBLE
+                    }
                 holder.animation.playAnimation()
-                holder.like.visibility = View.VISIBLE
                 list[position].liked = false
             } else {
                 apiRevUp.postLike(current_user!!.id!!, list[position].id!!, holder.vista.context)
                 Toast.makeText(holder.vista.context, "Liked", Toast.LENGTH_SHORT).show()
                 holder.animation.speed = 1f
                 holder.animation.playAnimation()
-                holder.like.visibility = View.GONE
+                holder.like.animate()
+                    .setDuration(200)
+                    .withEndAction {
+                        holder.like.visibility = View.GONE
+                    }
                 list[position].liked = true
             }
         }

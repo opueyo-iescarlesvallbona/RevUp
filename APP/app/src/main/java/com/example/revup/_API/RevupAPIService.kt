@@ -337,6 +337,12 @@ interface RevupAPIService {
 
     @DELETE("/api/MemberClub/")
     suspend fun deleteMemberClub(@Query("memberId") memberId: Int, @Query("clubId") clubId: Int): Response<Boolean>
+
+    @GET("/api/MemberClub/")
+    suspend fun getMemberClub(
+        @Query("memberId") memberId: Int,
+        @Query("clubId") clubId: Int
+    ): Response<MemberClub>
     // endregion
 
     // region LOCATION

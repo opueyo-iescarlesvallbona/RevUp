@@ -3,6 +3,7 @@ package com.example.revup.ACTIVITIES
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
@@ -42,8 +43,10 @@ class EditClubActivity : AppCompatActivity() {
             if (uri != null) {
                 selectedImageUri = uri
                 binding.editClubActivityPicture.setImageURI(selectedImageUri)
+                binding.editClubActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
             }else{
                 binding.editClubActivityPicture.setImageResource(R.drawable.baseline_add_photo_alternate_24)
+                binding.editClubActivityPicture.scaleType = ImageView.ScaleType.FIT_CENTER
             }
         }
 
@@ -96,6 +99,7 @@ class EditClubActivity : AppCompatActivity() {
         if(club != null){
             if(club!!.picture != null || club!!.picture != ""){
                 Glide.with(this).load(image_path+club!!.picture).into(binding.editClubActivityPicture)
+                binding.editClubActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
             }
             binding.editClubActivityName.setText(club!!.name)
             binding.editClubActivityDescription.setText(club!!.description)

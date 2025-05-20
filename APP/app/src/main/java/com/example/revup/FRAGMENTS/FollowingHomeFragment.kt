@@ -10,17 +10,20 @@ import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.revup.ADAPTERS.HomeFragmentPostAdapterRV
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Post
 import com.example.revup._DATACLASS.current_user
+import com.example.revup._DATACLASS.recreated
 import com.example.revup.databinding.FragmentFollowingHomeBinding
 import com.example.revup.databinding.LikesHomefragmentMainactivityBinding
 
 class FollowingHomeFragment : Fragment() {
     lateinit var binding : FragmentFollowingHomeBinding
     val apiRevUp = RevupCrudAPI()
+    var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +41,7 @@ class FollowingHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = binding.FollowingHomeFragmentMainActivityRecyclerView
+        recyclerView = binding.FollowingHomeFragmentMainActivityRecyclerView
         try {
             var list = apiRevUp.getPostsByFriends(current_user!!.id!!, requireView().context)
             if(list != null){
@@ -48,8 +51,8 @@ class FollowingHomeFragment : Fragment() {
                         p.member = apiRevUp.getMemberById(p.memberId, requireView().context)
                         p.liked = apiRevUp.getPostIsLikedByMember(current_user!!.id!!, p.id!!, requireView().context)!!
                     }
-                    recyclerView.adapter = HomeFragmentPostAdapterRV(list!!)
-                    recyclerView.layoutManager = LinearLayoutManager(requireView().context)
+                    recyclerView!!.adapter = HomeFragmentPostAdapterRV(list!!)
+                    recyclerView!!.layoutManager = LinearLayoutManager(requireView().context)
                 }
             }
         }catch (e: Exception){
@@ -57,5 +60,14 @@ class FollowingHomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(!recreated){
+            if(recyclerView != null){
+                recyclerView!!.adapter!!.notifyDataSetChanged()
+                recreated = true
+            }
+        }
+    }
 
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
@@ -53,8 +54,10 @@ class EditMemberActivity : AppCompatActivity() {
             if (uri != null) {
                 selectedImageUri = uri
                 binding.editMemberActivityPicture.setImageURI(selectedImageUri)
+                binding.editMemberActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
             }else{
                 binding.editMemberActivityPicture.setImageResource(R.drawable.baseline_add_photo_alternate_24)
+                binding.editMemberActivityPicture.scaleType = ImageView.ScaleType.FIT_CENTER
             }
         }
 
@@ -108,7 +111,10 @@ class EditMemberActivity : AppCompatActivity() {
         member = current_user
 
         if(member != null){
-            Glide.with(this).load(image_path+member!!.profilePicture).into(binding.editMemberActivityPicture)
+            if(member!!.profilePicture != null && member!!.profilePicture != ""){
+                Glide.with(this).load(image_path+member!!.profilePicture).into(binding.editMemberActivityPicture)
+                binding.editMemberActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
+            }
             binding.editMemberActivityMemberName.setText(member!!.membername)
             binding.editMemberActivityName.setText(member!!.name)
             binding.editMemberActivityEmail.setText(member!!.email)

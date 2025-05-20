@@ -148,6 +148,7 @@ class EditRouteActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.editRouteActivityDuration.isEnabled = false
             binding.editRouteActivityStartAddress.isEnabled = false
             binding.editRouteActivityEndAddress.isEnabled = false
+            binding.editRouteActivityDatetime.isEnabled = false
             binding.editRouteActivityDistance.setText(formatDistance(route!!.distance!!))
             val durationMillis = LocationService.routeDurationInMillis
             val seconds = (durationMillis / 1000) % 60
@@ -185,7 +186,9 @@ class EditRouteActivity : AppCompatActivity(), OnMapReadyCallback {
         var new_route = curr_route
         new_route!!.name = name
         new_route.description = description
-        new_route.datetime = LocalDateTime.now().toString()
+        if(curr_route!!.id == 0){
+            new_route.datetime = LocalDateTime.now().toString()
+        }
 
         return new_route
     }

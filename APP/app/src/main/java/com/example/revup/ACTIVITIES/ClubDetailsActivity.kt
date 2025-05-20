@@ -2,6 +2,7 @@ package com.example.revup.ACTIVITIES
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -26,11 +27,14 @@ import com.example.revup._DATACLASS.image_path
 import com.example.revup._DATACLASS.toSimpleDateString
 import com.example.revup.databinding.ActivityClubDetailsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class ClubDetailsActivity : AppCompatActivity() {
     lateinit var binding : ActivityClubDetailsBinding
     val apiRevUp = RevupCrudAPI()
     var members: MutableList<Member>? = null
+    var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +65,11 @@ class ClubDetailsActivity : AppCompatActivity() {
         binding.clubDetailsActivityMemberRelationWithClub.setOnClickListener{
             if(binding.clubDetailsActivityMemberRelationWithClub.text == "Join in"){
                 try{
-                    //apiRevUp.postMember(MemberRelation(current_user!!.id, member!!.id, 1), this)
+                    apiRevUp.postMemberClub(MemberClub(current_user!!.id!!, curr_club!!.id!!, 3, LocalDate.now().toString()), this)
                     binding.clubDetailsActivityMemberRelationWithClub.setText("Joined in")
                     binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_Friend))
-                    //memberRelation = MemberRelation(current_user!!.id, member!!.id, 1)
+                    (recyclerView!!.adapter as ClubDetailsMembersAdapter).list.remove(current_user)
+                    recyclerView!!.adapter!!.notifyDataSetChanged()
                 }catch(e: Exception){
                     Toast.makeText(this, "Error on joining in. $e.message", Toast.LENGTH_SHORT).show()
                 }
@@ -75,13 +80,15 @@ class ClubDetailsActivity : AppCompatActivity() {
                             .setTitle("Leave ${club!!.name}")
                             .setMessage("You are going to leave ${club!!.name}. Are you sure?")
                             .setPositiveButton("Leave") { dialog, _ ->
-//                                var result = apiRevUp.deleteMemberRelation(current_user!!.id, memberRelation!!.memberId2, this)
-//                                if(result){
-//                                    binding.memberDetailsActivityMemberRelation.setText("Follow Up")
-//                                    binding.memberDetailsActivityMemberRelation.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
-//                                }else{
-//                                    throw Exception("Error on unfollowing")
-//                                }
+                                var result = apiRevUp.deleteMemberClub(current_user!!.id!!, curr_club!!.id!!, this)
+                                if(result){
+                                    binding.clubDetailsActivityMemberRelationWithClub.setText("Join in")
+                                    binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                                    (recyclerView!!.adapter as ClubDetailsMembersAdapter).list.add(current_user!!)
+                                    recyclerView!!.adapter!!.notifyDataSetChanged()
+                                }else{
+                                    throw Exception("Error on leaving club")
+                                }
                                 dialog.dismiss()
                             }
                             .setNegativeButton("Cancel") { dialog, _ ->
@@ -120,12 +127,11 @@ class ClubDetailsActivity : AppCompatActivity() {
 
                 val members = apiRevUp.getMembersByClub(club.id!!, this)
                 if(members != null){
-                    val recyclerView = binding.clubDetailsActivityMembersRecyclerView
-                    recyclerView.adapter = ClubDetailsMembersAdapter(members)
-                    recyclerView.layoutManager = LinearLayoutManager(this)
+                    recyclerView = binding.clubDetailsActivityMembersRecyclerView
+                    recyclerView!!.adapter = ClubDetailsMembersAdapter(members)
+                    recyclerView!!.layoutManager = LinearLayoutManager(this)
 
-                    if (current_user!! in members){
-                        //TODO check member role, could be blocked
+                    if (current_user!!.id!! in members.map { it.id!! }){
                         binding.clubDetailsActivityMemberRelationWithClub.setText("Joined in")
                         binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_Friend))
                     }else{
@@ -137,5 +143,35 @@ class ClubDetailsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error on club details. $e.message", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val member = (recyclerView!!.adapter as ClubDetailsMembersAdapter).list[item.groupId]
+        val memberClub = apiRevUp.getMemberClub(member!!.id!!, curr_club!!.id!!, this)
+        when (item.itemId) {
+            1 -> {
+                memberClub!!.roleType = 2
+                var change = apiRevUp.putMemberClub(memberClub, this)
+                if(change != null){
+                    Toast.makeText(this, "Promoted to Administrador", Toast.LENGTH_SHORT).show()
+                    recyclerView!!.adapter!!.notifyDataSetChanged()
+                    return true
+                }
+                Toast.makeText(this, "Error on changing role", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            2 -> {
+                memberClub!!.roleType = 3
+                var change = apiRevUp.putMemberClub(memberClub, this)
+                if(change != null){
+                    Toast.makeText(this, "Promoted to Administrador", Toast.LENGTH_SHORT).show()
+                    recyclerView!!.adapter!!.notifyDataSetChanged()
+                    return true
+                }
+                Toast.makeText(this, "Error on changing role", Toast.LENGTH_SHORT).show()
+                return false
+            }
+        }
+        return super.onContextItemSelected(item)
     }
 }

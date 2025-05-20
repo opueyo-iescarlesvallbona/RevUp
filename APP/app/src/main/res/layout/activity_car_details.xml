@@ -68,7 +68,7 @@ tools:context=".ACTIVITIES.CarDetailsActivity">
                         android:layout_marginEnd="20dp"
                         android:gravity="center"
                         android:text="@string/carDetailsActivity_edit"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/memberRelation_NoFriend"
                         android:textSize="25sp"
                         android:textStyle="bold"
                         android:layout_gravity="center_vertical"
@@ -100,7 +100,7 @@ tools:context=".ACTIVITIES.CarDetailsActivity">
                         android:id="@+id/carDetailsActivity_picture"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitCenter"
                         android:src="@drawable/baseline_image_24"/>
                 </androidx.cardview.widget.CardView>
 

@@ -1138,10 +1138,10 @@ class RevupCrudAPI : CoroutineScope {
         return afegit
     }
 
-    fun putMemberClub(memberClub: MemberClub, context: Context): Boolean{
+    fun putMemberClub(memberClub: MemberClub, context: Context): MemberClub? {
         var modificat: Boolean = false
+        var resposta : Response<MemberClub>? = null
         runBlocking {
-            var resposta : Response<MemberClub>? = null
             val cor = launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).putMemberClub(memberClub)
             }
@@ -1151,7 +1151,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 modificat = false
         }
-        return modificat
+        return resposta!!.body()
     }
 
     fun deleteMemberClub(memberId: Int, clubId: Int, context: Context): Boolean{
@@ -1168,6 +1168,20 @@ class RevupCrudAPI : CoroutineScope {
                 esborrat = false
         }
         return esborrat
+    }
+
+    fun getMemberClub(memberId: Int, clubId: Int, context: Context): MemberClub?{
+        var resposta : Response<MemberClub>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getMemberClub(memberId, clubId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
     }
     //endregion
 

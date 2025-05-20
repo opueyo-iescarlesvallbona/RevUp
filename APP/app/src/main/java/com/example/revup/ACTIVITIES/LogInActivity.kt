@@ -1,7 +1,9 @@
 package com.example.revup.ACTIVITIES
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -23,6 +27,9 @@ import com.example.revup.databinding.ActivityLogInBinding
 class LogInActivity : AppCompatActivity() {
     lateinit var binding : ActivityLogInBinding
     val apiRevUp = RevupCrudAPI()
+    val REQUEST_LOCATION_CODE = 100
+    var havePermission: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,7 +40,7 @@ class LogInActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        CheckPermissions()
         val prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val autoMemberName = prefs.getString("membername", null)
         val autoPassword = prefs.getString("password", null)
@@ -122,6 +129,49 @@ class LogInActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    fun CheckPermissions(){
+        if (
+            (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            &&
+            (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            &&
+            (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.FOREGROUND_SERVICE) == PackageManager.PERMISSION_GRANTED)
+        ){
+            havePermission = true
+        }else{
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.FOREGROUND_SERVICE))
+                havePermission = false
+            else{
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.FOREGROUND_SERVICE), REQUEST_LOCATION_CODE
+                )
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_LOCATION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED && grantResults[2] == PackageManager.PERMISSION_GRANTED){
+                havePermission = true
+            }
+            else
+                havePermission = false
+        }
     }
 }
 

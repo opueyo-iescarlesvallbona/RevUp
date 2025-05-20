@@ -17,6 +17,7 @@ import com.example.revup._DATACLASS.PostComment
 import com.example.revup._DATACLASS.curr_post
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.hideKeyboard
+import com.example.revup._DATACLASS.recreated
 import com.example.revup.databinding.ActivityPostDetailsBinding
 import okhttp3.internal.notify
 import java.time.LocalDateTime
@@ -48,6 +49,7 @@ class PostDetailsActivity : AppCompatActivity() {
 
         binding.PostDetailsActivityBackButton.setOnClickListener {
             this.onBackPressed()
+            recreated = false
             val returnIntent = Intent()
             setResult(RESULT_OK, returnIntent)
             finish()
@@ -104,5 +106,10 @@ class PostDetailsActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        recreated = false
     }
 }

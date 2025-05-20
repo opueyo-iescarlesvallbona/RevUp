@@ -68,7 +68,7 @@ class ListEventsFragment : Fragment() {
             recyclerView_past.adapter = EventsRoutesListAdapter(past_events)
             recyclerView_past.layoutManager = LinearLayoutManager(requireView().context)
         } catch (e: Exception) {
-            Toast.makeText(requireView().context, e.toString(), Toast.LENGTH_SHORT).show()
+            Log.i("ERROR", e.toString())
         }
     }
 

@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -181,9 +182,7 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (uri != null) {
                 selectedImageUri = uri
                 binding.eventDetailsActivityPicture.setImageURI(selectedImageUri)
-            } else {
-                binding.eventDetailsActivityPicture.setImageResource(R.drawable.baseline_add_photo_alternate_24)
-                selectedImageUri = null
+                binding.eventDetailsActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
             }
         }
         disableWidgets(false)
@@ -265,6 +264,7 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                 try {
                     Glide.with(this).load(image_path + event?.picture)
                         .into(binding.eventDetailsActivityPicture)
+                    binding.eventDetailsActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
                 } catch (e: Exception) {
                     Toast.makeText(this, "Error setting event image", Toast.LENGTH_SHORT).show()
                 }
