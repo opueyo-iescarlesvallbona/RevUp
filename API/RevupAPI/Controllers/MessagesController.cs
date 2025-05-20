@@ -176,10 +176,28 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/OldMessages")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberLocation>>> GetGenderById([FromQuery] int senderId, int receiverId)
+        public async Task<ActionResult<IEnumerable<MemberLocation>>> GetOldMessages([FromQuery] int senderId, int receiverId)
         {
             var messages = await _context.Messages.Where(x => (x.SenderId == senderId && x.ReceiverId == receiverId)||
             x.SenderId==receiverId && x.ReceiverId==senderId).OrderByDescending(x=>x.Datetime).ToListAsync();
+
+            messages = messages.Where(x=>x.StateId==1).ToList();
+            if (messages == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(messages);
+        }
+
+        [Authorize]
+        [Route("api/OldMessagesClub")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MemberLocation>>> GetOldMessagesClub([FromQuery] int clubId)
+        {
+            var messages = await _context.Messages.Where(x =>x.ReceiverId==clubId).OrderByDescending(x => x.Datetime).ToListAsync();
+
+            messages = messages.Where(x => x.StateId == 2).ToList();
             if (messages == null)
             {
                 return NotFound();

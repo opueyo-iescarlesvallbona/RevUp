@@ -1604,7 +1604,7 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.MessagesController",
-    "Method": "GetGenderById",
+    "Method": "GetOldMessages",
     "RelativePath": "api/OldMessages",
     "HttpMethod": "GET",
     "IsController": true,
@@ -1617,6 +1617,32 @@
       },
       {
         "Name": "receiverId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RevupAPI.Models.MemberLocation, RevupAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.MessagesController",
+    "Method": "GetOldMessagesClub",
+    "RelativePath": "api/OldMessagesClub",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clubId",
         "Type": "System.Int32",
         "IsRequired": false
       }

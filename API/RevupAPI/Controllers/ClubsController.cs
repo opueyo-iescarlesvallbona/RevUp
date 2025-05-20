@@ -386,5 +386,19 @@ namespace RevupAPI.Controllers
             }
         }
 
+        [Authorize]
+        [Route("api/MemberClub")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MemberClub>>> GetMemberClub([FromQuery] int memberId, [FromQuery] int clubId)
+        {
+            var memberClub = await _context.MemberClubs.Where(x => x.MemberId == memberId && x.ClubId == clubId).FirstOrDefaultAsync();
+
+            if (memberClub == null)
+            {
+                return NotFound();
+            }
+            return Ok(memberClub);
+        }
+
     }
 }
