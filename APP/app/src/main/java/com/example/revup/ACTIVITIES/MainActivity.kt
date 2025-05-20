@@ -70,9 +70,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.home -> {
                     setAnimation(false)
-                    if (binding.mainActivityBtnAdd.rotation == 45f) {
-                        secFloatingBtnVisible = !secFloatingBtnVisible
-                    }
+                    secFloatingBtnVisible = false
                     initFragment(HomeFragment())
                     activeCreatePostButton(true)
                     true
@@ -80,9 +78,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.events -> {
                     setAnimation(false)
-                    if (binding.mainActivityBtnAdd.rotation == 45f) {
-                        secFloatingBtnVisible = !secFloatingBtnVisible
-                    }
+                    secFloatingBtnVisible = false
                     initFragment(EventsFragment())
                     activeCreatePostButton(true)
                     true
@@ -90,9 +86,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.search -> {
                     setAnimation(false)
-                    if (binding.mainActivityBtnAdd.rotation == 45f) {
-                        secFloatingBtnVisible = !secFloatingBtnVisible
-                    }
+                    secFloatingBtnVisible = false
                     initFragment(SearchFragment())
                     activeCreatePostButton(true)
                     true
@@ -160,11 +154,11 @@ class MainActivity : AppCompatActivity() {
     fun activeCreatePostButton(activate: Boolean) {
         if (secFloatingBtnVisible) {
             if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.home) {
-                setEnableFloatingButtons(false, true)
+                setEnableFloatingButtons(true, false)
             } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.events) {
-                setEnableFloatingButtonsEvent(false, true)
+                setEnableFloatingButtonsEvent(true, false)
             } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.search) {
-                setEnableFloatingButtonsClub(false, true)
+                setEnableFloatingButtonsClub(true, false)
             }
         }
         if (activate) {
@@ -182,12 +176,14 @@ class MainActivity : AppCompatActivity() {
 
     fun onAddButtonClicked() {
         secFloatingBtnVisible = !secFloatingBtnVisible
-        if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.home) {
-            setEnableFloatingButtons(secFloatingBtnVisible, false)
-        } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.events) {
-            setEnableFloatingButtonsEvent(secFloatingBtnVisible, false)
-        } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.search) {
-            setEnableFloatingButtonsClub(secFloatingBtnVisible, false)
+        if (secFloatingBtnVisible) {
+            if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.home) {
+                setEnableFloatingButtons(secFloatingBtnVisible, false)
+            } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.events) {
+                setEnableFloatingButtonsEvent(secFloatingBtnVisible, false)
+            } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.search) {
+                setEnableFloatingButtonsClub(secFloatingBtnVisible, false)
+            }
         }
         setAnimation(secFloatingBtnVisible)
     }
@@ -202,8 +198,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.mainActivityBtnAddClub.visibility = View.VISIBLE
         }
-        if (reset && binding.mainActivityBtnAddImage.animation != null) {
+        if (reset && binding.mainActivityBtnAddClub.animation != null) {
             binding.mainActivityBtnAddClub.clearAnimation()
+            binding.mainActivityBtnAddText.clearAnimation()
+            binding.mainActivityBtnAddImage.clearAnimation()
+            binding.mainActivityBtnAddRoute.clearAnimation()
+            if(binding.mainActivityBtnAdd.rotation==45f) {
+                binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
+            }
         }
         setClickable(visible)
     }
@@ -221,6 +223,10 @@ class MainActivity : AppCompatActivity() {
         if (reset && binding.mainActivityBtnAddImage.animation != null) {
             binding.mainActivityBtnAddImage.clearAnimation()
             binding.mainActivityBtnAddRoute.clearAnimation()
+            binding.mainActivityBtnAddClub.clearAnimation()
+            if(binding.mainActivityBtnAdd.rotation==45f) {
+                binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
+            }
         }
         setClickable(visible)
     }
@@ -240,6 +246,10 @@ class MainActivity : AppCompatActivity() {
             binding.mainActivityBtnAddText.clearAnimation()
             binding.mainActivityBtnAddImage.clearAnimation()
             binding.mainActivityBtnAddRoute.clearAnimation()
+            binding.mainActivityBtnAddClub.clearAnimation()
+            if(binding.mainActivityBtnAdd.rotation==45f) {
+                binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
+            }
         }
         setClickable(visible)
     }
@@ -247,21 +257,46 @@ class MainActivity : AppCompatActivity() {
     private fun setAnimation(secFloatingBtnVisible: Boolean) {
         if (!secFloatingBtnVisible) {
             if (binding.mainActivityBtnAdd.rotation == 45f) {
-                binding.mainActivityBtnAddText.startAnimation(anim_toBottom)
-                binding.mainActivityBtnAddImage.startAnimation(anim_toBottom)
-                binding.mainActivityBtnAddRoute.startAnimation(anim_toBottom)
-                binding.mainActivityBtnAddClub.startAnimation(anim_toBottom)
+                if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+                    binding.mainActivityBtnAddClub.visibility = View.GONE
+                    binding.mainActivityBtnAddText.startAnimation(anim_toBottom)
+                    binding.mainActivityBtnAddImage.startAnimation(anim_toBottom)
+                    binding.mainActivityBtnAddRoute.startAnimation(anim_toBottom)
+                }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+                    binding.mainActivityBtnAddClub.visibility = View.GONE
+                    binding.mainActivityBtnAddText.visibility = View.GONE
+                    binding.mainActivityBtnAddImage.startAnimation(anim_toBottom)
+                    binding.mainActivityBtnAddRoute.startAnimation(anim_toBottom)
 
-                binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
+                }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.search){
+
+                    binding.mainActivityBtnAddRoute.clearAnimation()
+                    binding.mainActivityBtnAddText.clearAnimation()
+                    binding.mainActivityBtnAddImage.clearAnimation()
+                    binding.mainActivityBtnAddClub.startAnimation(anim_toBottom)
+                }
+
+                if(binding.mainActivityBtnAdd.rotation==45f) {
+                    binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
+                }
             }
         } else {
             if (binding.mainActivityBtnAdd.rotation == 0f) {
-                binding.mainActivityBtnAddText.startAnimation(anim_fromBottom)
-                binding.mainActivityBtnAddImage.startAnimation(anim_fromBottom)
-                binding.mainActivityBtnAddRoute.startAnimation(anim_fromBottom)
-                binding.mainActivityBtnAddClub.startAnimation(anim_fromBottom)
+                if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+                    binding.mainActivityBtnAddText.startAnimation(anim_fromBottom)
+                    binding.mainActivityBtnAddImage.startAnimation(anim_fromBottom)
+                    binding.mainActivityBtnAddRoute.startAnimation(anim_fromBottom)
+                }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+                    binding.mainActivityBtnAddImage.startAnimation(anim_fromBottom)
+                    binding.mainActivityBtnAddRoute.startAnimation(anim_fromBottom)
+                }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.search){
+                    binding.mainActivityBtnAddClub.startAnimation(anim_fromBottom)
+                }
 
-                binding.mainActivityBtnAdd.animate().rotationBy(45f).setDuration(500).start()
+                if(binding.mainActivityBtnAdd.rotation==0f){
+                    binding.mainActivityBtnAdd.animate().rotationBy(45f).setDuration(500).start()
+                }
+
             }
         }
     }
@@ -283,7 +318,13 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         secFloatingBtnVisible = false
-        setEnableFloatingButtons(false, true)
+        if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+            setEnableFloatingButtons(false, true)
+        }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+            setEnableFloatingButtonsEvent(false, true)
+        }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.search){
+            setEnableFloatingButtonsClub(false, true)
+        }
     }
 
 }
