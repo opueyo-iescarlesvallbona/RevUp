@@ -201,7 +201,7 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/Club")]
         [HttpPost]
-        public async Task<ActionResult<Club>> PostEvent([FromForm] IFormFile? image, [FromForm] string club)
+        public async Task<ActionResult<Club>> PostClub([FromForm] IFormFile? image, [FromForm] string club)
         {
             if(club == null)
             {
@@ -211,20 +211,21 @@ namespace RevupAPI.Controllers
             if(clubObj == null)
             {
                 return BadRequest("Invalid club data");
-            }
-            if(image != null)
-            {
-                try
-                {
-                    string path = GeneralController.UploadImage(image, clubObj);
-                    clubObj.Picture = path;
-                }
-                catch { }
-            }
+            }            
             try
             {
-                _context.Clubs.Add(clubObj);
+                var afterClub = _context.Clubs.Add(clubObj);
                 await _context.SaveChangesAsync();
+                if (image != null)
+                {
+                    try
+                    {
+                        string path = GeneralController.UploadImage(image, afterClub.Entity);
+                        _context.Database.ExecuteSqlRaw("UPDATE club SET picture = {0} WHERE id = {1}", path, afterClub.Entity.Id);
+                        clubObj.Picture = path;
+                    }
+                    catch { }
+                }
             }
             catch
             {
