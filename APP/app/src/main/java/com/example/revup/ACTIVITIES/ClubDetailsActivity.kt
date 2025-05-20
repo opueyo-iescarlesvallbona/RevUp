@@ -3,6 +3,7 @@ package com.example.revup.ACTIVITIES
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -101,6 +102,9 @@ class ClubDetailsActivity : AppCompatActivity() {
                 }catch(e: Exception){
                     Toast.makeText(this, "Error on leaving. $e.message", Toast.LENGTH_SHORT).show()
                 }
+            }else if(binding.clubDetailsActivityMemberRelationWithClub.text == "Edit club"){
+                val intent = Intent(this, EditClubActivity::class.java)
+                startActivity(intent)
             }
         }
 
@@ -123,6 +127,10 @@ class ClubDetailsActivity : AppCompatActivity() {
                 val founder = apiRevUp.getMemberById(club.founder, this)
                 if(founder != null){
                     binding.clubDetailsActivityFounder.text = "Founder: ${founder.name}"
+                    if(founder.id == current_user!!.id){
+                        binding.clubDetailsActivityMemberRelationWithClub.setText("Edit club")
+                        binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                    }
                 }
 
                 val members = apiRevUp.getMembersByClub(club.id!!, this)
