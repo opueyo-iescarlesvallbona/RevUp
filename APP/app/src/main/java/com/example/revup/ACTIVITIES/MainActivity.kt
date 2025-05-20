@@ -325,6 +325,15 @@ class MainActivity : AppCompatActivity() {
             setEnableFloatingButtonsEvent(false, true)
         }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.search){
             setEnableFloatingButtonsClub(false, true)
+        }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.chats){
+            binding.mainActivityBtnAddClub.visibility = View.GONE
+            binding.mainActivityBtnAddText.visibility = View.GONE
+            binding.mainActivityBtnAddImage.visibility = View.GONE
+            binding.mainActivityBtnAddRoute.visibility = View.GONE
+            binding.mainActivityBtnAddClub.clearAnimation()
+            binding.mainActivityBtnAddText.clearAnimation()
+            binding.mainActivityBtnAddImage.clearAnimation()
+            binding.mainActivityBtnAddRoute.clearAnimation()
         }
     }
 
