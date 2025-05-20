@@ -26,13 +26,13 @@ class ChatService(private val context: Context, private val memberName: String, 
                 Log.e("Error", e.toString())
             }
 
-            val message = Gson().fromJson(chatMessageJson.toString(), Message::class.java)
+            //val message = Gson().fromJson(chatMessageJson.toString(), Message::class.java)
 
             val m = Message(
                 senderId = senderObj!!.id!!, isOwnMessage = if(senderObj.membername == memberName) true else false,
                 receiverId = current_user!!.id!!,
                 datetime = Date().toString(),
-                contentMessage = message.contentMessage,
+                contentMessage = chatMessageJson,
                 stateId = null,
                 messageState = null,
                 member = senderObj,
@@ -43,8 +43,29 @@ class ChatService(private val context: Context, private val memberName: String, 
             onMessageReceived(m)
         }, String::class.java, String::class.java)
 
-        hubConnection.on("ReceiveGroupMessage", { sender, message ->
-            println("Group message from $sender: $message")
+        hubConnection.on("ReceiveGroupMessage", { sender, chatMessageJson ->
+            var senderObj: Member? = null
+            try{
+                senderObj = apiRevUp.getMemberByMemberName(sender.toString(), context)
+            }catch(e: Exception){
+                Log.e("Error", e.toString())
+            }
+
+            //val message = Gson().fromJson(chatMessageJson.toString(), Message::class.java)
+
+            val m = Message(
+                senderId = senderObj!!.id!!, isOwnMessage = if(senderObj!!.membername == memberName) true else false,
+                receiverId = current_user!!.id!!,
+                datetime = Date().toString(),
+                contentMessage = chatMessageJson,
+                stateId = null,
+                messageState = null,
+                member = senderObj!!,
+                senderMemberName = senderObj!!.membername,
+                recieverMemberName = current_user!!.membername,
+                member1 = current_user
+            )
+            onMessageReceived(m)
         }, String::class.java, String::class.java)
 
         hubConnection.start().blockingAwait()
@@ -53,6 +74,14 @@ class ChatService(private val context: Context, private val memberName: String, 
 
     fun sendMessageToUser(target: String, message: String) {
         hubConnection.send("SendMessageToUser", target, message)
+    }
+
+    fun joinGroup(group: String) {
+        hubConnection.send("JoinGroup", group)
+    }
+
+    fun sendMessageToGroup(group: String, message: String) {
+        hubConnection.send("SendMessageToGroup", group, message)
         val m = Message(
             senderId = current_user!!.id!!, isOwnMessage = true,
             receiverId = null,
@@ -66,14 +95,6 @@ class ChatService(private val context: Context, private val memberName: String, 
             member1 = null
         )
         onMessageReceived(m)
-    }
-
-    fun joinGroup(group: String) {
-        hubConnection.send("JoinGroup", group)
-    }
-
-    fun sendMessageToGroup(group: String, message: String) {
-        hubConnection.send("SendMessageToGroup", group, message)
     }
 
     fun disconnect() {

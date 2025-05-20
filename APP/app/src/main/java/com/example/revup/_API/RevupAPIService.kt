@@ -305,6 +305,11 @@ interface RevupAPIService {
         @Query("clubName") clubName: String
     ): Response<MutableList<Club>>
 
+    @GET("/api/ClubByName/")
+    suspend fun getClubByName(
+        @Query("clubName") clubName: String
+    ): Response<Club>
+
     @GET("/api/ClubById/")
     suspend fun getClubById(
         @Query("id") clubId: Int
@@ -358,4 +363,7 @@ interface RevupAPIService {
     // MESSAGES
     @GET("/api/OldMessages/")
     suspend fun getOldMessages(@Query("senderId") senderId: Int, @Query("receiverId") receiverId: Int): Response<MutableList<Message>>
+
+    @GET("/api/OldMessagesClub/")
+    suspend fun getOldMessagesClub(@Query("clubId") clubId: Int): Response<MutableList<Message>>
 }

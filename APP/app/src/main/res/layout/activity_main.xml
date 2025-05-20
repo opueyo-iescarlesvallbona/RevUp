@@ -107,11 +107,29 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/mainActivity_btnAddClub"
+        android:src="@drawable/outline_delete_24"
+        app:shapeAppearanceOverlay="@style/fab_3_rounded"
+        android:backgroundTint="@color/yellow"
+        app:layout_constraintBottom_toTopOf="@+id/mainActivity_coordinatorLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="5dp"
+        app:maxImageSize="30dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:clickable="false"
+        android:visibility="invisible"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/mainActivity_btnAddText"
         android:src="@drawable/baseline_text_fields_24"
         app:shapeAppearanceOverlay="@style/fab_3_rounded"
         android:backgroundTint="@color/yellow"
-        app:layout_constraintBottom_toTopOf="@+id/mainActivity_coordinatorLayout"
+        app:layout_constraintBottom_toTopOf="@+id/mainActivity_btnAddClub"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="5dp"
@@ -157,5 +175,6 @@
         android:clickable="false"
         android:visibility="invisible"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,15 +16,18 @@ import com.example.revup.R
 import com.example.revup._API.ChatService
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Message
+import com.example.revup._DATACLASS.curr_club
+import com.example.revup._DATACLASS.curr_club_chat
 import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.curr_member_chat
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
+import com.example.revup.databinding.ActivityClubChatBinding
 import com.example.revup.databinding.ActivityMemberChatBinding
 import com.google.android.material.textfield.TextInputEditText
 
-class MemberChatActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMemberChatBinding
+class ClubChatActivity : AppCompatActivity() {
+    lateinit var binding: ActivityClubChatBinding
     private lateinit var chatService: ChatService
     val apiRevUp = RevupCrudAPI()
     private lateinit var adapter: MessageAdapter
@@ -32,7 +35,7 @@ class MemberChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityMemberChatBinding.inflate(layoutInflater)
+        binding = ActivityClubChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
@@ -48,7 +51,8 @@ class MemberChatActivity : AppCompatActivity() {
 
             insets
         }
-        val ToMember = curr_member_chat
+
+        val ToClub = curr_club_chat
 
         binding.ChatActivityBackButton.setOnClickListener {
             this.onBackPressed()
@@ -57,23 +61,23 @@ class MemberChatActivity : AppCompatActivity() {
             finish()
         }
 
-        Glide.with(this).load(image_path+ ToMember!!.profilePicture).circleCrop().into(binding.ChatActivityToMemberImage)
+        Glide.with(this).load(image_path+ ToClub!!.picture).circleCrop().into(binding.ChatActivityToMemberImage)
 
         binding.ChatActivityToMemberImage.setOnClickListener {
-            val intent = Intent(this, MemberDetailsActivity::class.java)
-            curr_member = ToMember
+            val intent = Intent(this, ClubDetailsActivity::class.java)
+            curr_club = ToClub
             startActivity(intent)
         }
 
-        binding.chatActivityMembername.setText(ToMember!!.membername)
+        binding.chatActivityMembername.setText(ToClub.name)
         binding.chatActivityMembername.setOnClickListener {
-            val intent = Intent(this, MemberDetailsActivity::class.java)
-            curr_member = ToMember
+            val intent = Intent(this, ClubDetailsActivity::class.java)
+            curr_club = ToClub
             startActivity(intent)
         }
 
         var oldMessages: MutableList<Message>? = null
-        oldMessages = apiRevUp.getOldMessages(current_user!!.id!!, ToMember!!.id!!, this)
+        oldMessages = apiRevUp.getOldMessagesClub(ToClub.id!!, this)
         try{
 
         }catch(e: Exception){
@@ -104,19 +108,19 @@ class MemberChatActivity : AppCompatActivity() {
             }
         }
         chatService.connect()
+        chatService.joinGroup(ToClub.name)
 
         findViewById<ImageButton>(R.id.activity_chat_sendButton).setOnClickListener {
-            val target = ToMember!!.membername
+            val target = ToClub.name
             val input = findViewById<TextInputEditText>(R.id.activity_chat_messageText)
             val messageText = input.text.toString()
             if (messageText.isNotBlank()) {
-                chatService.sendMessageToUser(target.toString(), messageText)
+                chatService.sendMessageToGroup(target.toString(), messageText)
                 input.setText("")
             }
         }
-        //Toast.makeText(requireContext(), "Connected", Toast.LENGTH_SHORT).show()
-
     }
+
     override fun onDestroy() {
         chatService.disconnect()
         super.onDestroy()

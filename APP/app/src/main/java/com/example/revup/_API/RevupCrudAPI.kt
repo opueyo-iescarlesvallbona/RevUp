@@ -1046,6 +1046,20 @@ class RevupCrudAPI : CoroutineScope {
             return null
     }
 
+    fun getClubByName(clubName: String, context: Context): Club?{
+        var resposta : Response<Club>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getClubByName(clubName)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
     fun getClubById(clubId: Int, context: Context): Club?{
         var resposta : Response<Club>? = null
         runBlocking {
@@ -1251,6 +1265,20 @@ class RevupCrudAPI : CoroutineScope {
         runBlocking {
             val cor = launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).getOldMessages(senderId, receiverId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
+    fun getOldMessagesClub(clubId: Int, context: Context): MutableList<Message>?{
+        var resposta : Response<MutableList<Message>>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).getOldMessagesClub(clubId)
             }
             cor.join()
         }

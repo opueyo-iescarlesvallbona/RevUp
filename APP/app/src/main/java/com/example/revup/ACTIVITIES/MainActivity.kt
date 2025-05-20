@@ -15,6 +15,7 @@ import com.example.revup.FRAGMENTS.HomeFragment
 import com.example.revup.FRAGMENTS.SearchFragment
 import com.example.revup.R
 import com.example.revup._DATACLASS.curr_car
+import com.example.revup._DATACLASS.curr_club
 import com.example.revup._DATACLASS.curr_event
 import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
@@ -24,7 +25,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     private val anim_fromBottom: Animation by lazy { loadAnimation(this, R.anim.from_bottom_anim) }
     private val anim_toBottom: Animation by lazy { loadAnimation(this, R.anim.to_bottom_anim) }
@@ -69,40 +70,51 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.home -> {
                     setAnimation(false)
-                    if(binding.mainActivityBtnAdd.rotation==45f) {
+                    if (binding.mainActivityBtnAdd.rotation == 45f) {
                         secFloatingBtnVisible = !secFloatingBtnVisible
                     }
                     initFragment(HomeFragment())
                     activeCreatePostButton(true)
                     true
                 }
+
                 R.id.events -> {
                     setAnimation(false)
-                    if(binding.mainActivityBtnAdd.rotation==45f) {
+                    if (binding.mainActivityBtnAdd.rotation == 45f) {
                         secFloatingBtnVisible = !secFloatingBtnVisible
                     }
                     initFragment(EventsFragment())
                     activeCreatePostButton(true)
                     true
                 }
+
                 R.id.search -> {
+                    setAnimation(false)
+                    if (binding.mainActivityBtnAdd.rotation == 45f) {
+                        secFloatingBtnVisible = !secFloatingBtnVisible
+                    }
                     initFragment(SearchFragment())
+                    activeCreatePostButton(true)
                     true
                 }
+
                 R.id.chats -> {
                     initFragment(ChatsFragment())
                     true
                 }
-                else -> {true}
+
+                else -> {
+                    true
+                }
             }
 
 
-            if(it.itemId != R.id.home&&it.itemId!=R.id.events){
+            if (it.itemId != R.id.home && it.itemId != R.id.events && it.itemId != R.id.search) {
                 activeCreatePostButton(false)
             }
             true
         }
-        binding.mainActivityBtnAdd.setOnClickListener{
+        binding.mainActivityBtnAdd.setOnClickListener {
             onAddButtonClicked()
         }
         binding.mainActivityBtnAddText.setOnClickListener {
@@ -112,10 +124,10 @@ class MainActivity : AppCompatActivity() {
         }
         binding.mainActivityBtnAddImage.setOnClickListener {
             binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
-            if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+            if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.home) {
                 val intent = Intent(this, AddImagePostActivity::class.java)
                 startActivity(intent)
-            }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+            } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.events) {
                 val intent = Intent(this, EventDetailsActivity::class.java)
                 intent.putExtra("editable", true)
                 curr_event = null
@@ -123,12 +135,21 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        binding.mainActivityBtnAddClub.setOnClickListener {
+            binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
+            if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.search) {
+                val intent = Intent(this, EditClubActivity::class.java)
+                curr_club = null
+                startActivity(intent)
+            }
+        }
         binding.mainActivityBtnAddRoute.setOnClickListener {
             binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
-            if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+            if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.home) {
                 val intent = Intent(this, AddRoutePostActivity::class.java)
                 startActivity(intent)
-            }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+            } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.events) {
                 val intent = Intent(this, RecordRouteActivity::class.java)
                 startActivity(intent)
             }
@@ -136,65 +157,86 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun activeCreatePostButton(activate: Boolean){
-        if(secFloatingBtnVisible){
-            if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home) {
+    fun activeCreatePostButton(activate: Boolean) {
+        if (secFloatingBtnVisible) {
+            if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.home) {
                 setEnableFloatingButtons(false, true)
-            }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home) {
+            } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.events) {
                 setEnableFloatingButtonsEvent(false, true)
+            } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.search) {
+                setEnableFloatingButtonsClub(false, true)
             }
         }
-        if(activate){
+        if (activate) {
             binding.mainActivityBtnAdd.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.mainActivityBtnAdd.visibility = View.INVISIBLE
         }
     }
 
-    fun initFragment(fragment: Fragment){
+    fun initFragment(fragment: Fragment) {
         val transaccio = supportFragmentManager.beginTransaction()
         transaccio.replace(R.id.mainActivity_fragmentContainerView, fragment)
         transaccio.commit()
     }
 
-    fun onAddButtonClicked(){
+    fun onAddButtonClicked() {
         secFloatingBtnVisible = !secFloatingBtnVisible
-        if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.home){
+        if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.home) {
             setEnableFloatingButtons(secFloatingBtnVisible, false)
-        }else if(binding.mainActivityBottomNavigationView.selectedItemId==R.id.events){
+        } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.events) {
             setEnableFloatingButtonsEvent(secFloatingBtnVisible, false)
+        } else if (binding.mainActivityBottomNavigationView.selectedItemId == R.id.search) {
+            setEnableFloatingButtonsClub(secFloatingBtnVisible, false)
         }
-
         setAnimation(secFloatingBtnVisible)
     }
 
-    private fun setEnableFloatingButtonsEvent(visible: Boolean, reset: Boolean){
+    private fun setEnableFloatingButtonsClub(visible: Boolean, reset: Boolean) {
         binding.mainActivityBtnAddText.visibility = View.GONE
-        if(!visible){
+        binding.mainActivityBtnAddRoute.visibility = View.GONE
+        binding.mainActivityBtnAddImage.visibility = View.GONE
+
+        if (!visible) {
+            binding.mainActivityBtnAddClub.visibility = View.INVISIBLE
+        } else {
+            binding.mainActivityBtnAddClub.visibility = View.VISIBLE
+        }
+        if (reset && binding.mainActivityBtnAddImage.animation != null) {
+            binding.mainActivityBtnAddClub.clearAnimation()
+        }
+        setClickable(visible)
+    }
+
+    private fun setEnableFloatingButtonsEvent(visible: Boolean, reset: Boolean) {
+        binding.mainActivityBtnAddText.visibility = View.GONE
+        binding.mainActivityBtnAddClub.visibility = View.GONE
+        if (!visible) {
             binding.mainActivityBtnAddImage.visibility = View.INVISIBLE
             binding.mainActivityBtnAddRoute.visibility = View.INVISIBLE
-        }else{
+        } else {
             binding.mainActivityBtnAddImage.visibility = View.VISIBLE
             binding.mainActivityBtnAddRoute.visibility = View.VISIBLE
         }
-        if(reset && binding.mainActivityBtnAddImage.animation != null){
+        if (reset && binding.mainActivityBtnAddImage.animation != null) {
             binding.mainActivityBtnAddImage.clearAnimation()
             binding.mainActivityBtnAddRoute.clearAnimation()
         }
         setClickable(visible)
     }
 
-    private fun setEnableFloatingButtons(visible: Boolean, reset: Boolean){
-        if(!visible){
+    private fun setEnableFloatingButtons(visible: Boolean, reset: Boolean) {
+        binding.mainActivityBtnAddClub.visibility = View.GONE
+        if (!visible) {
             binding.mainActivityBtnAddText.visibility = View.INVISIBLE
             binding.mainActivityBtnAddImage.visibility = View.INVISIBLE
             binding.mainActivityBtnAddRoute.visibility = View.INVISIBLE
-        }else{
+        } else {
             binding.mainActivityBtnAddText.visibility = View.VISIBLE
             binding.mainActivityBtnAddImage.visibility = View.VISIBLE
             binding.mainActivityBtnAddRoute.visibility = View.VISIBLE
         }
-        if(reset && binding.mainActivityBtnAddText.animation != null && binding.mainActivityBtnAddImage.animation != null){
+        if (reset && binding.mainActivityBtnAddText.animation != null && binding.mainActivityBtnAddImage.animation != null) {
             binding.mainActivityBtnAddText.clearAnimation()
             binding.mainActivityBtnAddImage.clearAnimation()
             binding.mainActivityBtnAddRoute.clearAnimation()
@@ -202,35 +244,39 @@ class MainActivity : AppCompatActivity() {
         setClickable(visible)
     }
 
-    private fun setAnimation(secFloatingBtnVisible: Boolean){
-        if(!secFloatingBtnVisible){
-            if(binding.mainActivityBtnAdd.rotation==45f) {
-            binding.mainActivityBtnAddText.startAnimation(anim_toBottom)
-            binding.mainActivityBtnAddImage.startAnimation(anim_toBottom)
-            binding.mainActivityBtnAddRoute.startAnimation(anim_toBottom)
+    private fun setAnimation(secFloatingBtnVisible: Boolean) {
+        if (!secFloatingBtnVisible) {
+            if (binding.mainActivityBtnAdd.rotation == 45f) {
+                binding.mainActivityBtnAddText.startAnimation(anim_toBottom)
+                binding.mainActivityBtnAddImage.startAnimation(anim_toBottom)
+                binding.mainActivityBtnAddRoute.startAnimation(anim_toBottom)
+                binding.mainActivityBtnAddClub.startAnimation(anim_toBottom)
 
                 binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
             }
-        }else{
-            if(binding.mainActivityBtnAdd.rotation==0f) {
-            binding.mainActivityBtnAddText.startAnimation(anim_fromBottom)
-            binding.mainActivityBtnAddImage.startAnimation(anim_fromBottom)
-            binding.mainActivityBtnAddRoute.startAnimation(anim_fromBottom)
+        } else {
+            if (binding.mainActivityBtnAdd.rotation == 0f) {
+                binding.mainActivityBtnAddText.startAnimation(anim_fromBottom)
+                binding.mainActivityBtnAddImage.startAnimation(anim_fromBottom)
+                binding.mainActivityBtnAddRoute.startAnimation(anim_fromBottom)
+                binding.mainActivityBtnAddClub.startAnimation(anim_fromBottom)
 
                 binding.mainActivityBtnAdd.animate().rotationBy(45f).setDuration(500).start()
             }
         }
     }
 
-    private fun setClickable(clickable: Boolean){
-        if(!clickable){
+    private fun setClickable(clickable: Boolean) {
+        if (!clickable) {
             binding.mainActivityBtnAddText.isClickable = false
             binding.mainActivityBtnAddImage.isClickable = false
             binding.mainActivityBtnAddRoute.isClickable = false
-        }else{
+            binding.mainActivityBtnAddClub.isClickable = false
+        } else {
             binding.mainActivityBtnAddText.isClickable = true
             binding.mainActivityBtnAddImage.isClickable = true
             binding.mainActivityBtnAddRoute.isClickable = true
+            binding.mainActivityBtnAddClub.isClickable = true
         }
     }
 

@@ -11,12 +11,16 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.revup.ACTIVITIES.ClubChatActivity
 import com.example.revup.ACTIVITIES.ClubDetailsActivity
+import com.example.revup.ACTIVITIES.MemberChatActivity
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Car
 import com.example.revup._DATACLASS.Club
 import com.example.revup._DATACLASS.curr_club
+import com.example.revup._DATACLASS.curr_club_chat
+import com.example.revup._DATACLASS.curr_member_chat
 import com.example.revup._DATACLASS.image_path
 
 class ClubChatAdapter(var list: MutableList<Club>): RecyclerView.Adapter<ClubChatAdapter.ViewHolder>() {
@@ -45,13 +49,13 @@ class ClubChatAdapter(var list: MutableList<Club>): RecyclerView.Adapter<ClubCha
         }
         holder.carName.setText(list[position].name)
         holder.vista.findViewById<ImageView>(R.id.cardview_clubSearch_picture).setOnClickListener{
-            val intent = Intent(holder.vista.context, ClubDetailsActivity::class.java)
-            curr_club = list[position]
+            val intent = Intent(holder.vista.context, ClubChatActivity::class.java)
+            curr_club_chat = list[position]
             holder.vista.context.startActivity(intent)
         }
         holder.vista.setOnClickListener{
-            val intent = Intent(holder.vista.context, ClubDetailsActivity::class.java)
-            curr_club = list[position]
+            val intent = Intent(holder.vista.context, ClubChatActivity::class.java)
+            curr_club_chat = list[position]
             holder.vista.context.startActivity(intent)
         }
     }
