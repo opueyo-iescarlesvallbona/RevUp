@@ -51,6 +51,7 @@ class ClubDetailsActivity : AppCompatActivity() {
 
         binding.clubDetailsActivityBackButton.setOnClickListener{
             this.onBackPressed()
+            curr_club = null
             val returnIntent = Intent()
             setResult(RESULT_OK, returnIntent)
             finish()
@@ -58,6 +59,7 @@ class ClubDetailsActivity : AppCompatActivity() {
 
         binding.clubDetailsActivityBackButtonText.setOnClickListener {
             this.onBackPressed()
+            curr_club = null
             val returnIntent = Intent()
             setResult(RESULT_OK, returnIntent)
             finish()
@@ -69,14 +71,14 @@ class ClubDetailsActivity : AppCompatActivity() {
                     apiRevUp.postMemberClub(MemberClub(current_user!!.id!!, curr_club!!.id!!, 3, LocalDate.now().toString()), this)
                     binding.clubDetailsActivityMemberRelationWithClub.setText("Joined in")
                     binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_Friend))
-                    (recyclerView!!.adapter as ClubDetailsMembersAdapter).list.remove(current_user)
+                    (recyclerView!!.adapter as ClubDetailsMembersAdapter).list.add(current_user!!)
                     recyclerView!!.adapter!!.notifyDataSetChanged()
                 }catch(e: Exception){
                     Toast.makeText(this, "Error on joining in. $e.message", Toast.LENGTH_SHORT).show()
                 }
             }else if(binding.clubDetailsActivityMemberRelationWithClub.text == "Joined in"){
                 try{
-                    if(current_user!! in members!!){
+                    if(current_user!!.id!! in members!!.map { it.id!! }){
                         MaterialAlertDialogBuilder(this)
                             .setTitle("Leave ${club!!.name}")
                             .setMessage("You are going to leave ${club!!.name}. Are you sure?")
@@ -85,7 +87,7 @@ class ClubDetailsActivity : AppCompatActivity() {
                                 if(result){
                                     binding.clubDetailsActivityMemberRelationWithClub.setText("Join in")
                                     binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
-                                    (recyclerView!!.adapter as ClubDetailsMembersAdapter).list.add(current_user!!)
+                                    (recyclerView!!.adapter as ClubDetailsMembersAdapter).list.remove(current_user)
                                     recyclerView!!.adapter!!.notifyDataSetChanged()
                                 }else{
                                     throw Exception("Error on leaving club")
@@ -133,13 +135,13 @@ class ClubDetailsActivity : AppCompatActivity() {
                     }
                 }
 
-                val members = apiRevUp.getMembersByClub(club.id!!, this)
+                members = apiRevUp.getMembersByClub(club.id!!, this)
                 if(members != null){
                     recyclerView = binding.clubDetailsActivityMembersRecyclerView
-                    recyclerView!!.adapter = ClubDetailsMembersAdapter(members)
+                    recyclerView!!.adapter = ClubDetailsMembersAdapter(members!!)
                     recyclerView!!.layoutManager = LinearLayoutManager(this)
 
-                    if (current_user!!.id!! in members.map { it.id!! }){
+                    if (current_user!!.id!! in members!!.map { it.id!! }){
                         binding.clubDetailsActivityMemberRelationWithClub.setText("Joined in")
                         binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_Friend))
                     }else{
