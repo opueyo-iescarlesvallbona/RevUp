@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.chats -> {
+                    setAnimation(false)
                     initFragment(ChatsFragment())
                     true
                 }
