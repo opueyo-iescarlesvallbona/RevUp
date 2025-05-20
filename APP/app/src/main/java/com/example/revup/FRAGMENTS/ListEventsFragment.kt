@@ -53,10 +53,12 @@ class ListEventsFragment : Fragment() {
             if (clubs != null) {
                 for (club in clubs) {
                     var cevents = apiRevUp.getAllEventsByClub(club.id!!, requireContext())
-
-                    for (event in cevents!!) {
-                        events.add(event)
+                    if(cevents!=null){
+                        for (event in cevents!!) {
+                            events.add(event)
+                        }
                     }
+
                 }
             }
             var localdatetime_now = Date.from(LocalDateTime.now()!!.atZone(ZoneId.systemDefault()).toInstant())

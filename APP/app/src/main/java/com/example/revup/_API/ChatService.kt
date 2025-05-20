@@ -74,14 +74,6 @@ class ChatService(private val context: Context, private val memberName: String, 
 
     fun sendMessageToUser(target: String, message: String) {
         hubConnection.send("SendMessageToUser", target, message)
-    }
-
-    fun joinGroup(group: String) {
-        hubConnection.send("JoinGroup", group)
-    }
-
-    fun sendMessageToGroup(group: String, message: String) {
-        hubConnection.send("SendMessageToGroup", group, message)
         val m = Message(
             senderId = current_user!!.id!!, isOwnMessage = true,
             receiverId = null,
@@ -95,6 +87,15 @@ class ChatService(private val context: Context, private val memberName: String, 
             member1 = null
         )
         onMessageReceived(m)
+    }
+
+    fun joinGroup(group: String) {
+        hubConnection.send("JoinGroup", group)
+    }
+
+    fun sendMessageToGroup(group: String, message: String) {
+        hubConnection.send("SendMessageToGroup", group, message)
+
     }
 
     fun disconnect() {
