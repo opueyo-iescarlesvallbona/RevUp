@@ -78,3 +78,10 @@ C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewRouteDetails.resour
 C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewEventDetails.resources
 C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewCarDetails.resources
 C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.View.ViewEvents.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.exe.config
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewCarDetails.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewCommentDetails.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewComments.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewEventDetails.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewEvents.resources
+C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewRouteDetails.resources

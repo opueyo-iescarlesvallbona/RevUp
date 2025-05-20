@@ -44,6 +44,8 @@
     <Property Name="end_date" Type="datetime" Nullable="false" />
     <Property Name="description" Type="text" />
     <Property Name="state" Type="int" Nullable="false" />
+    <Property Name="lat" Type="decimal" Precision="12" Scale="9" />
+    <Property Name="long" Type="decimal" Precision="12" Scale="9" />
   </EntityType>
   <EntityType Name="event_state">
     <Key>
@@ -118,6 +120,7 @@
       <PropertyRef Name="sender_id" />
       <PropertyRef Name="receiver_id" />
       <PropertyRef Name="datetime" />
+      <PropertyRef Name="state_id" />
     </Key>
     <Property Name="sender_id" Type="int" Nullable="false" />
     <Property Name="receiver_id" Type="int" Nullable="false" />
@@ -151,10 +154,10 @@
     <Property Name="post_date" Type="datetime" Nullable="false" />
     <Property Name="picture" Type="varchar" MaxLength="500" />
     <Property Name="likes" Type="bigint" Nullable="false" />
-    <Property Name="address" Type="varchar" MaxLength="100" />
     <Property Name="route_id" Type="int" />
     <Property Name="member_id" Type="int" Nullable="false" />
     <Property Name="comments" Type="bigint" Nullable="false" />
+    <Property Name="location_id" Type="int" />
   </EntityType>
   <EntityType Name="post_comment">
     <Key>
@@ -369,18 +372,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__message__receive__10566F31">
-    <End Role="member" Type="Self.member" Multiplicity="1" />
-    <End Role="message" Type="Self.message" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="member">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="message">
-        <PropertyRef Name="receiver_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__message__sender___0F624AF8">
     <End Role="member" Type="Self.member" Multiplicity="1" />
     <End Role="message" Type="Self.message" Multiplicity="*" />
@@ -414,6 +405,18 @@
       </Principal>
       <Dependent Role="model">
         <PropertyRef Name="id_brand" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__post__location_i__19AACF41">
+    <End Role="member_location" Type="Self.member_location" Multiplicity="0..1" />
+    <End Role="post" Type="Self.post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="member_location">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="post">
+        <PropertyRef Name="location_id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -599,10 +602,6 @@
       <End Role="relation_state" EntitySet="relation_state" />
       <End Role="member_relation" EntitySet="member_relation" />
     </AssociationSet>
-    <AssociationSet Name="FK__message__receive__10566F31" Association="Self.FK__message__receive__10566F31">
-      <End Role="member" EntitySet="member" />
-      <End Role="message" EntitySet="message" />
-    </AssociationSet>
     <AssociationSet Name="FK__message__sender___0F624AF8" Association="Self.FK__message__sender___0F624AF8">
       <End Role="member" EntitySet="member" />
       <End Role="message" EntitySet="message" />
@@ -614,6 +613,10 @@
     <AssociationSet Name="FK__model__id_brand__44CA3770" Association="Self.FK__model__id_brand__44CA3770">
       <End Role="brand" EntitySet="brand" />
       <End Role="model" EntitySet="model" />
+    </AssociationSet>
+    <AssociationSet Name="FK__post__location_i__19AACF41" Association="Self.FK__post__location_i__19AACF41">
+      <End Role="member_location" EntitySet="member_location" />
+      <End Role="post" EntitySet="post" />
     </AssociationSet>
     <AssociationSet Name="FK__post__member_id__787EE5A0" Association="Self.FK__post__member_id__787EE5A0">
       <End Role="member" EntitySet="member" />

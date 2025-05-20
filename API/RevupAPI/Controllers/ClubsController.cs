@@ -165,7 +165,7 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/Clubs")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Club>>> GetMembersByName([FromQuery] string clubName)
+        public async Task<ActionResult<IEnumerable<Club>>> GetClubsByName([FromQuery] string clubName)
         {
             List<Club> clubs = new List<Club>();
             if (string.IsNullOrEmpty(clubName))

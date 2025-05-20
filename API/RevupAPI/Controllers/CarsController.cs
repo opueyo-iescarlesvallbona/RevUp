@@ -181,26 +181,26 @@ namespace RevupAPI.Controllers
             {
                 return BadRequest("Invalid car data");
             }
-            if (image != null)
-            {
-                try
-                {
-                    string path = GeneralController.UploadImage(image, carObj);
-                    carObj.Picture = path;
-                }
-                catch { }
-            }
             try
             {
-                _context.Cars.Add(carObj);
+                var afterCar = _context.Cars.Add(carObj);
                 await _context.SaveChangesAsync();
+                if (image != null)
+                {
+                    try
+                    {
+                        string path = GeneralController.UploadImage(image, afterCar.Entity);
+                        _context.Database.ExecuteSqlRaw("UPDATE car SET picture = {0} WHERE id = {1}", path, afterCar.Entity.Id);
+                        carObj.Picture = path;
+                    }
+                    catch { }
+                }
             }
             catch
             {
                 return BadRequest("Error saving car");
             }
-
-            return Ok(car);
+            return Ok(carObj);
         }
 
         [Route("api/Cars")]

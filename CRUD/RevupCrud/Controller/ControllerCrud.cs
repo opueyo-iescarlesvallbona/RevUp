@@ -788,7 +788,7 @@ namespace RevupCrud.Controller
             usuaris.dataGridView.Columns["member_relation"].Visible = false;
             usuaris.dataGridView.Columns["member_relation1"].Visible = false;
             usuaris.dataGridView.Columns["messages"].Visible = false;
-            usuaris.dataGridView.Columns["messages1"].Visible = false;
+            //usuaris.dataGridView.Columns["messages1"].Visible = false;
             usuaris.dataGridView.Columns["posts"].Visible = false;
             usuaris.dataGridView.Columns["routes"].Visible = false;
             usuaris.dataGridView.Columns["clubs"].Visible = false;

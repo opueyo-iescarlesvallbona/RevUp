@@ -18,6 +18,7 @@ namespace RepositoriRevUp.Model
         public member_location()
         {
             this.members = new HashSet<member>();
+            this.posts = new HashSet<post>();
         }
     
         public int id { get; set; }
@@ -29,5 +30,7 @@ namespace RepositoriRevUp.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<member> members { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<post> posts { get; set; }
     }
 }

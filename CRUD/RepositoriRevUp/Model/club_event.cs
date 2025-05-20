@@ -24,6 +24,8 @@ namespace RepositoriRevUp.Model
         public System.DateTime end_date { get; set; }
         public string description { get; set; }
         public int state { get; set; }
+        public Nullable<decimal> lat { get; set; }
+        public Nullable<decimal> @long { get; set; }
     
         public virtual club club { get; set; }
         public virtual event_state event_state { get; set; }

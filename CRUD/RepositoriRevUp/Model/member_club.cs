@@ -19,8 +19,8 @@ namespace RepositoriRevUp.Model
         public int role_type { get; set; }
         public System.DateTime join_date { get; set; }
     
-        public virtual member_club_role member_club_role { get; set; }
         public virtual club club { get; set; }
         public virtual member member { get; set; }
+        public virtual member_club_role member_club_role { get; set; }
     }
 }

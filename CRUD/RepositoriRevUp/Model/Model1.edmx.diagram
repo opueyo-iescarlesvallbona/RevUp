@@ -4,35 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c131ae6fb87f4088bb50d3bb7eddc19e" Name="Diagram1" ZoomLevel="83">
-        <EntityTypeShape EntityType="revupModel.gender" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.member_club" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.member_club_role" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.member_location" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.member_relation" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.message" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.message_state" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.post_comment" Width="1.5" PointX="12.5" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.post_type" Width="1.5" PointX="8" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.relation_state" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="revupModel.terrain_type" Width="1.5" PointX="8" PointY="8.375" IsExpanded="true" />
-        <AssociationConnector Association="revupModel.FK__member_cl__role___66603565" ManuallyRouted="false" />
-        <AssociationConnector Association="revupModel.FK__member_re__state__06CD04F7" ManuallyRouted="false" />
-        <AssociationConnector Association="revupModel.FK__message__state_i__114A936A" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="revupModel.event_state" Width="1.5" PointX="3.5" PointY="2.375" />
-        <EntityTypeShape EntityType="revupModel.brand" Width="1.5" PointX="0.75" PointY="5.75" />
-        <EntityTypeShape EntityType="revupModel.model" Width="1.5" PointX="3" PointY="5.625" />
+      <Diagram DiagramId="c131ae6fb87f4088bb50d3bb7eddc19e" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="revupModel.brand" Width="1.5" PointX="3.75" PointY="6.5" />
+        <EntityTypeShape EntityType="revupModel.car" Width="1.5" PointX="8.25" PointY="13.875" />
+        <EntityTypeShape EntityType="revupModel.club" Width="1.5" PointX="5.25" PointY="25.375" />
+        <EntityTypeShape EntityType="revupModel.club_event" Width="1.5" PointX="7.5" PointY="24.875" />
+        <EntityTypeShape EntityType="revupModel.event_state" Width="1.5" PointX="5.25" PointY="28.875" />
+        <EntityTypeShape EntityType="revupModel.gender" Width="1.5" PointX="0.75" PointY="11.5" />
+        <EntityTypeShape EntityType="revupModel.member" Width="1.5" PointX="3" PointY="12.5" />
+        <EntityTypeShape EntityType="revupModel.member_club" Width="1.5" PointX="7.5" PointY="19.125" />
+        <EntityTypeShape EntityType="revupModel.member_club_role" Width="1.5" PointX="5.25" PointY="21.5" />
+        <EntityTypeShape EntityType="revupModel.member_location" Width="1.5" PointX="0.75" PointY="14" />
+        <EntityTypeShape EntityType="revupModel.member_relation" Width="1.5" PointX="5.25" PointY="18.125" />
+        <EntityTypeShape EntityType="revupModel.message" Width="1.5" PointX="5.25" PointY="10.125" />
+        <EntityTypeShape EntityType="revupModel.message_state" Width="1.5" PointX="3" PointY="9.5" />
+        <EntityTypeShape EntityType="revupModel.model" Width="1.5" PointX="6" PointY="6.25" />
+        <EntityTypeShape EntityType="revupModel.post" Width="1.5" PointX="10.5" PointY="13.125" />
+        <EntityTypeShape EntityType="revupModel.post_comment" Width="1.5" PointX="12.75" PointY="14.125" />
+        <EntityTypeShape EntityType="revupModel.post_type" Width="1.5" PointX="8.25" PointY="11.25" />
+        <EntityTypeShape EntityType="revupModel.relation_state" Width="1.5" PointX="3" PointY="22.5" />
+        <EntityTypeShape EntityType="revupModel.route" Width="1.5" PointX="5.25" PointY="13.25" />
+        <EntityTypeShape EntityType="revupModel.terrain_type" Width="1.5" PointX="3" PointY="19.5" />
         <AssociationConnector Association="revupModel.FK__model__id_brand__44CA3770" />
-        <EntityTypeShape EntityType="revupModel.route" Width="1.5" PointX="10.25" PointY="8.75" />
-        <AssociationConnector Association="revupModel.FK__route__terrain_t__71D1E811" />
-        <EntityTypeShape EntityType="revupModel.post" Width="1.5" PointX="12.5" PointY="7.625" />
-        <AssociationConnector Association="revupModel.FK__post__post_type__1EA48E88" />
-        <AssociationConnector Association="revupModel.FK__post__route_id__797309D9" />
-        <AssociationConnector Association="revupModel.FK__post_comm__post___7C4F7684" />
-        <EntityTypeShape EntityType="revupModel.car" Width="1.5" PointX="8.25" PointY="15.125" />
-        <EntityTypeShape EntityType="revupModel.club" Width="1.5" PointX="5.25" PointY="13.125" />
-        <EntityTypeShape EntityType="revupModel.club_event" Width="1.5" PointX="10.5" PointY="3.5" />
-        <EntityTypeShape EntityType="revupModel.member" Width="1.5" PointX="3" PointY="11.625" />
         <AssociationConnector Association="revupModel.FK__car__member_id__756D6ECB" />
         <AssociationConnector Association="revupModel.FK__car__model_id__76619304" />
         <AssociationConnector Association="revupModel.FK__club__founder__5BE2A6F2" />
@@ -44,11 +37,18 @@
         <AssociationConnector Association="revupModel.FK__member_cl__membe__656C112C" />
         <AssociationConnector Association="revupModel.FK__member_re__membe__04E4BC85" />
         <AssociationConnector Association="revupModel.FK__member_re__membe__05D8E0BE" />
-        <AssociationConnector Association="revupModel.FK__message__receive__10566F31" />
         <AssociationConnector Association="revupModel.FK__message__sender___0F624AF8" />
         <AssociationConnector Association="revupModel.FK__post__member_id__787EE5A0" />
         <AssociationConnector Association="revupModel.FK__post_comm__membe__0697FACD" />
         <AssociationConnector Association="revupModel.FK__route__member_id__12FDD1B2" />
+        <AssociationConnector Association="revupModel.FK__member_cl__role___66603565" />
+        <AssociationConnector Association="revupModel.FK__post__location_i__19AACF41" />
+        <AssociationConnector Association="revupModel.FK__member_re__state__06CD04F7" />
+        <AssociationConnector Association="revupModel.FK__message__state_i__114A936A" />
+        <AssociationConnector Association="revupModel.FK__post__post_type__1EA48E88" />
+        <AssociationConnector Association="revupModel.FK__post__route_id__797309D9" />
+        <AssociationConnector Association="revupModel.FK__post_comm__post___7C4F7684" />
+        <AssociationConnector Association="revupModel.FK__route__terrain_t__71D1E811" />
         <AssociationConnector Association="revupModel.post_member_like" />
       </Diagram>
     </edmx:Diagrams>

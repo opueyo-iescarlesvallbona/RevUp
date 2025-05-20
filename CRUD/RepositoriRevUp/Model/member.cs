@@ -23,7 +23,6 @@ namespace RepositoriRevUp.Model
             this.member_relation = new HashSet<member_relation>();
             this.member_relation1 = new HashSet<member_relation>();
             this.messages = new HashSet<message>();
-            this.messages1 = new HashSet<message>();
             this.posts = new HashSet<post>();
             this.post_comment = new HashSet<post_comment>();
             this.routes = new HashSet<route>();
@@ -57,8 +56,6 @@ namespace RepositoriRevUp.Model
         public virtual ICollection<member_relation> member_relation1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<message> messages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<message> messages1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<post> posts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

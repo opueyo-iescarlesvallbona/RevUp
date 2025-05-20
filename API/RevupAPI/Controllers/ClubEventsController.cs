@@ -182,26 +182,27 @@ namespace RevupAPI.Controllers
             {
                 return BadRequest("Invalid event data");
             }
-            if (image != null)
-            {
-                try
-                {
-                    string path = GeneralController.UploadImage(image, clubEventObj);
-                    clubEventObj.Picture = path;
-                }
-                catch { }
-            }
+
             try
             {
-                _context.ClubEvents.Add(clubEventObj);
+                var afterEvent = _context.ClubEvents.Add(clubEventObj);
                 await _context.SaveChangesAsync();
+                if (image!=null)
+                {
+                    try
+                    {
+                        string path = GeneralController.UploadImage(image, afterEvent.Entity);
+                        _context.Database.ExecuteSqlRaw("UPDATE club_event SET picture = {0} WHERE id = {1}", path, afterEvent.Entity.Id);
+                        clubEventObj.Picture = path;
+                    }
+                    catch { }
+                }
             }
             catch
             {
                 return BadRequest("Error saving event data");
             }
-            
-            return Ok(clubEvent);
+            return Ok(clubEventObj);
         }
 
         [Authorize]

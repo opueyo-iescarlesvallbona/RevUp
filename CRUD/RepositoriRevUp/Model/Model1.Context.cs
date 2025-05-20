@@ -16,6 +16,11 @@ namespace RepositoriRevUp.Model
     
     public partial class revupEntities : DbContext
     {
+        public revupEntities()
+            : base("name=revupEntities")
+        {
+        }
+
         public revupEntities(string password)
 : base(ReplacePassword(password))
         {
@@ -35,25 +40,25 @@ namespace RepositoriRevUp.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<brand> brands { get; set; }
+        public virtual DbSet<car> cars { get; set; }
+        public virtual DbSet<club> clubs { get; set; }
+        public virtual DbSet<club_event> club_event { get; set; }
+        public virtual DbSet<event_state> event_state { get; set; }
         public virtual DbSet<gender> genders { get; set; }
+        public virtual DbSet<member> members { get; set; }
         public virtual DbSet<member_club> member_club { get; set; }
         public virtual DbSet<member_club_role> member_club_role { get; set; }
         public virtual DbSet<member_location> member_location { get; set; }
         public virtual DbSet<member_relation> member_relation { get; set; }
         public virtual DbSet<message> messages { get; set; }
         public virtual DbSet<message_state> message_state { get; set; }
+        public virtual DbSet<model> models { get; set; }
+        public virtual DbSet<post> posts { get; set; }
         public virtual DbSet<post_comment> post_comment { get; set; }
         public virtual DbSet<post_type> post_type { get; set; }
         public virtual DbSet<relation_state> relation_state { get; set; }
-        public virtual DbSet<terrain_type> terrain_type { get; set; }
-        public virtual DbSet<event_state> event_state { get; set; }
-        public virtual DbSet<brand> brands { get; set; }
-        public virtual DbSet<model> models { get; set; }
         public virtual DbSet<route> routes { get; set; }
-        public virtual DbSet<post> posts { get; set; }
-        public virtual DbSet<car> cars { get; set; }
-        public virtual DbSet<club> clubs { get; set; }
-        public virtual DbSet<club_event> club_event { get; set; }
-        public virtual DbSet<member> members { get; set; }
+        public virtual DbSet<terrain_type> terrain_type { get; set; }
     }
 }

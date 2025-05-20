@@ -40,3 +40,4 @@ C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.csproj.CoreCompi
 C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\Reposito.0E5C1E39.Up2Date
 C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.exe
 C:\ProjecteFinal\CRUD\RepositoriRevUp\obj\Debug\RepositoriRevUp.pdb
+C:\M13\ProjecteFinal\RevupCrud\RepositoriRevUp\obj\Debug\RepositoriRevUp.exe.config

@@ -28,16 +28,17 @@ namespace RepositoriRevUp.Model
         public System.DateTime post_date { get; set; }
         public string picture { get; set; }
         public long likes { get; set; }
-        public string address { get; set; }
         public Nullable<int> route_id { get; set; }
         public int member_id { get; set; }
         public long comments { get; set; }
+        public Nullable<int> location_id { get; set; }
     
+        public virtual member member { get; set; }
+        public virtual member_location member_location { get; set; }
         public virtual post_type post_type1 { get; set; }
         public virtual route route { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<post_comment> post_comment { get; set; }
-        public virtual member member { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<member> members { get; set; }
     }
