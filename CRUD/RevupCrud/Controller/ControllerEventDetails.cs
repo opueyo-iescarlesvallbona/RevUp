@@ -91,6 +91,7 @@ namespace RevupCrud.Controller
                 f.dateTimeStartDate.Value = c_event.start_date;
                 f.dateTimeEndDate.Value = c_event.end_date;
                 f.txtDescription.Text = c_event.description;
+                f.comboState.Items.Clear();
                 f.comboState.DataSource = r.GetAllEventStates().OrderBy(x => x.name).Select(x => x.name).ToList();
                 f.comboState.SelectedText = c_event.event_state.name;
                 f.txtClub.Text = c_event.club.name;
@@ -147,13 +148,15 @@ namespace RevupCrud.Controller
                 f.dateTimeEndDate.Enabled = true;
                 f.dateTimeRouteStartDate.Enabled = true;
                 f.comboState.Enabled = true;
-
+                f.comboState.Items.Clear();
                 f.comboState.DataSource = r.GetAllEventStates().OrderBy(x => x.name).Select(x => x.name).ToList();
 
                 f.dateTimeEndDate.Value = DateTime.Now;
                 f.dateTimeStartDate.Value = DateTime.Now;
                 f.dateTimeRouteStartDate.Value = DateTime.Now;
                 f.btnOpenClub.Enabled = false;
+
+                f.txtClub.AutoCompleteCustomSource.AddRange(r.GetAllClubs().OrderBy(x => x.name).Select(x => x.name).ToArray());
 
                 f.btnGuardar.Click += BtnGuardar_Click;
 
@@ -184,7 +187,7 @@ namespace RevupCrud.Controller
                 }
                 c_event.description = f.txtDescription.Text;
                 c_event.club_id = r.GetAllClubs().Where(x => x.name.Equals(f.txtClub.Text)).FirstOrDefault().id;
-                c_event.state = r.GetAllEventStates().Where(x => x.name.Equals(f.comboState.SelectedValue.ToString())).FirstOrDefault().id;
+                c_event.state = r.GetAllEventStates().Where(x => x.name.Equals(f.comboState.SelectedValue)).FirstOrDefault().id;
 
                 try
                 {
@@ -233,7 +236,7 @@ namespace RevupCrud.Controller
                     end_date = f.dateTimeEndDate.Value,
                     description = f.txtDescription.Text,
                     club_id = r.GetAllClubs().Where(x => x.name.Equals(f.txtClub.Text)).FirstOrDefault().id,
-                    state = r.GetAllEventStates().Where(x => x.name.Equals(f.comboState.SelectedValue.ToString())).FirstOrDefault().id
+                    state = r.GetAllEventStates().Where(x => x.name.Equals(f.comboState.SelectedValue)).FirstOrDefault().id
                 };
                 try
                 {
@@ -308,19 +311,19 @@ namespace RevupCrud.Controller
                 error = error + "· The end date can't be before today.\n";
                 ok = false;
             }
-            if (f.dateTimeRouteStartDate.Value < f.dateTimeStartDate.Value)
+            if (f.dateTimeRouteStartDate.Value < f.dateTimeStartDate.Value && f.dateTimeRouteStartDate.Checked)
             {
                 f.dateTimeRouteStartDate.BackColor = System.Drawing.Color.Red;
                 error = error + "· The route start date can't be before the start date.\n";
                 ok = false;
             }
-            if (f.dateTimeRouteStartDate.Value > f.dateTimeEndDate.Value)
+            if (f.dateTimeRouteStartDate.Value > f.dateTimeEndDate.Value && f.dateTimeRouteStartDate.Checked)
             {
                 f.dateTimeRouteStartDate.BackColor = System.Drawing.Color.Red;
                 error = error + "· The route start date can't be after the end date.\n";
                 ok = false;
             }
-            if(f.dateTimeRouteStartDate.Value < DateTime.Today)
+            if(f.dateTimeRouteStartDate.Value < DateTime.Today && f.dateTimeRouteStartDate.Checked)
             {
                 f.dateTimeRouteStartDate.BackColor = System.Drawing.Color.Red;
                 error = error + "· The route start date can't be before today.\n";

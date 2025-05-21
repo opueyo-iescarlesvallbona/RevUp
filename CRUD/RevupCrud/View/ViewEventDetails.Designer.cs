@@ -78,6 +78,8 @@
             // 
             this.txtClub.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtClub.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtClub.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtClub.Location = new System.Drawing.Point(101, 133);
             this.txtClub.Name = "txtClub";
             this.txtClub.Size = new System.Drawing.Size(357, 20);
