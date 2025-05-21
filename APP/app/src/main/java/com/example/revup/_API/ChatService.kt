@@ -16,7 +16,7 @@ class ChatService(private val context: Context, private val memberName: String, 
     private val hubConnection: HubConnection = HubConnectionBuilder
         .create("http://172.16.24.136:5178/Chat")
         .build()
-
+    //Connect to chat
     fun connect() {
         hubConnection.on("ReceiveMessage", { sender, chatMessageJson ->
             var senderObj: Member? = null

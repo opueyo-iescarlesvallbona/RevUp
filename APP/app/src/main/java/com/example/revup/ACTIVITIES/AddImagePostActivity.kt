@@ -48,7 +48,7 @@ class AddImagePostActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        //Take picture from gallery
         val pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
             if (uri != null) {
                 selectedImageUri = uri
@@ -57,14 +57,14 @@ class AddImagePostActivity : AppCompatActivity() {
                 binding.addImagePostActivityPreviewImage.setImageResource(R.drawable.baseline_add_photo_alternate_24)
             }
         }
-
+        //Return to previous activity
         binding.addImagePostActivityBtnCancel.setOnClickListener {
             this.onBackPressed()
             val returnIntent = Intent()
             setResult(RESULT_OK, returnIntent)
             finish()
         }
-
+        //Save image post
         binding.addImagePostActivityBtnSave.setOnClickListener{
             var post = checkParams()
             if(post != null){
@@ -82,12 +82,12 @@ class AddImagePostActivity : AppCompatActivity() {
             }
             Toast.makeText(this, "Error posting post", Toast.LENGTH_LONG).show()
         }
-
+        //Select image from gallery
         binding.addImagePostActivityPreviewImage.setOnClickListener{
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
     }
-
+    //Check if all the fields are Ok
     fun checkParams(): Post? {
         var title: String? = null
         var description: String? = null

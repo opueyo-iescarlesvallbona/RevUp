@@ -29,14 +29,14 @@ class AddTextPostActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        //Return to previous activity
         binding.addTextPostActivityBtnCancel.setOnClickListener{
             this.onBackPressed()
             val returnIntent = Intent()
             setResult(RESULT_OK, returnIntent)
             finish()
         }
-
+        //Save the new post
         binding.addTextPostActivityBtnSave.setOnClickListener{
             var post = checkParams()
             if(post != null){
@@ -55,7 +55,7 @@ class AddTextPostActivity : AppCompatActivity() {
         }
 
     }
-
+    //Check if the parameters are Ok
     fun checkParams(): Post? {
         var title: String
         var description: String

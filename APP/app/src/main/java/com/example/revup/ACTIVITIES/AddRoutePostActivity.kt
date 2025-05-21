@@ -34,14 +34,14 @@ class AddRoutePostActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        //Return to previous activity
         binding.addRoutePostActivityBtnCancel.setOnClickListener{
             this.onBackPressed()
             val returnIntent = Intent()
             setResult(RESULT_OK, returnIntent)
             finish()
         }
-
+        //Save the new post
         binding.addRoutePostActivityBtnSave.setOnClickListener{
             var post = checkParams()
             if(post != null){
@@ -61,6 +61,7 @@ class AddRoutePostActivity : AppCompatActivity() {
 
         val nameTextFieldRoute: AutoCompleteTextView = binding.addRoutePostActivityRouteText
 
+        //Load all available routes
         try{
             routes = apiRevUp.getAllRoutesByMember(current_user!!.id!!, this)
             ArrayAdapter(this, android.R.layout.simple_list_item_1, routes!!.map { it.name }).also { adapter ->
@@ -71,7 +72,7 @@ class AddRoutePostActivity : AppCompatActivity() {
         }
 
     }
-
+    //Check if all fields are Ok
     fun checkParams(): Post? {
         var title: String? = null
         var description: String? = null

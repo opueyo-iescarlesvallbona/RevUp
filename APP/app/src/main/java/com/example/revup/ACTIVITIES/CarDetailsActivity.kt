@@ -45,7 +45,7 @@ class CarDetailsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        //Pick image from gallery
         val pickMedia = registerForActivityResult(PickVisualMedia()) { uri ->
             if (uri != null) {
                 selectedImageUri = uri
@@ -53,7 +53,7 @@ class CarDetailsActivity : AppCompatActivity() {
                 binding.carDetailsActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
             }
         }
-
+        //Return to previous activity
         binding.carDetailsActivityBackButton.setOnClickListener{
             this.onBackPressed()
             val returnIntent = Intent()
@@ -61,6 +61,7 @@ class CarDetailsActivity : AppCompatActivity() {
             finish()
         }
 
+        //Return to previous activity
         binding.carDetailsActivityBackButtonText.setOnClickListener {
             this.onBackPressed()
             val returnIntent = Intent()
@@ -68,21 +69,26 @@ class CarDetailsActivity : AppCompatActivity() {
             finish()
         }
 
+        //Select image from gallery
         binding.carDetailsActivityPicture.setOnClickListener{
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
 
+        //Manage edit/save car
         binding.carDetailsActivityEditButton.setOnClickListener {
             if(binding.carDetailsActivityEditButton.text == "Edit Car"){
                 binding.carDetailsActivityEditButton.text = "Save Car"
                 binding.carDetailsActivityEditButton.setTextColor(getColor(R.color.green))
                 disableWidgets(true)
             }else{
+                //Check if params are Ok
                 var car = checkParams()
+
                 if(car != null){
                     recreated = false
                     try{
                         if(curr_car == null){
+                            //UPDATE car
                             var result = apiRevUp.postCar(car, selectedImageUri, applicationContext)
                             if(result != null){
                                 Toast.makeText(this, "Car saved", Toast.LENGTH_LONG).show()
@@ -96,6 +102,7 @@ class CarDetailsActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Error saving car", Toast.LENGTH_LONG).show()
                             }
                         }else{
+                            //POST car
                             car.id = curr_car!!.id
                             var result = apiRevUp.putCar(car, selectedImageUri, applicationContext)
                             if(result){
@@ -117,7 +124,7 @@ class CarDetailsActivity : AppCompatActivity() {
                 }
             }
         }
-
+        //Load typeahead fields
         val nameTextFieldBrand: AutoCompleteTextView = binding.carDetailsActivityBrandTextField
         val nameTextFieldModel: AutoCompleteTextView = binding.carDetailsActivityModelTextField
 
@@ -155,6 +162,7 @@ class CarDetailsActivity : AppCompatActivity() {
         val editable = intent.getBooleanExtra("editable", false)
         disableWidgets(editable)
 
+        //Manage edit/save car
         if(editable){
             binding.carDetailsActivityEditButton.text = "Save Car"
             binding.carDetailsActivityEditButton.setTextColor(getColor(R.color.green))
@@ -165,6 +173,7 @@ class CarDetailsActivity : AppCompatActivity() {
 
         val car = curr_car
 
+        //Load image car
         if(car != null){
             Glide.with(this).load(image_path+car.picture).into(binding.carDetailsActivityPicture)
             binding.carDetailsActivityPicture.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -183,6 +192,7 @@ class CarDetailsActivity : AppCompatActivity() {
 
     }
 
+    //Disable widgets
     fun disableWidgets(set: Boolean = false){
         binding.carDetailsActivityPicture.isEnabled = set
         binding.carDetailsActivityLayoutBrandTextField.isEnabled = set
@@ -192,6 +202,7 @@ class CarDetailsActivity : AppCompatActivity() {
         binding.carDetailsActivityDescript.isEnabled = set
     }
 
+    //Check if params are Ok
     fun checkParams(): Car? {
         var image: Uri? = null
         var model: Model? = null
