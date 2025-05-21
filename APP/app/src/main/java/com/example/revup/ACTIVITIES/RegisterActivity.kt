@@ -32,6 +32,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.Calendar
 import java.util.Locale
 import kotlin.collections.listOf
 import kotlin.toString
@@ -198,6 +199,26 @@ class RegisterActivity : AppCompatActivity() {
             try {
                 val format = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
                 val date: Date = format.parse(dateOfBirth)!!
+                val calendar = Calendar.getInstance()
+                calendar.time = date
+                val birthYear = calendar.get(Calendar.YEAR)
+                val birthMonth = calendar.get(Calendar.MONTH)
+                val birthDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+                val currentCalendar = Calendar.getInstance()
+                val currentYear = currentCalendar.get(Calendar.YEAR)
+                val currentMonth = currentCalendar.get(Calendar.MONTH)
+                val currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH)
+
+                var age = currentYear - birthYear
+                if (currentMonth < birthMonth || (currentMonth == birthMonth && currentDay < birthDay)) {
+                    age--
+                }
+
+                if (age < 18) {
+                    binding.registerActivityDateofbirthTextField.error = "You must be at least 18 years old."
+                    error = true
+                }
             } catch (e: Exception) {
                 binding.registerActivityDateofbirthTextField.error = "Date format:\nDD-MM-YYYY"
                 error = true
