@@ -44,7 +44,7 @@
             this.btnUsuaris.Name = "btnUsuaris";
             this.btnUsuaris.Size = new System.Drawing.Size(177, 81);
             this.btnUsuaris.TabIndex = 0;
-            this.btnUsuaris.Text = "Usuaris";
+            this.btnUsuaris.Text = "Members";
             this.btnUsuaris.UseVisualStyleBackColor = true;
             // 
             // btn_comments
@@ -84,7 +84,7 @@
             this.btn_stats.Name = "btn_stats";
             this.btn_stats.Size = new System.Drawing.Size(177, 81);
             this.btn_stats.TabIndex = 4;
-            this.btn_stats.Text = "Estadístiques";
+            this.btn_stats.Text = "Stadistics";
             this.btn_stats.UseVisualStyleBackColor = true;
             // 
             // panel

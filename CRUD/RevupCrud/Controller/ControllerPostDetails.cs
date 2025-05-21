@@ -54,7 +54,7 @@ namespace RevupCrud.Controller
                 f.lblTitol.Text = "Detalls del post " + post.id;
                 f.txtTitle.Text = post.title;
                 f.txtDescription.Text = post.description;
-                //f.txtAddress.Text = post.address;
+                f.txtAddress.Text = post.member_location.municipality;
                 f.txtPostDate.Text = post.post_date.ToString("dd-MM-yyyy");
                 f.txtMemberName.Text = r.GetAllMembers("", "", "", "").Where(x => x.id.Equals(post.member_id)).Select(x => x.membername).FirstOrDefault();
                 if(post.route_id != null)

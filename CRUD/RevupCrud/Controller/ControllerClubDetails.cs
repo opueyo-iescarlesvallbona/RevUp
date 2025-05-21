@@ -34,7 +34,11 @@ namespace RevupCrud.Controller
             }
             else
             {
-                f.dataGridViewEvents.DataSource = r.GetClubEventsByState(club.id, (f.cmbState.SelectedItem as event_state).id);
+                if (f.cmbState.SelectedItem != null)
+                {
+                    f.dataGridViewEvents.DataSource = r.GetClubEventsByState(club.id, (f.cmbState.SelectedItem as event_state).id);
+                }
+                
             }            
         }
 
@@ -68,19 +72,19 @@ namespace RevupCrud.Controller
                 f.dataGridViewEvents.CellFormatting += DataGridView_CellFormattingEvent;
                 FormatHeadersDataGrid(f.dataGridViewEvents);
 
-                if (club.picture != null)
-                {
-                    try
-                    {
-                        f.pictureBox1.Image = Image.FromFile(club.picture);
-                    }
-                    catch
-                    {
+                //if (club.picture != null)
+                //{
+                //    try
+                //    {
+                //        f.pictureBox1.Image = Image.FromFile(club.picture);
+                //    }
+                //    catch
+                //    {
 
-                    }
-                }
+                //    }
+                //}
 
-                f.cmbState.Items.Clear();
+                f.cmbState.DataSource = null;
                 f.cmbState.Items.Add("All");
                 f.cmbState.DataSource = r.GetAllEventStates();
                 f.cmbState.DisplayMember = "name";
@@ -109,7 +113,7 @@ namespace RevupCrud.Controller
                 f.txtFounder.AutoCompleteCustomSource.AddRange(r.GetAllMembers("","","","").OrderBy(x => x.name).Select(x => x.membername).ToArray());
                 f.txtDescription.Enabled = true;
 
-                f.cmbState.Items.Clear();
+                f.cmbState.DataSource = null;
                 f.cmbState.Items.Add("All");
                 f.cmbState.DataSource = r.GetAllEventStates();
                 f.cmbState.DisplayMember = "name";

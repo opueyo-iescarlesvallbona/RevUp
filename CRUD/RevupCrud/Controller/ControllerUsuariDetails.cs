@@ -127,6 +127,7 @@ namespace RevupCrud.Controller
 
                 f.txtExperience.Text = usuari.experience.ToString();
                 f.txtEmail.Text = usuari.email;
+                
                 f.dtpDateBirth.Value = usuari.date_of_birth;
                 f.txtLoginDate.Text = usuari.login_date.Date.ToString("dd-MM-yyyy");
                 f.txtDescription.Text = usuari.description;
@@ -161,6 +162,7 @@ namespace RevupCrud.Controller
 
 
                 f.txtLocation.Enabled = false;
+                f.txtMemberName.ReadOnly = true;
                 f.txtExperience.Enabled = false;
                 f.txtEmail.Enabled = false;
                 f.dtpDateBirth.Enabled = false;
@@ -380,7 +382,6 @@ namespace RevupCrud.Controller
             f.btnGuardar.Enabled = true;
 
             f.txtName.Enabled = true;
-            f.txtMemberName.Enabled = true;
             f.comboGender.Enabled = true;
             f.comboGender.DataSource = r.GetAllGenders().OrderBy(x => x.name).Select(x => x.name).ToList();
             f.comboGender.SelectedItem = r.GetAllGenders().Where(x => x.id.Equals(usuari.gender_id)).FirstOrDefault().name;

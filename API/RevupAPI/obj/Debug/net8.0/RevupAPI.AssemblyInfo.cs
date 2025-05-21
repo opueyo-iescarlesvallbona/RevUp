@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RevupAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2668ed5a82947420e6389480fb6f4db74d8e34e8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a04e930f211f8c9b2a2002bf7f1dd9f0ee170315")]
 [assembly: System.Reflection.AssemblyProductAttribute("RevupAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RevupAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

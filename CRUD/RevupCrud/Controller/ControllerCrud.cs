@@ -388,7 +388,8 @@ namespace RevupCrud.Controller
                     post_type1 = p.post_type1,
                     route = p.route,
                     member_id = p.member_id,
-                    route_id = p.route_id
+                    route_id = p.route_id,
+                    member_location = p.member_location
                 };
                 ViewPostDetails f = new ViewPostDetails();
                 new ControllerPostDetails(post, f);
@@ -584,7 +585,8 @@ namespace RevupCrud.Controller
                     founder = c.founder,
                     member = c.member,
                     member_club = c.member_club,
-                    club_event = c.club_event
+                    club_event = c.club_event,
+                    creation_date = c.creation_date
                 };
 
                 ViewClubDetails f = new ViewClubDetails();
