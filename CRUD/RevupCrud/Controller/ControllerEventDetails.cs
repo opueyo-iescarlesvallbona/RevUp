@@ -22,6 +22,14 @@ namespace RevupCrud.Controller
         {
             f.btnDelete.Click += BtnDelete_Click;
             f.btnUpdate.Click += BtnUpdate_Click;
+
+            f.txtName.TextChanged += Txt_TextChanged;
+            f.txtAddress.TextChanged += Txt_TextChanged;            
+            f.txtClub.TextChanged += Txt_TextChanged;
+            f.comboState.TextChanged += Cb_TextChanged;
+            f.dateTimeStartDate.TextChanged += Dtp_TextChanged;
+            f.dateTimeEndDate.TextChanged += Dtp_TextChanged;
+            f.dateTimeRouteStartDate.TextChanged += Dtp_TextChanged;
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -241,6 +249,21 @@ namespace RevupCrud.Controller
             }
         }
 
+        private void Txt_TextChanged(object sender, EventArgs e)
+        {
+            (sender as TextBox).BackColor = System.Drawing.Color.White;
+        }
+
+        private void Cb_TextChanged(object sender, EventArgs e)
+        {
+            (sender as ComboBox).BackColor = System.Drawing.Color.White;
+        }
+
+        private void Dtp_TextChanged(object sender, EventArgs e)
+        {
+            (sender as DateTimePicker).BackColor = System.Drawing.Color.White;
+        }
+
         private bool Comprovacions()
         {
             bool ok = true;
@@ -303,8 +326,8 @@ namespace RevupCrud.Controller
                 error = error + "· The route start date can't be before today.\n";
                 ok = false;
             }
-            
-            if (r.GetAllEventStates().Where(x => x.name.Equals((f.comboState.SelectedValue as event_state).name)).ToList().Count == 0)
+
+            if (!r.GetAllEventStates().Any(x => x.name.Equals(f.comboState.SelectedValue)))
             {
                 f.comboState.BackColor = System.Drawing.Color.Red;
                 error = error + "· The event state does not exist.\n";
