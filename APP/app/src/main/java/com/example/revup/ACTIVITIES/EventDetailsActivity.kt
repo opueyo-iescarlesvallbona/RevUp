@@ -199,6 +199,15 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         disableWidgets(false)
 
+        val user_role = apiRevup.getMemberClubRoleById(curr_event!!.clubId, current_user!!.id!!, this)
+        if(user_role != null){
+            if(user_role!!.name == "Founder" || user_role!!.name == "Administrator"){
+                binding.eventDetailsActivityEditButton.visibility = View.VISIBLE
+            }else{
+                binding.eventDetailsActivityEditButton.visibility = View.GONE
+            }
+        }
+
         binding.eventDetailsActivityPicture.setOnClickListener{
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
