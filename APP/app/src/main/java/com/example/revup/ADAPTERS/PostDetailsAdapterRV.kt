@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.example.revup.ACTIVITIES.MemberDetailsActivity
 import com.example.revup.ACTIVITIES.PostDetailsActivity
 import com.example.revup.R
+import com.example.revup.SERVICES.LocationService
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.MemberRelation
@@ -27,6 +28,7 @@ import com.example.revup._DATACLASS.PostComment
 import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.curr_post
 import com.example.revup._DATACLASS.current_user
+import com.example.revup._DATACLASS.formatDistance
 import com.example.revup._DATACLASS.image_path
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -78,6 +80,8 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
         val mapView = vista.findViewById<MapView?>(R.id.cardview_post_mainactivity_contentRoute)
         var mMap: GoogleMap? = null
         var waypoints: MutableList<LatLng> = mutableListOf()
+        var duration = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_duration)
+        var distance = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_distance)
 
         override fun onMapReady(map: GoogleMap) {
             mMap = map
@@ -279,6 +283,13 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
                     val type = object : TypeToken<MutableList<LatLng>>() {}.type
                     val wayp: MutableList<LatLng> = Gson().fromJson(route.waypoints, type)
                     holder.loadMap(wayp, post)
+                    holder.distance.setText(formatDistance(route!!.distance!!))
+                    val durationMillis = LocationService.routeDurationInMillis
+                    val seconds = (durationMillis / 1000) % 60
+                    val minutes = (durationMillis / (1000 * 60)) % 60
+                    val hours = (durationMillis / (1000 * 60 * 60))
+                    val formatted = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+                    holder.duration.setText(formatted)
                 }
             }
 

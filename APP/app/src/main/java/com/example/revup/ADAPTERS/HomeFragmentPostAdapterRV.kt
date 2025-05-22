@@ -17,6 +17,7 @@ import com.example.revup.ACTIVITIES.EventDetailsActivity
 import com.example.revup.ACTIVITIES.MemberDetailsActivity
 import com.example.revup.ACTIVITIES.PostDetailsActivity
 import com.example.revup.R
+import com.example.revup.SERVICES.LocationService
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -57,6 +58,8 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
         val mapView = vista.findViewById<MapView?>(R.id.cardview_post_mainactivity_contentRoute)
         var mMap: GoogleMap? = null
         var waypoints: MutableList<LatLng> = mutableListOf()
+        val distance = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_distance)
+        val duration = vista.findViewById<TextView>(R.id.cardview_post_mainactivity_duration)
 
         val commentTextBtn = vista.findViewById<ImageButton>(R.id.cardview_post_mainactivity_commentButton)
         val commentText = vista.findViewById<TextInputEditText>(R.id.cardview_post_mainactivity_commentText)
@@ -199,6 +202,13 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
                     val type = object : TypeToken<MutableList<LatLng>>() {}.type
                     val wayp: MutableList<LatLng> = Gson().fromJson(route.waypoints, type)
                     holder.loadMap(wayp, list[position])
+                    holder.distance.setText(formatDistance(route!!.distance!!))
+                    val durationMillis = LocationService.routeDurationInMillis
+                    val seconds = (durationMillis / 1000) % 60
+                    val minutes = (durationMillis / (1000 * 60)) % 60
+                    val hours = (durationMillis / (1000 * 60 * 60))
+                    val formatted = String.format("%02d:%02d:%02d", hours, minutes, seconds)
+                    holder.duration.setText(formatted)
                 }
             }
         }

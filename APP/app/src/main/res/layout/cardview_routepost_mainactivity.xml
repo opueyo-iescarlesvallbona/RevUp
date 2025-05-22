@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@android:color/transparent"
         >
 
         <ImageButton
@@ -67,7 +68,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@color/white" >
+                android:background="@android:color/transparent">
 
                 <ImageButton
                     android:background="@android:color/transparent"
@@ -88,7 +89,8 @@
                     android:layout_alignStart="@id/cardview_postdetails_like"
                     android:layout_alignEnd="@id/cardview_postdetails_like"
                     android:scaleY="3.7"
-                    android:scaleX="3.7"/>
+                    android:scaleX="3.7"
+                    />
             </RelativeLayout>
 
             <ImageButton
@@ -108,19 +110,78 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_white">
+        android:background="@color/dark_white"
+        android:orientation="vertical">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/cardview_post_mainactivity_contentRoute"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duration"
+                    android:textSize="18sp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duration"
+                    android:textSize="22sp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/cardview_post_mainactivity_duration"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="30dp"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distance"
+                    android:textSize="18sp"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distance"
+                    android:textSize="22sp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/cardview_post_mainactivity_distance"/>
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:background="@drawable/border_cardview_imagepost"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cardview_post_commentlayout"
@@ -130,7 +191,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
-            android:background="@color/white" >
+            android:background="@android:color/transparent" >
 
             <ImageButton
                 android:id="@+id/cardview_post_mainactivity_likeButton"
