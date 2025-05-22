@@ -15,9 +15,12 @@ import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.ClubEvent
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.Route
+import com.example.revup._DATACLASS.curr_club
 import com.example.revup._DATACLASS.curr_event
 import com.example.revup._DATACLASS.curr_route
+import com.example.revup._DATACLASS.current_user
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import kotlin.jvm.java
@@ -28,6 +31,7 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
     class ViewHolder(val vista: View): RecyclerView.ViewHolder(vista) {
         val title = vista.findViewById<TextView>(R.id.cardview_listEventsRoutes_title)
         val date = vista.findViewById<TextView>(R.id.cardview_listEventsRoutes_date)
+        val club = vista.findViewById<TextView>(R.id.cardview_listEventsRoutes_club)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -51,6 +55,11 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
                 }
             }
             is ClubEvent -> {
+                var club = apiRevUp.getClubById(item.clubId!!, holder.vista.context)
+                if(club != null){
+                    holder.club.visibility = View.VISIBLE
+                    holder.club.setText(club!!.name)
+                }
                 holder.title.setText(item.name)
                 if (dateFormat.format(FormatDate(item.startDate)).equals(dateFormat.format(FormatDate(item.endDate)))){
                     holder.date.setText(dateFormat.format(FormatDate(item.startDate)))
@@ -96,24 +105,31 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
                 }
                 is ClubEvent -> {
                     try{
-                        MaterialAlertDialogBuilder(holder.vista.context)
-                            .setTitle("Delete Event")
-                            .setMessage("Do you want to delete this event?")
-                            .setPositiveButton("Delete") { dialog, _ ->
-                                val result = apiRevUp.deleteEvent(item.id!!, holder.vista.context)
-                                if(result){
-                                    list.remove(item)
-                                    notifyItemRemoved(position)
-                                    notifyItemRangeChanged(position, list.size)
-                                    dialog.dismiss()
-                                }else{
-                                    throw Exception("Error on delete route")
-                                }
+                        val user_role = apiRevUp.getMemberClubRoleById((list[position] as ClubEvent).clubId, current_user!!.id!!, holder.vista.context)
+                        if(user_role != null){
+                            if(user_role!!.name == "Founder" || user_role!!.name == "Administrator"){
+                                MaterialAlertDialogBuilder(holder.vista.context)
+                                    .setTitle("Delete Event")
+                                    .setMessage("Do you want to delete this event?")
+                                    .setPositiveButton("Delete") { dialog, _ ->
+                                        val result = apiRevUp.deleteEvent(item.id!!, holder.vista.context)
+                                        if(result){
+                                            list.remove(item)
+                                            notifyItemRemoved(position)
+                                            notifyItemRangeChanged(position, list.size)
+                                            dialog.dismiss()
+                                        }else{
+                                            throw Exception("Error on delete route")
+                                        }
+                                    }
+                                    .setNegativeButton("Cancel") { dialog, _ ->
+                                        dialog.dismiss()
+                                    }
+                                    .show()
+                            }else{
+                                Toast.makeText(holder.vista.context, "You don't have permission to delete this event", Toast.LENGTH_SHORT).show()
                             }
-                            .setNegativeButton("Cancel") { dialog, _ ->
-                                dialog.dismiss()
-                            }
-                            .show()
+                        }
                     }catch (e: Exception){
                         Toast.makeText(holder.vista.context, "Error on deleting event. $e.message", Toast.LENGTH_SHORT).show()
                     }
