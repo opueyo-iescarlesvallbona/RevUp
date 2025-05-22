@@ -231,6 +231,12 @@ interface RevupAPIService {
         @Query("clubId") clubId: Int
     ): Response<MutableList<ClubEvent>>
 
+    @GET("/api/CheckIfPermission")
+    suspend fun checkIfPermission(
+        @Query("memberId") memberId: Int,
+        @Query("clubId") clubId: Int,
+    ): Response<Boolean>
+
     @GET("/api/Event/")
     suspend fun getEvent(
         @Query("id") id: Int

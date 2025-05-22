@@ -33,6 +33,7 @@ import com.example.revup._DATACLASS.ClubEvent
 import com.example.revup._DATACLASS.EventState
 import com.example.revup._DATACLASS.FormatDate
 import com.example.revup._DATACLASS.curr_event
+import com.example.revup._DATACLASS.curr_member
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
 import com.example.revup.databinding.ActivityEventDetailsBinding
@@ -81,12 +82,18 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         var clubs: MutableList<Club>? = mutableListOf<Club>()
         try{
             clubs = apiRevup.getClubsByMember(current_user!!.id!!, this)
+            val clubsWithPermission: MutableList<Club> = mutableListOf()
+            for (c: Club in clubs!!){
+                if(apiRevup.checkIfPermission(current_user!!.id!!, c.id!!, this)==true){
+                    clubsWithPermission.add(c)
+                }
+            }
 
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, clubs!!.map { it.name }).also { adapter ->
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, clubsWithPermission.map { it.name }).also { adapter ->
                 nameTextFieldClub.setAdapter(adapter)
             }
         }catch (e: Exception){
-            Toast.makeText(this, "Error getting brands: $e", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Error getting clubs: $e", Toast.LENGTH_LONG).show()
         }
 
 

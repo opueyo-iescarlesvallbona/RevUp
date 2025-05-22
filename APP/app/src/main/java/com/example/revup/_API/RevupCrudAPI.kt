@@ -784,6 +784,20 @@ class RevupCrudAPI : CoroutineScope {
         return resposta!!.body()
     }
 
+    fun checkIfPermission(memberId: Int, clubId: Int, context: Context): Boolean?{
+        var resposta : Response<Boolean>? = null
+        runBlocking {
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).checkIfPermission(memberId, clubId)
+            }
+            cor.join()
+        }
+        if (resposta!!.isSuccessful)
+            return resposta!!.body()
+        else
+            return null
+    }
+
     fun getAllEventsByClub(clubId: Int, context: Context): MutableList<ClubEvent>?{
         var resposta : Response<MutableList<ClubEvent>>? = null
         runBlocking {
