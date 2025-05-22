@@ -71,6 +71,12 @@ class EventsRoutesListAdapter<T>(var list: MutableList<T>): RecyclerView.Adapter
                     curr_event = item
                     holder.vista.context.startActivity(intent)
                 }
+                val user_role = apiRevUp.getMemberClubRoleById((list[position] as ClubEvent).clubId, current_user!!.id!!, holder.vista.context)
+                if(user_role != null){
+                    if(user_role!!.name != "Founder" && user_role!!.name != "Administrator"){
+                        holder.vista.findViewById<ImageButton>(R.id.cardview_listEventsRoutes_deleteButton).visibility = View.INVISIBLE
+                    }
+                }
             }
         }
         holder.vista.findViewById<ImageButton>(R.id.cardview_listEventsRoutes_deleteButton).setOnClickListener{
