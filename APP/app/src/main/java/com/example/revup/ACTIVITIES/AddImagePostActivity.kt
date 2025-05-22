@@ -8,6 +8,8 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -25,6 +27,7 @@ import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Member
 import com.example.revup._DATACLASS.MemberLocation
+import com.example.revup._DATACLASS.Municipality
 import com.example.revup._DATACLASS.Post
 import com.example.revup._DATACLASS.curr_car
 import com.example.revup._DATACLASS.current_user
@@ -77,14 +80,24 @@ class AddImagePostActivity : AppCompatActivity() {
                         finish()
                     }
                 }catch (e: Exception){
-                    Toast.makeText(this, "Error posting post. ${e.message}", Toast.LENGTH_LONG).show()
+                    Log.i("Error", "Error posting post. ${e.message}")
                 }
             }
-            Toast.makeText(this, "Error posting post", Toast.LENGTH_LONG).show()
         }
         //Select image from gallery
         binding.addImagePostActivityPreviewImage.setOnClickListener{
             pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+        }
+
+        val nameTextFieldLocation: AutoCompleteTextView = binding.addImagePostActivityLocationTextField
+        var locations = listOf<Municipality>()
+        try{
+            locations = apiMunicipality.getAllMunicipalities()!!
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, locations.map { it.nompoblacio }).also { adapter ->
+                nameTextFieldLocation.setAdapter(adapter)
+            }
+        }catch (e: Exception){
+            Log.i("Error", "Error getting locations: $e")
         }
     }
     //Check if all the fields are Ok
@@ -126,7 +139,7 @@ class AddImagePostActivity : AppCompatActivity() {
                         longitude = muni.longitut
                     )
                     var location = apiRevUp.postLocation(memberLocation, this)
-                    //locationId = location!!.id
+                    locationId = location!!.id
                 }else if(location.size != 1){
                     Toast.makeText(this, "Select a valid location", Toast.LENGTH_LONG).show()
                     return null
@@ -134,10 +147,10 @@ class AddImagePostActivity : AppCompatActivity() {
                     locationId = location[0].id
                 }
             }catch (e: Exception){
-                Toast.makeText(this, "Error configuring location. ${e.message}", Toast.LENGTH_LONG).show()
+                Log.i("Error", "Error configuring location. ${e.message}")
             }
         }
 
-        return Post(id = null, title = title, description = description, location_id = locationId, postDate = LocalDateTime.now().toString(), postType = 2, memberId = current_user!!.id!!)
+        return Post(id = null, title = title, description = description, locationId = locationId, postDate = LocalDateTime.now().toString(), postType = 2, memberId = current_user!!.id!!)
     }
 }

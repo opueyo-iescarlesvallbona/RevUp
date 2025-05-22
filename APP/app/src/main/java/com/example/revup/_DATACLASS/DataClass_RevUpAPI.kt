@@ -81,7 +81,7 @@ class Post (
     var routeId: Int? = null,
     var memberId: Int = 0,
     var comments: Long = 0,
-    var location_id: Int? = null,
+    var locationId: Int? = null,
 
     var liked: Boolean = false,
 

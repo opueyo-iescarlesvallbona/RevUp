@@ -203,7 +203,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
                     val wayp: MutableList<LatLng> = Gson().fromJson(route.waypoints, type)
                     holder.loadMap(wayp, list[position])
                     holder.distance.setText(formatDistance(route!!.distance!!))
-                    val durationMillis = LocationService.routeDurationInMillis
+                    val durationMillis = route.duration
                     val seconds = (durationMillis / 1000) % 60
                     val minutes = (durationMillis / (1000 * 60)) % 60
                     val hours = (durationMillis / (1000 * 60 * 60))
