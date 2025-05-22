@@ -1,7 +1,9 @@
 package com.example.revup.ACTIVITIES
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcel
@@ -169,7 +171,10 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap?.addMarker(MarkerOptions().position(pos).title("Event Location"))
                 location = pos
                 mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(pos, 10f))
+
+                binding.eventDetailsActivityAddressTextField.setText(getAddressFromLatLng(this, pos))
             }
+
         }
         binding.btnSetlocationMap.setOnClickListener {
 
@@ -212,7 +217,7 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
                     try {
                         if (curr_event == null) {
                             var result: ClubEvent? = null
-                            try{
+                     try{
                                 result = apiRevup.postEvent(event, selectedImageUri, applicationContext)
                             }catch(e: Exception){
                                 Toast.makeText(this, "Error uploading event", Toast.LENGTH_SHORT).show()
@@ -320,7 +325,7 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
     fun disableWidgets(set: Boolean = false) {
         binding.eventDetailsActivityPicture.isEnabled = set
         binding.eventDetailsActivityLayoutNameTextField.isEnabled = set
-        binding.eventDetailsActivityLayoutAddressTextField.isEnabled = set
+        binding.eventDetailsActivityLayoutAddressTextField.isEnabled = false
         binding.eventDetailsActivityLayoutclub.isEnabled = set
         binding.eventDetailsActivityLayoutstartdate.isEnabled = set
         binding.eventDetailsActivityLayoutenddate.isEnabled = set
@@ -473,5 +478,11 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         return ClubEvent(null,name, address,club!!.id!!, null, startDate,null,endDate,descript, state!!.id, location!!.latitude, location!!.longitude)
+    }
+
+    fun getAddressFromLatLng(context: Context, latLng: LatLng): String? {
+        val geocoder = Geocoder(context)
+        val addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+        return addresses?.firstOrNull()?.getAddressLine(0)
     }
 }

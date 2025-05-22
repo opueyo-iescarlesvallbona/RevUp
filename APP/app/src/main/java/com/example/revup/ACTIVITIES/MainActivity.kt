@@ -225,6 +225,7 @@ class MainActivity : AppCompatActivity() {
             binding.mainActivityBtnAddImage.clearAnimation()
             binding.mainActivityBtnAddRoute.clearAnimation()
             binding.mainActivityBtnAddClub.clearAnimation()
+            binding.mainActivityBtnAddText.clearAnimation()
             if(binding.mainActivityBtnAdd.rotation==45f) {
                 binding.mainActivityBtnAdd.animate().rotationBy(-45f).setDuration(500).start()
             }

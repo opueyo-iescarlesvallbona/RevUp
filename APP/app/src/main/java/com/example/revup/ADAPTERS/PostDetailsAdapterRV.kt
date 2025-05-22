@@ -48,9 +48,9 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
     val apiRevUp = RevupCrudAPI()
     companion object {
         const val VIEW_TYPE_COMMENT = 0
-        const val VIEW_TYPE_POST_TEXT = 1
+        const val VIEW_TYPE_POST_TEXT = 3
         const val VIEW_TYPE_POST_IMAGE = 2
-        const val VIEW_TYPE_POST_ROUTE = 3
+        const val VIEW_TYPE_POST_ROUTE = 1
     }
 
     fun update(newItems: MutableList<PostComment>){
@@ -128,7 +128,7 @@ class PostDetailsAdapterRV(var list: MutableList<PostComment>, var post: Post): 
 
     override fun getItemViewType(position: Int): Int {
         return if (position==0) {
-            if (post.postType==1){
+            if (post.postType==3){
                 VIEW_TYPE_POST_TEXT
             }else if(post.postType==2){
                 VIEW_TYPE_POST_IMAGE
