@@ -146,7 +146,7 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
         holder.likeDetails.visibility = View.GONE
 
         if (position == list.size - 1) {
-            holder.spacer.layoutParams.height = 250
+            holder.spacer.layoutParams.height = 300
         }
 
         if (list[position].liked) {
