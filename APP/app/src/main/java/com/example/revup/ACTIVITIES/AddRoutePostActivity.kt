@@ -100,6 +100,6 @@ class AddRoutePostActivity : AppCompatActivity() {
         }
 
 
-        return Post(id = null, title = title, description = binding.addRoutePostActivityDescription.text.toString(), postDate = LocalDateTime.now().toString(), routeId = routeId, postType = 3, memberId = current_user!!.id!!)
+        return Post(id = null, title = title, description = "", postDate = LocalDateTime.now().toString(), routeId = routeId, postType = 3, memberId = current_user!!.id!!)
     }
 }

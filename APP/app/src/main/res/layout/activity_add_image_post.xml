@@ -86,21 +86,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/addPostActivity_hint_description"
-            android:layout_marginBottom="10dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/addImagePostActivity_description"
-                android:lines="5"
-                android:maxLines="10"
-                android:gravity="start"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addImagePostActivity_layoutLocationTextField"
             app:boxCornerRadiusTopEnd="7dp"
             app:boxCornerRadiusTopStart="7dp"

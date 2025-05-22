@@ -109,9 +109,9 @@ class HomeFragmentPostAdapterRV(var list: MutableList<Post>) : RecyclerView.Adap
     override fun getItemViewType(position: Int): Int {
         val post = list[position]
         return when (post.postType) {
-            3 -> VIEW_TYPE_ROUTE
+            3 -> VIEW_TYPE_TEXT
             2 -> VIEW_TYPE_IMAGE
-            else -> VIEW_TYPE_TEXT
+            else -> VIEW_TYPE_ROUTE
         }
     }
 
