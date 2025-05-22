@@ -164,7 +164,7 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-            return brand;
+            return Ok(brand);
         }
 
         [Authorize]
@@ -177,7 +177,7 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-            return brands;
+            return Ok(brands);
         }
 
         [Authorize]
@@ -190,7 +190,7 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-            return model;
+            return Ok(model);
         }
 
         [Authorize]
@@ -203,7 +203,7 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-            return models;
+            return Ok(models);
         }
 
         [Authorize]
@@ -216,7 +216,7 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-            return models;
+            return Ok(models);
         }
 
         [Authorize]

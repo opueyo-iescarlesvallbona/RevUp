@@ -242,6 +242,37 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.ClubsController",
+    "Method": "CheckIfPermission",
+    "RelativePath": "api/CheckIfPermission",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "memberId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "clubId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RevupAPI.Controllers.ClubsController",
     "Method": "PostClub",
     "RelativePath": "api/Club",
     "HttpMethod": "POST",
@@ -634,7 +665,7 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.ClubEventsController",
-    "Method": "UpdateMember",
+    "Method": "UpdateEvent",
     "RelativePath": "api/Event",
     "HttpMethod": "PUT",
     "IsController": true,

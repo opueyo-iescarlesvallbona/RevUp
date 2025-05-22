@@ -401,5 +401,22 @@ namespace RevupAPI.Controllers
             return Ok(memberClub);
         }
 
+        [Authorize]
+        [Route("api/CheckIfPermission")]
+        [HttpGet]
+        public async Task<ActionResult<bool>> CheckIfPermission([FromQuery] int memberId, [FromQuery] int clubId)
+        {
+            var memberClub = await _context.MemberClubs.Where(x => x.MemberId == memberId && x.ClubId == clubId).FirstOrDefaultAsync();
+
+            if (memberClub.RoleType == 1 || memberClub.RoleType == 2)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
+        }
+
     }
 }

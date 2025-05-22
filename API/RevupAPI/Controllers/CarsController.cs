@@ -212,7 +212,7 @@ namespace RevupAPI.Controllers
             {
                 return NotFound();
             }
-            return cars;
+            return Ok(cars);
         }
 
         [Route("api/Car")]

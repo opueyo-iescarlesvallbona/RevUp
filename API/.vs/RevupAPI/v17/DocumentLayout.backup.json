@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\ProjecteFinal\\API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\clubeventscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\clubeventscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\clubscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\clubscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\generalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\generalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\models\\eventstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\models\\eventstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\clubeventscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\clubeventscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\models\\clubevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\models\\clubevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\carscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\carscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|c:\\projectefinal\\api\\revupapi\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1A315DD-EE13-46BB-A4F6-3CE04137E55F}|RevupAPI\\RevupAPI.csproj|solutionrelative:revupapi\\controllers\\memberscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,63 +43,67 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ClubEventsController.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\ClubEventsController.cs",
-              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\ClubEventsController.cs",
-              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\ClubEventsController.cs",
-              "RelativeToolTip": "RevupAPI\\Controllers\\ClubEventsController.cs",
-              "ViewState": "AgIAAMMAAAAAAAAAAAAMwNEAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T17:59:36.668Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CarsController.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\CarsController.cs",
-              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\CarsController.cs",
-              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\CarsController.cs",
-              "RelativeToolTip": "RevupAPI\\Controllers\\CarsController.cs",
-              "ViewState": "AgIAAK0AAAAAAAAAAAAswLkAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T17:53:42.756Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MembersController.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\MembersController.cs",
-              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\MembersController.cs",
-              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\MembersController.cs",
-              "RelativeToolTip": "RevupAPI\\Controllers\\MembersController.cs",
-              "ViewState": "AgIAAPoAAAAAAAAAAAAUwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T17:52:44.265Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GeneralController.cs",
-              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\GeneralController.cs",
-              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\GeneralController.cs",
-              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\GeneralController.cs",
-              "RelativeToolTip": "RevupAPI\\Controllers\\GeneralController.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAMwFEAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T17:51:42.708Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "ClubsController.cs",
               "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\ClubsController.cs",
               "RelativeDocumentMoniker": "RevupAPI\\Controllers\\ClubsController.cs",
               "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\ClubsController.cs",
               "RelativeToolTip": "RevupAPI\\Controllers\\ClubsController.cs",
-              "ViewState": "AgIAAHkBAAAAAAAAAAAMwIcBAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAHwBAAAAAAAAAAAiwJgBAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-20T15:31:44.54Z"
+              "WhenOpened": "2025-05-22T17:28:56.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EventState.cs",
+              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Models\\EventState.cs",
+              "RelativeDocumentMoniker": "RevupAPI\\Models\\EventState.cs",
+              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Models\\EventState.cs",
+              "RelativeToolTip": "RevupAPI\\Models\\EventState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T17:21:23.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ClubEvent.cs",
+              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Models\\ClubEvent.cs",
+              "RelativeDocumentMoniker": "RevupAPI\\Models\\ClubEvent.cs",
+              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Models\\ClubEvent.cs",
+              "RelativeToolTip": "RevupAPI\\Models\\ClubEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T17:12:44.593Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClubEventsController.cs",
+              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\ClubEventsController.cs",
+              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\ClubEventsController.cs",
+              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\ClubEventsController.cs",
+              "RelativeToolTip": "RevupAPI\\Controllers\\ClubEventsController.cs",
+              "ViewState": "AgIAABYBAAAAAAAAAAAqwPsAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T17:10:59.353Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CarsController.cs",
+              "DocumentMoniker": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\CarsController.cs",
+              "RelativeDocumentMoniker": "RevupAPI\\Controllers\\CarsController.cs",
+              "ToolTip": "C:\\ProjecteFinal\\API\\RevupAPI\\Controllers\\CarsController.cs",
+              "RelativeToolTip": "RevupAPI\\Controllers\\CarsController.cs",
+              "ViewState": "AgIAAMcAAAAAAAAAAAAqwNUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-22T17:07:13.845Z",
+              "EditorCaption": ""
             }
           ]
         }

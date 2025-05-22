@@ -249,7 +249,7 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/Event")]
         [HttpPut]
-        public async Task<ActionResult<ClubEvent>> UpdateMember([FromForm] IFormFile? image, [FromForm] string clubEvent)
+        public async Task<ActionResult<ClubEvent>> UpdateEvent([FromForm] IFormFile? image, [FromForm] string clubEvent)
         {
             if (clubEvent == null)
             {
