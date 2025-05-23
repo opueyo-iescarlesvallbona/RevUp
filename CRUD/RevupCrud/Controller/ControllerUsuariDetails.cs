@@ -387,7 +387,7 @@ namespace RevupCrud.Controller
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Segur que vols esborrar l'usuari? S'esborraràn totes les seves dades associades", "Precaució",
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete the user? All its associated data will be deleted", "Warning",
                 MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)

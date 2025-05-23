@@ -86,11 +86,11 @@ namespace RevupCrud.Model
             List<member> members = new List<member>();
             try
             {
-                if (gender.Equals("Tots"))
+                if (gender.Equals("All"))
                 {
                     gender = "";
                 }
-                if(location.Equals("Tots"))
+                if(location.Equals("All"))
                 {
                     location = "";
                 }

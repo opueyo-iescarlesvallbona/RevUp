@@ -112,7 +112,7 @@ namespace RevupCrud.Controller
             }
 
             //State filter
-            if (!(events.comboState.SelectedValue as event_state).name.Equals("Tots"))
+            if (!(events.comboState.SelectedValue as event_state).name.Equals("All"))
             {
                 Listevents = Listevents.Where(x => x.event_state.name.Equals((events.comboState.SelectedValue as event_state).name)).ToList();
             }
@@ -156,7 +156,7 @@ namespace RevupCrud.Controller
             events.dateTimeEndFrom.Checked = false;
             events.dateTimeEndTo.Checked = false;
             List<event_state> states = new List<event_state>();
-            states.Add(new event_state { name = "Tots", id = -1 });
+            states.Add(new event_state { name = "All", id = -1 });
             states.AddRange(r.GetAllEventStates());
             events.comboState.DataSource = states;
             events.comboState.DisplayMember = "name";
@@ -461,7 +461,7 @@ namespace RevupCrud.Controller
             {
                 Listposts = Listposts.Where(x => x.title.Contains(posts.txtTitle.Text)).ToList();
             }
-            if ((posts.comboPostType.SelectedItem as post_type).name != "Tots")
+            if ((posts.comboPostType.SelectedItem as post_type).name != "All")
             {
                 Listposts = Listposts.Where(x => x.post_type.Equals((posts.comboPostType.SelectedValue as post_type).id)).ToList();
             }
@@ -523,7 +523,7 @@ namespace RevupCrud.Controller
             List<post> Listposts = r.GetAllPosts();
             
             List<post_type> post_Types = new List<post_type>();
-            post_Types.Add(new post_type { name = "Tots", id = -1 });
+            post_Types.Add(new post_type { name = "All", id = -1 });
             post_Types.AddRange(r.GetAllPostTypes());
             posts.comboPostType.DataSource = post_Types.ToList();
 
@@ -768,14 +768,14 @@ namespace RevupCrud.Controller
             SetListenersUsuaris();
             
             List<gender> genders = new List<gender>();
-            genders.Add(new gender { name="Tots", id=-1});
+            genders.Add(new gender { name="All", id=-1});
             genders.AddRange(r.GetAllGenders());
             usuaris.comboGender.DataSource = genders;
             usuaris.comboGender.DisplayMember = "name";
 
 
             List<member_location> locations = new List<member_location>();
-            locations.Add(new member_location { municipality = "Tots", id = -1 });
+            locations.Add(new member_location { municipality = "All", id = -1 });
             locations.AddRange(r.GetAllLocations());
             usuaris.comboLocation.DataSource = locations;
             usuaris.comboLocation.DisplayMember = "municipality";
@@ -795,7 +795,6 @@ namespace RevupCrud.Controller
             usuaris.dataGridView.Columns["member_relation"].Visible = false;
             usuaris.dataGridView.Columns["member_relation1"].Visible = false;
             usuaris.dataGridView.Columns["messages"].Visible = false;
-            //usuaris.dataGridView.Columns["messages1"].Visible = false;
             usuaris.dataGridView.Columns["posts"].Visible = false;
             usuaris.dataGridView.Columns["routes"].Visible = false;
             usuaris.dataGridView.Columns["clubs"].Visible = false;
@@ -846,14 +845,12 @@ namespace RevupCrud.Controller
             Viewpassword.Controls.Add(txt);
             Viewpassword.Controls.Add(btn);
             
-            Viewpassword.Show();
-            btn.PerformClick();
+            Viewpassword.ShowDialog();
         }
 
         private void Btn_ClickPassword(object sender, EventArgs e)
         {
             string password = (Viewpassword.Controls.Find("txtPassword", true).FirstOrDefault() as TextBox).Text;
-            password = "RevUpFounders26";
             if (TryConnectToDatabase(password))
             {
                 Viewpassword.Dispose();
