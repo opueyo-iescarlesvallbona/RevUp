@@ -105,19 +105,6 @@ namespace RevupCrud.Controller
                     f.dateTimeRouteStartDate.Checked = false;
                 }
 
-                if (c_event.picture != null)
-                {
-                    try
-                    {
-                        f.pictureBox1.Image = Image.FromFile(c_event.picture);
-                    }
-                    catch
-                    {
-
-                    }
-                    
-                }
-
                 if (f.txtClub.Text != "")
                 {
                     f.btnOpenClub.Click += BtnOpenClub_Click;

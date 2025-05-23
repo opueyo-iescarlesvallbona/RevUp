@@ -85,3 +85,4 @@ C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewComments.r
 C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewEventDetails.resources
 C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewEvents.resources
 C:\M13\ProjecteFinal\RevupCrud\RevupCrud\obj\Debug\RevupCrud.View.ViewRouteDetails.resources
+C:\ProjecteFinal\CRUD\RevupCrud\obj\Debug\RevupCrud.exe.config

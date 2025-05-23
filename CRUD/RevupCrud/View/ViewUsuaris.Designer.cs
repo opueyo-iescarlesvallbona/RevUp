@@ -107,6 +107,8 @@
             // 
             // comboLocation
             // 
+            this.comboLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboLocation.FormattingEnabled = true;
             this.comboLocation.Location = new System.Drawing.Point(67, 50);
             this.comboLocation.Name = "comboLocation";

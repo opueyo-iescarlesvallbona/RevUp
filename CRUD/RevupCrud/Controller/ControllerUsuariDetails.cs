@@ -136,17 +136,7 @@ namespace RevupCrud.Controller
                 f.dataGridViewRelations.DataSource = GetMemberRelationTable(usuari.id);
                 f.dataGridViewClubs.DataSource = GetMembersClubTable(false);
 
-                if (usuari.profile_picture != null)
-                {
-                    try
-                    {
-                        f.pictureBox1.Image = Image.FromFile(usuari.profile_picture);
-                    }
-                    catch
-                    {
-
-                    }
-                }
+                
 
                 f.btnDelete.Click += BtnDelete_Click;
                 f.btnUpdate.Click += BtnUpdate_Click;

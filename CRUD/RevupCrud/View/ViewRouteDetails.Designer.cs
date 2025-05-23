@@ -64,7 +64,6 @@
             // 
             // btnOpenMember
             // 
-            this.btnOpenMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOpenMember.Location = new System.Drawing.Point(1046, 240);
             this.btnOpenMember.Name = "btnOpenMember";
             this.btnOpenMember.Size = new System.Drawing.Size(89, 23);
@@ -74,8 +73,6 @@
             // 
             // txtEndAddress
             // 
-            this.txtEndAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEndAddress.Location = new System.Drawing.Point(688, 207);
             this.txtEndAddress.Name = "txtEndAddress";
             this.txtEndAddress.ReadOnly = true;
@@ -84,7 +81,6 @@
             // 
             // lblEndAddress
             // 
-            this.lblEndAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEndAddress.AutoSize = true;
             this.lblEndAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEndAddress.Location = new System.Drawing.Point(578, 210);
@@ -122,9 +118,6 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(688, 71);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
@@ -211,8 +204,6 @@
             // 
             // txtTerrainType
             // 
-            this.txtTerrainType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTerrainType.Location = new System.Drawing.Point(119, 244);
             this.txtTerrainType.Name = "txtTerrainType";
             this.txtTerrainType.ReadOnly = true;
@@ -221,7 +212,6 @@
             // 
             // lblTerrainType
             // 
-            this.lblTerrainType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblTerrainType.AutoSize = true;
             this.lblTerrainType.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTerrainType.Location = new System.Drawing.Point(9, 244);
@@ -232,8 +222,6 @@
             // 
             // txtStartAddress
             // 
-            this.txtStartAddress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtStartAddress.Location = new System.Drawing.Point(688, 172);
             this.txtStartAddress.Name = "txtStartAddress";
             this.txtStartAddress.ReadOnly = true;
@@ -242,7 +230,6 @@
             // 
             // lblDescription
             // 
-            this.lblDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDescription.AutoSize = true;
             this.lblDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescription.Location = new System.Drawing.Point(578, 71);
@@ -281,8 +268,6 @@
             // 
             // txtMemberName
             // 
-            this.txtMemberName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMemberName.Location = new System.Drawing.Point(688, 242);
             this.txtMemberName.Name = "txtMemberName";
             this.txtMemberName.ReadOnly = true;
@@ -293,7 +278,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1147, 713);
+            this.ClientSize = new System.Drawing.Size(1147, 296);
             this.Controls.Add(this.txtMemberName);
             this.Controls.Add(this.txtElevationGain);
             this.Controls.Add(this.lblMemberName);

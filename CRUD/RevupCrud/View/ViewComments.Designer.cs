@@ -43,6 +43,9 @@
             // 
             // dataGridView
             // 
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(12, 75);
             this.dataGridView.Name = "dataGridView";
@@ -53,8 +56,6 @@
             // 
             // txtPost
             // 
-            this.txtPost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPost.Location = new System.Drawing.Point(58, 28);
             this.txtPost.Name = "txtPost";
             this.txtPost.Size = new System.Drawing.Size(114, 20);
@@ -100,6 +101,7 @@
             // 
             // dateTimeTo
             // 
+            this.dateTimeTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimeTo.CustomFormat = "dd/MM/yyyy";
             this.dateTimeTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeTo.Location = new System.Drawing.Point(745, 28);
@@ -111,6 +113,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(716, 31);
             this.label6.Name = "label6";
@@ -120,6 +123,7 @@
             // 
             // dateTimeFrom
             // 
+            this.dateTimeFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimeFrom.CustomFormat = "dd/MM/yyyy";
             this.dateTimeFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeFrom.Location = new System.Drawing.Point(581, 28);
@@ -130,6 +134,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(540, 31);
             this.label4.Name = "label4";

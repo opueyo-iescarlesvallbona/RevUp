@@ -49,14 +49,11 @@
             this.txtRoute = new System.Windows.Forms.TextBox();
             this.lblMemberName = new System.Windows.Forms.Label();
             this.txtMemberName = new System.Windows.Forms.TextBox();
-            this.lblPicture = new System.Windows.Forms.Label();
             this.btnOpenRoute = new System.Windows.Forms.Button();
             this.btnOpenMember = new System.Windows.Forms.Button();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.txtPostType = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLikes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // btnDelete
@@ -71,28 +68,29 @@
             // 
             // dataGridViewComments
             // 
-            this.dataGridViewComments.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewComments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewComments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewComments.Location = new System.Drawing.Point(577, 230);
+            this.dataGridViewComments.Location = new System.Drawing.Point(577, 237);
             this.dataGridViewComments.MultiSelect = false;
             this.dataGridViewComments.Name = "dataGridViewComments";
             this.dataGridViewComments.ReadOnly = true;
             this.dataGridViewComments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewComments.Size = new System.Drawing.Size(558, 217);
+            this.dataGridViewComments.Size = new System.Drawing.Size(558, 226);
             this.dataGridViewComments.TabIndex = 56;
             // 
             // dataGridViewLikes
             // 
-            this.dataGridViewLikes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewLikes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridViewLikes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewLikes.Location = new System.Drawing.Point(577, 476);
+            this.dataGridViewLikes.Location = new System.Drawing.Point(18, 237);
             this.dataGridViewLikes.MultiSelect = false;
             this.dataGridViewLikes.Name = "dataGridViewLikes";
             this.dataGridViewLikes.ReadOnly = true;
             this.dataGridViewLikes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewLikes.Size = new System.Drawing.Size(558, 217);
+            this.dataGridViewLikes.Size = new System.Drawing.Size(521, 226);
             this.dataGridViewLikes.TabIndex = 55;
             // 
             // txtPostDate
@@ -106,14 +104,13 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(688, 68);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.ReadOnly = true;
-            this.txtDescription.Size = new System.Drawing.Size(447, 85);
+            this.txtDescription.Size = new System.Drawing.Size(447, 92);
             this.txtDescription.TabIndex = 53;
             // 
             // txtAddress
@@ -134,10 +131,9 @@
             // 
             // lblComments
             // 
-            this.lblComments.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblComments.AutoSize = true;
             this.lblComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblComments.Location = new System.Drawing.Point(578, 210);
+            this.lblComments.Location = new System.Drawing.Point(578, 217);
             this.lblComments.Name = "lblComments";
             this.lblComments.Size = new System.Drawing.Size(78, 17);
             this.lblComments.TabIndex = 47;
@@ -166,10 +162,9 @@
             // 
             // lblLikes
             // 
-            this.lblLikes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblLikes.AutoSize = true;
             this.lblLikes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLikes.Location = new System.Drawing.Point(577, 456);
+            this.lblLikes.Location = new System.Drawing.Point(18, 217);
             this.lblLikes.Name = "lblLikes";
             this.lblLikes.Size = new System.Drawing.Size(45, 17);
             this.lblLikes.TabIndex = 41;
@@ -217,10 +212,10 @@
             // 
             // lblNumComments
             // 
-            this.lblNumComments.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNumComments.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNumComments.AutoSize = true;
             this.lblNumComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumComments.Location = new System.Drawing.Point(938, 210);
+            this.lblNumComments.Location = new System.Drawing.Point(938, 217);
             this.lblNumComments.Name = "lblNumComments";
             this.lblNumComments.Size = new System.Drawing.Size(146, 17);
             this.lblNumComments.TabIndex = 64;
@@ -228,10 +223,9 @@
             // 
             // lblNumLikes
             // 
-            this.lblNumLikes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNumLikes.AutoSize = true;
             this.lblNumLikes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumLikes.Location = new System.Drawing.Point(933, 456);
+            this.lblNumLikes.Location = new System.Drawing.Point(374, 217);
             this.lblNumLikes.Name = "lblNumLikes";
             this.lblNumLikes.Size = new System.Drawing.Size(110, 17);
             this.lblNumLikes.TabIndex = 65;
@@ -257,10 +251,9 @@
             // 
             // lblMemberName
             // 
-            this.lblMemberName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMemberName.AutoSize = true;
             this.lblMemberName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMemberName.Location = new System.Drawing.Point(578, 169);
+            this.lblMemberName.Location = new System.Drawing.Point(578, 176);
             this.lblMemberName.Name = "lblMemberName";
             this.lblMemberName.Size = new System.Drawing.Size(104, 17);
             this.lblMemberName.TabIndex = 68;
@@ -268,23 +261,13 @@
             // 
             // txtMemberName
             // 
-            this.txtMemberName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtMemberName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMemberName.Location = new System.Drawing.Point(688, 166);
+            this.txtMemberName.Location = new System.Drawing.Point(688, 173);
             this.txtMemberName.Name = "txtMemberName";
             this.txtMemberName.ReadOnly = true;
             this.txtMemberName.Size = new System.Drawing.Size(352, 20);
             this.txtMemberName.TabIndex = 69;
-            // 
-            // lblPicture
-            // 
-            this.lblPicture.AutoSize = true;
-            this.lblPicture.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPicture.Location = new System.Drawing.Point(15, 209);
-            this.lblPicture.Name = "lblPicture";
-            this.lblPicture.Size = new System.Drawing.Size(56, 17);
-            this.lblPicture.TabIndex = 70;
-            this.lblPicture.Text = "Picture:";
             // 
             // btnOpenRoute
             // 
@@ -297,22 +280,13 @@
             // 
             // btnOpenMember
             // 
-            this.btnOpenMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenMember.Location = new System.Drawing.Point(1046, 164);
+            this.btnOpenMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenMember.Location = new System.Drawing.Point(1046, 171);
             this.btnOpenMember.Name = "btnOpenMember";
             this.btnOpenMember.Size = new System.Drawing.Size(89, 23);
             this.btnOpenMember.TabIndex = 72;
             this.btnOpenMember.Text = "Open Member";
             this.btnOpenMember.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Location = new System.Drawing.Point(18, 229);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(521, 464);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox.TabIndex = 73;
-            this.pictureBox.TabStop = false;
             // 
             // txtPostType
             // 
@@ -326,12 +300,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1147, 713);
+            this.ClientSize = new System.Drawing.Size(1147, 475);
             this.Controls.Add(this.txtPostType);
-            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.btnOpenMember);
             this.Controls.Add(this.btnOpenRoute);
-            this.Controls.Add(this.lblPicture);
             this.Controls.Add(this.txtMemberName);
             this.Controls.Add(this.lblMemberName);
             this.Controls.Add(this.txtRoute);
@@ -357,7 +329,6 @@
             this.Text = "ViewPostDetails";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLikes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,10 +356,8 @@
         public System.Windows.Forms.TextBox txtRoute;
         public System.Windows.Forms.Label lblMemberName;
         public System.Windows.Forms.TextBox txtMemberName;
-        public System.Windows.Forms.Label lblPicture;
         public System.Windows.Forms.Button btnOpenRoute;
         public System.Windows.Forms.Button btnOpenMember;
-        public System.Windows.Forms.PictureBox pictureBox;
         public System.Windows.Forms.TextBox txtPostType;
     }
 }

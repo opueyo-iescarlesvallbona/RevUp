@@ -56,6 +56,7 @@
             // 
             // comboPostType
             // 
+            this.comboPostType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboPostType.FormattingEnabled = true;
             this.comboPostType.Location = new System.Drawing.Point(615, 14);
             this.comboPostType.Name = "comboPostType";
@@ -97,6 +98,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(551, 17);
             this.label2.Name = "label2";
@@ -115,6 +117,7 @@
             // 
             // lblOrder
             // 
+            this.lblOrder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblOrder.AutoSize = true;
             this.lblOrder.Location = new System.Drawing.Point(554, 49);
             this.lblOrder.Name = "lblOrder";
@@ -154,6 +157,7 @@
             // 
             // comboOrder
             // 
+            this.comboOrder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboOrder.FormattingEnabled = true;
             this.comboOrder.Location = new System.Drawing.Point(615, 46);
             this.comboOrder.Name = "comboOrder";

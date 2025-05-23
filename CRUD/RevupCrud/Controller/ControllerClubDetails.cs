@@ -72,18 +72,6 @@ namespace RevupCrud.Controller
                 f.dataGridViewEvents.CellFormatting += DataGridView_CellFormattingEvent;
                 FormatHeadersDataGrid(f.dataGridViewEvents);
 
-                //if (club.picture != null)
-                //{
-                //    try
-                //    {
-                //        f.pictureBox1.Image = Image.FromFile(club.picture);
-                //    }
-                //    catch
-                //    {
-
-                //    }
-                //}
-
                 f.cmbState.DataSource = null;
                 f.cmbState.Items.Add("All");
                 f.cmbState.DataSource = r.GetAllEventStates();

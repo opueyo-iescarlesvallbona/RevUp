@@ -138,6 +138,8 @@
             // 
             // comboState
             // 
+            this.comboState.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboState.FormattingEnabled = true;
             this.comboState.Location = new System.Drawing.Point(90, 80);
             this.comboState.Name = "comboState";
@@ -146,6 +148,7 @@
             // 
             // dateTimeEndFrom
             // 
+            this.dateTimeEndFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimeEndFrom.CustomFormat = "dd/MM/yyyy";
             this.dateTimeEndFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeEndFrom.Location = new System.Drawing.Point(650, 46);
@@ -156,6 +159,7 @@
             // 
             // dateTimeEndTo
             // 
+            this.dateTimeEndTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimeEndTo.CustomFormat = "dd/MM/yyyy";
             this.dateTimeEndTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeEndTo.Location = new System.Drawing.Point(650, 78);
@@ -166,6 +170,7 @@
             // 
             // lblStartDate
             // 
+            this.lblStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStartDate.AutoSize = true;
             this.lblStartDate.Location = new System.Drawing.Point(608, 48);
             this.lblStartDate.Name = "lblStartDate";
@@ -175,6 +180,7 @@
             // 
             // lblEndDate
             // 
+            this.lblEndDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEndDate.AutoSize = true;
             this.lblEndDate.Location = new System.Drawing.Point(611, 81);
             this.lblEndDate.Name = "lblEndDate";
@@ -184,6 +190,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(420, 82);
             this.label1.Name = "label1";
@@ -193,6 +200,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(419, 49);
             this.label2.Name = "label2";
@@ -202,6 +210,7 @@
             // 
             // dateTimeStartTo
             // 
+            this.dateTimeStartTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimeStartTo.CustomFormat = "dd/MM/yyyy";
             this.dateTimeStartTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeStartTo.Location = new System.Drawing.Point(460, 79);
@@ -212,6 +221,7 @@
             // 
             // dateTimeStartFrom
             // 
+            this.dateTimeStartFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimeStartFrom.CustomFormat = "dd/MM/yyyy";
             this.dateTimeStartFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeStartFrom.Location = new System.Drawing.Point(460, 47);
@@ -222,6 +232,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(486, 20);
             this.label3.Name = "label3";
@@ -231,6 +242,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(674, 20);
             this.label4.Name = "label4";
