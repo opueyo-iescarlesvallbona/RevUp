@@ -114,7 +114,7 @@ namespace RevupCrud.Controller
         {
             if (usuari != null)
             {
-                f.lblTitol.Text = "Detalls de l'usuari " + usuari.id;
+                f.lblTitol.Text = "Member details - " + usuari.id;
                 f.txtName.Text = usuari.name;
                 f.txtMemberName.Text = usuari.membername;
 
@@ -163,7 +163,7 @@ namespace RevupCrud.Controller
             }
             else
             {
-                f.lblTitol.Text = "Nou Usuari";
+                f.lblTitol.Text = "New Member";
                 f.txtName.Enabled = true;
                 f.txtMemberName.Enabled = true;
                 f.comboGender.DataSource = r.GetAllGenders().OrderBy(x => x.name).Select(x => x.name).ToList();

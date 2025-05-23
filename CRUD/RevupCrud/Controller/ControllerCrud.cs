@@ -149,6 +149,7 @@ namespace RevupCrud.Controller
 
         private void BtnEvent_Click(object sender, EventArgs e)
         {
+            events = new ViewEvents { TopLevel = false, TopMost = false };
             SetListnersEvent();
             events.dateTimeStartFrom.Checked = false;
             events.dateTimeStartTo.Checked = false;
@@ -324,6 +325,7 @@ namespace RevupCrud.Controller
 
         private void BtnComment_Click(object sender, EventArgs e)
         {
+            comments = new ViewComments { TopLevel = false, TopMost = false };
             SetListenersComment();   
             comments.dataGridView.DataSource = new List<post_comment>();
             comments.dataGridView.Columns["member_id"].HeaderText = "member";
@@ -516,6 +518,7 @@ namespace RevupCrud.Controller
 
         private void BtnPost_Click(object sender, EventArgs e)
         {
+            posts = new ViewPosts { TopLevel = false, TopMost = false };
             SetListnersPost();
             List<post> Listposts = r.GetAllPosts();
             
@@ -650,6 +653,7 @@ namespace RevupCrud.Controller
 
         private void BtnClub_Click(object sender, EventArgs e)
         {
+            clubs = new ViewClubs { TopLevel = false, TopMost = false };
             SetListenersClub();
             List<club> Listclubs = r.GetAllClubs();
 
@@ -760,6 +764,7 @@ namespace RevupCrud.Controller
 
         private void BtnUsuaris_Click(object sender, EventArgs e)
         {
+            usuaris = new ViewUsuaris { TopLevel = false, TopMost = false };
             SetListenersUsuaris();
             
             List<gender> genders = new List<gender>();

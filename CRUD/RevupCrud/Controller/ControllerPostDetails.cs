@@ -51,7 +51,7 @@ namespace RevupCrud.Controller
         {
             if (post != null)
             {
-                f.lblTitol.Text = "Detalls del post " + post.id;
+                f.lblTitol.Text = "Post details - " + post.id;
                 f.txtTitle.Text = post.title;
                 f.txtDescription.Text = post.description;
                 if(post.member_location != null)

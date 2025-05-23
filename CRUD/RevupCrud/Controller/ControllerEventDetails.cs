@@ -85,7 +85,7 @@ namespace RevupCrud.Controller
                 f.comboState.Enabled = false;
 
 
-                f.lblTitol.Text = "Detalls de l'event " + c_event.id;
+                f.lblTitol.Text = "Event details - " + c_event.id;
                 f.txtName.Text = c_event.name;
                 f.txtAddress.Text = c_event.address;
                 f.dateTimeStartDate.Value = c_event.start_date;

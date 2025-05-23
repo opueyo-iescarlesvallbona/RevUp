@@ -28,18 +28,21 @@ namespace RevupCrud.Controller
 
         private void CmbState_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(f.cmbState.SelectedItem as String == "All")
+            if (club != null)
             {
-                f.dataGridViewEvents.DataSource = r.GetEventsByClub(club.id);
-            }
-            else
-            {
-                if (f.cmbState.SelectedItem != null)
+                if (f.cmbState.SelectedItem as String == "All")
                 {
-                    f.dataGridViewEvents.DataSource = r.GetClubEventsByState(club.id, (f.cmbState.SelectedItem as event_state).id);
+                    f.dataGridViewEvents.DataSource = r.GetEventsByClub(club.id);
                 }
-                
-            }            
+                else
+                {
+                    if (f.cmbState.SelectedItem != null)
+                    {
+                        f.dataGridViewEvents.DataSource = r.GetClubEventsByState(club.id, (f.cmbState.SelectedItem as event_state).id);
+                    }
+
+                }
+            }           
         }
 
         private void Txt_TextChanged(object sender, EventArgs e)
@@ -51,7 +54,7 @@ namespace RevupCrud.Controller
         {
             if (club != null)
             {
-                f.lblTitol.Text = "Detalls del club " + club.id;
+                f.lblTitol.Text = "Club details - " + club.id;
                 f.txtName.Text = club.name;
                 f.txtFounder.Text = club.member.membername;
                 f.txtCreationDate.Text = club.creation_date.Date.ToString("yyyy-MM-dd");
@@ -96,7 +99,7 @@ namespace RevupCrud.Controller
             }
             else
             {
-                f.lblTitol.Text = "Nou club";
+                f.lblTitol.Text = "New club";
                 f.txtName.Enabled = true;
                 f.txtFounder.AutoCompleteCustomSource.AddRange(r.GetAllMembers("","","","").OrderBy(x => x.name).Select(x => x.membername).ToArray());
                 f.txtDescription.Enabled = true;

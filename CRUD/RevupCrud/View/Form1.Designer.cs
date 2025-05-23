@@ -32,7 +32,6 @@
             this.btn_comments = new System.Windows.Forms.Button();
             this.btn_post = new System.Windows.Forms.Button();
             this.btnClub = new System.Windows.Forms.Button();
-            this.btn_stats = new System.Windows.Forms.Button();
             this.panel = new System.Windows.Forms.Panel();
             this.btnEvents = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -40,7 +39,7 @@
             // btnUsuaris
             // 
             this.btnUsuaris.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUsuaris.Location = new System.Drawing.Point(48, 48);
+            this.btnUsuaris.Location = new System.Drawing.Point(46, 90);
             this.btnUsuaris.Name = "btnUsuaris";
             this.btnUsuaris.Size = new System.Drawing.Size(177, 81);
             this.btnUsuaris.TabIndex = 0;
@@ -50,7 +49,7 @@
             // btn_comments
             // 
             this.btn_comments.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_comments.Location = new System.Drawing.Point(48, 422);
+            this.btn_comments.Location = new System.Drawing.Point(46, 464);
             this.btn_comments.Name = "btn_comments";
             this.btn_comments.Size = new System.Drawing.Size(177, 81);
             this.btn_comments.TabIndex = 1;
@@ -60,7 +59,7 @@
             // btn_post
             // 
             this.btn_post.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_post.Location = new System.Drawing.Point(48, 328);
+            this.btn_post.Location = new System.Drawing.Point(46, 370);
             this.btn_post.Name = "btn_post";
             this.btn_post.Size = new System.Drawing.Size(177, 81);
             this.btn_post.TabIndex = 2;
@@ -70,22 +69,12 @@
             // btnClub
             // 
             this.btnClub.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClub.Location = new System.Drawing.Point(48, 141);
+            this.btnClub.Location = new System.Drawing.Point(46, 183);
             this.btnClub.Name = "btnClub";
             this.btnClub.Size = new System.Drawing.Size(177, 81);
             this.btnClub.TabIndex = 3;
             this.btnClub.Text = "Clubs";
             this.btnClub.UseVisualStyleBackColor = true;
-            // 
-            // btn_stats
-            // 
-            this.btn_stats.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_stats.Location = new System.Drawing.Point(48, 516);
-            this.btn_stats.Name = "btn_stats";
-            this.btn_stats.Size = new System.Drawing.Size(177, 81);
-            this.btn_stats.TabIndex = 4;
-            this.btn_stats.Text = "Stadistics";
-            this.btn_stats.UseVisualStyleBackColor = true;
             // 
             // panel
             // 
@@ -101,7 +90,7 @@
             // btnEvents
             // 
             this.btnEvents.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEvents.Location = new System.Drawing.Point(48, 234);
+            this.btnEvents.Location = new System.Drawing.Point(46, 276);
             this.btnEvents.Name = "btnEvents";
             this.btnEvents.Size = new System.Drawing.Size(177, 81);
             this.btnEvents.TabIndex = 6;
@@ -116,13 +105,13 @@
             this.ClientSize = new System.Drawing.Size(1436, 651);
             this.Controls.Add(this.btnEvents);
             this.Controls.Add(this.panel);
-            this.Controls.Add(this.btn_stats);
             this.Controls.Add(this.btnClub);
             this.Controls.Add(this.btn_post);
             this.Controls.Add(this.btn_comments);
             this.Controls.Add(this.btnUsuaris);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "RevUp";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
@@ -134,7 +123,6 @@
         public System.Windows.Forms.Button btn_comments;
         public System.Windows.Forms.Button btn_post;
         public System.Windows.Forms.Button btnClub;
-        public System.Windows.Forms.Button btn_stats;
         public System.Windows.Forms.Button btnEvents;
     }
 }
