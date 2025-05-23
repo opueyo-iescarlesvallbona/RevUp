@@ -55,6 +55,12 @@ class MemberDetailsCarsCarouselAdapter(var list: MutableList<Car>): RecyclerView
                 holder.vista.context.startActivity(intent)
             }
             return
+        }else if(list[position].id == -2){
+            holder.model.text = ""
+            holder.brand.text = ""
+            holder.editButton.visibility = View.GONE
+            holder.deleteButton.visibility = View.GONE
+            return
         }
         Glide.with(holder.vista.context).load(image_path+list[position].picture).into(holder.picture)
         holder.model.setText(list[position].model!!.modelName)

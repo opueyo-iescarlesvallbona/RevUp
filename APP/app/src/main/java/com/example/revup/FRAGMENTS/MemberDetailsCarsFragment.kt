@@ -52,7 +52,7 @@ class MemberDetailsCarsFragment : Fragment() {
                     car.model!!.brand = apiRevUp.getBrand(car.model!!.idBrand, requireContext())
                 }
             }else{
-                cars = mutableListOf()
+                cars = mutableListOf(Car(id = -2,-1,-1,-1,-1.1))
             }
             if(curr_member == current_user){
                 cars.add(Car(id = -1,-1,-1,-1,-1.1))
