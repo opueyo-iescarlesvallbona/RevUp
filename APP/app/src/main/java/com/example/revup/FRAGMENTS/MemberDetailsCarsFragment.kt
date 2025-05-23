@@ -51,6 +51,8 @@ class MemberDetailsCarsFragment : Fragment() {
                     car.model = apiRevUp.getModelById(car.modelId, requireContext())
                     car.model!!.brand = apiRevUp.getBrand(car.model!!.idBrand, requireContext())
                 }
+            }else if(curr_member == current_user){
+                cars = mutableListOf()
             }else{
                 cars = mutableListOf(Car(id = -2,-1,-1,-1,-1.1))
             }

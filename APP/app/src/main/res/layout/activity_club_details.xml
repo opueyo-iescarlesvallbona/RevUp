@@ -53,6 +53,17 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <ImageButton
+                    android:background="@android:color/transparent"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/clubDetailsActivity_deleteButton"
+                    android:src="@drawable/baseline_delete_24"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:visibility="gone"
+                    />
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

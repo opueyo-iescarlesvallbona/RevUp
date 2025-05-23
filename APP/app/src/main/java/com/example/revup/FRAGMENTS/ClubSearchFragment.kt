@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.recreate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.revup.ADAPTERS.ClubSearchAdapter
 import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Club
 import com.example.revup._DATACLASS.Member
 import com.example.revup._DATACLASS.SearchViewModel
+import com.example.revup._DATACLASS.recreated
 import com.example.revup.databinding.FragmentClubSearchBinding
 
 class ClubSearchFragment : Fragment() {
@@ -25,6 +28,7 @@ class ClubSearchFragment : Fragment() {
     private lateinit var viewModel: SearchViewModel
     var clubList: MutableList<Club>? = null
     var clubListFiltered: MutableList<Club> = mutableListOf()
+    var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +50,7 @@ class ClubSearchFragment : Fragment() {
             if(viewModel.current_tab.value == 1){
                 try {
                     clubList = apiRevUp.getClubsByName("", requireContext())
-                    val recyclerView = binding.clubSearchFragmentSearchFragmentMainActivityRecyclerView
+                    recyclerView = binding.clubSearchFragmentSearchFragmentMainActivityRecyclerView
                     if (clubList == null){
                         clubListFiltered = mutableListOf()
                     }else{
@@ -55,8 +59,8 @@ class ClubSearchFragment : Fragment() {
                             clubListFiltered = mutableListOf()
                         }
                     }
-                    recyclerView.adapter = ClubSearchAdapter(clubListFiltered)
-                    recyclerView.layoutManager = GridLayoutManager(requireView().context, 2)
+                    recyclerView!!.adapter = ClubSearchAdapter(clubListFiltered)
+                    recyclerView!!.layoutManager = GridLayoutManager(requireView().context, 2)
                 }catch (e: Exception){
                     Toast.makeText(requireContext(), "Cant load club list", Toast.LENGTH_SHORT).show()
                 }
@@ -64,4 +68,5 @@ class ClubSearchFragment : Fragment() {
         })
 
     }
+
 }

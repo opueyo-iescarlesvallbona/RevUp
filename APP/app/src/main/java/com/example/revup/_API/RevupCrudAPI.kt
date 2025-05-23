@@ -1197,6 +1197,22 @@ class RevupCrudAPI : CoroutineScope {
         else
             return null
     }
+
+    fun deleteClub(clubId: Int, context: Context): Boolean{
+        var esborrat: Boolean = false
+        runBlocking {
+            var resposta: Response<Boolean>? = null
+            val cor = launch {
+                resposta = getRetrofit(context).create(RevupAPIService::class.java).deleteClub(clubId)
+            }
+            cor.join()
+            if (resposta!!.isSuccessful)
+                esborrat = true
+            else
+                esborrat = false
+        }
+        return esborrat
+    }
     //endregion
 
     // reion LOCATION

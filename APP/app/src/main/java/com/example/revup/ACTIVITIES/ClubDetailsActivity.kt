@@ -67,6 +67,35 @@ class ClubDetailsActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.clubDetailsActivityDeleteButton.setOnClickListener {
+            val founder = apiRevUp.getMemberById(club!!.founder, this)
+            if(founder != null){
+                if(founder.id == current_user!!.id){
+                    MaterialAlertDialogBuilder(this)
+                        .setTitle("Delete ${club!!.name}")
+                        .setMessage("You are going to delete ${club!!.name}. Are you sure?")
+                        .setPositiveButton("Delete") { dialog, _ ->
+                            var result = apiRevUp.deleteClub(curr_club!!.id!!, this)
+                            if(result){
+                                curr_club = null
+                                Toast.makeText(this, "Club deleted", Toast.LENGTH_SHORT).show()
+                                recreated = false
+                                val returnIntent = Intent()
+                                setResult(RESULT_OK, returnIntent)
+                                finish()
+                            }else{
+                                throw Exception("Error deleting club")
+                            }
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("Cancel") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
+                }
+            }
+        }
+
         binding.clubDetailsActivityMemberRelationWithClub.setOnClickListener{
             if(binding.clubDetailsActivityMemberRelationWithClub.text == "Join in"){
                 try{
@@ -149,6 +178,7 @@ class ClubDetailsActivity : AppCompatActivity() {
                     if(founder.id == current_user!!.id){
                         binding.clubDetailsActivityMemberRelationWithClub.setText("Edit club")
                         binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                        binding.clubDetailsActivityDeleteButton.visibility = View.VISIBLE
                     }
                 }
             }catch (e: Exception){
