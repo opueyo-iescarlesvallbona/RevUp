@@ -197,7 +197,7 @@ class RegisterActivity : AppCompatActivity() {
             error = true
         }else {
             try {
-                val format = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val date: Date = format.parse(dateOfBirth)!!
                 val calendar = Calendar.getInstance()
                 calendar.time = date
