@@ -418,5 +418,25 @@ namespace RevupAPI.Controllers
             }
         }
 
+        [Authorize]
+        [Route("api/Club")]
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeleteClub([FromBody] Club club)
+        {
+
+            var Club = await _context.Clubs.Where(x => x.Id == club.Id).FirstOrDefaultAsync();
+            if (Club != null)
+            {
+                _context.MemberClubs.RemoveRange(_context.MemberClubs.Where(x => x.ClubId == Club.Id).ToList());
+                _context.Clubs.Remove(Club);
+                await _context.SaveChangesAsync();
+                return Ok(true);
+            }
+            else
+            {
+                return NotFound(false);
+            }
+        }
+
     }
 }
