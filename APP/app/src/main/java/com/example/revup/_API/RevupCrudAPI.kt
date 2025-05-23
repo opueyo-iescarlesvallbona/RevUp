@@ -1112,7 +1112,7 @@ class RevupCrudAPI : CoroutineScope {
         return resposta!!.body()
     }
 
-    fun putClub(club: Club, image_path: Uri?, context: Context): Boolean{
+    fun putClub(club: Club, image_path: Uri?, context: Context): Club? {
         var modificat: Boolean = false
         var body: MultipartBody.Part? = null
         if (image_path != null) {
@@ -1122,8 +1122,8 @@ class RevupCrudAPI : CoroutineScope {
         }
         val clubJson = Gson().toJson(club)
         val clubRequestBody = clubJson.toRequestBody("application/json".toMediaTypeOrNull())
+        var resposta : Response<Club>? = null
         runBlocking {
-            var resposta : Response<Club>? = null
             val cor = launch {
                 resposta = getRetrofit(context).create(RevupAPIService::class.java).putClub(body, clubRequestBody)
             }
@@ -1133,7 +1133,7 @@ class RevupCrudAPI : CoroutineScope {
             else
                 modificat = false
         }
-        return modificat
+        return resposta!!.body()
     }
 
     fun postMemberClub(memberClub: MemberClub, context: Context): Boolean{

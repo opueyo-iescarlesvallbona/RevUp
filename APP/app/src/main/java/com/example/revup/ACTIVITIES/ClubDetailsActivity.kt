@@ -25,6 +25,7 @@ import com.example.revup._DATACLASS.MemberRelation
 import com.example.revup._DATACLASS.curr_club
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
+import com.example.revup._DATACLASS.recreated
 import com.example.revup._DATACLASS.toSimpleDateString
 import com.example.revup.databinding.ActivityClubDetailsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -48,6 +49,7 @@ class ClubDetailsActivity : AppCompatActivity() {
             insets
         }
         val club = curr_club
+        recreated = true
 
         binding.clubDetailsActivityBackButton.setOnClickListener{
             this.onBackPressed()
@@ -126,15 +128,6 @@ class ClubDetailsActivity : AppCompatActivity() {
                     binding.clubDetailsActivityDescription.text = ""
                 }
 
-                val founder = apiRevUp.getMemberById(club.founder, this)
-                if(founder != null){
-                    binding.clubDetailsActivityFounder.text = "Founder: ${founder.name}"
-                    if(founder.id == current_user!!.id){
-                        binding.clubDetailsActivityMemberRelationWithClub.setText("Edit club")
-                        binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
-                    }
-                }
-
                 members = apiRevUp.getMembersByClub(club.id!!, this)
                 if(members != null){
                     recyclerView = binding.clubDetailsActivityMembersRecyclerView
@@ -146,6 +139,15 @@ class ClubDetailsActivity : AppCompatActivity() {
                         binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_Friend))
                     }else{
                         binding.clubDetailsActivityMemberRelationWithClub.setText("Join in")
+                        binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
+                    }
+                }
+
+                val founder = apiRevUp.getMemberById(club.founder, this)
+                if(founder != null){
+                    binding.clubDetailsActivityFounder.text = "Founder: ${founder.name}"
+                    if(founder.id == current_user!!.id){
+                        binding.clubDetailsActivityMemberRelationWithClub.setText("Edit club")
                         binding.clubDetailsActivityMemberRelationWithClub.setTextColor(resources.getColor(R.color.memberRelation_NoFriend))
                     }
                 }
@@ -183,5 +185,12 @@ class ClubDetailsActivity : AppCompatActivity() {
             }
         }
         return super.onContextItemSelected(item)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(!recreated){
+            recreate()
+        }
     }
 }

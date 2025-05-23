@@ -20,6 +20,7 @@ import com.example.revup._DATACLASS.curr_car
 import com.example.revup._DATACLASS.curr_club
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
+import com.example.revup._DATACLASS.recreated
 import com.example.revup.databinding.ActivityEditClubBinding
 
 class EditClubActivity : AppCompatActivity() {
@@ -76,14 +77,17 @@ class EditClubActivity : AppCompatActivity() {
                     if(result != null){
                         Toast.makeText(this, "Club saved", Toast.LENGTH_LONG).show()
                         curr_club = result
+                        recreated = false
                         val returnIntent = Intent()
                         setResult(RESULT_OK, returnIntent)
                         finish()
                     }
                 }else{
-                    if(apiRevUp.putClub(club_to_save!!, selectedImageUri, this)){
+                    var clubPut = apiRevUp.putClub(club_to_save!!, selectedImageUri, this)
+                    if(clubPut != null){
                         Toast.makeText(this, "Club saved", Toast.LENGTH_LONG).show()
                         curr_club = club_to_save
+                        recreated = false
                         val returnIntent = Intent()
                         setResult(RESULT_OK, returnIntent)
                         finish()
@@ -136,7 +140,7 @@ class EditClubActivity : AppCompatActivity() {
         }
 
 
-        if(image == null && curr_car != null){
+        if(image == null && curr_club != null){
             return Club(curr_club!!.id, name!!, founder!!, description, curr_club!!.picture, creationDate!!)
         }
 
