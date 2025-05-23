@@ -16,12 +16,15 @@ import com.example.revup.R
 import com.example.revup._API.RevupCrudAPI
 import com.example.revup._DATACLASS.Car
 import com.example.revup._DATACLASS.Club
+import com.example.revup._DATACLASS.MemberClub
+import com.example.revup._DATACLASS.MemberRelation
 import com.example.revup._DATACLASS.curr_car
 import com.example.revup._DATACLASS.curr_club
 import com.example.revup._DATACLASS.current_user
 import com.example.revup._DATACLASS.image_path
 import com.example.revup._DATACLASS.recreated
 import com.example.revup.databinding.ActivityEditClubBinding
+import java.time.LocalDate
 
 class EditClubActivity : AppCompatActivity() {
     lateinit var binding: ActivityEditClubBinding
@@ -75,12 +78,17 @@ class EditClubActivity : AppCompatActivity() {
                 if(club == null){
                     var result = apiRevUp.postClub(club_to_save!!, selectedImageUri, this)
                     if(result != null){
-                        Toast.makeText(this, "Club saved", Toast.LENGTH_LONG).show()
-                        curr_club = result
-                        recreated = false
-                        val returnIntent = Intent()
-                        setResult(RESULT_OK, returnIntent)
-                        finish()
+                        var memberRelation = apiRevUp.postMemberClub(MemberClub(current_user!!.id!!, result.id!!, 1, LocalDate.now().toString()), this)
+                        if (memberRelation != null){
+                            Toast.makeText(this, "Club saved", Toast.LENGTH_LONG).show()
+                            curr_club = result
+                            recreated = false
+                            val returnIntent = Intent()
+                            setResult(RESULT_OK, returnIntent)
+                            finish()
+                        }else{
+                            apiRevUp.deleteClub(result.id!!, this)
+                        }
                     }
                 }else{
                     var clubPut = apiRevUp.putClub(club_to_save!!, selectedImageUri, this)
@@ -94,7 +102,7 @@ class EditClubActivity : AppCompatActivity() {
                     }
                 }
             }catch (e: Exception){
-                Toast.makeText(this, "Error saving club. ${e.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error saving club", Toast.LENGTH_LONG).show()
             }
         }
 
