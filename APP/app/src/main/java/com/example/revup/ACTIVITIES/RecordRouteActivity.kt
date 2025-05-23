@@ -55,11 +55,13 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val locationReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
+            // Get current location, draw route on map and animate camera to follow the device
             val lat = intent?.getDoubleExtra("lat", 0.0) ?: return
             val lng = intent.getDoubleExtra("lng", 0.0)
             val point = LatLng(lat, lng)
             routePoints.add(point)
             drawRoute(mMap!!, routePoints)
+            mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 17f))
         }
     }
 
@@ -271,7 +273,7 @@ class RecordRouteActivity : AppCompatActivity(), OnMapReadyCallback {
                 latitude = points[i + 1].latitude
                 longitude = points[i + 1].longitude
             }
-            totalDistance += loc1.distanceTo(loc2) // en metros
+            totalDistance += loc1.distanceTo(loc2) // in meters
         }
         return BigDecimal(totalDistance.toDouble())
     }
