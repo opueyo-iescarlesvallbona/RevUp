@@ -421,10 +421,10 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/Club")]
         [HttpDelete]
-        public async Task<ActionResult<bool>> DeleteClub([FromBody] Club club)
+        public async Task<ActionResult<bool>> DeleteClub([FromQuery] int clubId)
         {
 
-            var Club = await _context.Clubs.Where(x => x.Id == club.Id).FirstOrDefaultAsync();
+            var Club = await _context.Clubs.Where(x => x.Id == clubId).FirstOrDefaultAsync();
             if (Club != null)
             {
                 _context.MemberClubs.RemoveRange(_context.MemberClubs.Where(x => x.ClubId == Club.Id).ToList());
