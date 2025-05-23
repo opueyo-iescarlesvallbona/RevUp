@@ -226,7 +226,7 @@ namespace RevupAPI.Controllers
         //[Authorize]
         [Route("api/Location")]
         [HttpPost]
-        public async Task<ActionResult<MemberLocation>> PôstLocation([FromBody] MemberLocation memberLocation)
+        public async Task<ActionResult<MemberLocation>> PostLocation([FromBody] MemberLocation memberLocation)
         {
             try
             {

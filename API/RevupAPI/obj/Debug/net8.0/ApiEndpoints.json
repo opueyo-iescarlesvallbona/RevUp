@@ -329,7 +329,7 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.ClubsController",
-    "Method": "UpdateMember",
+    "Method": "UpdateClub",
     "RelativePath": "api/Club",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -855,7 +855,7 @@
   },
   {
     "ContainingType": "RevupAPI.Controllers.MemberLocationsController",
-    "Method": "P\u00F4stLocation",
+    "Method": "PostLocation",
     "RelativePath": "api/Location",
     "HttpMethod": "POST",
     "IsController": true,
@@ -1240,7 +1240,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Boolean",
+        "Type": "RevupAPI.Models.MemberClub",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1266,7 +1266,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Boolean",
+        "Type": "RevupAPI.Models.MemberClub",
         "MediaTypes": [
           "text/plain",
           "application/json",

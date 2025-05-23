@@ -238,7 +238,7 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/Club")]
         [HttpPut]
-        public async Task<ActionResult<Club>> UpdateMember([FromForm] IFormFile? image, [FromForm] string club)
+        public async Task<ActionResult<Club>> UpdateClub([FromForm] IFormFile? image, [FromForm] string club)
         {
             if (club == null)
             {
@@ -336,7 +336,7 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/MemberClub")]
         [HttpPost]
-        public async Task<ActionResult<bool>> PostMemberClub([FromBody] MemberClub memberClub)
+        public async Task<ActionResult<MemberClub>> PostMemberClub([FromBody] MemberClub memberClub)
         {
             try {
                 _context.MemberClubs.Add(memberClub);
@@ -352,7 +352,7 @@ namespace RevupAPI.Controllers
         [Authorize]
         [Route("api/MemberClub")]
         [HttpPut]
-        public async Task<ActionResult<bool>> PutMemberClub([FromBody] MemberClub memberClub)
+        public async Task<ActionResult<MemberClub>> PutMemberClub([FromBody] MemberClub memberClub)
         {
             var existingMemberClub = await _context.MemberClubs.Where(x=>x.ClubId==memberClub.ClubId&&x.MemberId==memberClub.MemberId).FirstOrDefaultAsync();
 
